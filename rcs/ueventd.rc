@@ -15,3 +15,4 @@
 /dev/mali0                0666   root       root
 /dev/ion                  0666   root       root
 
+/dev/dri/card*            0660   root       graphics
