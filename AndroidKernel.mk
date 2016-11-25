@@ -85,6 +85,7 @@ build_kernel:
 	-@if [ -f $(AUTOCONF_1ST_ARCH) ]; then \
 		cp -pv $(AUTOCONF_1ST_ARCH) $(AUTOCONF_1ST_ARCH)_refsw; \
 	fi
+	cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.der.x509 ${LINUX_OUT_1ST_ARCH}/
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment
 	echo "# CONFIG_BCM3390A0 is not set" > $(LINUX_OUT_1ST_ARCH)/config_fragment
 	echo "# CONFIG_BCM7145 is not set" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
@@ -114,6 +115,7 @@ build_kernel:
 	-@if [ -f $(AUTOCONF_1ST_ARCH) ]; then \
 		cp -pv $(AUTOCONF_1ST_ARCH) $(AUTOCONF_1ST_ARCH)_refsw; \
 	fi
+	cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.der.x509 ${LINUX_OUT_1ST_ARCH}/
 	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=arm64 $(MAKE) brcmstb_defconfig
 	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=arm64 $(MAKE) $(KERNEL_IMG)
 	-@if [ -f $(AUTOCONF_1ST_ARCH)_refsw ]; then \
@@ -149,6 +151,7 @@ build_kernel:
 	-@if [ -f $(AUTOCONF_1ST_ARCH) ]; then \
 		cp -pv $(AUTOCONF_1ST_ARCH) $(AUTOCONF_1ST_ARCH)_refsw; \
 	fi
+	cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.der.x509 ${LINUX_OUT_1ST_ARCH}/
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment
 	echo "# CONFIG_BCM3390A0 is not set" > $(LINUX_OUT_1ST_ARCH)/config_fragment
 	echo "# CONFIG_BCM7145 is not set" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
