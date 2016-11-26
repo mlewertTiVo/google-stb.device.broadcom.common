@@ -1,4 +1,4 @@
-type hfrvideo, domain;
+type hfrvideo, domain, mlstrustedsubject;
 type hfrvideo_exec, exec_type, file_type;
 
 # started by init
@@ -14,6 +14,7 @@ allow hfrvideo untrusted_app:process { getsched setsched };
 
 # Read /proc/pid data for all domains.
 r_dir_file(hfrvideo, domain)
+r_dir_file(hfrvideo, appdomain)
 
 dontaudit hfrvideo platform_app:dir search;
 dontaudit hfrvideo untrusted_app:dir search;
