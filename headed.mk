@@ -22,6 +22,11 @@ ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
 PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/common/rcs/google_aware.xml:system/etc/permissions/google_aware.xml
 endif
 
+# pre-emptive overwite of init.rc to allow overriding of the sys.powerctl modes, this is needed
+# because we cannot control proper shutdown without an explicit user/kernel handshake sequence
+# for nexus kernel driver which is not possible when shutting down android cleanly otherwise.
+PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.aosp.rc:root/init.rc
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/locales_full.mk)
 $(call inherit-product, device/google/atv/products/atv_base.mk)
 $(call inherit-product-if-exists, vendor/broadcom/prebuilts/gms/google/products/gms.mk)
