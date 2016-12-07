@@ -29,9 +29,6 @@
                              channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
                 </mixPort>
                 <mixPort name="direct" role="source" flags="AUDIO_OUTPUT_FLAG_DIRECT">
-                    <profile name="" format="dynamic"
-                             samplingRates="dynamic"
-                             channelMasks="dynamic"/>
                 </mixPort>
                 <mixPort name="tunnel" role="source" flags="AUDIO_OUTPUT_FLAG_DIRECT|AUDIO_OUTPUT_FLAG_HW_AV_SYNC">
                     <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
@@ -47,6 +44,8 @@
             </devicePorts>
             <routes>
                 <route type="mix" sink="Speaker"
+                       sources="primary output,tunnel"/>
+                <route type="mix" sink="Out Aux Digital"
                        sources="primary output,direct,tunnel"/>
             </routes>
         </module>
