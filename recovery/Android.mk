@@ -85,12 +85,16 @@ define copy-recovery-extra-files
    fi
 endef
 
-.PHONY: recovery_bcm_libs
-recovery_bcm_libs: $(NXMINI) \
+.PHONY: recovery_extra
+recovery_extra: $(NXMINI) \
 		$(EXTRA_SYSTEM_LIB_FILES) \
 		$(EXTRA_SYSTEM_BIN_FILES)
 	$(hide) $(call copy-recovery-extra-files)
 
-out/target/product/$(TARGET_DEVICE)/recovery.img : recovery_bcm_libs
+ifeq ($(HW_AB_UPDATE_SUPPORT),y)
+out/target/product/$(TARGET_DEVICE)/boot.img : recovery_extra
+else
+out/target/product/$(TARGET_DEVICE)/recovery.img : recovery_extra
+endif
 
 endif
