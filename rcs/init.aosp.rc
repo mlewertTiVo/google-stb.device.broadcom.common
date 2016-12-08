@@ -597,6 +597,9 @@ on property:sys.powerctl=reboot,
 on property:sys.powerctl=reboot,recovery
     powerctl ${sys.powerctl}
 
+on property:sys.powerctl=reboot,bootloader
+    powerctl ${sys.powerctl}
+
 on property:sys.powerctl=reboot,recovery-update
     powerctl ${sys.powerctl}
 
