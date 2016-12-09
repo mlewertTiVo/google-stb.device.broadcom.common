@@ -14,7 +14,7 @@ ${B_NIC_OBJ_ROOT}:
 ${B_NIC_OBJ_ROOT}/driver/wl.ko: build_kernel ${B_NIC_OBJ_ROOT}
 	cp -faR ${BROADCOM_NIC_SOURCE_PATH}/src ${B_NIC_OBJ_ROOT}  && cp ${BROADCOM_NIC_SOURCE_PATH}/*.sh ${B_NIC_OBJ_ROOT}
 	cp -faR ${BROADCOM_NIC_SOURCE_PATH}/components ${B_NIC_OBJ_ROOT}
-	cd ${B_NIC_OBJ_ROOT} && source ./setenv-android-stb7271.sh && ./build-drv-nic.sh apdef-stadef-extnvm-p2p-mchan-cfg80211-android-mfp-tdls-wowl-stb7271
+	cd ${B_NIC_OBJ_ROOT} && source ./setenv-android-stb7271.sh && ./build-drv-nic.sh apdef-stadef-extnvm-p2p-mchan-tdls-mfp-wowl-cfg80211-android-slvradar-stbsoc
 
 ${B_NIC_OBJ_ROOT}/nvram.txt: ${BRCM_NIC_NVRAM_DIR}/${BRCM_NIC_NVRAM_NAME} ${B_NIC_OBJ_ROOT}
 	cp -p $< $@
