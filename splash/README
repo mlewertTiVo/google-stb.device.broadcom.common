@@ -1,0 +1,10 @@
+# one size fits all splash image example.
+#
+# note: default bolt allows splash image to be no larger than 512*1024.
+#
+# using the .bmp, run the bolt script to generate the bolt ready image:
+#
+# ./vendor/broadcom/bolt/scripts/splash_create_flash_file -b splash-bcm-pulse.bmp -o splash-bolt
+#
+
+
