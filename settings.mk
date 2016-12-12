@@ -123,7 +123,7 @@ export NEXUS_ABICOMPAT_MODE                  := n
 export ANDROID_SUPPORTS_WIDEVINE             ?= y
 export ANDROID_ENABLE_HDMI_HDCP              ?= y
 ifneq ($(ANDROID_SUPPORTS_PLAYREADY),n)
-ifneq ($(wildcard vendor/playready),)
+ifneq ($(wildcard vendor/broadcom/playready),)
 	export ANDROID_SUPPORTS_PLAYREADY    := y
 else
 	export ANDROID_SUPPORTS_PLAYREADY    := n
