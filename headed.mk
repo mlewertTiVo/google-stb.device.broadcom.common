@@ -106,7 +106,6 @@ PRODUCT_PROPERTY_OVERRIDES += ro.bq.gpu_to_cpu_unsupported=1
 PRODUCT_PROPERTY_OVERRIDES += ro.hdmi.wake_on_hotplug=false
 PRODUCT_PROPERTY_OVERRIDES += ro.zygote.disable_gl_preload=true
 PRODUCT_PROPERTY_OVERRIDES += sys.display-size=1920x1080
-PRODUCT_PROPERTY_OVERRIDES += ro.com.google.clientidbase=android-acme
 
 ifeq ($(SAGE_SUPPORT),y)
 ifeq ($(SAGE_VERSION),2x)
