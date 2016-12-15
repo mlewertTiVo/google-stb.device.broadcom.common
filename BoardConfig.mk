@@ -116,6 +116,7 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
 
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)
 TARGET_NO_RECOVERY             := true
+TARGET_RECOVERY_WIPE           := device/broadcom/common/recovery/recovery.wipe
 else
 TARGET_RECOVERY_FSTAB          := $(LOCAL_DEVICE_RECOVERY_FSTAB)
 TARGET_RECOVERY_UI_LIB         := librecovery_ui_ext
