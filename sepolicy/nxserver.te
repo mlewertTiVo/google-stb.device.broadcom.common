@@ -62,6 +62,8 @@ allow nxserver nexus_secdma_file:file { open create read write setattr getattr u
 allow nxserver nexus_secdma_file:dir { search setattr write add_name remove_name };
 allow nxserver nexus_prop:property_service set;
 allow nxserver self:capability { sys_nice };
+allow nxserver nexus_debug_file:dir { search read write add_name remove_name };
+allow nxserver nexus_debug_file:file { open create read write setattr getattr };
 
 allow nxserver proc:file getattr;
 allow nxserver sysfs:lnk_file { read getattr open write };
