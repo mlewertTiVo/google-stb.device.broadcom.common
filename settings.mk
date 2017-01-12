@@ -17,7 +17,7 @@ endif
 # filter rules for build inclusions based on boards supported.  when adding a new
 # board to the system, you may want to add it here too.
 #
-export BCM_RBOARDS                           := avko banff cypress dawson elfin
+export BCM_RBOARDS                           := avko banff cypress% dawson% elfin
 export BCM_DBOARDS                           := bcm7%
 export BCM_CBOARDS                           := fbx%
 
