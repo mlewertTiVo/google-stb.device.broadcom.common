@@ -140,6 +140,10 @@ else
 USE_CLANG_PLATFORM_BUILD := true
 endif
 
+ifeq ($(HAL_HWC_VERSION),v-2.0)
+TARGET_USES_HWC2         := true
+endif
+
 include device/broadcom/common/middleware/build.mk
 
 # Don't dex preopt prebuilt apps that will be updated from Play Store
