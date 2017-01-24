@@ -29,7 +29,7 @@ PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.aosp.rc:root/init.rc
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/locales_full.mk)
 $(call inherit-product, device/google/atv/products/atv_base.mk)
-$(call inherit-product-if-exists, vendor/broadcom/prebuilts/gms/google/products/gms.mk)
+$(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
 
 include device/broadcom/common/settings.mk
 include device/broadcom/common/middleware/definitions.mk
@@ -170,7 +170,7 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     dhcpcd.conf
 
-ifneq ($(wildcard vendor/broadcom/prebuilts/gms/google/Android.mk),)
+ifneq ($(wildcard ${GMS_PACKAGE_ROOT}/google/Android.mk),)
 PRODUCT_PACKAGES += \
    LeanbackBcmCustom
 else
