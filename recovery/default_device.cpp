@@ -32,10 +32,6 @@ class BcmRecoveryUI : public ScreenRecoveryUI {
 
         return RecoveryUI::CheckKey(key, is_long_press);
     }
-
-    void Init() override {
-        ScreenRecoveryUI::Init();
-    }
 };
 
 Device* make_device() {
