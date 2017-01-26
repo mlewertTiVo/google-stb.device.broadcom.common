@@ -61,14 +61,19 @@ EXTRA_SYSTEM_BIN_FILES := \
    ${SAGE_APP_BINARY_PATH}/sage_ta_utility.bin \
    ${SAGE_BL_BINARY_PATH}/dev/sage_bl_dev.bin \
    ${SAGE_APP_BINARY_PATH}/dev/sage_framework_dev.bin \
+   ${SAGE_APP_BINARY_PATH}/dev/sage_ta_adobe_dev.bin \
    ${SAGE_APP_BINARY_PATH}/dev/sage_ta_antirollback_dev.bin \
-   ${SAGE_APP_BINARY_PATH}/dev/sage_ta_common_drm_dev.bin \
+   ${SAGE_APP_BINARY_PATH}/dev/sage_ta_dtcpip_dev.bin \
+   ${SAGE_APP_BINARY_PATH}/dev/sage_ta_edrm_dev.bin \
    ${SAGE_APP_BINARY_PATH}/dev/sage_ta_hdcp22_dev.bin \
+   ${SAGE_APP_BINARY_PATH}/dev/sage_ta_netflix_dev.bin \
    ${SAGE_APP_BINARY_PATH}/dev/sage_ta_secure_video_dev.bin \
-   ${SAGE_APP_BINARY_PATH}/dev/sage_ta_utility_dev.bin
+   ${SAGE_APP_BINARY_PATH}/dev/sage_ta_utility_dev.bin \
+   ${SAGE_APP_BINARY_PATH}/dev/sage_ta_widevine_dev.bin
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
 EXTRA_SYSTEM_BIN_FILES += \
    ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30.bin \
+   ${SAGE_APP_BINARY_PATH}/dev/sage_ta_playready_25_dev.bin \
    ${SAGE_APP_BINARY_PATH}/dev/sage_ta_playready_30_dev.bin
 endif
 endif
