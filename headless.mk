@@ -74,12 +74,6 @@ PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_FSTAB}
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_AON_GPIO}
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_KEY_POLL}
 
-PRODUCT_PROPERTY_OVERRIDES += persist.sys.hdmi.keep_awake=false
-PRODUCT_PROPERTY_OVERRIDES += ro.bq.gpu_to_cpu_unsupported=1
-PRODUCT_PROPERTY_OVERRIDES += ro.hdmi.wake_on_hotplug=false
-PRODUCT_PROPERTY_OVERRIDES += ro.zygote.disable_gl_preload=true
-PRODUCT_PROPERTY_OVERRIDES += sys.display-size=1920x1080
-
 ifeq ($(SAGE_SUPPORT),y)
 ifeq ($(SAGE_VERSION),2x)
 SAGE_BL_BINARY_PATH  := $(BSEAV_TOP)/lib/security/sage/bin/2x/$(BCHP_CHIP)$(BCHP_VER)
