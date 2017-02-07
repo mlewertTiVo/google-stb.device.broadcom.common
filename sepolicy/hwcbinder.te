@@ -19,7 +19,7 @@ allow hwcbinder untrusted_app:binder transfer;
 allow hwcbinder bcmstb_app:binder call;
 allow hwcbinder bcmstb_app:binder transfer;
 
-allow hwcbinder system_server_service:service_manager add;
+add_service(hwcbinder, hwcbinder_service);
 allow hwcbinder nexus_service:service_manager add;
 
 allow hwcbinder dumpstate:fd use;
