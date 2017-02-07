@@ -90,6 +90,7 @@ export HW_WIFI_NIC_SUPPORT                   ?= n
 export HW_TZ_SUPPORT                         ?= n
 export HW_AB_UPDATE_SUPPORT                  ?= n
 export HW_WIFI_NIC_DUAL_SUPPORT              ?= n
+export HAL_HWC_VERSION                       ?= v-2.0
 
 export BCM_GPT_CONFIG_FILE                   := $(LOCAL_DEVICE_GPT)
 export ANDROID_BUILD                         := y
