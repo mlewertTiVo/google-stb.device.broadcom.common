@@ -86,6 +86,8 @@ define setup_nexus_toolchains
 		ln -s ${P_REFSW_CC_CLANG}/clang ${B_REFSW_TOOLCHAINS_INSTALL}cpp; \
 		ln -s ${P_REFSW_CC_CLANG}/clang++ ${B_REFSW_TOOLCHAINS_INSTALL}c++; \
 		ln -s ${P_REFSW_CC_CLANG}/clang++ ${B_REFSW_TOOLCHAINS_INSTALL}g++; \
+		ln -s ${P_REFSW_CC_CLANG}/clang.real ${B_REFSW_TOOLCHAINS_INSTALL}clang.real; \
+		ln -s ${P_REFSW_CC_CLANG}/clang++.real ${B_REFSW_TOOLCHAINS_INSTALL}clang++.real; \
 	elif [ "$(1)" == "2nd_arch" ] ; then \
 		ln -s ${P_REFSW_CC_2ND_ARCH}gcc ${B_REFSW_TOOLCHAINS_INSTALL}gcc; \
 		ln -s ${P_REFSW_CC_2ND_ARCH}cpp ${B_REFSW_TOOLCHAINS_INSTALL}cpp; \
