@@ -4,8 +4,8 @@ BRCM_NIC_DRIVER_TARGETS := \
 	${B_NIC_OBJ_ROOT}/nvram.txt
 
 PRODUCT_COPY_FILES += \
-    ${B_NIC_OBJ_ROOT}/driver/wl.ko:system/vendor/broadcom/nic/driver/wl.ko \
-    ${B_NIC_OBJ_ROOT}/nvram.txt:system/vendor/broadcom/nvrams/nvram.txt \
+    ${B_NIC_OBJ_ROOT}/driver/wl.ko:vendor/broadcom/nic/driver/wl.ko \
+    ${B_NIC_OBJ_ROOT}/nvram.txt:vendor/broadcom/nvrams/nvram.txt \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/nic/init.brcm_nic.rc:root/init.brcm_nic.rc
 
 PRODUCT_COPY_FILES += \

@@ -69,11 +69,11 @@ on post-fs-data
 
 on property:dyn.nx.state=loaded
    # insmod nx_ashmem driver (gralloc memory support).
-   insmod /system/vendor/drivers/nx_ashmem.ko devname="ion" heap_grow="8m"
+   insmod /vendor/lib/modules/nx_ashmem.ko devname="ion" heap_grow="8m"
    class_start main
 
 on property:sys.gator=1
-   insmod /system/vendor/drivers/gator.ko
+   insmod /vendor/lib/modules/gator.ko
    start gatord
 
 on property:dev.bootcomplete=1
