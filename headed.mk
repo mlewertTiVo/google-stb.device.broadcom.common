@@ -228,6 +228,24 @@ PRODUCT_PACKAGES += \
     tv_input.$(TARGET_BOARD_PLATFORM)
 
 PRODUCT_PACKAGES += \
+   android.hardware.graphics.allocator@2.0-impl \
+   android.hardware.graphics.mapper@2.0-impl \
+   android.hardware.graphics.composer@2.1-impl \
+   android.hardware.audio@2.0-impl \
+   android.hardware.bluetooth@1.0-impl \
+   android.hardware.power@1.0-impl \
+   android.hardware.tv.input@1.0-impl \
+   android.hardware.tv.cec@1.0-impl \
+   android.hardware.drm@1.0-impl \
+   android.hardware.memtrack@1.0-impl \
+   android.hardware.usb@1.0-service
+
+ifneq ($(HW_WIFI_SUPPORT),n)
+PRODUCT_PACKAGES += \
+   android.hardware.wifi@1.0-service
+endif
+
+PRODUCT_PACKAGES += \
     audio.usb.default \
     audio.r_submix.default \
     audio.atvr.default \
