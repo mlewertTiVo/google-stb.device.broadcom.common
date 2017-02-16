@@ -28,8 +28,8 @@ on boot
    restorecon_recursive /data/tombstones
 
 on post-fs
-   export SAGEBIN_PATH /system/bin
-   export NEXUS_LOGGER /system/bin/nxlogger
+   export SAGEBIN_PATH /vendor/bin
+   export NEXUS_LOGGER /vendor/bin/nxlogger
    export NEXUS_LOGGER_FILE /data/nexus/nexus.log
 
    setprop ro.nx.v3d.no_map_lock 0

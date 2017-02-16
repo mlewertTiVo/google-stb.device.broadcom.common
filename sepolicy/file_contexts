@@ -6,12 +6,12 @@
 /dev/hdmi_hpd             u:object_r:hdmi_hpd_device:s0
 /dev/dri/card0            u:object_r:gpu_device:s0
 
-/system/bin/hfrvideo u:object_r:hfrvideo_exec:s0
-/system/bin/hwcbinder u:object_r:hwcbinder_exec:s0
-/system/bin/nxserver u:object_r:nxserver_exec:s0
+/vendor/bin/hfrvideo u:object_r:hfrvideo_exec:s0
+/vendor/bin/hwcbinder u:object_r:hwcbinder_exec:s0
+/vendor/bin/nxserver u:object_r:nxserver_exec:s0
 /sbin/nxmini u:object_r:nxmini_exec:s0
-/system/bin/nxdispfmt u:object_r:nxdispfmt_exec:s0
-/system/bin/netcoal u:object_r:netcoal_exec:s0
+/vendor/bin/nxdispfmt u:object_r:nxdispfmt_exec:s0
+/vendor/bin/netcoal u:object_r:netcoal_exec:s0
 
 /data/misc/nexus(/.*)?    u:object_r:nexus_data_file:s0
 /data/nxmedia(/.*)?       u:object_r:nexus_debug_file:s0
