@@ -77,22 +77,22 @@ PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nx_ashmem.ko:vendor/lib/mo
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nexus.ko:vendor/lib/modules/nexus.ko
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/droid_pm.ko:vendor/lib/modules/droid_pm.ko
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/gator.ko:vendor/lib/modules/gator.ko
-PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_black.ikm:system/usr/irkeymap/broadcom_black.ikm
-PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_silver.ikm:system/usr/irkeymap/broadcom_silver.ikm
+PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_black.ikm:vendor/usr/irkeymap/broadcom_black.ikm
+PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_silver.ikm:vendor/usr/irkeymap/broadcom_silver.ikm
 PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/hals/power/sopass.key:data/misc/nexus/sopass.key
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:system/etc/r_submix_audio_policy_configuration.xml
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:system/etc/usb_audio_policy_configuration.xml
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:system/etc/audio_policy_volumes.xml
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/default_volume_tables.xml:system/etc/default_volume_tables.xml
 ifneq ($(filter usb uart,$(ANDROID_ENABLE_BT)),)
-PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy_btusb.conf:system/etc/audio_policy.conf
-PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy_btusb_configuration.xml:system/etc/audio_policy_configuration.xml
+PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy_btusb.conf:vendor/etc/audio_policy.conf
+PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy_btusb_configuration.xml:vendor/etc/audio_policy_configuration.xml
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:system/etc/a2dp_audio_policy_configuration.xml
 else
-PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy.conf:system/etc/audio_policy.conf
-PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml
+PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy.conf:vendor/etc/audio_policy.conf
+PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy_configuration.xml:vendor/etc/audio_policy_configuration.xml
 endif
-PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:system/etc/gps.conf
+PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:vendor/etc/gps.conf
 # all those are defined per device, in the device configuration.
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RCS}
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_MEDIA}
@@ -238,7 +238,8 @@ PRODUCT_PACKAGES += \
    android.hardware.tv.cec@1.0-impl \
    android.hardware.drm@1.0-impl \
    android.hardware.memtrack@1.0-impl \
-   android.hardware.usb@1.0-service
+   android.hardware.usb@1.0-service \
+   android.hardware.keymaster@3.0-impl
 
 ifneq ($(HW_WIFI_SUPPORT),n)
 PRODUCT_PACKAGES += \

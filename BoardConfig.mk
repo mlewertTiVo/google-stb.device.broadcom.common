@@ -110,7 +110,6 @@ endif
 
 BOARD_SEPOLICY_DIRS += device/broadcom/common/sepolicy
 BOARD_SEPOLICY_DIRS += $(LOCAL_DEVICE_SEPOLICY_BLOCK)
-BOARD_SECCOMP_POLICY += device/broadcom/common/seccomp
 
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 

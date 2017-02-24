@@ -35,3 +35,6 @@ include device/broadcom/common/headless.mk
 else
 include device/broadcom/common/headed.mk
 endif
+
+PRODUCT_COPY_FILES += \
+   device/broadcom/common/seccomp_policy/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy
