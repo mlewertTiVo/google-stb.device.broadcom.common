@@ -174,10 +174,7 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     dhcpcd.conf
 
-ifneq ($(wildcard ${GMS_PACKAGE_ROOT}/google/Android.mk),)
-PRODUCT_PACKAGES += \
-   LeanbackBcmCustom
-else
+ifeq ($(wildcard ${GMS_PACKAGE_ROOT}/google/Android.mk),)
 PRODUCT_PACKAGES += \
    Browser \
    Calculator \
@@ -236,14 +233,13 @@ PRODUCT_PACKAGES += \
     BcmHdmiTvInput \
     BcmSidebandViewer \
     BcmTVInput \
-    BcmKeyInterceptor \
+    BcmCustomizer \
     BcmOtaUpdater \
     BcmSpdifSetting \
     BcmSplash \
     hwcbinder \
     libhwcbinder \
     libhwcconv \
-    libjni_adjustScreenOffset \
     libGLES_nexus \
     libnexusir \
     libpmlibservice \
