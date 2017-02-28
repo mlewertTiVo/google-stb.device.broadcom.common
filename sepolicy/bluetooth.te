@@ -1,3 +1,7 @@
+dontaudit bluetooth nexus_data_file:dir search;
+dontaudit bluetooth nexus_data_file:file { read getattr open };
+set_prop(bluetooth, nexus_prop);
+
 allow bluetooth bluetooth_control:chr_file { rw_file_perms };
 allow bluetooth nxserver:unix_stream_socket connectto;
 allow bluetooth nxserver:binder call;

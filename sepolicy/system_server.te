@@ -10,5 +10,6 @@ allow system_server shell_exec:file { read open execute getattr };
 allow system_server zygote_exec:file { execute };
 allow system_server nxserver_socket:sock_file write;
 allow system_server nexus_service:service_manager find;
+allow system_server ion_device:chr_file { open ioctl read write };
 
 set_prop(system_server, nexus_prop);
