@@ -21,7 +21,6 @@ TARGET_NO_BOOTLOADER         := true
 TARGET_NO_KERNEL             := false
 TARGET_NO_RADIOIMAGE         := true
 HAVE_HTC_AUDIO_DRIVER        := true
-export TARGET_BOARD_PLATFORM := ${ANDROID_PRODUCT_OUT}
 USE_OPENGL_RENDERER          := true
 BOARD_USES_GENERIC_AUDIO     := false
 USE_LEGACY_AUDIO_POLICY      := 0
