@@ -171,13 +171,12 @@ PRODUCT_PACKAGES += \
     audio.atvr.default \
     libaudiopolicymanagerdefault \
     libaudiopolicymanager \
-    BcmKeyInterceptor \
+    BcmCustomizer \
     BcmOtaUpdater \
     BcmSplash \
     hwcbinder \
     libhwcbinder \
     libhwcconv \
-    libjni_adjustScreenOffset \
     libGLES_nexus \
     libnexusir \
     libpmlibservice \
