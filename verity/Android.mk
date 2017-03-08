@@ -23,6 +23,8 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
+ifneq ($(filter $(BCM_RBOARDS) $(BCM_DBOARDS),$(TARGET_DEVICE)),)
+
 LOCAL_PATH := $(call my-dir)
 
 define _add-warning-image
@@ -50,3 +52,6 @@ include $(BUILD_PHONY_PACKAGE)
 
 _add-warning-image :=
 _img_modules :=
+
+endif
+
