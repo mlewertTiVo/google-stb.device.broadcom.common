@@ -38,6 +38,7 @@ export LINUX_OUT_2ND_ARCH    := ${LINUX_OUT_ROOT}/2nd
 export LINUX_OUT
 
 NEXUS_TOP                    := ${REFSW_BASE_DIR}/nexus
+MAGNUM_TOP                   := ${REFSW_BASE_DIR}/magnum
 ROCKFORD_TOP                 := ${REFSW_BASE_DIR}/rockford
 BSEAV_TOP                    := ${REFSW_BASE_DIR}/BSEAV
 B_REFSW_TOOLCHAINS_INSTALL   := ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/refsw/toolchains/
@@ -62,6 +63,7 @@ NEXUS_PLATFORM_PROXY_INTF    := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/n
 export B_REFSW_TOOLCHAINS_INSTALL
 export B_REFSW_CROSS_COMPILE := ${B_REFSW_TOOLCHAINS_INSTALL}
 export NEXUS_TOP
+export MAGNUM_TOP
 export ROCKFORD_TOP
 export BSEAV_TOP
 export B_REFSW_OBJ_ROOT_1ST_ARCH B_REFSW_OBJ_ROOT_2ND_ARCH
