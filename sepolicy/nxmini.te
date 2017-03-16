@@ -25,3 +25,4 @@ allow nxmini self:capability { net_raw net_admin };
 allow nxmini nexus_prop:property_service set;
 allow nxmini proc:file { read open write getattr };
 allow nxmini sysfs:file { read open getattr };
+allow nxmini watchdog_device:chr_file rw_file_perms;
