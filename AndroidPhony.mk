@@ -1,5 +1,5 @@
 .PHONY: bootloader.img
-bootloader.img: build_bootloaderimg
+#bootloader.img: blimg
 
 .PHONY: gpt.bin
 gpt.bin: makegpt
