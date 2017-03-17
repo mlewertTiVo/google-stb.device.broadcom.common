@@ -28,6 +28,10 @@
 #include "edify/expr.h"
 #include "error_code.h"
 
+#include <memory>
+#include <string>
+#include <vector>
+
 #define FORCE_RW_OPT            "0"
 #define EMMC_SIZE               0x400000
 #define FILE_PATH_SIZE          64
@@ -146,7 +150,7 @@ static int write_bolt_emmc(void *data, unsigned size) {
 Value* FlashBoltExtFn(const char *name, State *state, int argc, Expr * argv[]) {
 
     Value *ret = NULL;
-    char *filename = NULL;
+    std::vector<std::string> args;
     unsigned char *buffer = NULL;
     int bolt_size;
     FILE *f = NULL;
@@ -156,18 +160,19 @@ Value* FlashBoltExtFn(const char *name, State *state, int argc, Expr * argv[]) {
         return NULL;
     }
 
-    if (ReadArgs(state, argv, 1, &filename) < 0) {
+    if (ReadArgs(state, 1, argv, &args) < 0) {
         ErrorAbort(state, kArgsParsingFailure, "%s() invalid args ", name);
         return NULL;
     }
+    const std::string& filename = args[0];
 
-    if (filename == NULL || strlen(filename) == 0) {
+    if (filename.empty()) {
         ErrorAbort(state, kArgsParsingFailure, "filename argument to %s can't be empty", name);
         goto done;
     }
 
-    if ((f = fopen(filename, "rb")) == NULL) {
-        ErrorAbort(state, kFileOpenFailure, "Unable to open file %s: %s ", filename, strerror(errno));
+    if ((f = fopen(filename.c_str(), "rb")) == NULL) {
+        ErrorAbort(state, kFileOpenFailure, "Unable to open file %s: %s ", filename.c_str(), strerror(errno));
         goto done;
     }
 
@@ -196,16 +201,13 @@ Value* FlashBoltExtFn(const char *name, State *state, int argc, Expr * argv[]) {
     ret = StringValue(strdup(""));
 
 done:
-    if (filename)
-        free(filename);
-
     return ret;
 }
 
 Value* FlashGPTExtFn(const char *name, State *state, int argc, Expr * argv[]) {
 
     Value *ret = NULL;
-    char *filename = NULL;
+    std::vector<std::string> args;
     unsigned char *buffer = NULL;
     int gpt_size;
     FILE *f = NULL;
@@ -215,18 +217,19 @@ Value* FlashGPTExtFn(const char *name, State *state, int argc, Expr * argv[]) {
         return NULL;
     }
 
-    if (ReadArgs(state, argv, 1, &filename) < 0) {
+    if (ReadArgs(state, 1, argv, &args) < 0) {
         ErrorAbort(state, kArgsParsingFailure, "%s() invalid args ", name);
         return NULL;
     }
+    const std::string& filename = args[0];
 
-    if (filename == NULL || strlen(filename) == 0) {
+    if (filename.empty()) {
         ErrorAbort(state, kArgsParsingFailure, "filename argument to %s can't be empty", name);
         goto done;
     }
 
-    if ((f = fopen(filename, "rb")) == NULL) {
-        ErrorAbort(state, kFileOpenFailure, "Unable to open file %s: %s ", filename, strerror(errno));
+    if ((f = fopen(filename.c_str(), "rb")) == NULL) {
+        ErrorAbort(state, kFileOpenFailure, "Unable to open file %s: %s ", filename.c_str(), strerror(errno));
         goto done;
     }
 
@@ -255,9 +258,6 @@ Value* FlashGPTExtFn(const char *name, State *state, int argc, Expr * argv[]) {
     ret = StringValue(strdup(""));
 
 done:
-    if (filename)
-        free(filename);
-
     return ret;
 }
 
