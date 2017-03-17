@@ -54,12 +54,8 @@ SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)
 EXTRA_SYSTEM_BIN_FILES := \
    ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin \
    ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin \
-   ${SAGE_APP_BINARY_PATH}/sage_ta_adobe${SAGE_BINARY_EXT}.bin \
    ${SAGE_APP_BINARY_PATH}/sage_ta_antirollback${SAGE_BINARY_EXT}.bin \
-   ${SAGE_APP_BINARY_PATH}/sage_ta_dtcpip${SAGE_BINARY_EXT}.bin \
-   ${SAGE_APP_BINARY_PATH}/sage_ta_edrm${SAGE_BINARY_EXT}.bin \
    ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin \
-   ${SAGE_APP_BINARY_PATH}/sage_ta_netflix${SAGE_BINARY_EXT}.bin \
    ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video${SAGE_BINARY_EXT}.bin \
    ${SAGE_APP_BINARY_PATH}/sage_ta_utility${SAGE_BINARY_EXT}.bin \
    ${SAGE_APP_BINARY_PATH}/sage_ta_widevine${SAGE_BINARY_EXT}.bin
