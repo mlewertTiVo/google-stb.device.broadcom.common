@@ -109,19 +109,15 @@ else
 SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)/dev
 PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl_dev.bin:vendor/bin/sage_bl_dev.bin
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework_dev.bin:vendor/bin/sage_framework_dev.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_adobe_dev.bin:vendor/bin/sage_ta_adobe_dev.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_antirollback_dev.bin:vendor/bin/sage_ta_antirollback_dev.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_dtcpip_dev.bin:vendor/bin/sage_ta_dtcpip_dev.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_edrm_dev.bin:vendor/bin/sage_ta_edrm_dev.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22_dev.bin:vendor/bin/sage_ta_hdcp22_dev.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_netflix_dev.bin:vendor/bin/sage_ta_netflix_dev.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video_dev.bin:vendor/bin/sage_ta_secure_video_dev.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_utility_dev.bin:vendor/bin/sage_ta_utility_dev.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_widevine_dev.bin:vendor/bin/sage_ta_widevine_dev.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin:vendor/bin/sage_framework${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_antirollback${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_antirollback${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_secure_video${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_utility${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_utility${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_widevine${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_widevine${SAGE_BINARY_EXT}.bin
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25_dev.bin:vendor/bin/sage_ta_playready_25_dev.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30_dev.bin:vendor/bin/sage_ta_playready_30_dev.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_playready_25_dev.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_playready_30_dev.bin
 endif
 endif
 endif
