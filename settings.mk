@@ -19,7 +19,7 @@ endif
 #
 export BCM_RBOARDS                           := avko banff cypress% dawson% elfin
 export BCM_DBOARDS                           := bcm7%
-export BCM_CBOARDS                           := fbx%
+export BCM_CBOARDS                           ?= fbx%
 
 export BCM_VENDOR_STB_ROOT                   := vendor/broadcom
 
