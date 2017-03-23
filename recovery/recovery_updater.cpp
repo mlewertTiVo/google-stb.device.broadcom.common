@@ -147,7 +147,8 @@ static int write_bolt_emmc(void *data, unsigned size) {
     return write_raw_image(data, size, boot_partition);
 }
 
-Value* FlashBoltExtFn(const char *name, State *state, int argc, Expr * argv[]) {
+Value* FlashBoltExtFn(const char *name, State *state,
+    const std::vector<std::unique_ptr<Expr>>& argv) {
 
     Value *ret = NULL;
     std::vector<std::string> args;
@@ -155,12 +156,7 @@ Value* FlashBoltExtFn(const char *name, State *state, int argc, Expr * argv[]) {
     int bolt_size;
     FILE *f = NULL;
 
-    if (argc != 1) {
-        ErrorAbort(state, kArgsParsingFailure, "%s() expected 1 arg, got %d", name, argc);
-        return NULL;
-    }
-
-    if (ReadArgs(state, 1, argv, &args) < 0) {
+    if (!ReadArgs(state, argv, &args)) {
         ErrorAbort(state, kArgsParsingFailure, "%s() invalid args ", name);
         return NULL;
     }
@@ -204,7 +200,8 @@ done:
     return ret;
 }
 
-Value* FlashGPTExtFn(const char *name, State *state, int argc, Expr * argv[]) {
+Value* FlashGPTExtFn(const char *name, State *state,
+    const std::vector<std::unique_ptr<Expr>>& argv) {
 
     Value *ret = NULL;
     std::vector<std::string> args;
@@ -212,12 +209,7 @@ Value* FlashGPTExtFn(const char *name, State *state, int argc, Expr * argv[]) {
     int gpt_size;
     FILE *f = NULL;
 
-    if (argc != 1) {
-        ErrorAbort(state, kArgsParsingFailure, "%s() expected 1 arg, got %d", name, argc);
-        return NULL;
-    }
-
-    if (ReadArgs(state, 1, argv, &args) < 0) {
+    if (!ReadArgs(state, argv, &args)) {
         ErrorAbort(state, kArgsParsingFailure, "%s() invalid args ", name);
         return NULL;
     }
