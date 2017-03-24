@@ -27,9 +27,8 @@ PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.aosp.rc:root/init.rc
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/locales_full.mk)
 $(call inherit-product, device/google/atv/products/atv_base.mk)
-$(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
-
 include device/broadcom/common/settings.mk
+$(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
 include device/broadcom/common/middleware/definitions.mk
 
 ifeq ($(TARGET_BUILD_VARIANT),user)
