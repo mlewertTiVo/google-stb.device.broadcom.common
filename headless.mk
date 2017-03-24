@@ -81,6 +81,7 @@ PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl_dev.bin:vendor/bin/sage_b
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)/securemode$(SAGE_SECURE_MODE)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_os_app_dev.bin:vendor/bin/sage_os_app_dev.bin
 else
+SAGE_BINARY_EXT      ?= _dev
 SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)/dev
 PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl_dev.bin:vendor/bin/sage_bl_dev.bin
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)
