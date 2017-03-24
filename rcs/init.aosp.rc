@@ -642,19 +642,37 @@ on property:vold.decrypt=trigger_shutdown_framework
 on property:sys.powerctl=reboot,
     powerctl ${sys.powerctl}
 
+on property:sys.powerctl=reboot,,quiescent
+    powerctl ${sys.powerctl}
+
 on property:sys.powerctl=reboot,recovery
+    powerctl ${sys.powerctl}
+
+on property:sys.powerctl=reboot,recovery,quiescent
     powerctl ${sys.powerctl}
 
 on property:sys.powerctl=reboot,bootloader
     powerctl ${sys.powerctl}
 
+on property:sys.powerctl=reboot,bootloader,quiescent
+    powerctl ${sys.powerctl}
+
 on property:sys.powerctl=reboot,recovery-update
+    powerctl ${sys.powerctl}
+
+on property:sys.powerctl=reboot,recovery-update,quiescent
     powerctl ${sys.powerctl}
 
 on property:sys.powerctl=reboot,safemode
     powerctl ${sys.powerctl}
 
+on property:sys.powerctl=reboot,safemode,quiescent
+    powerctl ${sys.powerctl}
+
 on property:sys.powerctl=reboot,deviceowner
+    powerctl ${sys.powerctl}
+
+on property:sys.powerctl=reboot,deviceowner,quiescent
     powerctl ${sys.powerctl}
 
 on property:sys.powerctl=shutdown,
