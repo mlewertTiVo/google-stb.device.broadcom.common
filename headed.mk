@@ -12,12 +12,14 @@ endif
 #
 PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.usb.configfs.bcm.rc:root/init.usb.configfs.rc
 
+# To prevent from including GMS twice in Google's internal source.
+ifeq ($(wildcard vendor/unbundled_google),)
+PRODUCT_USE_PREBUILT_GMS := yes
+endif
+
 # Only include google_aware.xml if building on Google internal structure.
 ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
-PRODUCT_USE_PREBUILT_GMS := no
 PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/common/rcs/google_aware.xml:system/etc/permissions/google_aware.xml
-else
-PRODUCT_USE_PREBUILT_GMS := yes
 endif
 
 # pre-emptive overwite of init.rc to allow overriding of the sys.powerctl modes, this is needed
