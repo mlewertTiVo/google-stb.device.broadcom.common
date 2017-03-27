@@ -72,6 +72,7 @@ PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.usb.acce
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.software.live_tv.xml:system/etc/permissions/android.software.live_tv.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.software.webview.xml:system/etc/permissions/android.software.webview.xml
+PRODUCT_COPY_FILES       += device/broadcom/common/permissions/nrdp.xml:system/etc/permissions/nrdp.xml
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nx_ashmem.ko:system/vendor/drivers/nx_ashmem.ko
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nexus.ko:system/vendor/drivers/nexus.ko
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/droid_pm.ko:system/vendor/drivers/droid_pm.ko
