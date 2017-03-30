@@ -86,8 +86,8 @@ export BROADCOM_WIFI_CHIPSET                 ?= 43570a2
 export LOCAL_DEVICE_BOOT                     ?= 33554432    # 32M
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1048576000  # 1000M
 export LOCAL_DEVICE_VENDOR_LEGACY            ?= 234881024   # 224M
-export LOCAL_DEVICE_SYSTEM_AB                ?= 559939584   # 534M
-export LOCAL_DEVICE_VENDOR_AB                ?= 209715200   # 200M
+export LOCAL_DEVICE_SYSTEM_AB                ?= 664797184   # 634M
+export LOCAL_DEVICE_VENDOR_AB                ?= 104857600   # 100M
 
 export HW_ENCODER_SUPPORT                    ?= y
 export HW_WIFI_NIC_SUPPORT                   ?= n
