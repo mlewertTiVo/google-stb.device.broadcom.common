@@ -222,7 +222,6 @@ PRODUCT_PACKAGES += \
     libnexusir \
     libpmlibservice \
     libstagefrighthw \
-    LiveTv \
     pmlibserver \
     send_cec \
     TvProvider
