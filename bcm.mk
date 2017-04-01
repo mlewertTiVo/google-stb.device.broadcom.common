@@ -19,9 +19,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
    media.httplive.startathighbw=1 \
    \
    ro.nx.logger_size=4096 \
-   ro.graphics_resolution.width=1920 \
-   ro.graphics_resolution.height=1080 \
-   ro.sf.lcd_density=320 \
    ro.v3d.fence.expose=true \
    \
    persist.sys.hdmi.keep_awake=false \
