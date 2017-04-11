@@ -27,6 +27,10 @@ on boot
    mkdir /data/tombstones/ramdump 0777 system system
    restorecon_recursive /data/tombstones
 
+   # Match the TCP buffer size thresholds to the maximum of the current supported interfaces
+   write /proc/sys/net/core/rmem_max 3145728
+   write /proc/sys/net/core/wmem_max 3145728
+
 on post-fs
    export SAGEBIN_PATH /system/bin
    export NEXUS_LOGGER /system/bin/nxlogger
