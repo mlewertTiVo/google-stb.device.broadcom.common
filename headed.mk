@@ -213,14 +213,6 @@ PRODUCT_PACKAGES += \
     audio.atvr.default \
     libaudiopolicymanagerdefault \
     libaudiopolicymanager \
-    BcmAdjustScreenOffset \
-    BcmHdmiTvInput \
-    BcmSidebandViewer \
-    BcmTVInput \
-    BcmCustomizer \
-    BcmOtaUpdater \
-    BcmSpdifSetting \
-    BcmSplash \
     hwcbinder \
     libhwcbinder \
     libhwcconv \
@@ -232,6 +224,20 @@ PRODUCT_PACKAGES += \
     pmlibserver \
     send_cec \
     TvProvider
+
+# bcm apps which provide a feature needed for certification.
+PRODUCT_PACKAGES += \
+    BcmSpdifSetting \
+    BcmSplash
+
+# bcm custom test apps, can be compiled out.
+ifeq ($(BCM_APP_CUSTOM),y)
+PRODUCT_PACKAGES += \
+    BcmCustomizer \
+    BcmHdmiTvInput \
+    BcmSidebandViewer \
+    BcmTVInput
+endif
 
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY),y),)
 PRODUCT_PROPERTY_OVERRIDES  += drm.service.enabled=true
