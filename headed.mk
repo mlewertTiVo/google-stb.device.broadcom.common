@@ -36,10 +36,10 @@ include device/broadcom/common/settings.mk
 ifeq ($(PRODUCT_USE_PREBUILT_GMS),yes)
 $(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
 else
-PRODUCT_PACKAGES := \
+$(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
+PRODUCT_PACKAGES += \
     TVLauncher \
     TVRecommendations
-$(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
 endif
 
 
