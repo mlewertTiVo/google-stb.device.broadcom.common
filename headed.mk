@@ -227,7 +227,6 @@ PRODUCT_PACKAGES += \
     libGLES_nexus \
     libnexusir \
     libpmlibservice \
-    libstagefright_bcm \
     libstagefrighthw \
     LiveTv \
     pmlibserver \

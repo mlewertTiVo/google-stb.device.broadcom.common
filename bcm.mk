@@ -12,7 +12,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
    net.http.threads=25 \
    \
    media.aac_51_output_enabled=true \
-   media.stagefright.bcmlib=libstagefright_bcm.so \
    media.stagefright.cache-params=32768/65536/25 \
    media.stagefright.codecremote=false \
    media.stagefright.legacyencoder=true \
