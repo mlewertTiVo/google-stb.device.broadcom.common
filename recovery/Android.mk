@@ -42,13 +42,14 @@ EXTRA_SYSTEM_LIB_FILES := \
 ifeq ($(SAGE_SUPPORT),y)
 ifeq ($(SAGE_VERSION),2x)
 SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/2x/$(BCHP_CHIP)$(BCHP_VER)
+SAGE_BINARY_EXT ?= _dev
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)/securemode$(SAGE_SECURE_MODE)
 EXTRA_SYSTEM_BIN_FILES := \
-   ${SAGE_BL_BINARY_PATH}/sage_bl_dev.bin \
-   ${SAGE_APP_BINARY_PATH}/sage_os_app_dev.bin
+   ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin \
+   ${SAGE_APP_BINARY_PATH}/sage_os_app${SAGE_BINARY_EXT}.bin
 else
-SAGE_BINARY_EXT      ?= _dev
 SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)/dev
+SAGE_BINARY_EXT ?= _dev
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)
 EXTRA_SYSTEM_BIN_FILES := \
    ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin \

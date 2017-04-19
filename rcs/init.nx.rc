@@ -1,8 +1,7 @@
 on boot
-   # install wakeup.ko first, then nexus.ko.  any other drivers
-   # depending on nexus.ko need to be insmod'ed through the property
-   # hook up (see: on property:dyn.nx.state=loaded) after the
-   # nxserver has started (since only then is a nexus platform valid).
+   # install middleware drivers in order of dependencies
+   #
+   #     droid_pm.ko -> nexus.ko -> nx_ashmem.ko
    #
    # optional additional module parameters can be passed to nexus.ko
    # insmod'ing command line.
@@ -21,10 +20,25 @@ on boot
    #
    # in doubt, or if unsure, you may specify the same value for 1 and 2.
    #
+
+   # 
+   # droid_pm: gpl compliant power management bits used by nexus+android.
+   #
    insmod /vendor/lib/modules/droid_pm.ko devname="mali0"
    chown system system /sys/devices/platform/droid_pm/full_wol_wakeup
    chown system system /sys/devices/platform/droid_pm/sw_lid
+   #
+   # nexus: middleware core, requires droid_pm.
+   #
    setprop ro.nx.msg_modules ""
    insmod /vendor/lib/modules/nexus.ko devname="mali" config="auto_subindex=true"
-
-
+   #
+   # nx_ashmem: memory management, requires nexus. 
+   #
+   # *** warning: an explicit wait for property is placed here to avoid race
+   #              between this action and the enabling of the property trigger
+   #              in init.cpp; which happens because we want to enable the
+   #              core middleware as soon as possible.
+   #
+   wait_for_prop dyn.nx.state memcfg
+   insmod /vendor/lib/modules/nx_ashmem.ko devname="ion" heap_grow="8m"

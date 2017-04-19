@@ -20,7 +20,7 @@ export TARGET_BOARD_PLATFORM                 := ${ANDROID_PRODUCT_OUT}
 #
 export BCM_RBOARDS                           := avko banff cypress% dawson% elfin
 export BCM_DBOARDS                           := bcm7%
-export BCM_CBOARDS                           ?= fbx%
+export BCM_CBOARDS                           ?= fbx% c71kw%
 
 export BCM_VENDOR_STB_ROOT                   := vendor/broadcom
 
@@ -95,13 +95,18 @@ export HW_TZ_SUPPORT                         ?= n
 export HW_AB_UPDATE_SUPPORT                  ?= n
 export HW_WIFI_NIC_DUAL_SUPPORT              ?= n
 export HAL_HWC_VERSION                       ?= v-2.0
+export HW_GPU_MMU_SUPPORT                    ?= n
+export HW_DTU_SUPPORT                        ?= n
+export BCM_APP_CUSTOM                        ?= y
+export HW_HVD_REVISION                       ?= R
 export HAL_GR_VERSION                        ?= v-0.x
 
 export BCM_GPT_CONFIG_FILE                   := $(LOCAL_DEVICE_GPT)
 export ANDROID_BUILD                         := y
 export ANDROID_SUPPORTS_DTVKIT               := n
 export BROADCOM_DHD_SOURCE_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmdhd
-export BROADCOM_NIC_SOURCE_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmnic
+export BROADCOM_NIC_SCRIPT_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmnic
+export BROADCOM_NIC_SOURCE_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/refsw/BSEAV/connectivity/wlan/STB7271_BRANCH_15_10/linux-external-stbsoc
 export BROADCOM_NIC_DUAL_SOURCE_PATH         := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmnic_dual
 export HLS_PROTOCOL_SUPPORT                  := y
 
@@ -124,7 +129,7 @@ export DTCP_IP_SUPPORT                       := y
 export ANDROID_USES_BORINGSSL                := y
 export NEXUS_C_STD                           := c99
 export NEXUS_EXPORT_FILE                     := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nexus_export_file.txt
-export GMS_PACKAGE_ROOT                      := vendor/broadcom/prebuilts/gms/
+export GMS_PACKAGE_ROOT                      := vendor/google/gms/${P_REFSW_DRV_ARCH}/
 
 # some massaging for security support, make it simple to remove as it often requires to
 # be disabled for new device bring up.
@@ -132,7 +137,7 @@ export GMS_PACKAGE_ROOT                      := vendor/broadcom/prebuilts/gms/
 export ANDROID_SUPPORTS_WIDEVINE             ?= y
 export ANDROID_ENABLE_HDMI_HDCP              ?= y
 ifneq ($(ANDROID_SUPPORTS_PLAYREADY),n)
-ifneq ($(wildcard vendor/broadcom/playready),)
+ifneq ($(wildcard vendor/playready),)
 	export ANDROID_SUPPORTS_PLAYREADY    := y
 else
 	export ANDROID_SUPPORTS_PLAYREADY    := n

@@ -76,14 +76,15 @@ PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_KEY_POLL}
 
 ifeq ($(SAGE_SUPPORT),y)
 ifeq ($(SAGE_VERSION),2x)
+SAGE_BINARY_EXT      ?= _dev
 SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/2x/$(BCHP_CHIP)$(BCHP_VER)
-PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl_dev.bin:vendor/bin/sage_bl_dev.bin
+PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:vendor/bin/sage_bl${SAGE_BINARY_EXT}.bin
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)/securemode$(SAGE_SECURE_MODE)
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_os_app_dev.bin:vendor/bin/sage_os_app_dev.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_os_app${SAGE_BINARY_EXT}.bin:vendor/bin/sage_os_app${SAGE_BINARY_EXT}.bin
 else
 SAGE_BINARY_EXT      ?= _dev
 SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)/dev
-PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl_dev.bin:vendor/bin/sage_bl_dev.bin
+PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:vendor/bin/sage_bl${SAGE_BINARY_EXT}.bin
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin:vendor/bin/sage_framework${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_antirollback${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_antirollback${SAGE_BINARY_EXT}.bin
@@ -92,8 +93,8 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video${SAGE_BINAR
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_utility${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_utility${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_widevine${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_widevine${SAGE_BINARY_EXT}.bin
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_playready_25_dev.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_playready_30_dev.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_playready_25${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
 endif
 endif
 endif
@@ -162,7 +163,6 @@ PRODUCT_PACKAGES += \
     libGLES_nexus \
     libnexusir \
     libpmlibservice \
-    libstagefright_bcm \
     libstagefrighthw \
     local_time.default \
     pmlibserver \

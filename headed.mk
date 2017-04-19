@@ -38,11 +38,11 @@ $(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
 else
 $(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
 PRODUCT_PACKAGES += \
-    TVLauncher \
-    TVRecommendations
+  TVLauncher \
+  TVRecommendations
 endif
 
-
+$(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
 include device/broadcom/common/middleware/definitions.mk
 
 ifeq ($(TARGET_BUILD_VARIANT),user)
@@ -69,7 +69,7 @@ DEVICE_PACKAGE_OVERLAYS := $(LOCAL_DEVICE_OVERLAY) $(DEVICE_PACKAGE_OVERLAYS)
 endif
 
 PRODUCT_AAPT_CONFIG      := normal large xlarge tvdpi hdpi xhdpi xxhdpi
-PRODUCT_AAPT_PREF_CONFIG := xhdpi
+PRODUCT_AAPT_PREF_CONFIG ?= xhdpi
 TARGET_CPU_SMP           := true
 
 PRODUCT_COPY_FILES       += device/broadcom/common/bootanimation.zip:system/media/bootanimation.zip
@@ -84,6 +84,7 @@ PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.usb.acce
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.software.live_tv.xml:system/etc/permissions/android.software.live_tv.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.software.webview.xml:system/etc/permissions/android.software.webview.xml
+PRODUCT_COPY_FILES       += device/broadcom/common/permissions/nrdp.xml:system/etc/permissions/nrdp.xml
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nx_ashmem.ko:vendor/lib/modules/nx_ashmem.ko
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nexus.ko:vendor/lib/modules/nexus.ko
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/droid_pm.ko:vendor/lib/modules/droid_pm.ko
@@ -114,14 +115,15 @@ PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_KEY_POLL}
 
 ifeq ($(SAGE_SUPPORT),y)
 ifeq ($(SAGE_VERSION),2x)
+SAGE_BINARY_EXT      ?= _dev
 SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/2x/$(BCHP_CHIP)$(BCHP_VER)
-PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl_dev.bin:vendor/bin/sage_bl_dev.bin
+PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:vendor/bin/sage_bl${SAGE_BINARY_EXT}.bin
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)/securemode$(SAGE_SECURE_MODE)
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_os_app_dev.bin:vendor/bin/sage_os_app_dev.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_os_app${SAGE_BINARY_EXT}.bin:vendor/bin/sage_os_app${SAGE_BINARY_EXT}.bin
 else
 SAGE_BINARY_EXT      ?= _dev
 SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)/dev
-PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl_dev.bin:vendor/bin/sage_bl_dev.bin
+PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:vendor/bin/sage_bl${SAGE_BINARY_EXT}.bin
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin:vendor/bin/sage_framework${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_antirollback${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_antirollback${SAGE_BINARY_EXT}.bin
@@ -129,9 +131,10 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22${SAGE_BINARY_EXT}
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_secure_video${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_utility${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_utility${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_widevine${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_widevine${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_manufacturing${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_manufacturing${SAGE_BINARY_EXT}.bin
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_playready_25_dev.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_playready_30_dev.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_playready_25${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
 endif
 endif
 endif
@@ -232,6 +235,11 @@ PRODUCT_PACKAGES += \
    android.hardware.usb@1.0-service \
    android.hardware.keymaster@3.0-impl
 
+ifneq ($(HW_AB_UPDATE_SUPPORT),n)
+PRODUCT_PACKAGES += \
+   android.hardware.boot@1.0-impl
+endif
+
 ifneq ($(HW_WIFI_SUPPORT),n)
 PRODUCT_PACKAGES += \
    android.hardware.wifi@1.0-service
@@ -243,26 +251,30 @@ PRODUCT_PACKAGES += \
     audio.atvr.default \
     libaudiopolicymanagerdefault \
     libaudiopolicymanager \
-    BcmAdjustScreenOffset \
-    BcmHdmiTvInput \
-    BcmSidebandViewer \
-    BcmTVInput \
-    BcmCustomizer \
-    BcmOtaUpdater \
-    BcmSpdifSetting \
-    BcmSplash \
     hwcbinder \
     libhwcbinder \
     libhwcconv \
     libGLES_nexus \
     libnexusir \
     libpmlibservice \
-    libstagefright_bcm \
     libstagefrighthw \
-    LiveTv \
     pmlibserver \
     send_cec \
     TvProvider
+
+# bcm apps which provide a feature needed for certification.
+PRODUCT_PACKAGES += \
+    BcmSpdifSetting \
+    BcmSplash
+
+# bcm custom test apps, can be compiled out.
+ifeq ($(BCM_APP_CUSTOM),y)
+PRODUCT_PACKAGES += \
+    BcmCustomizer \
+    BcmHdmiTvInput \
+    BcmSidebandViewer \
+    BcmTVInput
+endif
 
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY),y),)
 PRODUCT_PROPERTY_OVERRIDES  += drm.service.enabled=true

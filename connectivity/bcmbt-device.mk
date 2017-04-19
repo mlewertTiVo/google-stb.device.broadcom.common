@@ -21,7 +21,7 @@ endif
 else # BT UART
 PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.bcm.bt.rc:root/init.brcm_bt.rc
 PRODUCT_COPY_FILES += ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btuart/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
-PRODUCT_COPY_FILES += ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btuart/firmware/BCM20703A1_001.001.005.0315.0602.hcd:vendor/broadcom/btuart/firmware/BCM_bt_fw.hcd
+PRODUCT_COPY_FILES += ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btuart/firmware/BCM20703A1_001.001.005.0357.0720_UART_20MHz_WakeOnBle_Google.hcd:vendor/broadcom/btuart/firmware/BCM_bt_fw.hcd
 endif # $(ANDROID_ENABLE_BT)
 
 PRODUCT_COPY_FILES += \
