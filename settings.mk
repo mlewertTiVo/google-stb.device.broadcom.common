@@ -129,7 +129,7 @@ export DTCP_IP_SUPPORT                       := y
 export ANDROID_USES_BORINGSSL                := y
 export NEXUS_C_STD                           := c99
 export NEXUS_EXPORT_FILE                     := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nexus_export_file.txt
-export GMS_PACKAGE_ROOT                      := vendor/google/gms/${P_REFSW_DRV_ARCH}/
+export GMS_PACKAGE_ROOT                      := vendor/broadcom/prebuilts/gms/
 
 # some massaging for security support, make it simple to remove as it often requires to
 # be disabled for new device bring up.
@@ -137,7 +137,7 @@ export GMS_PACKAGE_ROOT                      := vendor/google/gms/${P_REFSW_DRV_
 export ANDROID_SUPPORTS_WIDEVINE             ?= y
 export ANDROID_ENABLE_HDMI_HDCP              ?= y
 ifneq ($(ANDROID_SUPPORTS_PLAYREADY),n)
-ifneq ($(wildcard vendor/playready),)
+ifneq ($(wildcard vendor/broadcom/playready),)
 	export ANDROID_SUPPORTS_PLAYREADY    := y
 else
 	export ANDROID_SUPPORTS_PLAYREADY    := n

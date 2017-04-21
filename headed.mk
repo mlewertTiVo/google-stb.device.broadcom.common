@@ -42,7 +42,6 @@ PRODUCT_PACKAGES += \
   TVRecommendations
 endif
 
-$(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
 include device/broadcom/common/middleware/definitions.mk
 
 ifeq ($(TARGET_BUILD_VARIANT),user)
