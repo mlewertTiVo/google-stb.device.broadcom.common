@@ -12,10 +12,31 @@ endif
 #
 PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.usb.configfs.bcm.rc:root/init.usb.configfs.rc
 
+# To prevent from including GMS twice in Google's internal source.
+ifeq ($(wildcard vendor/unbundled_google),)
+PRODUCT_USE_PREBUILT_GMS := yes
+endif
+
+# Only include google_aware.xml if building on Google internal structure.
+ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
+PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/common/rcs/google_aware.xml:system/etc/permissions/google_aware.xml
+endif
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/locales_full.mk)
 $(call inherit-product, device/google/atv/products/atv_base.mk)
 include device/broadcom/common/settings.mk
+
+# include the gms packages and configuration
+# TODO: FiX GMS package and configuration locations for intenal and extenal builds
+ifeq ($(PRODUCT_USE_PREBUILT_GMS),yes)
 $(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
+else
+$(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
+PRODUCT_PACKAGES += \
+  TVLauncher \
+  TVRecommendations
+endif
+
 include device/broadcom/common/middleware/definitions.mk
 
 ifeq ($(TARGET_BUILD_VARIANT),user)
