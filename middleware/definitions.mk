@@ -1,6 +1,6 @@
 ifneq ($(REFSW_DEFS_EXPORTED),y)
 
-export PATH                  := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-4.8-1.6/bin:${PATH}
+export PATH                  := ${ANDROID}/vendor/broadcom/prebuilts/stbgcc-4.8-1.6/bin:${PATH}
 
 ifneq ($(ANDROID_PRODUCT_OUT),)
 # filter out invalid constructs.
