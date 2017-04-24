@@ -63,7 +63,8 @@ export B_REFSW_PREBUILT_LIBGCC_1ST_ARCH      := prebuilts/gcc/linux-x86/arm/arm-
 endif
 export B_REFSW_USES_CLANG                    ?= y
 ifeq ($(B_REFSW_USES_CLANG),y)
-   export P_REFSW_CC_CLANG                   := ${ANDROID_TOP}/prebuilts/clang/host/linux-x86/clang-3688880/bin
+   export P_REFSW_CC_CLANG_VER               := clang-3859424
+   export P_REFSW_CC_CLANG                   := ${ANDROID_TOP}/prebuilts/clang/host/linux-x86/${P_REFSW_CC_CLANG_VER}/bin
 endif
 export B_REFSW_CCACHE                        := ${ANDROID_TOP}/prebuilts/misc/linux-x86/ccache/ccache
 export USE_CCACHE                            := 1
