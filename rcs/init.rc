@@ -53,6 +53,7 @@ on post-fs-data
    mkdir /data/nxmedia 0770 media media
    mkdir /data/nexus 0775 root system
    mkdir /data/misc/nexus 0755 root system
+   mkdir /data/misc/nxfw 0777 root root
 
    mkdir /data/mediadrm/playready/ 0770 mediadrm mediadrm
 

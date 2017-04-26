@@ -125,6 +125,11 @@ export NEXUS_C_STD                           := c99
 export NEXUS_EXPORT_FILE                     := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nexus_export_file.txt
 export GMS_PACKAGE_ROOT                      := vendor/broadcom/prebuilts/gms/
 
+# if enabling region verification, enable this to dump firmware for
+# offline signing.
+#
+export NEXUS_REGION_VERIFICATION_DUMP_FIRMWARE_RAW ?= n
+
 # some massaging for security support, make it simple to remove as it often requires to
 # be disabled for new device bring up.
 #

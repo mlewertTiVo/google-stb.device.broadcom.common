@@ -14,6 +14,7 @@
 /system/bin/netcoal u:object_r:netcoal_exec:s0
 
 /data/misc/nexus(/.*)?    u:object_r:nexus_data_file:s0
+/data/misc/nxfw(/.*)?     u:object_r:nexus_fw_file:s0
 /data/nxmedia(/.*)?       u:object_r:nexus_debug_file:s0
 
 /dev/socket/nxserver      u:object_r:nxserver_socket:s0
