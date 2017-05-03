@@ -203,6 +203,7 @@ PRODUCT_PACKAGES += \
     gralloc.$(TARGET_BOARD_PLATFORM) \
     hdmi_cec.$(TARGET_BOARD_PLATFORM) \
     hwcomposer.$(TARGET_BOARD_PLATFORM) \
+    lights.$(TARGET_BOARD_PLATFORM) \
     memtrack.$(TARGET_BOARD_PLATFORM) \
     power.$(TARGET_BOARD_PLATFORM) \
     tv_input.$(TARGET_BOARD_PLATFORM)
