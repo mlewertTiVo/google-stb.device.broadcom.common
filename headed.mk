@@ -237,6 +237,9 @@ PRODUCT_PACKAGES += \
     BcmHdmiTvInput \
     BcmSidebandViewer \
     BcmTVInput
+else
+PRODUCT_PACKAGES += \
+    BcmCustomizerBase
 endif
 
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY),y),)
