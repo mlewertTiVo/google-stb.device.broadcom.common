@@ -156,7 +156,6 @@ PRODUCT_PACKAGES += \
     libaudiopolicymanager \
     BcmCustomizer \
     BcmOtaUpdater \
-    BcmSplash \
     hwcbinder \
     libhwcbinder \
     libhwcconv \

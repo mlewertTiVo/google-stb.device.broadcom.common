@@ -228,8 +228,7 @@ PRODUCT_PACKAGES += \
 
 # bcm apps which provide a feature needed for certification.
 PRODUCT_PACKAGES += \
-    BcmSpdifSetting \
-    BcmSplash
+    BcmSpdifSetting
 
 # bcm custom test apps, can be compiled out.
 ifeq ($(BCM_APP_CUSTOM),y)
