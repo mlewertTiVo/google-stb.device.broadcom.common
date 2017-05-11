@@ -12,36 +12,10 @@ endif
 #
 PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.usb.configfs.bcm.rc:root/init.usb.configfs.rc
 
-# To prevent from including GMS twice in Google's internal source.
-ifeq ($(wildcard vendor/unbundled_google),)
-PRODUCT_USE_PREBUILT_GMS := yes
-endif
-
-# Only include google_aware.xml if building on Google internal structure.
-ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
-PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/common/rcs/google_aware.xml:system/etc/permissions/google_aware.xml
-endif
-
-# pre-emptive overwite of init.rc to allow overriding of the sys.powerctl modes, this is needed
-# because we cannot control proper shutdown without an explicit user/kernel handshake sequence
-# for nexus kernel driver which is not possible when shutting down android cleanly otherwise.
-PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.aosp.rc:root/init.rc
-
 $(call inherit-product, $(SRC_TARGET_DIR)/product/locales_full.mk)
 $(call inherit-product, device/google/atv/products/atv_base.mk)
 include device/broadcom/common/settings.mk
-
-# include the gms packages and configuration
-# TODO: FiX GMS package and configuration locations for intenal and extenal builds
-ifeq ($(PRODUCT_USE_PREBUILT_GMS),yes)
 $(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
-else
-$(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
-PRODUCT_PACKAGES += \
-  TVLauncher \
-  TVRecommendations
-endif
-
 include device/broadcom/common/middleware/definitions.mk
 
 ifeq ($(TARGET_BUILD_VARIANT),user)
@@ -129,7 +103,9 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_antirollback${SAGE_BINAR
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_secure_video${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_utility${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_utility${SAGE_BINARY_EXT}.bin
+ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_widevine${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_widevine${SAGE_BINARY_EXT}.bin
+endif
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_manufacturing${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_manufacturing${SAGE_BINARY_EXT}.bin
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_playready_25${SAGE_BINARY_EXT}.bin
@@ -159,8 +135,8 @@ $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-he
 ifeq ($(LOCAL_DEVICE_USE_VERITY),y)
 $(call inherit-product, build/target/product/verity.mk)
 PRODUCT_SUPPORTS_BOOT_SIGNER    := false
-PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/by-name/system
-PRODUCT_VENDOR_VERITY_PARTITION := /dev/block/by-name/vendor
+PRODUCT_SYSTEM_VERITY_PARTITION := $(LOCAL_DEVICE_SYSTEM_VERITY_PARTITION)
+PRODUCT_VENDOR_VERITY_PARTITION := $(LOCAL_DEVICE_VENDOR_VERITY_PARTITION)
 RODUCT_PACKAGES                 += slideshow verity_warning_images
 PRODUCT_COPY_FILES              += frameworks/native/data/etc/android.software.verified_boot.xml:system/etc/permissions/android.software.verified_boot.xml
 endif
@@ -215,24 +191,28 @@ PRODUCT_PACKAGES += \
     gralloc.$(TARGET_BOARD_PLATFORM) \
     hdmi_cec.$(TARGET_BOARD_PLATFORM) \
     hwcomposer.$(TARGET_BOARD_PLATFORM) \
+    lights.$(TARGET_BOARD_PLATFORM) \
     memtrack.$(TARGET_BOARD_PLATFORM) \
     power.$(TARGET_BOARD_PLATFORM) \
+    thermal.$(TARGET_BOARD_PLATFORM) \
     tv_input.$(TARGET_BOARD_PLATFORM)
 
 PRODUCT_PACKAGES += \
-   android.hardware.graphics.allocator@2.0-impl \
-   android.hardware.graphics.mapper@2.0-impl \
-   android.hardware.graphics.composer@2.1-impl \
    android.hardware.audio@2.0-impl \
    android.hardware.audio.effect@2.0-impl \
    android.hardware.bluetooth@1.0-impl \
+   android.hardware.drm@1.0-impl \
+   android.hardware.graphics.allocator@2.0-impl \
+   android.hardware.graphics.mapper@2.0-impl \
+   android.hardware.graphics.composer@2.1-impl \
+   android.hardware.keymaster@3.0-impl \
+   android.hardware.light@2.0-impl \
+   android.hardware.memtrack@1.0-impl \
    android.hardware.power@1.0-impl \
+   android.hardware.thermal@1.0-impl \
    android.hardware.tv.input@1.0-impl \
    android.hardware.tv.cec@1.0-impl \
-   android.hardware.drm@1.0-impl \
-   android.hardware.memtrack@1.0-impl \
-   android.hardware.usb@1.0-service \
-   android.hardware.keymaster@3.0-impl
+   android.hardware.usb@1.0-service
 
 ifneq ($(HW_AB_UPDATE_SUPPORT),n)
 PRODUCT_PACKAGES += \
@@ -250,6 +230,7 @@ PRODUCT_PACKAGES += \
     audio.atvr.default \
     libaudiopolicymanagerdefault \
     libaudiopolicymanager \
+    libbt-vendor \
     hwcbinder \
     libhwcbinder \
     libhwcconv \
@@ -263,8 +244,7 @@ PRODUCT_PACKAGES += \
 
 # bcm apps which provide a feature needed for certification.
 PRODUCT_PACKAGES += \
-    BcmSpdifSetting \
-    BcmSplash
+    BcmSpdifSetting
 
 # bcm custom test apps, can be compiled out.
 ifeq ($(BCM_APP_CUSTOM),y)
@@ -273,6 +253,9 @@ PRODUCT_PACKAGES += \
     BcmHdmiTvInput \
     BcmSidebandViewer \
     BcmTVInput
+else
+PRODUCT_PACKAGES += \
+    BcmCustomizerBase
 endif
 
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY),y),)

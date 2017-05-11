@@ -161,7 +161,14 @@ build_bolt:
 	@if [ ! -d "${B_BOLT_OBJ_ROOT}" ]; then \
 		mkdir -p ${B_BOLT_OBJ_ROOT}; \
 	fi
-	$(MAKE) -C $(BOLT_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT)
+	@if [ "${B_BOLT_CUSTOM_OVERRIDE}" != "" ]; then \
+		cp -faR ${B_BOLT_CUSTOM_OVERRIDE}/* $(BOLT_DIR)/custom; \
+	fi
+	@if [ "${B_BOLT_CFG_OVERRIDE}" != "" ]; then \
+		$(MAKE) -C $(BOLT_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) CFG=${B_BOLT_CFG_OVERRIDE} ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT); \
+	else \
+		$(MAKE) -C $(BOLT_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT); \
+	fi
 	cp -pv $(B_BOLT_OBJ_ROOT)/bolt-ba.bin $(PRODUCT_OUT_FROM_TOP)/bolt-ba.bin || :
 	cp -pv $(B_BOLT_OBJ_ROOT)/bolt-bb.bin $(PRODUCT_OUT_FROM_TOP)/bolt-bb.bin || :
 	@echo "'$@' completed"
@@ -172,7 +179,14 @@ build_bolt_vb:
 	@if [ ! -d "${B_BOLT_VB_OBJ_ROOT}" ]; then \
 		mkdir -p ${B_BOLT_VB_OBJ_ROOT}; \
 	fi
-	$(MAKE) -C $(BOLT_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_LOWER) SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT)
+	@if [ "${B_BOLT_CUSTOM_OVERRIDE}" != "" ]; then \
+		cp -faR ${B_BOLT_CUSTOM_OVERRIDE}/* $(BOLT_DIR_VB)/custom; \
+	fi
+	@if [ "${B_BOLT_CFG_OVERRIDE}" != "" ]; then \
+		$(MAKE) -C $(BOLT_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_LOWER) CFG=${B_BOLT_CFG_OVERRIDE} SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT); \
+	else \
+		$(MAKE) -C $(BOLT_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_LOWER) SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT); \
+	fi
 	cp -pv $(B_BOLT_VB_OBJ_ROOT)/bolt-ba.bin $(PRODUCT_OUT_FROM_TOP)/bolt-ba-vb.bin || :
 	cp -pv $(B_BOLT_VB_OBJ_ROOT)/bolt-bb.bin $(PRODUCT_OUT_FROM_TOP)/bolt-bb-vb.bin || :
 	cp -pv $(B_BOLT_VB_OBJ_ROOT)/external_bfw*_avs_memsys.bin $(PRODUCT_OUT_FROM_TOP)/ || :
@@ -224,7 +238,6 @@ clean_nexus:
 
 .PHONY: clean_refsw
 clean_refsw: clean_nexus clean_bolt clean_bootloaderimg clean_lk
-	@echo "================ MAKE CLEAN"
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/refsw/
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxserver_*
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxmini_*

@@ -1,6 +1,6 @@
 ifneq ($(REFSW_DEFS_EXPORTED),y)
 
-export PATH                  := ${ANDROID}/vendor/broadcom/prebuilts/stbgcc-4.8-1.6/bin:${PATH}
+export PATH                  := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-4.8-1.6/bin:${PATH}
 
 ifneq ($(ANDROID_PRODUCT_OUT),)
 # filter out invalid constructs.
@@ -58,6 +58,9 @@ NEXUS_NXC_BIN_DIR_2ND_ARCH   := $(B_REFSW_OBJ_ROOT_2ND_ARCH)/nexus/nxclient/${B_
 B_LK_OBJ_ROOT                := ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/lk
 B_BL31_OBJ_ROOT              := ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/bl31
 
+B_BOLT_CFG_OVERRIDE          ?=
+B_BOLT_CUSTOM_OVERRIDE       ?=
+
 # local modules override for android integration of nexus functionalities.
 NXCLIENT_SOCKET_INTF         := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nxsocket/nxclient_android_socket.c
 NEXUS_PLATFORM_PROXY_INTF    := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nxproxyif/nexus_platform_proxy_intf.c
@@ -79,6 +82,7 @@ export B_REFSW_ANDROID_LIB_1ST_ARCH B_REFSW_ANDROID_LIB_2ND_ARCH
 export NXCLIENT_SOCKET_INTF NEXUS_PLATFORM_PROXY_INTF
 export B_LK_OBJ_ROOT
 export B_BL31_OBJ_ROOT
+export B_BOLT_CFG_OVERRIDE B_BOLT_CUSTOM_OVERRIDE
 
 include ${NEXUS_TOP}/platforms/common/build/nexus_platforms.inc
 export BCHP_CHIP
