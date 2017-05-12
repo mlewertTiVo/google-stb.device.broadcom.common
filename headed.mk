@@ -12,6 +12,16 @@ endif
 #
 PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.usb.configfs.bcm.rc:root/init.usb.configfs.rc
 
+# To prevent from including GMS twice in Google's internal source.
+ifeq ($(wildcard vendor/unbundled_google),)
+PRODUCT_USE_PREBUILT_GMS := yes
+endif
+
+# Only include google_aware.xml if building on Google internal structure.
+ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
+PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/common/rcs/google_aware.xml:system/etc/permissions/google_aware.xml
+endif
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/locales_full.mk)
 $(call inherit-product, device/google/atv/products/atv_base.mk)
 include device/broadcom/common/settings.mk
