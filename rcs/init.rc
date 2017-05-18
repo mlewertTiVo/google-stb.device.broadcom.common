@@ -28,6 +28,7 @@ on boot
    restorecon_recursive /data/tombstones
 
    # LED permissions
+   chown system system /sys/class/leds/power/brightness
    chown system system /sys/class/leds/wifi-red/brightness
    chown system system /sys/class/leds/wifi-green/brightness
    chown system system /sys/class/leds/wifi-blue/brightness
