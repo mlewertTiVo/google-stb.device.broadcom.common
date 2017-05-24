@@ -1,4 +1,5 @@
-
+# common properties for all devices.
+#
 PRODUCT_PROPERTY_OVERRIDES += \
    ro.hdmi.device_type=4 \
    ro.ir_remote.mode=CirNec \
@@ -25,20 +26,36 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.hdmi.wake_on_hotplug=false \
    ro.zygote.disable_gl_preload=true \
    sys.display-size=1920x1080 \
+   ro.nx.colordepth10b.force=1 \
    \
    ro.gfx.driver.0=gfxdriver-bcmstb
 
-PRODUCT_PROPERTY_OVERRIDES += \
-   persist.media.treble_omx=false
-
+# pull in specific target based settings.
+#
 ifeq ($(LOCAL_DEVICE_TYPE),blemmyes)
 include device/broadcom/common/headless.mk
 else
 include device/broadcom/common/headed.mk
 endif
 
+# gfx driver identification.
+#
 PRODUCT_PACKAGES += \
    gfxdriver-bcmstb
 
+# media codec policy and setup.
+#
+PRODUCT_PROPERTY_OVERRIDES += \
+   persist.media.treble_omx=false
+
 PRODUCT_COPY_FILES += \
    device/broadcom/common/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy
+
+# whitelisting privapp permissions.
+#
+#PRODUCT_PROPERTY_OVERRIDES += \
+#   ro.control_privapp_permission=enforce
+
+PRODUCT_COPY_FILES += \
+   frameworks/base/data/etc/privapp-permissions-platform.xml:system/etc/permissions/privapp-permissions-platform.xml \
+   device/broadcom/common/permissions/privapp-permissions-bcm.xml:system/etc/permissions/privapp-permissions-bcm.xml

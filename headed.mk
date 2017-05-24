@@ -165,7 +165,8 @@ endif
 # packages for the system image content.
 PRODUCT_PACKAGES += \
     wpa_supplicant \
-    dhcpcd.conf
+    dhcpcd.conf \
+    wificond
 
 ifeq ($(wildcard ${GMS_PACKAGE_ROOT}/google/Android.mk),)
 PRODUCT_PACKAGES += \
