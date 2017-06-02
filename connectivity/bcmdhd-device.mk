@@ -5,9 +5,9 @@ BRCM_DHD_DRIVER_TARGETS := \
 	${B_DHD_OBJ_ROOT}/nvm.txt
 
 PRODUCT_COPY_FILES += \
-    ${B_DHD_OBJ_ROOT}/driver/bcmdhd.ko:vendor/lib/modules/bcmdhd.ko \
-    ${B_DHD_OBJ_ROOT}/fw.bin.trx:vendor/firmware/broadcom/dhd/firmware/fw.bin.trx \
-    ${B_DHD_OBJ_ROOT}/nvm.txt:vendor/firmware/broadcom/dhd/nvrams/nvm.txt \
+    ${B_DHD_OBJ_ROOT}/driver/bcmdhd.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/bcmdhd.ko \
+    ${B_DHD_OBJ_ROOT}/fw.bin.trx:$(TARGET_COPY_OUT_VENDOR)/firmware/broadcom/dhd/firmware/fw.bin.trx \
+    ${B_DHD_OBJ_ROOT}/nvm.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/broadcom/dhd/nvrams/nvm.txt \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/init.brcm_dhd.rc:root/init.brcm_dhd.rc
 
 PRODUCT_COPY_FILES += \

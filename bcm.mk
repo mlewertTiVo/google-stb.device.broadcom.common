@@ -14,8 +14,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    media.aac_51_output_enabled=true \
    media.stagefright.cache-params=32768/65536/25 \
-   media.stagefright.codecremote=false \
-   media.stagefright.legacyencoder=true \
    media.httplive.startathighbw=1 \
    \
    ro.nx.logger_size=4096 \

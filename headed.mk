@@ -12,31 +12,10 @@ endif
 #
 PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.usb.configfs.bcm.rc:root/init.usb.configfs.rc
 
-# To prevent from including GMS twice in Google's internal source.
-ifeq ($(wildcard vendor/unbundled_google),)
-PRODUCT_USE_PREBUILT_GMS := yes
-endif
-
-# Only include google_aware.xml if building on Google internal structure.
-ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
-PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/common/rcs/google_aware.xml:system/etc/permissions/google_aware.xml
-endif
-
 $(call inherit-product, $(SRC_TARGET_DIR)/product/locales_full.mk)
 $(call inherit-product, device/google/atv/products/atv_base.mk)
 include device/broadcom/common/settings.mk
-
-# include the gms packages and configuration
-# TODO: FiX GMS package and configuration locations for intenal and extenal builds
-ifeq ($(PRODUCT_USE_PREBUILT_GMS),yes)
 $(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
-else
-$(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
-PRODUCT_PACKAGES += \
-  TVLauncher \
-  TVRecommendations
-endif
-
 include device/broadcom/common/middleware/definitions.mk
 
 ifeq ($(TARGET_BUILD_VARIANT),user)
@@ -79,26 +58,26 @@ PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.usb.host
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.software.live_tv.xml:system/etc/permissions/android.software.live_tv.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.software.webview.xml:system/etc/permissions/android.software.webview.xml
 PRODUCT_COPY_FILES       += device/broadcom/common/permissions/nrdp.xml:system/etc/permissions/nrdp.xml
-PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nx_ashmem.ko:vendor/lib/modules/nx_ashmem.ko
-PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nexus.ko:vendor/lib/modules/nexus.ko
-PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/droid_pm.ko:vendor/lib/modules/droid_pm.ko
-PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/gator.ko:vendor/lib/modules/gator.ko
-PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_black.ikm:vendor/usr/irkeymap/broadcom_black.ikm
-PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_silver.ikm:vendor/usr/irkeymap/broadcom_silver.ikm
+PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nx_ashmem.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nx_ashmem.ko
+PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nexus.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nexus.ko
+PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/droid_pm.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/droid_pm.ko
+PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/gator.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/gator.ko
+PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_black.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/broadcom_black.ikm
+PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_silver.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/broadcom_silver.ikm
 PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/hals/power/sopass.key:data/misc/nexus/sopass.key
-PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:vendor/etc/r_submix_audio_policy_configuration.xml
-PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:vendor/etc/usb_audio_policy_configuration.xml
-PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:vendor/etc/audio_policy_volumes.xml
-PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/default_volume_tables.xml:vendor/etc/default_volume_tables.xml
+PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml
+PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
+PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml
+PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml
 ifneq ($(filter usb uart,$(ANDROID_ENABLE_BT)),)
-PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy_btusb.conf:vendor/etc/audio_policy.conf
-PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy_btusb_configuration.xml:vendor/etc/audio_policy_configuration.xml
-PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:vendor/etc/a2dp_audio_policy_configuration.xml
+PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy_btusb.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy.conf
+PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy_btusb_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
+PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml
 else
-PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy.conf:vendor/etc/audio_policy.conf
-PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy_configuration.xml:vendor/etc/audio_policy_configuration.xml
+PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy.conf
+PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
 endif
-PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:vendor/etc/gps.conf
+PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf
 # all those are defined per device, in the device configuration.
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RCS}
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_MEDIA}
@@ -111,26 +90,26 @@ ifeq ($(SAGE_SUPPORT),y)
 ifeq ($(SAGE_VERSION),2x)
 SAGE_BINARY_EXT      ?= _dev
 SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/2x/$(BCHP_CHIP)$(BCHP_VER)
-PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:vendor/bin/sage_bl${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_bl${SAGE_BINARY_EXT}.bin
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)/securemode$(SAGE_SECURE_MODE)
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_os_app${SAGE_BINARY_EXT}.bin:vendor/bin/sage_os_app${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_os_app${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_os_app${SAGE_BINARY_EXT}.bin
 else
 SAGE_BINARY_EXT      ?= _dev
 SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)/dev
-PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:vendor/bin/sage_bl${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_bl${SAGE_BINARY_EXT}.bin
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin:vendor/bin/sage_framework${SAGE_BINARY_EXT}.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_antirollback${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_antirollback${SAGE_BINARY_EXT}.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_secure_video${SAGE_BINARY_EXT}.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_utility${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_utility${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_framework${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_antirollback${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_antirollback${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_secure_video${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_utility${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_utility${SAGE_BINARY_EXT}.bin
 ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_widevine${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_widevine${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_widevine${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_widevine${SAGE_BINARY_EXT}.bin
 endif
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_manufacturing${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_manufacturing${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_manufacturing${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_manufacturing${SAGE_BINARY_EXT}.bin
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_playready_25${SAGE_BINARY_EXT}.bin
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:vendor/bin/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_25${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
 endif
 endif
 endif

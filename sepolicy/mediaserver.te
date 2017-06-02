@@ -11,5 +11,6 @@ allow mediaserver self:netlink_kobject_uevent_socket { create bind read };
 allow mediaserver nexus_debug_file:dir { search read write add_name remove_name };
 allow mediaserver nexus_debug_file:file { open create read write setattr getattr };
 allow mediaserver nexus_service:service_manager find;
+allow mediaserver ion_device:chr_file { open ioctl read write };
 
 set_prop(mediaserver, nexus_prop);

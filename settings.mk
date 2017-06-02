@@ -18,7 +18,7 @@ export TARGET_BOARD_PLATFORM                 := ${ANDROID_PRODUCT_OUT}
 # filter rules for build inclusions based on boards supported.  when adding a new
 # board to the system, you may want to add it here too.
 #
-export BCM_RBOARDS                           := avko banff cypress% dawson% elfin
+export BCM_RBOARDS                           := avko% banff% cypress% dawson% elfin%
 export BCM_DBOARDS                           := bcm7%
 export BCM_CBOARDS                           ?= fbx% c71kw%
 
@@ -91,6 +91,7 @@ export LOCAL_DEVICE_SYSTEM_AB                ?= 664797184   # 634M
 export LOCAL_DEVICE_VENDOR_AB                ?= 104857600   # 100M
 export LOCAL_DEVICE_SYSTEM_VERITY_PARTITION  ?= /dev/block/by-name/system
 export LOCAL_DEVICE_VENDOR_VERITY_PARTITION  ?= /dev/block/by-name/vendor
+export LOCAL_NVI_LAYOUT                      ?= n
 
 export HW_ENCODER_SUPPORT                    ?= y
 export HW_WIFI_NIC_SUPPORT                   ?= n
@@ -133,7 +134,7 @@ export DTCP_IP_SUPPORT                       := y
 export ANDROID_USES_BORINGSSL                := y
 export NEXUS_C_STD                           := c99
 export NEXUS_EXPORT_FILE                     := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nexus_export_file.txt
-export GMS_PACKAGE_ROOT                      := vendor/broadcom/prebuilts/gms/
+export GMS_PACKAGE_ROOT                      := vendor/google/gms/${P_REFSW_DRV_ARCH}/
 
 # if enabling region verification, enable this to dump firmware for
 # offline signing.
@@ -146,7 +147,7 @@ export NEXUS_REGION_VERIFICATION_DUMP_FIRMWARE_RAW ?= n
 export ANDROID_SUPPORTS_WIDEVINE             ?= y
 export ANDROID_ENABLE_HDMI_HDCP              ?= y
 ifneq ($(ANDROID_SUPPORTS_PLAYREADY),n)
-ifneq ($(wildcard vendor/broadcom/playready),)
+ifneq ($(wildcard vendor/playready),)
 	export ANDROID_SUPPORTS_PLAYREADY    := y
 else
 	export ANDROID_SUPPORTS_PLAYREADY    := n

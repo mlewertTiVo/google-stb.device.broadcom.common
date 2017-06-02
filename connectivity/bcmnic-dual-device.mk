@@ -3,8 +3,8 @@ BRCM_NIC_DUAL_DRIVER_TARGETS := \
 	${B_NIC_DUAL_OBJ_ROOT}/driver/wl.ko
 
 PRODUCT_COPY_FILES += \
-    ${B_NIC_DUAL_OBJ_ROOT}/driver/wl.ko:vendor/lib/modules/wl.ko \
-    ${B_NIC_DUAL_OBJ_ROOT}/nvram.txt:vendor/broadcom/nvrams/nvram.txt \
+    ${B_NIC_DUAL_OBJ_ROOT}/driver/wl.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/wl.ko \
+    ${B_NIC_DUAL_OBJ_ROOT}/nvram.txt:$(TARGET_COPY_OUT_VENDOR)/broadcom/nvrams/nvram.txt \
     ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/nic-dual/init.brcm_nic.rc:root/init.brcm_nic.rc
 
 PRODUCT_COPY_FILES += \
