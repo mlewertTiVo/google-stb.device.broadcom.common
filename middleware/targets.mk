@@ -11,8 +11,8 @@
 REFSW_TARGET_LIST := \
 	/${NEXUS_BIN_DIR_1ST_ARCH}/libnexus.so \
 	/${NEXUS_BIN_DIR_1ST_ARCH}/libnexus_static.a \
-	/${NEXUS_BIN_DIR_1ST_ARCH}/libnxclient.so \
-	/${NEXUS_BIN_DIR_1ST_ARCH}/libnxclient_static.a \
+	/${NEXUS_NXC_BIN_DIR_1ST_ARCH}/libnxclient.so \
+	/${NEXUS_NXC_BIN_DIR_1ST_ARCH}/libnxclient_static.a \
 	/${NEXUS_BIN_DIR_1ST_ARCH}/libnxserver.a \
 	\
 	${NEXUS_BIN_DIR_1ST_ARCH}/nexus.ko \
@@ -27,7 +27,7 @@ ifeq ($(TARGET_2ND_ARCH),arm)
 REFSW_TARGET_LIST_2ND_ARCH += \
 	/${NEXUS_BIN_DIR_2ND_ARCH}/libnexus.so \
 	/${NEXUS_BIN_DIR_2ND_ARCH}/libnexus_static.a \
-	/${NEXUS_BIN_DIR_2ND_ARCH}/libnxclient.so \
-	/${NEXUS_BIN_DIR_2ND_ARCH}/libnxclient_static.a \
+	/${NEXUS_NXC_BIN_DIR_2ND_ARCH}/libnxclient.so \
+	/${NEXUS_NXC_BIN_DIR_2ND_ARCH}/libnxclient_static.a \
 	/${NEXUS_BIN_DIR_2ND_ARCH}/libnxserver.a
 endif
