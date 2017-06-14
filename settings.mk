@@ -96,6 +96,7 @@ export HW_GPU_MMU_SUPPORT                    ?= n
 export HW_DTU_SUPPORT                        ?= n
 export BCM_APP_CUSTOM                        ?= n
 export HW_HVD_REVISION                       ?= R
+export LOCAL_DEVICE_SAGE_DEV_N_PROD          ?= n
 
 export BCM_GPT_CONFIG_FILE                   := $(LOCAL_DEVICE_GPT)
 export ANDROID_BUILD                         := y
