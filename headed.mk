@@ -32,9 +32,6 @@ ifeq ($(PRODUCT_USE_PREBUILT_GMS),yes)
 $(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
 else
 $(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
-PRODUCT_PACKAGES += \
-  TVLauncher \
-  TVRecommendations
 endif
 
 include device/broadcom/common/middleware/definitions.mk
