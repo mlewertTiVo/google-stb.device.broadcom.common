@@ -48,6 +48,40 @@ EXTRA_SYSTEM_BIN_FILES := \
    ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin \
    ${SAGE_APP_BINARY_PATH}/sage_os_app${SAGE_BINARY_EXT}.bin
 else
+ifeq ($(LOCAL_DEVICE_SAGE_DEV_N_PROD),y)
+SAGE_BL_BINARY_PATH := $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)/dev
+SAGE_BINARY_EXT := _dev
+SAGE_APP_BINARY_PATH := $(SAGE_BL_BINARY_PATH)
+EXTRA_SYSTEM_BIN_FILES := \
+   ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin \
+   ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin \
+   ${SAGE_APP_BINARY_PATH}/sage_ta_antirollback${SAGE_BINARY_EXT}.bin \
+   ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin \
+   ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video${SAGE_BINARY_EXT}.bin \
+   ${SAGE_APP_BINARY_PATH}/sage_ta_utility${SAGE_BINARY_EXT}.bin \
+   ${SAGE_APP_BINARY_PATH}/sage_ta_widevine${SAGE_BINARY_EXT}.bin
+ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
+EXTRA_SYSTEM_BIN_FILES += \
+   ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin \
+   ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
+endif
+SAGE_BL_BINARY_PATH2 := $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)/dev
+SAGE_BINARY_EXT2 := _dev
+SAGE_APP_BINARY_PATH2 := $(SAGE_BL_BINARY_PATH2)
+EXTRA_SYSTEM_BIN_FILES += \
+   ${SAGE_BL_BINARY_PATH2}/sage_bl${SAGE_BINARY_EXT2}.bin \
+   ${SAGE_APP_BINARY_PATH2}/sage_framework${SAGE_BINARY_EXT2}.bin \
+   ${SAGE_APP_BINARY_PATH2}/sage_ta_antirollback${SAGE_BINARY_EXT2}.bin \
+   ${SAGE_APP_BINARY_PATH2}/sage_ta_hdcp22${SAGE_BINARY_EXT2}.bin \
+   ${SAGE_APP_BINARY_PATH2}/sage_ta_secure_video${SAGE_BINARY_EXT2}.bin \
+   ${SAGE_APP_BINARY_PATH2}/sage_ta_utility${SAGE_BINARY_EXT2}.bin \
+   ${SAGE_APP_BINARY_PATH2}/sage_ta_widevine${SAGE_BINARY_EXT2}.bin
+ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
+EXTRA_SYSTEM_BIN_FILES += \
+   ${SAGE_APP_BINARY_PATH2}/sage_ta_playready_25${SAGE_BINARY_EXT2}.bin \
+   ${SAGE_APP_BINARY_PATH2}/sage_ta_playready_30${SAGE_BINARY_EXT2}.bin
+endif
+else
 SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)/dev
 SAGE_BINARY_EXT ?= _dev
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)
@@ -66,6 +100,7 @@ ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
 EXTRA_SYSTEM_BIN_FILES += \
    ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin \
    ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
+endif
 endif
 endif
 endif

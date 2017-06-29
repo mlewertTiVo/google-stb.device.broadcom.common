@@ -25,7 +25,6 @@ endif
 $(call inherit-product, $(SRC_TARGET_DIR)/product/locales_full.mk)
 $(call inherit-product, device/google/atv/products/atv_base.mk)
 include device/broadcom/common/settings.mk
-
 # include the gms packages and configuration
 # TODO: FiX GMS package and configuration locations for intenal and extenal builds
 ifeq ($(PRODUCT_USE_PREBUILT_GMS),yes)
@@ -33,7 +32,6 @@ $(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
 else
 $(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
 endif
-
 include device/broadcom/common/middleware/definitions.mk
 
 ifeq ($(TARGET_BUILD_VARIANT),user)
@@ -112,6 +110,38 @@ PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:$(T
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)/securemode$(SAGE_SECURE_MODE)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_os_app${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_os_app${SAGE_BINARY_EXT}.bin
 else
+ifeq ($(LOCAL_DEVICE_SAGE_DEV_N_PROD),y)
+SAGE_BINARY_EXT      := _dev
+SAGE_BL_BINARY_PATH  := $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)/dev
+PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:system/bin/sage_bl${SAGE_BINARY_EXT}.bin
+SAGE_APP_BINARY_PATH := $(SAGE_BL_BINARY_PATH)
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin:system/bin/sage_framework${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_antirollback${SAGE_BINARY_EXT}.bin:system/bin/sage_ta_antirollback${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin:system/bin/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video${SAGE_BINARY_EXT}.bin:system/bin/sage_ta_secure_video${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_utility${SAGE_BINARY_EXT}.bin:system/bin/sage_ta_utility${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_widevine${SAGE_BINARY_EXT}.bin:system/bin/sage_ta_widevine${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_manufacturing${SAGE_BINARY_EXT}.bin:system/bin/sage_ta_manufacturing${SAGE_BINARY_EXT}.bin
+ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin:system/bin/sage_ta_playready_25${SAGE_BINARY_EXT}.bin
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:system/bin/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
+endif
+SAGE_BINARY_EXT2      :=
+SAGE_BL_BINARY_PATH2  := $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)
+PRODUCT_COPY_FILES    += ${SAGE_BL_BINARY_PATH2}/sage_bl${SAGE_BINARY_EXT2}.bin:system/bin/sage_bl${SAGE_BINARY_EXT2}.bin
+SAGE_APP_BINARY_PATH2 := $(SAGE_BL_BINARY_PATH2)
+PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_framework${SAGE_BINARY_EXT2}.bin:system/bin/sage_framework${SAGE_BINARY_EXT2}.bin
+PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_antirollback${SAGE_BINARY_EXT2}.bin:system/bin/sage_ta_antirollback${SAGE_BINARY_EXT2}.bin
+PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_hdcp22${SAGE_BINARY_EXT2}.bin:system/bin/sage_ta_hdcp22${SAGE_BINARY_EXT2}.bin
+PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_secure_video${SAGE_BINARY_EXT2}.bin:system/bin/sage_ta_secure_video${SAGE_BINARY_EXT2}.bin
+PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_utility${SAGE_BINARY_EXT2}.bin:system/bin/sage_ta_utility${SAGE_BINARY_EXT2}.bin
+PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_widevine${SAGE_BINARY_EXT2}.bin:system/bin/sage_ta_widevine${SAGE_BINARY_EXT2}.bin
+PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_manufacturing${SAGE_BINARY_EXT2}.bin:system/bin/sage_ta_manufacturing${SAGE_BINARY_EXT2}.bin
+ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
+PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_playready_25${SAGE_BINARY_EXT2}.bin:system/bin/sage_ta_playready_25${SAGE_BINARY_EXT2}.bin
+PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_playready_30${SAGE_BINARY_EXT2}.bin:system/bin/sage_ta_playready_30${SAGE_BINARY_EXT2}.bin
+endif
+else
 SAGE_BINARY_EXT      ?= _dev
 SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)/dev
 PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_bl${SAGE_BINARY_EXT}.bin
@@ -128,6 +158,7 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_manufacturing${SAGE_BINA
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_25${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
+endif
 endif
 endif
 endif
@@ -154,7 +185,9 @@ ifeq ($(LOCAL_DEVICE_USE_VERITY),y)
 $(call inherit-product, build/target/product/verity.mk)
 PRODUCT_SUPPORTS_BOOT_SIGNER    := false
 PRODUCT_SYSTEM_VERITY_PARTITION := $(LOCAL_DEVICE_SYSTEM_VERITY_PARTITION)
+ifneq ($(LOCAL_NVI_LAYOUT),y)
 PRODUCT_VENDOR_VERITY_PARTITION := $(LOCAL_DEVICE_VENDOR_VERITY_PARTITION)
+endif
 RODUCT_PACKAGES                 += slideshow verity_warning_images
 PRODUCT_COPY_FILES              += frameworks/native/data/etc/android.software.verified_boot.xml:system/etc/permissions/android.software.verified_boot.xml
 endif
@@ -261,13 +294,10 @@ PRODUCT_PACKAGES += \
     send_cec \
     TvProvider
 
-# bcm apps which provide a feature needed for certification.
-PRODUCT_PACKAGES += \
-    BcmSpdifSetting
-
 # bcm custom test apps, can be compiled out.
 ifeq ($(BCM_APP_CUSTOM),y)
 PRODUCT_PACKAGES += \
+    BcmAdjustScreenOffset \
     BcmCustomizer \
     BcmHdmiTvInput \
     BcmSidebandViewer \
@@ -284,7 +314,7 @@ ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES            += liboemcrypto libwvdrmengine
 endif
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
-PRODUCT_PACKAGES            += libcmndrmprdy libplayreadydrmplugin libplayreadypk_host
+PRODUCT_PACKAGES            += libcmndrmprdy libplayreadydrmplugin libplayreadypk_host libplayready30pk
 endif
 endif
 

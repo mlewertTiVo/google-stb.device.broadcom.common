@@ -5,6 +5,7 @@ allow recovery vfat:file { read getattr open };
 allow recovery nxserver_socket:sock_file write;
 allow recovery gpu_device:chr_file rw_file_perms;
 allow recovery nxmini:unix_stream_socket connectto;
+allow recovery kmsg_device:chr_file rw_file_perms;
 
 
 get_prop(recovery, nexus_prop);

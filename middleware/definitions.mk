@@ -10,23 +10,37 @@ endif
 export BRCMSTB_ANDROID_VENDOR_PATH     := ${ANDROID_TOP}/${BCM_VENDOR_STB_ROOT}
 export BRCMSTB_ANDROID_DRIVER_PATH     := ${BRCMSTB_ANDROID_VENDOR_PATH}/drivers
 
+leading_slash = $(filter found, $(firstword $(subst /, ,found$(1))))
+
 ifeq ($(OUT_DIR_COMMON_BASE),)
-BRCMSTB_ANDROID_OUT_PATH     := ${ANDROID_TOP}/out
+ifeq (${OUT_DIR},)
+OUT_DIR := out
+endif
+ifeq ($(call leading_slash,${OUT_DIR}), found)
+BRCMSTB_ANDROID_OUT_PATH     := ${OUT_DIR}
+else
+BRCMSTB_ANDROID_OUT_PATH     := ${ANDROID_TOP}/${OUT_DIR}
+endif
 else
 BRCMSTB_ANDROID_OUT_PATH     := ${OUT_DIR_COMMON_BASE}/$(notdir $(PWD))
 endif
 
 ifeq ($(PRODUCT_OUT),)
 ifeq ($(OUT_DIR_COMMON_BASE),)
-export PRODUCT_OUT           := out/target/product/${ANDROID_PRODUCT_OUT}
+export PRODUCT_OUT           := ${OUT_DIR}/target/product/${ANDROID_PRODUCT_OUT}
 else
 export PRODUCT_OUT           := ${OUT_DIR_COMMON_BASE}/$(notdir $(PWD))/target/product/${ANDROID_PRODUCT_OUT}
 endif
 endif
 
 ifeq ($(OUT_DIR_COMMON_BASE),)
+ifeq ($(call leading_slash,${OUT_DIR}), found)
+export PRODUCT_OUT_FROM_TOP  := ${PRODUCT_OUT}
+export ANDROID_OUT_DIR       := ${OUT_DIR}
+else
 export PRODUCT_OUT_FROM_TOP  := ${ANDROID_TOP}/${PRODUCT_OUT}
-export ANDROID_OUT_DIR       := ${ANDROID_TOP}/out
+export ANDROID_OUT_DIR       := ${ANDROID_TOP}/${OUT_DIR}
+endif
 else
 export PRODUCT_OUT_FROM_TOP  := ${PRODUCT_OUT}
 export ANDROID_OUT_DIR       := ${OUT_DIR_COMMON_BASE}/$(notdir $(PWD))

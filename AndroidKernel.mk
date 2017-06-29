@@ -38,13 +38,15 @@
 #
 #############################################################################
 
-ifeq ($(OUT_DIR_COMMON_BASE),)
-KERNEL_OUT_DIR := out/target/product/${ANDROID_PRODUCT_OUT}
-KERNEL_OUT_DIR_ABS := ${ANDROID_TOP}/${KERNEL_OUT_DIR}
+ifeq (${OUT_DIR},)
+ifeq (${OUT_DIR_COMMON_BASE},)
+OUT_DIR := out
 else
-KERNEL_OUT_DIR := ${OUT_DIR_COMMON_BASE}/$(notdir $(PWD))/target/product/${ANDROID_PRODUCT_OUT}
-KERNEL_OUT_DIR_ABS := ${KERNEL_OUT_DIR}
+OUT_DIR := ${OUT_DIR_COMMON_BASE}/$(notdir ${PWD})
 endif
+endif
+KERNEL_OUT_DIR := ${OUT_DIR}/target/product/${ANDROID_PRODUCT_OUT}
+KERNEL_OUT_DIR_ABS := $(abspath ${KERNEL_OUT_DIR})
 
 ifeq ($(BCHP_CHIP),)
 ifneq ($(CALLED_FROM_SETUP),true)
