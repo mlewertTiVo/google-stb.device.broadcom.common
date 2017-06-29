@@ -104,7 +104,7 @@ export ANDROID_BUILD                         := y
 export ANDROID_SUPPORTS_DTVKIT               := n
 export BROADCOM_DHD_SOURCE_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmdhd
 export BROADCOM_NIC_SCRIPT_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmnic
-export BROADCOM_NIC_SOURCE_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/refsw/BSEAV/connectivity/wlan/STB7271_BRANCH_15_10/linux-external-stbsoc
+export BROADCOM_NIC_SOURCE_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/refsw/BSEAV/connectivity/wlan/core
 export BROADCOM_NIC_DUAL_SOURCE_PATH         := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmnic_dual
 export HLS_PROTOCOL_SUPPORT                  := y
 
