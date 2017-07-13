@@ -57,7 +57,12 @@ BRCMSTB_MODEL_NAME := bcm$(BCHP_CHIP)_$(BCHP_VER_LOWER)_$(MODEL_NAME)_$(HARDWARE
 export BRCMSTB_MODEL_NAME
 
 NEXUS_DEPS := \
+	${PRODUCT_OUT}/obj/lib/libc.so \
+	${PRODUCT_OUT}/obj/lib/libc++.so \
 	${PRODUCT_OUT}/obj/lib/libcutils.so \
+	${PRODUCT_OUT}/obj/lib/libdl.so \
+	${PRODUCT_OUT}/obj/lib/liblog.so \
+	${PRODUCT_OUT}/obj/lib/libm.so \
 	${PRODUCT_OUT}/obj/lib/crtbegin_dynamic.o \
 	${PRODUCT_OUT}/obj/lib/crtend_android.o \
 	mkbootimg
