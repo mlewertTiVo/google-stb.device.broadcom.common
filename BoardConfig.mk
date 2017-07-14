@@ -109,11 +109,11 @@ TARGET_RECOVERY_WIPE           := device/broadcom/common/recovery/recovery.wipe
 TARGET_RECOVERY_FSTAB          := $(LOCAL_DEVICE_RECOVERY_FSTAB)
 else
 TARGET_RECOVERY_FSTAB          := $(LOCAL_DEVICE_RECOVERY_FSTAB)
-TARGET_RECOVERY_UI_LIB         := librecovery_ui_ext
 TARGET_RECOVERY_UPDATER_LIBS   := librecovery_updater_ext
 TARGET_RELEASETOOLS_EXTENSIONS := device/broadcom/common
-TARGET_RECOVERY_PIXEL_FORMAT   := "RGBX_8888"
 endif
+TARGET_RECOVERY_UI_LIB         := librecovery_ui_ext
+TARGET_RECOVERY_PIXEL_FORMAT   := "RGBX_8888"
 
 BOARD_SEPOLICY_DIRS += device/broadcom/common/sepolicy
 BOARD_SEPOLICY_DIRS += $(LOCAL_DEVICE_SEPOLICY_BLOCK)

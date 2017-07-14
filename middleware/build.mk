@@ -70,6 +70,7 @@ NEXUS_DEPS_2ND_ARCH := \
 NEXUS_APP_CFLAGS := $(addprefix -I,$(NEXUS_APP_INCLUDE_PATHS))
 NEXUS_APP_CFLAGS += $(addprefix -D,$(NEXUS_APP_DEFINES))
 NEXUS_APP_CFLAGS += -DBSTD_CPU_ENDIAN=BSTD_ENDIAN_LITTLE
+NEXUS_APP_CFLAGS += -DB_REFSW_ANDROID
 ifeq ($(SAGE_SUPPORT),y)
 include ${BCM_VENDOR_STB_ROOT}/refsw/magnum/syslib/sagelib/bsagelib_public.inc
 NEXUS_APP_CFLAGS += $(addprefix -D,$(BSAGELIB_DEFINES))
@@ -218,11 +219,29 @@ build_android_bsu_vb: build_bolt_vb
 ifeq ($(HW_TZ_SUPPORT),y)
 build_bootloaderimg: build_android_bsu build_bl31
 	@echo "'$@' started"
+	cp $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/orig.$(BOLT_IMG_TO_USE_OVERRIDE)
+	@if [ -e "${BOLT_IMG_SWAP_BBL}" ]; then \
+		$(PRODUCT_OUT_FROM_TOP)/obj/FAKE/bolt/scripts/patcher.pl -p ${BOLT_IMG_SWAP_BBL} -i $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) -o $(PRODUCT_OUT_FROM_TOP)/swap.bbl.$(BOLT_IMG_TO_USE_OVERRIDE) -z zeus42 -t bbl; \
+		cp $(PRODUCT_OUT_FROM_TOP)/swap.bbl.$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE); \
+	fi
+	@if [ -e "${BOLT_IMG_SWAP_BFW}" ]; then \
+		$(PRODUCT_OUT_FROM_TOP)/obj/FAKE/bolt/scripts/patcher.pl -p ${BOLT_IMG_SWAP_BFW} -i $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) -o $(PRODUCT_OUT_FROM_TOP)/swap.bfw.$(BOLT_IMG_TO_USE_OVERRIDE) -z zeus42 -t bfw; \
+		cp $(PRODUCT_OUT_FROM_TOP)/swap.bfw.$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE); \
+	fi
 	$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/bl31.bin $(PRODUCT_OUT_FROM_TOP)/bootloader.img
 	@echo "'$@' completed"
 else
 build_bootloaderimg: build_android_bsu
 	@echo "'$@' started"
+	cp $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/orig.$(BOLT_IMG_TO_USE_OVERRIDE)
+	@if [ -e "${BOLT_IMG_SWAP_BBL}" ]; then \
+		$(PRODUCT_OUT_FROM_TOP)/obj/FAKE/bolt/scripts/patcher.pl -p ${BOLT_IMG_SWAP_BBL} -i $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) -o $(PRODUCT_OUT_FROM_TOP)/swap.bbl.$(BOLT_IMG_TO_USE_OVERRIDE) -z zeus42 -t bbl; \
+		cp $(PRODUCT_OUT_FROM_TOP)/swap.bbl.$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE); \
+	fi
+	@if [ -e "${BOLT_IMG_SWAP_BFW}" ]; then \
+		$(PRODUCT_OUT_FROM_TOP)/obj/FAKE/bolt/scripts/patcher.pl -p ${BOLT_IMG_SWAP_BFW} -i $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) -o $(PRODUCT_OUT_FROM_TOP)/swap.bfw.$(BOLT_IMG_TO_USE_OVERRIDE) -z zeus42 -t bfw; \
+		cp $(PRODUCT_OUT_FROM_TOP)/swap.bfw.$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE); \
+	fi
 	$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/bootloader.img
 	@echo "'$@' completed"
 endif

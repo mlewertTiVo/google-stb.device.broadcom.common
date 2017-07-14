@@ -23,7 +23,7 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
-ifneq ($(filter avko banff cypress dawson elfin, $(TARGET_DEVICE)),)
+ifneq ($(filter $(BCM_RBOARDS) $(BCM_DBOARDS) $(BCM_CBOARDS),$(TARGET_DEVICE)),)
 
 LOCAL_PATH := $(call my-dir)
 

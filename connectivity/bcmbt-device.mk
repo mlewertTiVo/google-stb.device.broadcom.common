@@ -15,7 +15,7 @@ endif
 
 ifeq ($(BROADCOM_WIFI_CHIPSET),43570a2)
 PRODUCT_COPY_FILES += \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btusb/firmware/BCM43569A2_001.003.004.0074.0000_Generic_USB_40MHz_fcbga_BU_WakeOn_BLE_Google.hcd:$(TARGET_COPY_OUT_VENDOR)/broadcom/btusb/firmware/BCM_bt_fw.hcd
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btusb/firmware/BCM43569A2_001.003.004.0118.0000_Generic_USB_40MHz_fcbga_BU_WakeOn_BLE_Google.hcd:$(TARGET_COPY_OUT_VENDOR)/broadcom/btusb/firmware/BCM_bt_fw.hcd
 endif
 
 else # BT UART

@@ -92,6 +92,7 @@ export LOCAL_DEVICE_VENDOR_AB                ?= 104857600   # 100M
 export LOCAL_DEVICE_SYSTEM_VERITY_PARTITION  ?= /dev/block/by-name/system
 export LOCAL_DEVICE_VENDOR_VERITY_PARTITION  ?= /dev/block/by-name/vendor
 export LOCAL_NVI_LAYOUT                      ?= n
+export LOCAL_DEVICE_SAGE_DEV_N_PROD          ?= n
 
 export HW_ENCODER_SUPPORT                    ?= y
 export HW_WIFI_NIC_SUPPORT                   ?= n
