@@ -8,16 +8,12 @@ allow hwcbinder self:capability {
     sys_nice
 };
 
-allow hwcbinder servicemanager:binder call;
-allow hwcbinder servicemanager:binder transfer;
-allow hwcbinder surfaceflinger:binder call;
-allow hwcbinder surfaceflinger:binder transfer;
-allow hwcbinder mediaserver:binder call;
-allow hwcbinder mediaserver:binder transfer;
-allow hwcbinder untrusted_app:binder call;
-allow hwcbinder untrusted_app:binder transfer;
-allow hwcbinder bcmstb_app:binder call;
-allow hwcbinder bcmstb_app:binder transfer;
+allow hwcbinder servicemanager:binder { call transfer };
+allow hwcbinder surfaceflinger:binder { call transfer };
+allow hwcbinder mediaserver:binder { call transfer };
+allow hwcbinder untrusted_app:binder { call transfer };
+allow hwcbinder bcmstb_app:binder { call transfer };
+allow hwcbinder mediacodec:binder { call transfer };
 
 add_service(hwcbinder, hwcbinder_service);
 allow hwcbinder nexus_service:service_manager add;
@@ -35,5 +31,3 @@ allow hwcbinder sysfs_devices_system_cpu:dir search;
 allow hwcbinder sysfs:dir { open read };
 allow hwcbinder sysfs:file { read write getattr };
 allow hwcbinder sysfs_devices_system_cpu:file { open read write getattr };
-allow hwcbinder mediacodec:binder call;
-allow hwcbinder mediacodec:binder transfer;
