@@ -56,6 +56,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
    frameworks/base/data/etc/privapp-permissions-platform.xml:system/etc/permissions/privapp-permissions-platform.xml \
+   device/broadcom/common/permissions/privapp-permissions-google.xml:system/etc/permissions/privapp-permissions-google.xml \
    device/broadcom/common/permissions/privapp-permissions-bcm.xml:system/etc/permissions/privapp-permissions-bcm.xml
 
 # hardware interface hal manifest.
