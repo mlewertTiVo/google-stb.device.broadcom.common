@@ -1,0 +1,10 @@
+allow ephemeral_app nxserver:binder call;
+allow ephemeral_app nxserver:unix_stream_socket connectto;
+allow ephemeral_app proc_sysrq:file getattr;
+allow ephemeral_app hwcbinder:binder { transfer call };
+allow ephemeral_app nxserver_socket:sock_file write;
+allow ephemeral_app nexus_service:service_manager find;
+get_prop(ephemeral_app, nexus_prop);
+
+dontaudit ephemeral_app nexus_data_file:dir search;
+dontaudit ephemeral_app nexus_data_file:file { read getattr open };
