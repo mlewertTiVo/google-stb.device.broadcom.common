@@ -78,6 +78,7 @@ B_BOLT_CUSTOM_OVERRIDE       ?=
 # local modules override for android integration of nexus functionalities.
 NXCLIENT_SOCKET_INTF         := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nxsocket/nxclient_android_socket.c
 NEXUS_PLATFORM_PROXY_INTF    := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nxproxyif/nexus_platform_proxy_intf.c
+NEXUS_SAGE_BP3_BIN_PATH      := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nxsagebp3/nexus_sage_bp3_bin_path.c
 
 export B_REFSW_TOOLCHAINS_INSTALL
 export B_REFSW_CROSS_COMPILE := ${B_REFSW_TOOLCHAINS_INSTALL}
