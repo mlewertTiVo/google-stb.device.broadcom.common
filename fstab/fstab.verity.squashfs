@@ -2,6 +2,6 @@
 */block/sd*                     auto            auto    defaults voldmanaged=usb:auto,encryptable=userdata
 /dev/block/by-name/system       /system         squashfs ro,barrier=1 wait,verify=/dev/block/by-name/metadata
 /dev/block/by-name/vendor       /vendor         squashfs ro,barrier=1 wait,verify=/dev/block/by-name/metadata
-/dev/block/by-name/userdata     /data           ext4    noatime,nosuid,nodev,nomblk_io_submit,errors=panic wait,check
+/dev/block/by-name/userdata     /data           ext4    noatime,nosuid,nodev,nomblk_io_submit,errors=panic wait,check,quota
 /dev/block/by-name/cache        /cache          ext4    noatime,nosuid,nodev,barrier=1,data=ordered,nomblk_io_submit,noauto_da_alloc,errors=panic wait,check
 /dev/block/by-name/hwcfg        /hwcfg          cramfs  ro,relatime,barrier=1 wait
