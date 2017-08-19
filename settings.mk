@@ -89,11 +89,11 @@ export LOCAL_DEVICE_BOOT                     ?= 33554432    # 32M
 ifneq ($(LOCAL_NVI_LAYOUT),y)
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1048576000  # 1000M
 export LOCAL_DEVICE_VENDOR_LEGACY            ?= 234881024   # 224M
-export LOCAL_DEVICE_SYSTEM_AB                ?= 664797184   # 634M
+export LOCAL_DEVICE_SYSTEM_AB                ?= 950009856   # 906M
 export LOCAL_DEVICE_VENDOR_AB                ?= 104857600   # 100M
 else
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1283457024  # 1224M
-export LOCAL_DEVICE_SYSTEM_AB                ?= 769654784   # 734M
+export LOCAL_DEVICE_SYSTEM_AB                ?= 1054867456  # 1006M
 endif
 export LOCAL_DEVICE_SYSTEM_VERITY_PARTITION  ?= /dev/block/by-name/system
 export LOCAL_DEVICE_VENDOR_VERITY_PARTITION  ?= /dev/block/by-name/vendor
@@ -117,7 +117,7 @@ export ANDROID_BUILD                         := y
 export ANDROID_SUPPORTS_DTVKIT               := n
 export BROADCOM_DHD_SOURCE_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmdhd
 export BROADCOM_NIC_SCRIPT_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmnic
-export BROADCOM_NIC_SOURCE_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/refsw/BSEAV/connectivity/wlan/STB7271_BRANCH_15_10/linux-external-stbsoc
+export BROADCOM_NIC_SOURCE_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/refsw/BSEAV/connectivity/wlan/core
 export BROADCOM_NIC_DUAL_SOURCE_PATH         := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmnic_dual
 export HLS_PROTOCOL_SUPPORT                  := y
 
@@ -140,6 +140,7 @@ export DTCP_IP_SUPPORT                       := y
 export ANDROID_USES_BORINGSSL                := y
 export NEXUS_C_STD                           := c99
 export NEXUS_EXPORT_FILE                     := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nexus_export_file.txt
+export NEXUS_DISPLAY_EXTENSION_INC           += $(NEXUS_TOP)/extensions/display/dynrng/dynrng.inc
 export GMS_PACKAGE_ROOT                      := vendor/broadcom/prebuilts/gms/
 
 # if enabling region verification, enable this to dump firmware for
