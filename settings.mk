@@ -140,6 +140,7 @@ export DTCP_IP_SUPPORT                       := y
 export ANDROID_USES_BORINGSSL                := y
 export NEXUS_C_STD                           := c99
 export NEXUS_EXPORT_FILE                     := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nexus_export_file.txt
+export NEXUS_DISPLAY_EXTENSION_INC           += $(NEXUS_TOP)/extensions/display/dynrng/dynrng.inc
 export GMS_PACKAGE_ROOT                      := vendor/broadcom/prebuilts/gms/
 
 # if enabling region verification, enable this to dump firmware for
