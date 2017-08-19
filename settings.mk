@@ -89,11 +89,11 @@ export LOCAL_DEVICE_BOOT                     ?= 33554432    # 32M
 ifneq ($(LOCAL_NVI_LAYOUT),y)
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1048576000  # 1000M
 export LOCAL_DEVICE_VENDOR_LEGACY            ?= 234881024   # 224M
-export LOCAL_DEVICE_SYSTEM_AB                ?= 664797184   # 634M
+export LOCAL_DEVICE_SYSTEM_AB                ?= 950009856   # 906M
 export LOCAL_DEVICE_VENDOR_AB                ?= 104857600   # 100M
 else
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1283457024  # 1224M
-export LOCAL_DEVICE_SYSTEM_AB                ?= 769654784   # 734M
+export LOCAL_DEVICE_SYSTEM_AB                ?= 1054867456  # 1006M
 endif
 export LOCAL_DEVICE_SYSTEM_VERITY_PARTITION  ?= /dev/block/by-name/system
 export LOCAL_DEVICE_VENDOR_VERITY_PARTITION  ?= /dev/block/by-name/vendor
