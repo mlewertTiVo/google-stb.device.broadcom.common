@@ -12,12 +12,14 @@
 /vendor/bin/nxserver u:object_r:nxserver_exec:s0
 /vendor/bin/netcoal u:object_r:netcoal_exec:s0
 /vendor/bin/nxdispfmt u:object_r:nxdispfmt_exec:s0
+/vendor/bin/togplm u:object_r:togplm_exec:s0
 # nvi compatibility targets.
 /system/vendor/bin/hfrvideo u:object_r:hfrvideo_exec:s0
 /system/vendor/bin/hwcbinder u:object_r:hwcbinder_exec:s0
 /system/vendor/bin/nxserver u:object_r:nxserver_exec:s0
 /system//vendor/bin/nxdispfmt u:object_r:nxdispfmt_exec:s0
 /system/vendor/bin/netcoal u:object_r:netcoal_exec:s0
+/system/vendor/bin/togplm u:object_r:togplm_exec:s0
 
 /sbin/nxmini u:object_r:nxmini_exec:s0
 
