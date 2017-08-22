@@ -43,6 +43,7 @@ key 370   CAPTIONS
 key 377   TV
 key 392   MEDIA_AUDIO_TRACK
 key 398   BUTTON_16
+key 399   BUTTON_15
 # key 398   "KEY_RED"
 # key 399 "KEY_GREEN"
 # key 400 "KEY_YELLOW"

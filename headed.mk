@@ -240,7 +240,8 @@ PRODUCT_PACKAGES += \
     netcoal \
     nxdispfmt \
     nxlogger \
-    nxserver
+    nxserver \
+    togplm
 
 # device supported hal's.
 PRODUCT_PACKAGES += \
