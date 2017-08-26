@@ -102,6 +102,9 @@ PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_FSTAB}
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_AON_GPIO}
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_KEY_POLL}
 
+PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/humax_q02.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/vendor_0001.ikm
+PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/directv_rc7x.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/vendor_0002.ikm
+
 ifeq ($(SAGE_SUPPORT),y)
 ifeq ($(SAGE_VERSION),2x)
 SAGE_BINARY_EXT      ?= _dev
