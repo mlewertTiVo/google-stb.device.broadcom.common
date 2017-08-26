@@ -207,7 +207,7 @@ clean_android_bsu_vb:
 	rm -f $(PRODUCT_OUT_FROM_TOP)/android_bsu-vb.elf
 
 .PHONY: build_android_bsu
-build_android_bsu: build_bolt
+build_android_bsu: build_bolt gptbin
 	@echo "'$@' started"
 	cp -pv $(PRODUCT_OUT_FROM_TOP)/gpt.bin.gen.c $(B_BOLT_OBJ_ROOT)/gpt.bin.gen.c
 	$(MAKE) -C $(ANDROID_BSU_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT)
@@ -215,7 +215,7 @@ build_android_bsu: build_bolt
 	@echo "'$@' completed"
 
 .PHONY: build_android_bsu_vb
-build_android_bsu_vb: build_bolt_vb
+build_android_bsu_vb: build_bolt_vb gptbin
 	@echo "'$@' started"
 	cp -pv $(PRODUCT_OUT_FROM_TOP)/gpt.bin.gen.c $(B_BOLT_OBJ_ROOT)/gpt.bin.gen.c
 	$(MAKE) -C $(ANDROID_BSU_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_LOWER) SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT)
