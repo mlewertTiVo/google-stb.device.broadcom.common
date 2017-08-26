@@ -63,3 +63,14 @@ PRODUCT_COPY_FILES += \
 #
 PRODUCT_COPY_FILES += \
    device/broadcom/common/manifest.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
+
+# copy kernel image and associated .ko's
+ifeq ($(BCM_DIST_KNLIMG_BINS), y)
+ifeq ($(HW_GPU_MMU_SUPPORT),y)
+PRODUCT_COPY_FILES += \
+   ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/arm.v3dmmu/kernel:kernel
+else
+PRODUCT_COPY_FILES += \
+   ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/arm/kernel:kernel
+endif
+endif

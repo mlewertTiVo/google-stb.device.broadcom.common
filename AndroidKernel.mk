@@ -38,6 +38,8 @@
 #
 #############################################################################
 
+ifneq ($(BCM_DIST_KNLIMG_BINS),y)
+
 ifeq (${OUT_DIR},)
 ifeq (${OUT_DIR_COMMON_BASE},)
 OUT_DIR := out
@@ -195,3 +197,6 @@ endif
 clean_kernel: clean_drivers
 	rm -f $(KERNEL_OUT_DIR_ABS)/kernel
 	rm -rf $(LINUX_OUT_ROOT)
+
+
+endif
