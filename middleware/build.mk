@@ -207,15 +207,17 @@ clean_android_bsu_vb:
 	rm -f $(PRODUCT_OUT_FROM_TOP)/android_bsu-vb.elf
 
 .PHONY: build_android_bsu
-build_android_bsu: build_bolt
+build_android_bsu: build_bolt gptbin
 	@echo "'$@' started"
+	cp -pv $(PRODUCT_OUT_FROM_TOP)/gpt.bin.gen.c $(B_BOLT_OBJ_ROOT)/gpt.bin.gen.c
 	$(MAKE) -C $(ANDROID_BSU_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT)
 	cp -pv $(B_BOLT_OBJ_ROOT)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf || :
 	@echo "'$@' completed"
 
 .PHONY: build_android_bsu_vb
-build_android_bsu_vb: build_bolt_vb
+build_android_bsu_vb: build_bolt_vb gptbin
 	@echo "'$@' started"
+	cp -pv $(PRODUCT_OUT_FROM_TOP)/gpt.bin.gen.c $(B_BOLT_OBJ_ROOT)/gpt.bin.gen.c
 	$(MAKE) -C $(ANDROID_BSU_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_LOWER) SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT)
 	cp -pv $(B_BOLT_VB_OBJ_ROOT)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/android_bsu-vb.elf || :
 	@echo "'$@' completed"
@@ -265,9 +267,25 @@ build_bootloaderimg: build_android_bsu
 	@echo "'$@' completed"
 endif
 
+.PHONY: build_bootloaderimg_vb
+build_bootloaderimg_vb: build_android_bsu_vb
+	@echo "'$@' started"
+	@if [[ -e "${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool" && -e "${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(BCHP_CHIP)" ]]; then \
+		LD_LIBRARY_PATH=${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool/imagetool -L bolt -P Generic -O ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(BCHP_CHIP)/bolt.cfg; \
+		LD_LIBRARY_PATH=${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool/imagetool -L kernel -P Generic -O ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(BCHP_CHIP)/bsu.cfg; \
+		$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/bolt-vb.signed.bin $(PRODUCT_OUT_FROM_TOP)/android_bsu-vb.signed.elf $(PRODUCT_OUT_FROM_TOP)/bootloader.vb.signed.img; \
+	else \
+		echo "Missing signing tool: ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool; or signing package for device: ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(BCHP_CHIP)"; \
+	fi
+	@echo "'$@' completed"
+
 .PHONY: clean_bootloaderimg
 clean_bootloaderimg: clean_bolt clean_android_bsu clean_bl31
 	rm -f $(PRODUCT_OUT_FROM_TOP)/bootloader.img
+
+.PHONY: clean_bootloaderimg_vb
+clean_bootloaderimg_vb: clean_bolt_vb clean_android_bsu_vb
+	rm -f $(PRODUCT_OUT_FROM_TOP)/bootloader.vb.signed.img
 
 .PHONY: clean_nexus
 clean_nexus:
