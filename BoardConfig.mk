@@ -142,3 +142,6 @@ include device/broadcom/common/middleware/build.mk
 
 # Don't dex preopt prebuilt apps that will be updated from Play Store
 DONT_DEXPREOPT_PREBUILTS := true
+
+MALLOC_SVELTE := true
+
