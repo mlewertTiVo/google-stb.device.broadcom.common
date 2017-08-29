@@ -1,4 +1,4 @@
-type netcoal, domain;
+type netcoal, domain, mlstrustedsubject;
 type netcoal_exec, exec_type, file_type;
 
 # started by init
@@ -7,6 +7,8 @@ init_daemon_domain(netcoal)
 allow netcoal property_socket:sock_file write;
 allow netcoal self:udp_socket { create ioctl };
 allow netcoal self:capability { net_raw net_admin };
+allowxperm netcoal self:udp_socket ioctl unpriv_sock_ioctls;
+allowxperm netcoal self:udp_socket ioctl priv_sock_ioctls;
 
 # For /proc/interrupts and /proc/irq
 allow netcoal proc_interrupts:file r_file_perms;
