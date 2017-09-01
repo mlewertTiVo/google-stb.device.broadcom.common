@@ -184,3 +184,5 @@ include device/broadcom/common/lk/config.mk
 include device/broadcom/common/bl31/config.mk
 endif
 
+include device/broadcom/common/middleware/bindist.mk
+
