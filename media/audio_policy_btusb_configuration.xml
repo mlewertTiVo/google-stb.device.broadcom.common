@@ -47,24 +47,6 @@
             </routes>
         </module>
 
-        <module name="atvr" halVersion="2.0">
-            <mixPorts>
-                <mixPort name="tv-remote input" role="sink">
-                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
-                             samplingRates="8000"
-                             channelMasks="AUDIO_CHANNEL_IN_MONO"/>
-                </mixPort>
-            </mixPorts>
-            <devicePorts>
-                <devicePort tagName="TV Remote Mic" type="AUDIO_DEVICE_IN_WIRED_HEADSET" role="source">
-                </devicePort>
-            </devicePorts>
-            <routes>
-                <route type="mix" sink="tv-remote input"
-                       sources="TV Remote Mic"/>
-            </routes>
-        </module>
-
         <!-- A2dp Audio HAL -->
         <xi:include href="a2dp_audio_policy_configuration.xml"/>
 
