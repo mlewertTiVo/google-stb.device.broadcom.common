@@ -14,7 +14,7 @@ ${B_NIC_OBJ_ROOT}:
 
 ifneq ($(BCM_DIST_KNLIMG_BINS),y)
 ${B_NIC_OBJ_ROOT}/driver/wl.ko: bindist_build ${B_NIC_OBJ_ROOT}
-   @echo "wl-nic.ko build done..."
+	@echo "wl-nic.ko build done..."
 
 endif
 
