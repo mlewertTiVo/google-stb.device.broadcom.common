@@ -303,7 +303,7 @@ clean_nexus:
 	rm -rf ${B_REFSW_OBJ_ROOT_2ND_ARCH}
 
 .PHONY: clean_refsw
-clean_refsw: clean_nexus clean_bolt clean_bootloaderimg clean_lk
+clean_refsw: clean_nexus clean_bootloaderimg clean_lk
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/refsw/
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxserver_*
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxmini_*
