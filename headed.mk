@@ -302,6 +302,7 @@ PRODUCT_PACKAGES += \
    android.hardware.keymaster@3.0-impl \
    android.hardware.light@2.0-impl \
    android.hardware.memtrack@1.0-impl \
+   android.hardware.memtrack@1.0-service \
    android.hardware.power@1.0-impl \
    android.hardware.thermal@1.0-impl \
    android.hardware.tv.input@1.0-impl \
