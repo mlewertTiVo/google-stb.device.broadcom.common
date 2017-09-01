@@ -264,7 +264,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     audio.primary.$(TARGET_BOARD_PLATFORM) \
     bootctrl.$(TARGET_BOARD_PLATFORM) \
-    camera.$(TARGET_BOARD_PLATFORM) \
     gralloc.$(TARGET_BOARD_PLATFORM) \
     hdmi_cec.$(TARGET_BOARD_PLATFORM) \
     hwcomposer.$(TARGET_BOARD_PLATFORM) \
