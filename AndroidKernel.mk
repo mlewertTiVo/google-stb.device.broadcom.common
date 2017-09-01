@@ -69,12 +69,6 @@ KERNEL_IMG := zImage
 endif
 KERNEL_2ND_IMG := zImage
 
-ifneq ($(LOCAL_KCONFIG_CHIP_OVERRIDE),)
-KCONFIG_CHIP := $(LOCAL_KCONFIG_CHIP_OVERRIDE)
-else
-KCONFIG_CHIP := $(BCHP_CHIP)$(BCHP_VER)
-endif
-
 .PHONY: build_kernel
 .PHONY: build_kernel_2nd_arch
 AUTOCONF_1ST_ARCH := $(LINUX_OUT_1ST_ARCH)/include/generated/autoconf.h
