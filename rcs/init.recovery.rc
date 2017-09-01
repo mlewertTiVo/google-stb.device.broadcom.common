@@ -7,9 +7,9 @@ on early-init
    export NEXUS_DEVICE_NODE /dev/mali
    setprop dyn.nx.state none
    insmod /oem/lib/nexus.ko devname="mali" config="auto_subindex=true"
-   start nxmini
 
 on init
+   start nxmini
    mkdir /config
    mount configfs none /config
    mkdir /config/usb_gadget/g1 0770 shell shell
