@@ -149,6 +149,7 @@ nexus_build_2nd_arch:
 	@echo "'$@' no-op"
 endif
 
+ifneq ($(BCM_DIST_BLIMG_BINS),y)
 .PHONY: clean_bolt
 clean_bolt: clean_android_bsu
 	rm -rf $(B_BOLT_OBJ_ROOT)
@@ -286,6 +287,15 @@ clean_bootloaderimg: clean_bolt clean_android_bsu clean_bl31
 .PHONY: clean_bootloaderimg_vb
 clean_bootloaderimg_vb: clean_bolt_vb clean_android_bsu_vb
 	rm -f $(PRODUCT_OUT_FROM_TOP)/bootloader.vb.signed.img
+else
+.PHONY: clean_bootloaderimg
+clean_bootloaderimg:
+	@echo "'$@' no-op using bins"
+
+.PHONY: build_bootloaderimg
+build_bootloaderimg:
+	@echo "'$@' no-op using bins"
+endif
 
 .PHONY: clean_nexus
 clean_nexus:
