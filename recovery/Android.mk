@@ -35,9 +35,15 @@ include $(CLEAR_VARS)
 
 NXMINI := $(call intermediates-dir-for,EXECUTABLES,nxmini)/nxmini
 
+ifneq ($(BCM_DIST_KNLIMG_BINS), y)
 EXTRA_SYSTEM_LIB_FILES := \
    ${NEXUS_BIN_DIR_1ST_ARCH}/bcmnexusfb.ko \
    ${NEXUS_BIN_DIR_1ST_ARCH}/nexus.ko
+else
+EXTRA_SYSTEM_LIB_FILES := \
+   ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/mods/$(TARGET_BOARD_PLATFORM)/bcmnexusfb.ko \
+   ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/mods/$(TARGET_BOARD_PLATFORM)/nexus.ko
+endif
 
 ifeq ($(SAGE_SUPPORT),y)
 ifeq ($(SAGE_VERSION),2x)

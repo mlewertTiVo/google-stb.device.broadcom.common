@@ -70,6 +70,7 @@ export B_REFSW_CCACHE                        := ${ANDROID_TOP}/prebuilts/misc/li
 export USE_CCACHE                            := 1
 
 export LOCAL_LINUX_VERSION                   ?= -4.1
+export LOCAL_LINUX_VERSION_NODASH            ?= 4.1
 export LINUX                                 := ${ANDROID_TOP}/kernel/private/bcm-97xxx/linux${LOCAL_LINUX_VERSION}
 export REFSW_BASE_DIR                        := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/refsw
 export ROCKFORD                              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/refsw/rockford
@@ -183,4 +184,6 @@ ifeq ($(HW_TZ_SUPPORT),y)
 include device/broadcom/common/lk/config.mk
 include device/broadcom/common/bl31/config.mk
 endif
+
+include device/broadcom/common/middleware/bindist.mk
 

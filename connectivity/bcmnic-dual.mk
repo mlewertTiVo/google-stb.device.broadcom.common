@@ -9,17 +9,14 @@ BRCM_NIC_DUAL_CHIPVER :=
 ${B_NIC_DUAL_OBJ_ROOT}:
 	mkdir -p ${B_NIC_DUAL_OBJ_ROOT}
 
-${B_NIC_DUAL_OBJ_ROOT}/driver/wl.ko: build_kernel ${B_NIC_DUAL_OBJ_ROOT}
-	cp -faR ${BROADCOM_NIC_DUAL_SOURCE_PATH}/* ${B_NIC_DUAL_OBJ_ROOT}  && cp ${BROADCOM_NIC_DUAL_SOURCE_PATH}/*.sh ${B_NIC_DUAL_OBJ_ROOT}
-	cd ${B_NIC_DUAL_OBJ_ROOT} && source ./setenv-android-stb7445.sh ${BRCM_NIC_DUAL_CHIPVER} && LINUX_OUT=${LINUX_OUT_1ST_ARCH} ./build-drv.sh ${BRCM_NIC_DUAL_TARGET}
+ifneq ($(BCM_DIST_KNLIMG_BINS),y)
+${B_NIC_DUAL_OBJ_ROOT}/driver/wl.ko: bindist_build ${B_NIC_DUAL_OBJ_ROOT}
+	@echo "wl-nic-dual.ko build done..."
 
+endif
 
 ${B_NIC_DUAL_OBJ_ROOT}/nvram.txt: ${BRCM_NIC_NVRAM_DIR}/${BRCM_NIC_NVRAM_NAME} ${B_NIC_DUAL_OBJ_ROOT}
 	cp -p $< $@
-
-.PHONY: brcm_nic_dual_driver
-brcm_nic_dual_driver: ${BRCM_NIC_DUAL_DRIVER_TARGETS}
-	@echo "'brcm_nic_dual_driver' targets: ${BRCM_NIC_DUAL_DRIVER_TARGETS}"
 
 .PHONY: clean_brcm_nic_dual_driver
 clean_brcm_nic_dual_driver:

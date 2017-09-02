@@ -27,14 +27,6 @@ BOLT_DIR_VB        := ${BRCMSTB_ANDROID_VENDOR_PATH}/bolt-vb
 ANDROID_BSU_DIR    := ${BOLT_DIR}/android
 ANDROID_BSU_DIR_VB := ${BOLT_DIR_VB}/android
 
-ifeq ($(B_REFSW_DEBUG), n)
-    BUILD_TYPE ?= release
-    SEC_LIB_MODE ?= retail
-else
-    BUILD_TYPE ?= debug
-    SEC_LIB_MODE ?= debug
-endif
-
 ifeq ($(BCHP_VER_LOWER),)
 BCHP_VER_LOWER := $(shell echo ${BCHP_VER} | tr [:upper:] [:lower:])
 endif
@@ -82,6 +74,18 @@ NEXUS_APP_CFLAGS += $(addprefix -D,$(BSAGELIB_DEFINES))
 endif
 export NEXUS_APP_CFLAGS
 
+ifneq ($(HW_WIFI_SUPPORT),n)
+ifeq ($(HW_WIFI_NIC_SUPPORT),y)
+include device/broadcom/common/connectivity/bcmnic.mk
+else
+ifeq ($(HW_WIFI_NIC_DUAL_SUPPORT),y)
+include device/broadcom/common/connectivity/bcmnic-dual.mk
+else
+include device/broadcom/common/connectivity/bcmdhd.mk
+endif
+endif
+endif
+
 define setup_nexus_toolchains
 	@if [ -d "${B_REFSW_TOOLCHAINS_INSTALL}" ]; then \
 		rm -rf ${B_REFSW_TOOLCHAINS_INSTALL}; \
@@ -112,8 +116,64 @@ define setup_nexus_toolchains
 	fi;
 endef
 
-.PHONY: nexus_build
-nexus_build: clean_recovery_ramdisk build_kernel $(NEXUS_DEPS) build_bootloaderimg build_lk
+ifneq ($(BCM_DIST_KNLIMG_BINS),y)
+.PHONY: clean_nexus
+clean_nexus:
+	rm -rf ${B_REFSW_OBJ_ROOT_1ST_ARCH}
+	rm -rf ${B_REFSW_OBJ_ROOT_2ND_ARCH}
+
+.PHONY: clean_refsw
+clean_refsw: clean_nexus clean_bootloaderimg clean_lk
+	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/refsw/
+	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxserver_*
+	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxmini_*
+
+clean : clean_refsw
+
+REFSW_BUILD_TARGETS := $(REFSW_TARGET_LIST)
+$(REFSW_BUILD_TARGETS) : nexus_build
+	@echo "'reference software (nexus) build' target: $@"
+
+ifeq ($(TARGET_2ND_ARCH),arm)
+REFSW_BUILD_TARGETS_2ND_ARCH := $(REFSW_TARGET_LIST_2ND_ARCH)
+$(REFSW_BUILD_TARGETS_2ND_ARCH) : nexus_build_2nd_arch
+	@echo "'reference software (nexus) build' target: $@"
+endif
+
+.PHONY: nexus_multi_arch
+nexus_multi_arch: nexus_build nexus_build_2nd_arch
+	@echo "$@"
+
+.PHONY: bindist_build
+bindist_build: bindist_core_build
+	@if [ "${HW_WIFI_SUPPORT}" != "n" ]; then \
+		if [ "${HW_WIFI_NIC_SUPPORT}" == "y" ]; then \
+			if [ ! -d "${B_NIC_OBJ_ROOT}" ]; then \
+				mkdir -p ${B_NIC_OBJ_ROOT}; \
+			fi; \
+			cp -faR ${BROADCOM_NIC_SOURCE_PATH}/src ${B_NIC_OBJ_ROOT}  && cp ${BROADCOM_NIC_SCRIPT_PATH}/*.sh ${B_NIC_OBJ_ROOT}; \
+			cp -faR ${BROADCOM_NIC_SOURCE_PATH}/components ${B_NIC_OBJ_ROOT}; \
+			cd ${B_NIC_OBJ_ROOT} && source ./setenv-android-stb7271.sh && ./build-drv-nic.sh ${BRCM_NIC_TARGET_NAME}; \
+		fi; \
+		if [ "${HW_WIFI_NIC_DUAL_SUPPORT}" == "y" ]; then \
+			if [ ! -d "${B_NIC_DUAL_OBJ_ROOT}" ]; then \
+				mkdir -p ${B_NIC_DUAL_OBJ_ROOT}; \
+			fi; \
+			cp -faR ${BROADCOM_NIC_DUAL_SOURCE_PATH}/* ${B_NIC_DUAL_OBJ_ROOT}  && cp ${BROADCOM_NIC_DUAL_SOURCE_PATH}/*.sh ${B_NIC_DUAL_OBJ_ROOT}; \
+			cd ${B_NIC_DUAL_OBJ_ROOT} && source ./setenv-android-stb7445.sh ${BRCM_NIC_DUAL_CHIPVER} && LINUX_OUT=${LINUX_OUT_1ST_ARCH} ./build-drv.sh ${BRCM_NIC_DUAL_TARGET}; \
+		fi; \
+		if [[ "${HW_WIFI_NIC_SUPPORT}" != "y" && "${HW_WIFI_NIC_DUAL_SUPPORT}" != "y" ]]; then \
+			if [ ! -d "${B_DHD_OBJ_ROOT}" ]; then \
+				mkdir -p ${B_DHD_OBJ_ROOT}; \
+			fi; \
+			cp -faR ${BROADCOM_DHD_SOURCE_PATH}/dhd ${B_DHD_OBJ_ROOT} && cp ${BROADCOM_DHD_SOURCE_PATH}/*.sh ${B_DHD_OBJ_ROOT}; \
+			cd ${B_DHD_OBJ_ROOT} && source ./setenv-android-stb7445.sh ${BROADCOM_WIFI_CHIPSET} && LINUX_OUT=${LINUX_OUT_1ST_ARCH} BRCM_DHD_TARGET_NVRAM_PATH=${BRCM_DHD_TARGET_NVRAM_PATH} ./bfd-drv-cfg80211.sh; \
+		fi; \
+	fi
+	@echo "'$@' completed"
+
+.PHONY: bindist_core_build
+bindist_core_build: build_kernel $(NEXUS_DEPS)
 	@echo "'$@' started"
 	$(call setup_nexus_toolchains,1st_arch)
 	@if [ ! -d "${NEXUS_BIN_DIR_1ST_ARCH}" ]; then \
@@ -129,6 +189,11 @@ nexus_build: clean_recovery_ramdisk build_kernel $(NEXUS_DEPS) build_bootloaderi
 	$(MAKE) $(NEXUS_ARCH_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/fbdev INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
 	cp -faR $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/ && \
 	$(MAKE) $(NEXUS_ARCH_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/nx_ashmem NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
+	@echo "'$@' completed"
+
+.PHONY: nexus_build
+nexus_build: clean_recovery_ramdisk build_bootloaderimg build_lk bindist_build
+	@echo "'$@' started"
 	mkdir -p ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/gator && cp -faR $(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/gator && \
 	$(MAKE) $(NEXUS_ARCH_ENV) ARCH=${P_REFSW_DRV_ARCH} -C $(LINUX_OUT_1ST_ARCH) M=${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/gator/driver modules && \
 	cp ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/gator/driver/gator.ko $(NEXUS_BIN_DIR_1ST_ARCH)
@@ -148,7 +213,9 @@ else
 nexus_build_2nd_arch:
 	@echo "'$@' no-op"
 endif
+endif
 
+ifneq ($(BCM_DIST_BLIMG_BINS),y)
 .PHONY: clean_bolt
 clean_bolt: clean_android_bsu
 	rm -rf $(B_BOLT_OBJ_ROOT)
@@ -286,33 +353,15 @@ clean_bootloaderimg: clean_bolt clean_android_bsu clean_bl31
 .PHONY: clean_bootloaderimg_vb
 clean_bootloaderimg_vb: clean_bolt_vb clean_android_bsu_vb
 	rm -f $(PRODUCT_OUT_FROM_TOP)/bootloader.vb.signed.img
+else
+.PHONY: clean_bootloaderimg
+clean_bootloaderimg:
+	@echo "'$@' no-op using bins"
 
-.PHONY: clean_nexus
-clean_nexus:
-	rm -rf ${B_REFSW_OBJ_ROOT_1ST_ARCH}
-	rm -rf ${B_REFSW_OBJ_ROOT_2ND_ARCH}
-
-.PHONY: clean_refsw
-clean_refsw: clean_nexus clean_bolt clean_bootloaderimg clean_lk
-	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/refsw/
-	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxserver_*
-	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxmini_*
-
-clean : clean_refsw
-
-REFSW_BUILD_TARGETS := $(REFSW_TARGET_LIST)
-$(REFSW_BUILD_TARGETS) : nexus_build
-	@echo "'reference software (nexus) build' target: $@"
-
-ifeq ($(TARGET_2ND_ARCH),arm)
-REFSW_BUILD_TARGETS_2ND_ARCH := $(REFSW_TARGET_LIST_2ND_ARCH)
-$(REFSW_BUILD_TARGETS_2ND_ARCH) : nexus_build_2nd_arch
-	@echo "'reference software (nexus) build' target: $@"
+.PHONY: build_bootloaderimg
+build_bootloaderimg:
+	@echo "'$@' no-op using bins"
 endif
-
-.PHONY: nexus_multi_arch
-nexus_multi_arch: nexus_build nexus_build_2nd_arch
-	@echo "$@"
 
 .PHONY: build_lk
 ifneq ($(LKROOT),)
@@ -446,15 +495,4 @@ endif
 
 ifeq ($(ANDROID_SUPPORTS_DTVKIT),y)
 include device/broadcom/common/middleware/dtvkit.mk
-endif
-ifneq ($(HW_WIFI_SUPPORT),n)
-ifeq ($(HW_WIFI_NIC_SUPPORT),y)
-include device/broadcom/common/connectivity/bcmnic.mk
-else
-ifeq ($(HW_WIFI_NIC_DUAL_SUPPORT),y)
-include device/broadcom/common/connectivity/bcmnic-dual.mk
-else
-include device/broadcom/common/connectivity/bcmdhd.mk
-endif
-endif
 endif

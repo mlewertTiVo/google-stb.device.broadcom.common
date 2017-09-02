@@ -38,6 +38,8 @@
 #
 #############################################################################
 
+ifneq ($(BCM_DIST_KNLIMG_BINS),y)
+
 ifeq (${OUT_DIR},)
 ifeq (${OUT_DIR_COMMON_BASE},)
 OUT_DIR := out
@@ -68,12 +70,6 @@ else
 KERNEL_IMG := zImage
 endif
 KERNEL_2ND_IMG := zImage
-
-ifneq ($(LOCAL_KCONFIG_CHIP_OVERRIDE),)
-KCONFIG_CHIP := $(LOCAL_KCONFIG_CHIP_OVERRIDE)
-else
-KCONFIG_CHIP := $(BCHP_CHIP)$(BCHP_VER)
-endif
 
 .PHONY: build_kernel
 .PHONY: build_kernel_2nd_arch
@@ -201,3 +197,6 @@ endif
 clean_kernel: clean_drivers
 	rm -f $(KERNEL_OUT_DIR_ABS)/kernel
 	rm -rf $(LINUX_OUT_ROOT)
+
+
+endif
