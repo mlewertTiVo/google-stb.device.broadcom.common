@@ -292,6 +292,7 @@ PRODUCT_PACKAGES += \
    android.hardware.audio@2.0-impl \
    android.hardware.audio.effect@2.0-impl \
    android.hardware.bluetooth@1.0-impl \
+   android.hardware.bluetooth@1.0-service \
    android.hardware.drm@1.0-impl \
    android.hardware.graphics.allocator@2.0-impl \
    android.hardware.graphics.allocator@2.0-service \
@@ -309,7 +310,8 @@ PRODUCT_PACKAGES += \
    android.hardware.thermal@1.0-service \
    android.hardware.tv.input@1.0-impl \
    android.hardware.tv.cec@1.0-impl \
-   android.hardware.usb@1.0-service
+   android.hardware.usb@1.0-service \
+   android.hardware.wifi@1.0-service
 
 ifneq ($(HW_AB_UPDATE_SUPPORT),n)
 PRODUCT_PACKAGES += \
