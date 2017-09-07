@@ -307,7 +307,6 @@ endif
 PRODUCT_PACKAGES += \
     audio.usb.default \
     audio.r_submix.default \
-    audio.atvr.default \
     libaudiopolicymanagerdefault \
     libaudiopolicymanager \
     libbt-vendor \
