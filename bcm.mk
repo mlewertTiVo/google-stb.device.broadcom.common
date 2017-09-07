@@ -65,6 +65,11 @@ PRODUCT_COPY_FILES += \
 
 # copy kernel image.
 ifeq ($(BCM_DIST_KNLIMG_BINS), y)
+ifneq ($(wildcard device/broadcom/${ANDROID_PRODUCT_OUT}-kernel/zImage),)
+PRODUCT_COPY_FILES += \
+   device/broadcom/${ANDROID_PRODUCT_OUT}-kernel/zImage:kernel
+else
 PRODUCT_COPY_FILES += \
    ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/arm/kernel:kernel
+endif
 endif
