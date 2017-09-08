@@ -56,7 +56,6 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
    frameworks/base/data/etc/privapp-permissions-platform.xml:system/etc/permissions/privapp-permissions-platform.xml \
-   device/broadcom/common/permissions/privapp-permissions-google.xml:system/etc/permissions/privapp-permissions-google.xml \
    device/broadcom/common/permissions/privapp-permissions-bcm.xml:system/etc/permissions/privapp-permissions-bcm.xml
 
 # hardware interface hal manifest.
@@ -64,11 +63,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
    device/broadcom/common/manifest.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
 
-# copy kernel image and associated .ko's
+# copy kernel image.
 ifeq ($(BCM_DIST_KNLIMG_BINS), y)
-ifeq ($(HW_GPU_MMU_SUPPORT),y)
+ifneq ($(wildcard device/broadcom/${ANDROID_PRODUCT_OUT}-kernel/zImage),)
 PRODUCT_COPY_FILES += \
-   ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/arm.v3dmmu/kernel:kernel
+   device/broadcom/${ANDROID_PRODUCT_OUT}-kernel/zImage:kernel
 else
 PRODUCT_COPY_FILES += \
    ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/arm/kernel:kernel
