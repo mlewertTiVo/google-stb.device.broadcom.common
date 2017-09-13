@@ -84,6 +84,9 @@ build_kernel:
 		cp -pv $(AUTOCONF_1ST_ARCH) $(AUTOCONF_1ST_ARCH)_refsw; \
 	fi
 	cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.der.x509 ${LINUX_OUT_1ST_ARCH}/
+	-@if [ -f ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
+		cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
+	fi
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment
 	echo "# CONFIG_BCM3390A0 is not set" > $(LINUX_OUT_1ST_ARCH)/config_fragment
 	echo "# CONFIG_BCM7145 is not set" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
@@ -114,6 +117,9 @@ build_kernel:
 		cp -pv $(AUTOCONF_1ST_ARCH) $(AUTOCONF_1ST_ARCH)_refsw; \
 	fi
 	cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.der.x509 ${LINUX_OUT_1ST_ARCH}/
+	-@if [ -f ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
+		cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
+	fi
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
 	echo "CONFIG_DRM_BRCM_V3D=y" >> $(LINUX_OUT_1ST_ARCH)/config_fragment;
 	cd $(LINUX) && ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm64/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment;
@@ -154,6 +160,9 @@ build_kernel:
 		cp -pv $(AUTOCONF_1ST_ARCH) $(AUTOCONF_1ST_ARCH)_refsw; \
 	fi
 	cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.der.x509 ${LINUX_OUT_1ST_ARCH}/
+	-@if [ -f ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
+		cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
+	fi
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment
 	echo "# CONFIG_BCM3390A0 is not set" > $(LINUX_OUT_1ST_ARCH)/config_fragment
 	echo "# CONFIG_BCM7145 is not set" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
