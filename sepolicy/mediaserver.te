@@ -1,5 +1,4 @@
 nexus_verified_client(mediaserver);
-nexus_communicate(mediaserver);
 nexus_debugable(mediaserver);
 set_prop(mediaserver, nexus_prop);
 

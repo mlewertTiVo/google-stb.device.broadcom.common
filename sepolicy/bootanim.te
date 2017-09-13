@@ -1,5 +1,4 @@
 nexus_verified_client(bootanim);
-nexus_communicate(bootanim);
 set_prop(bootanim, nexus_prop);
 
 allow bootanim nxserver:binder call;
