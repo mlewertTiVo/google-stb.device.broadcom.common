@@ -1,5 +1,4 @@
 nexus_verified_client_ignored(untrusted_app);
-nexus_communicate(untrusted_app);
 get_prop(untrusted_app, nexus_prop);
 
 allow untrusted_app nxserver:binder call;

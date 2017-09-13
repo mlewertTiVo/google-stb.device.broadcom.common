@@ -1,5 +1,4 @@
 nexus_verified_client(mediadrmserver);
-nexus_communicate(mediadrmserver);
 nexus_debugable(mediadrmserver);
 
 allow mediadrmserver nxserver:binder call;

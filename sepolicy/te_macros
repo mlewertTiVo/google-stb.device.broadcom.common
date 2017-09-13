@@ -17,8 +17,3 @@ define(`nexus_firmware', `
 allow $1 nexus_fw_file:dir { search read write add_name remove_name };
 allow $1 nexus_fw_file:file { open create read write setattr getattr };
 ')
-
-define(`nexus_communicate', `
-allow $1 nxserver_socket:sock_file write;
-allow $1 nxserver:unix_stream_socket connectto;
-')

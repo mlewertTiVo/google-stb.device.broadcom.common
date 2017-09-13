@@ -18,7 +18,6 @@ add_service(hwcbinder, hwcbinder_service);
 allow hwcbinder nexus_service:service_manager add;
 
 allow hwcbinder dumpstate:fd use;
-allow hwcbinder dumpstate:unix_stream_socket { read write };
 
 allow hwcbinder cgroup:dir search;
 allow hwcbinder cgroup:file { open read write };
