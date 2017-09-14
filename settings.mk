@@ -85,6 +85,7 @@ export BROADCOM_WIFI_CHIPSET                 ?= 43570a2
 export LOCAL_DEVICE_BOOT                     ?= 33554432    # 32M
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1283457024  # 1224M
 export LOCAL_DEVICE_SYSTEM_AB                ?= 769654784   # 734M
+export LOCAL_DEVICE_SAGE_DEV_N_PROD          ?= n
 
 export HW_ENCODER_SUPPORT                    ?= y
 export HW_WIFI_NIC_SUPPORT                   ?= n
@@ -122,7 +123,7 @@ export SHELL                                 := /bin/bash
 export SMP                                   := y
 export SSL_SUPPORT                           := y
 export LIVEMEDIA_SUPPORT                     := n
-export DTCP_IP_SUPPORT                       := y
+export DTCP_IP_SAGE_SUPPORT                  ?= n
 export ANDROID_USES_BORINGSSL                := y
 export NEXUS_C_STD                           := c99
 export NEXUS_EXPORT_FILE                     := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nexus_export_file.txt

@@ -88,6 +88,9 @@ PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:sys
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin:system/bin/sage_framework${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_antirollback${SAGE_BINARY_EXT}.bin:system/bin/sage_ta_antirollback${SAGE_BINARY_EXT}.bin
+ifeq ($(DTCP_IP_SAGE_SUPPORT),y)
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_dtcpip${SAGE_BINARY_EXT}.bin:system/bin/sage_ta_dtcpip${SAGE_BINARY_EXT}.bin
+endif
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin:system/bin/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video${SAGE_BINARY_EXT}.bin:system/bin/sage_ta_secure_video${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_utility${SAGE_BINARY_EXT}.bin:system/bin/sage_ta_utility${SAGE_BINARY_EXT}.bin
