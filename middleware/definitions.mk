@@ -76,7 +76,7 @@ B_BOLT_CFG_OVERRIDE          ?=
 B_BOLT_CUSTOM_OVERRIDE       ?=
 
 # local modules override for android integration of nexus functionalities.
-NEXUS_HAS_SOCKET_DRIVER      ?= y
+NEXUS_HAS_SOCKET_DRIVER      := y
 ifneq ($(NEXUS_HAS_SOCKET_DRIVER),y)
 NXCLIENT_SOCKET_INTF         := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nxsocket/nxclient_android_socket.c
 export NXCLIENT_SOCKET_INTF
@@ -106,6 +106,7 @@ export B_LK_OBJ_ROOT
 export B_BL31_OBJ_ROOT
 export B_BOLT_CFG_OVERRIDE B_BOLT_CUSTOM_OVERRIDE
 export BINDIST_BIN_DIR_1ST_ARCH BINDIST_NXC_BIN_DIR_1ST_ARCH
+export NEXUS_HAS_SOCKET_DRIVER
 
 include ${NEXUS_TOP}/platforms/common/build/nexus_platforms.inc
 export BCHP_CHIP
