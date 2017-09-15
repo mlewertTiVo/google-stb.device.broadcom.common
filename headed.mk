@@ -203,7 +203,11 @@ $(call inherit-product-if-exists, device/broadcom/common/connectivity/bcmbt-devi
 endif
 
 $(call inherit-product-if-exist, $(LOCAL_DEVICE_REFERENCE_BUILD))
+ifneq ($(LOCAL_DEVICE_DALVIK_CONFIG),)
+$(call inherit-product, $(LOCAL_DEVICE_DALVIK_CONFIG))
+else
 $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
+endif
 
 ifeq ($(LOCAL_DEVICE_USE_VERITY),y)
 $(call inherit-product, build/target/product/verity.mk)
