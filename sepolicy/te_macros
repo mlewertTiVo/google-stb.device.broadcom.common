@@ -1,0 +1,4 @@
+define(`nexus_debugable', `
+allow $1 nexus_debug_file:dir { search read write add_name remove_name };
+allow $1 nexus_debug_file:file { open create read write setattr getattr };
+')
