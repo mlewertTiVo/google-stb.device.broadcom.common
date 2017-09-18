@@ -295,7 +295,8 @@ PRODUCT_PACKAGES += \
 
 ifneq ($(HW_AB_UPDATE_SUPPORT),n)
 PRODUCT_PACKAGES += \
-   android.hardware.boot@1.0-impl
+   android.hardware.boot@1.0-impl \
+   android.hardware.boot@1.0-service
 endif
 
 ifneq ($(HW_WIFI_SUPPORT),n)
@@ -350,6 +351,8 @@ endif
 
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)
 PRODUCT_PACKAGES            += update_engine update_engine_client update_verifier
+PRODUCT_PACKAGES            += update_engine_sideload
+PRODUCT_STATIC_BOOT_CONTROL_HAL := bootctrl.$(TARGET_BOARD_PLATFORM)
 endif
 
 $(call inherit-product-if-exists, ${BCM_VENDOR_STB_ROOT}/bcm_platform/device-vendor.mk)
