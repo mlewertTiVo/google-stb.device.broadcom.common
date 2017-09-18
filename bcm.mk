@@ -28,6 +28,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    ro.gfx.driver.0=gfxdriver-bcmstb
 
+ifneq ($(filter bcm7252c%,$(TARGET_DEVICE)),)
+ifneq ($(filter userdebug eng,$(TARGET_BUILD_VARIANT)),)
+PRODUCT_PROPERTY_OVERRIDES += \
+   persist.adb.tcp.port=4321
+endif
+endif
+
 # pull in specific target based settings.
 #
 ifeq ($(LOCAL_DEVICE_TYPE),blemmyes)
