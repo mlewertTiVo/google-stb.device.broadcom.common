@@ -1,0 +1,6 @@
+allow hal_bootctl eio_block_device:blk_file rw_file_perms;
+allow hal_bootctl eio_block_device:blk_file getattr;
+allow hal_bootctl rootfs:file { open read getattr };
+allow hal_bootctl rootfs:dir  { open read search };
+allow hal_bootctl block_device:dir search;
+
