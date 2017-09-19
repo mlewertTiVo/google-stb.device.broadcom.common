@@ -365,4 +365,5 @@ PRODUCT_PACKAGES            += update_engine_sideload
 PRODUCT_STATIC_BOOT_CONTROL_HAL := bootctrl.$(TARGET_BOARD_PLATFORM)
 endif
 
+PRODUCT_COPY_FILES   += device/broadcom/common/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
 $(call inherit-product-if-exists, ${BCM_VENDOR_STB_ROOT}/bcm_platform/device-vendor.mk)
