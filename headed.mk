@@ -187,6 +187,11 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINAR
 endif
 endif
 endif
+ifeq ($(SAGE_SECURE_LOG_SUPPORT),y)
+PRODUCT_PACKAGES += \
+   libsageseclog \
+   sageseclog
+endif
 endif
 
 ifneq ($(HW_WIFI_SUPPORT),n)
