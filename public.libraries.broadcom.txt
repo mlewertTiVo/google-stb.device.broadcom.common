@@ -1,7 +1,6 @@
 libnexus.so
 libnxclient.so
-libnxwrap.so
-libnxevtsrc.so
-libnxbinder.so
+libnexusipcclient.so
+libnexusipceventlistener.so
 libbcmsideband.so
 
