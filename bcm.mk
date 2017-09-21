@@ -30,7 +30,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    ro.vendor.vndk.version=26.1.0
 
-ifneq ($(filter bcm7252c%,$(TARGET_DEVICE)),)
+ifneq ($(filter b52c%,$(TARGET_DEVICE)),)
 ifneq ($(filter userdebug eng,$(TARGET_BUILD_VARIANT)),)
 PRODUCT_PROPERTY_OVERRIDES += \
    persist.adb.tcp.port=4321
