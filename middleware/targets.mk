@@ -18,9 +18,12 @@ REFSW_TARGET_LIST := \
 	${NEXUS_BIN_DIR_1ST_ARCH}/nexus.ko \
 	${NEXUS_BIN_DIR_1ST_ARCH}/bcmnexusfb.ko \
 	${NEXUS_BIN_DIR_1ST_ARCH}/nx_ashmem.ko \
-	${NEXUS_BIN_DIR_1ST_ARCH}/droid_pm.ko \
-	\
+	${NEXUS_BIN_DIR_1ST_ARCH}/droid_pm.ko
+
+ifeq ($(LOCAL_GATOR_SUPPORT), y)
+REFSW_TARGET_LIST += \
 	${NEXUS_BIN_DIR_1ST_ARCH}/gator.ko
+endif
 
 REFSW_TARGET_LIST_2ND_ARCH :=
 ifeq ($(TARGET_2ND_ARCH),arm)
