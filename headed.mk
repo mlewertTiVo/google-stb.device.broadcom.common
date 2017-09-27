@@ -112,7 +112,9 @@ ifneq ($(BCM_DIST_KNLIMG_BINS), y)
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nx_ashmem.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nx_ashmem.ko
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nexus.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nexus.ko
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/droid_pm.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/droid_pm.ko
+ifeq ($(LOCAL_GATOR_SUPPORT), y)
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/gator.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/gator.ko
+endif
 else
 PRODUCT_COPY_FILES       += ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/mods/$(TARGET_BOARD_PLATFORM)/nx_ashmem.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nx_ashmem.ko
 PRODUCT_COPY_FILES       += ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/mods/$(TARGET_BOARD_PLATFORM)/nexus.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nexus.ko
@@ -203,7 +205,11 @@ $(call inherit-product-if-exists, device/broadcom/common/connectivity/bcmbt-devi
 endif
 
 $(call inherit-product-if-exist, $(LOCAL_DEVICE_REFERENCE_BUILD))
+ifneq ($(LOCAL_DEVICE_DALVIK_CONFIG),)
+$(call inherit-product, $(LOCAL_DEVICE_DALVIK_CONFIG))
+else
 $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
+endif
 
 ifeq ($(LOCAL_DEVICE_USE_VERITY),y)
 $(call inherit-product, build/target/product/verity.mk)
@@ -250,7 +256,6 @@ endif
 
 PRODUCT_PACKAGES += \
     e2fsck \
-    gatord \
     gptbin \
     hfrvideo \
     makehwcfg \
@@ -259,6 +264,11 @@ PRODUCT_PACKAGES += \
     nxlogger \
     nxserver \
     togplm
+
+ifeq ($(LOCAL_GATOR_SUPPORT), y)
+PRODUCT_PACKAGES += \
+    gatord
+endif
 
 # device supported hal's.
 PRODUCT_PACKAGES += \
