@@ -166,6 +166,9 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINAR
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:system/bin/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
 endif
 endif
+ifeq ($(DTCP_IP_SAGE_SUPPORT),y)
+PRODUCT_PACKAGES += libb_dtcp_ip
+endif
 endif
 endif
 
