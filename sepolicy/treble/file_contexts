@@ -1,0 +1,33 @@
+/dev/mali                 u:object_r:gpu_device:s0
+/dev/mali0                u:object_r:gpu_device:s0
+/dev/btusb0               u:object_r:bluetooth_control:s0
+/dev/ttyS1                u:object_r:bluetooth_control:s0
+/dev/sw_sync              u:object_r:sw_sync_device:s0
+/dev/hdmi_hpd             u:object_r:hdmi_hpd_device:s0
+/dev/dri/card0            u:object_r:gpu_device:s0
+
+/(vendor|system/vendor)/bin/hfrvideo u:object_r:hfrvideo_exec:s0
+/(vendor|system/vendor)/bin/hwcbinder u:object_r:hwcbinder_exec:s0
+/(vendor|system/vendor)/bin/nxserver u:object_r:nxserver_exec:s0
+/(vendor|system/vendor)/bin/netcoal u:object_r:netcoal_exec:s0
+/(vendor|system/vendor)/bin/nxdispfmt u:object_r:nxdispfmt_exec:s0
+
+/sbin/nxmini u:object_r:nxmini_exec:s0
+
+/data/misc/nexus(/.*)?    u:object_r:nexus_data_file:s0
+/data/misc/nxfw(/.*)?     u:object_r:nexus_fw_file:s0
+/data/nxmedia(/.*)?       u:object_r:nexus_debug_file:s0
+
+/data/nexus/nexus.log     u:object_r:nexus_log_file:s0
+/data/nexus/secdma(/.*)?  u:object_r:nexus_secdma_file:s0
+
+/eio(/.*)?                u:object_r:system_file:s0
+/hwcfg(/.*)?              u:object_r:system_file:s0
+
+/vendor/lib/bcm\.hardware\.nexus@1\.0-impl\.so  u:object_r:same_process_hal_file:s0
+/vendor/lib/libnexus\.so                        u:object_r:same_process_hal_file:s0
+/vendor/lib/libnxclient\.so                     u:object_r:same_process_hal_file:s0
+/vendor/lib/libnxwrap\.so                       u:object_r:same_process_hal_file:s0
+/vendor/lib/libnexusir\.so                      u:object_r:same_process_hal_file:s0
+/vendor/lib/egl/libGLES_nexus\.so               u:object_r:same_process_hal_file:s0
+/vendor/lib/libaudiopolicymanager\.so           u:object_r:same_process_hal_file:s0

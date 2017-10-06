@@ -1,0 +1,9 @@
+nexus_verified_client(hal_tv_input_default);
+set_prop(hal_tv_input_default, nexus_prop);
+vndbinder_use(hal_tv_input_default);
+allow hal_tv_input_default hwcbinder_service:service_manager { find };
+binder_call(hal_tv_input_default, hwcbinder);
+binder_call(hal_tv_input_default, nxserver);
+
+allow hal_tv_input_default gpu_device:chr_file rw_file_perms;
+

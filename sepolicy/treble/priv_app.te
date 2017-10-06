@@ -1,0 +1,3 @@
+nexus_verified_client(priv_app);
+nexus_hwservice(priv_app);
+get_prop(priv_app, nexus_prop);

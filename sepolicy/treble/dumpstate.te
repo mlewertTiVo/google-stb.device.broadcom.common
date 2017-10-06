@@ -1,0 +1,2 @@
+nexus_hwservice(dumpstate);
+allow dumpstate hwcbinder:binder call;

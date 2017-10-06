@@ -1,0 +1,2 @@
+nexus_hwservice(adbd);
+get_prop(adbd, nexus_prop);
