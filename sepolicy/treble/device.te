@@ -1,0 +1,2 @@
+type hdmi_hpd_device, dev_type;
+type eio_block_device, dev_type;

@@ -1,0 +1,11 @@
+allow servicemanager init:dir search;
+allow servicemanager init:file { read open };
+allow servicemanager init:process getattr;
+
+allow servicemanager nxserver:dir search;
+allow servicemanager nxserver:file { read open };
+allow servicemanager nxserver:process getattr;
+
+allow servicemanager hal_graphics_allocator_default:dir search;
+allow servicemanager hal_graphics_allocator_default:file { read open };
+allow servicemanager hal_graphics_allocator_default:process getattr;
