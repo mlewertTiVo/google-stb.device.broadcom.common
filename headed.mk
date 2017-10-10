@@ -337,6 +337,10 @@ PRODUCT_PACKAGES += \
    android.hardware.tv.cec@1.0-service \
    android.hardware.tv.input@1.0-service \
    bcm.hardware.nexus@1.0-impl
+ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
+PRODUCT_PACKAGES += \
+   android.hardware.drm@1.0-service.widevine
+endif
 endif
 
 PRODUCT_PACKAGES += \
