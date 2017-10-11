@@ -26,7 +26,7 @@
 #include <sys/mman.h>
 #include <errno.h>
 #include "edify/expr.h"
-#include "error_code.h"
+#include "otautil/error_code.h"
 
 #include <memory>
 #include <string>
