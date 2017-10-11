@@ -6,5 +6,5 @@ binder_call(hal_graphics_composer_default, hwcbinder);
 binder_call(hal_graphics_composer_default, nxserver);
 
 allow hal_graphics_composer_default gpu_device:chr_file rw_file_perms;
-allow hal_graphics_composer_default ion_device:chr_file { open ioctl read write };
+allow hal_graphics_composer_default nxmem_device:chr_file rw_file_perms;
 allow hal_graphics_composer_default sw_sync_device:chr_file { open ioctl read write };

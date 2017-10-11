@@ -9,4 +9,4 @@ allow mediaserver readonlyfs:file { read open getattr };
 allow mediaserver readonlyfs:dir search;
 allow mediaserver self:netlink_kobject_uevent_socket { create bind read };
 allow mediaserver nexus_service:service_manager find;
-allow mediaserver ion_device:chr_file { open ioctl read write };
+allow mediaserver nxmem_device:chr_file rw_file_perms;

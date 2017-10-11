@@ -53,7 +53,7 @@ allow nxserver proc:file { read open };
 allow nxserver self:capability sys_nice;
 allow nxserver sysfs_devices_system_cpu:dir search;
 allow nxserver debugfs:dir search;
-allow nxserver ion_device:chr_file { open ioctl read write };
+allow nxserver nxmem_device:chr_file { open ioctl read write };
 allow nxserver kernel:system module_request;
 
 allow nxserver self:capability { sys_nice };

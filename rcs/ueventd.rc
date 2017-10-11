@@ -10,6 +10,6 @@
 # nexus in disguise...
 /dev/mali                 0666   root       root
 /dev/mali0                0666   root       root
-/dev/ion                  0666   root       root
 
+/dev/nxmem                0666   root       root
 /dev/dri/card*            0666   root       root

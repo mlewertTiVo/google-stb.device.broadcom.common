@@ -2,3 +2,4 @@ allow adbd nxserver:binder call;
 allow adbd nexus_service:service_manager find;
 
 get_prop(adbd, nexus_prop);
+allow adbd nxmem_device:chr_file rw_file_perms;
