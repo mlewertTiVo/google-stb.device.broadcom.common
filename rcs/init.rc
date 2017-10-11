@@ -93,7 +93,6 @@ on property:sys.gator=1
 
 on property:dev.bootcomplete=1
    setprop sys.init_log_level 4
-   write /proc/sys/kernel/printk 4
 
 on property:sys.shutdown.requested=*
    write /sys/devices/platform/droid_pm/notify shutdown

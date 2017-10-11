@@ -6,5 +6,5 @@ nexus_debugable(surfaceflinger);
 allow surfaceflinger hwcbinder:binder { transfer call };
 allow surfaceflinger nxserver:binder { transfer call };
 allow surfaceflinger sw_sync_device:chr_file { open ioctl read write };
-allow surfaceflinger ion_device:chr_file { open ioctl read write };
+allow surfaceflinger nxmem_device:chr_file rw_file_perms;
 allow surfaceflinger nexus_service:service_manager find;

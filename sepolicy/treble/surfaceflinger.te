@@ -5,4 +5,4 @@ hal_server_domain(surfaceflinger, hal_graphics_allocator)
 nexus_debugable(surfaceflinger);
 
 allow surfaceflinger sw_sync_device:chr_file { open ioctl read write };
-allow surfaceflinger ion_device:chr_file { open ioctl read write };
+allow surfaceflinger nxmem_device:chr_file r_file_perms;

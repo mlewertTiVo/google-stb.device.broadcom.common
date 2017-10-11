@@ -3,4 +3,4 @@ get_prop(hal_power, nexus_prop);
 hwbinder_use(hal_power);
 
 allow hal_power gpu_device:chr_file rw_file_perms;
-allow hal_power ion_device:chr_file { open ioctl read write };
+allow hal_power nxmem_device:chr_file { open ioctl read write };

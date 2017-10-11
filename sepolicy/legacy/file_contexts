@@ -5,6 +5,7 @@
 /dev/sw_sync              u:object_r:sw_sync_device:s0
 /dev/hdmi_hpd             u:object_r:hdmi_hpd_device:s0
 /dev/dri/card0            u:object_r:gpu_device:s0
+/dev/nxmem                u:object_r:nxmem_device:s0
 
 # standard targets.
 /vendor/bin/hfrvideo u:object_r:hfrvideo_exec:s0
