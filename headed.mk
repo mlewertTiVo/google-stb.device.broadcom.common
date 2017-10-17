@@ -333,6 +333,7 @@ PRODUCT_PACKAGES += \
    android.hardware.drm@1.0-service \
    android.hardware.graphics.composer@2.1-service \
    android.hardware.renderscript@1.0-impl \
+   android.hardware.soundtrigger@2.0-impl \
    android.hardware.power@1.0-service \
    android.hardware.tv.cec@1.0-service \
    android.hardware.tv.input@1.0-service \
