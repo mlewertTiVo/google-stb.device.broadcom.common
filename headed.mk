@@ -209,7 +209,7 @@ ifneq ($(filter usb uart,$(ANDROID_ENABLE_BT)),)
 $(call inherit-product-if-exists, device/broadcom/common/connectivity/bcmbt-device.mk)
 endif
 
-$(call inherit-product-if-exist, $(LOCAL_DEVICE_REFERENCE_BUILD))
+$(call inherit-product-if-exists, $(LOCAL_DEVICE_REFERENCE_BUILD))
 ifneq ($(LOCAL_DEVICE_DALVIK_CONFIG),)
 $(call inherit-product, $(LOCAL_DEVICE_DALVIK_CONFIG))
 else
