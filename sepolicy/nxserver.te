@@ -5,6 +5,11 @@ type nxserver_exec, exec_type, file_type;
 init_daemon_domain(nxserver)
 wakelock_use(nxserver)
 
+nexus_verified_client(nxserver);
+nexus_debugable(nxserver);
+nexus_firmware(nxserver);
+set_prop(nxserver, nexus_prop);
+
 allow nxserver self:capability { sys_module };
 allow nxserver shell_exec:file { read open execute };
 allow nxserver device:dir { write add_name };
@@ -30,8 +35,6 @@ allow nxserver system_server:binder call;
 allow nxserver system_server:binder transfer;
 allow nxserver dumpstate:fd use;
 allow nxserver dumpstate:unix_stream_socket { read write };
-allow nxserver nexus_data_file:dir { search setattr write add_name };
-allow nxserver nexus_data_file:file { open create read write setattr getattr };
 allow nxserver self:netlink_kobject_uevent_socket { create bind read };
 allow nxserver readonlyfs:file { read open getattr};
 allow nxserver readonlyfs:dir search;
@@ -61,8 +64,6 @@ allow nxserver nexus_secdma_file:file { open create read write setattr getattr u
 allow nxserver nexus_secdma_file:dir { search setattr write add_name remove_name };
 allow nxserver nexus_prop:property_service set;
 allow nxserver self:capability { sys_nice };
-allow nxserver nexus_debug_file:dir { search read write add_name remove_name };
-allow nxserver nexus_debug_file:file { open create read write setattr getattr };
 
 allow nxserver proc:file getattr;
 allow nxserver sysfs:lnk_file { read getattr open write };
@@ -72,8 +73,3 @@ allow nxserver tmpfs:lnk_file read;
 allow nxserver sysfs:dir { open read };
 allow nxserver sysfs:file { read write getattr open };
 allow nxserver sysfs_devices_system_cpu:file { open read write getattr };
-
-allow nxserver nexus_fw_file:dir { search read write add_name remove_name };
-allow nxserver nexus_fw_file:file { open create read write setattr getattr };
-
-set_prop(nxserver, nexus_prop);
