@@ -12,8 +12,8 @@ BRCM_DHD_FW_NAME    ?= pcie-ag-pktctx-splitrx-amsdutx-idauth-idsup-tdls-txbf-p2p
 BRCM_DHD_NVRAM_NAME ?= bcm4365.nvm
 endif
 ifeq ($(BROADCOM_WIFI_CHIPSET), 43602a1)
-BRCM_DHD_FW_NAME    ?= pcie-ag-pktctx-splitrx-amsdutx-txbf-p2p-mchan-idauth-idsup-tdls-mfp-sr-proptxstatus-pktfilter-wowlpf-ampduhostreorder-keepalive-slvradar-wnmbsstrans.bin
-BRCM_DHD_NVRAM_NAME ?= bcm43602.nvm
+BRCM_DHD_FW_NAME    ?= pcie-ag-pktctx-splitrx-amsdutx-txbf-p2p-mchan-idauth-idsup-tdls-mfp-sr-proptxstatus-pktfilter-wowlpf-ampduhostreorder-keepalive-slvradar-wnmbsstrans-gtkoe.bin
+BRCM_DHD_NVRAM_NAME ?= fake43602.txt
 endif
 ifeq ($(BROADCOM_WIFI_CHIPSET), 43570a2)
 BRCM_DHD_FW_NAME    ?= pcie-ag-pktctx-splitrx-amsdutx-txbf-p2p-mchan-idauth-idsup-tdls-mfp-sr-proptxstatus-pktfilter-wowlpf-ampduhostreorder-keepalive-wfds-bdo-ak.bin
