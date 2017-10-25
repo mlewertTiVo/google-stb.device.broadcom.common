@@ -26,9 +26,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
    sys.display-size=1920x1080 \
    ro.nx.colordepth10b.force=1 \
    \
-   ro.gfx.driver.0=gfxdriver-bcmstb
+   ro.gfx.driver.0=gfxdriver-bcmstb \
+   \
+   ro.vendor.vndk.version=26.1.0
 
-ifneq ($(filter bcm7252c%,$(TARGET_DEVICE)),)
+ifneq ($(filter b52c%,$(TARGET_DEVICE)),)
 ifneq ($(filter userdebug eng,$(TARGET_BUILD_VARIANT)),)
 PRODUCT_PROPERTY_OVERRIDES += \
    persist.adb.tcp.port=4321
@@ -80,3 +82,8 @@ PRODUCT_COPY_FILES += \
    ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/arm/kernel:kernel
 endif
 endif
+
+# vndk.
+#
+PRODUCT_PACKAGES += \
+   $(TARGET_BOARD_PLATFORM)-vndk

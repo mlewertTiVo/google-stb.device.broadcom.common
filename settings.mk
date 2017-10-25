@@ -19,7 +19,7 @@ export TARGET_BOARD_PLATFORM                 := ${ANDROID_PRODUCT_OUT}
 # board to the system, you may want to add it here too.
 #
 export BCM_RBOARDS                           := avko% banff% cypress% dawson% elfin%
-export BCM_DBOARDS                           := bcm7%
+export BCM_DBOARDS                           := b4% b5% b6% b7%
 export BCM_CBOARDS                           ?= fbx% c71kw%
 
 export BCM_VENDOR_STB_ROOT                   := vendor/broadcom
