@@ -1,0 +1,4 @@
+on init
+   # setup box mode 5 for this device.
+   export B_REFSW_BOXMODE 5
+
