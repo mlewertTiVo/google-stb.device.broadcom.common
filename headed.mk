@@ -99,6 +99,7 @@ endif
 PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf
 # all those are defined per device, in the device configuration.
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RCS}
+PRODUCT_COPY_FILES       += device/broadcom/common/rcs/rts/init.rts_$(LOCAL_DEVICE_RTS_MODE).rc:root/init.rts.rc
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_MEDIA}
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RECOVERY_RCS}
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_FSTAB}
