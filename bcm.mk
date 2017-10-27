@@ -69,8 +69,12 @@ PRODUCT_COPY_FILES += \
 #   ro.control_privapp_permission=enforce
 
 PRODUCT_COPY_FILES += \
-   frameworks/base/data/etc/privapp-permissions-platform.xml:system/etc/permissions/privapp-permissions-platform.xml \
    device/broadcom/common/permissions/privapp-permissions-bcm.xml:system/etc/permissions/privapp-permissions-bcm.xml
+
+ifneq ($(TARGET_BUILD_PDK),true)
+PRODUCT_COPY_FILES += \
+   frameworks/base/data/etc/privapp-permissions-platform.xml:system/etc/permissions/privapp-permissions-platform.xml
+endif
 
 # hardware interface hal manifest.
 #

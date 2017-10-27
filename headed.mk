@@ -22,7 +22,11 @@ ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
 PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/common/rcs/google_aware.xml:system/etc/permissions/google_aware.xml
 endif
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/locales_full.mk)
+# prior to android-p
+$(call inherit-product-if-exists, $(SRC_TARGET_DIR)/product/locales_full.mk)
+# android-p onward
+$(call inherit-product-if-exists, $(SRC_TARGET_DIR)/product/languages_full.mk)
+
 $(call inherit-product, device/google/atv/products/atv_base.mk)
 include device/broadcom/common/settings.mk
 # include the gms packages and configuration
@@ -405,10 +409,12 @@ endif
 endif
 endif
 
+ifneq ($(TARGET_BUILD_PDK),true)
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)
 PRODUCT_PACKAGES            += update_engine update_engine_client update_verifier
 PRODUCT_PACKAGES            += update_engine_sideload
 PRODUCT_STATIC_BOOT_CONTROL_HAL := bootctrl.$(TARGET_BOARD_PLATFORM)
+endif
 endif
 
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
