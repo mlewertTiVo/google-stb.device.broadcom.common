@@ -7,9 +7,6 @@ VNDK_SP_LIBRARIES := \
     android.hardware.graphics.common@1.0 \
     android.hardware.renderscript@1.0 \
     android.hidl.memory@1.0 \
-    libRSCpuRef \
-    libRSDriver \
-    libRS_internal \
     libbacktrace \
     libbase \
     libbcinfo \
@@ -29,6 +26,13 @@ VNDK_SP_LIBRARIES := \
     libunwind \
     libunwindstack \
     libutils
+
+ifneq ($(TARGET_BUILD_PDK),true)
+VNDK_SP_LIBRARIES += \
+    libRSCpuRef \
+    libRSDriver \
+    libRS_internal
+endif
 else
 VNDK_SP_LIBRARIES := \
     android.hardware.graphics.common@1.0 \
