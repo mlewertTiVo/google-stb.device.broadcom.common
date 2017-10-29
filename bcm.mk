@@ -30,7 +30,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    ro.vendor.vndk.version=26.1.0
 
-ifneq ($(filter b52c%,$(TARGET_DEVICE)),)
+ifeq ($(filter b52c%,$(ANDROID_PRODUCT_OUT)),)
 ifneq ($(filter userdebug eng,$(TARGET_BUILD_VARIANT)),)
 PRODUCT_PROPERTY_OVERRIDES += \
    persist.adb.tcp.port=4321
@@ -86,4 +86,4 @@ endif
 # vndk.
 #
 PRODUCT_PACKAGES += \
-   $(TARGET_BOARD_PLATFORM)-vndk
+   $(ANDROID_PRODUCT_OUT)-vndk
