@@ -1,13 +1,11 @@
-allow surfaceflinger hwcbinder:binder { transfer call };
-allow surfaceflinger nxserver:binder { transfer call };
-allow surfaceflinger nxserver:unix_stream_socket connectto;
-allow surfaceflinger nexus_data_file:dir { search read };
-allow surfaceflinger nexus_data_file:file { read open getattr };
-allow surfaceflinger sw_sync_device:chr_file { open ioctl read write };
-allow surfaceflinger ion_device:chr_file { open ioctl read write };
-allow surfaceflinger nxserver_socket:sock_file write;
-allow surfaceflinger nexus_service:service_manager find;
-
+nexus_verified_client(surfaceflinger);
+nexus_communicate(surfaceflinger);
 set_prop(surfaceflinger, nexus_prop);
 hal_server_domain(surfaceflinger, hal_graphics_allocator)
 nexus_debugable(surfaceflinger);
+
+allow surfaceflinger hwcbinder:binder { transfer call };
+allow surfaceflinger nxserver:binder { transfer call };
+allow surfaceflinger sw_sync_device:chr_file { open ioctl read write };
+allow surfaceflinger ion_device:chr_file { open ioctl read write };
+allow surfaceflinger nexus_service:service_manager find;

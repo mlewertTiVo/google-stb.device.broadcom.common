@@ -1,11 +1,6 @@
-dontaudit bluetooth nexus_data_file:dir search;
-dontaudit bluetooth nexus_data_file:file { read getattr open };
+nexus_verified_client_ignored(bluetooth);
+nexus_communicate(bluetooth);
 set_prop(bluetooth, nexus_prop);
 
-allow bluetooth bluetooth_control:chr_file { rw_file_perms };
-allow bluetooth nxserver:unix_stream_socket connectto;
 allow bluetooth nxserver:binder call;
-allow bluetooth nxserver_socket:sock_file write;
 allow bluetooth nexus_service:service_manager find;
-allow bluetooth proc_bluetooth_writable:dir search;
-allow bluetooth sysfs:file write;

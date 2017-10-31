@@ -1,10 +1,8 @@
-allow untrusted_app_25 nxserver:binder call;
-allow untrusted_app_25 nxserver:unix_stream_socket connectto;
-allow untrusted_app_25 proc_sysrq:file getattr;
-allow untrusted_app_25 hwcbinder:binder { transfer call };
-allow untrusted_app_25 nxserver_socket:sock_file write;
-allow untrusted_app_25 nexus_service:service_manager find;
+nexus_verified_client_ignored(untrusted_app_25);
+nexus_communicate(untrusted_app_25);
 get_prop(untrusted_app_25, nexus_prop);
 
-dontaudit untrusted_app_25 nexus_data_file:dir search;
-dontaudit untrusted_app_25 nexus_data_file:file { read getattr open };
+allow untrusted_app_25 nxserver:binder call;
+allow untrusted_app_25 proc_sysrq:file getattr;
+allow untrusted_app_25 hwcbinder:binder { transfer call };
+allow untrusted_app_25 nexus_service:service_manager find;
