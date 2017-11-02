@@ -145,3 +145,6 @@ DONT_DEXPREOPT_PREBUILTS := true
 
 # Don't uncompress dex files in priv apps APKs to save on space.
 DONT_UNCOMPRESS_PRIV_APPS_DEXS := true
+
+MALLOC_SVELTE := true
+

@@ -5,6 +5,9 @@ bluetooth_domain(bcmstb_app)
 
 create_pty(bcmstb_app)
 
+nexus_verified_client(bcmstb_app);
+nexus_communicate(bcmstb_app);
+
 allow bcmstb_app shell_data_file:file r_file_perms;
 allow bcmstb_app shell_data_file:dir r_dir_perms;
 
@@ -16,11 +19,7 @@ allow bcmstb_app media_rw_data_file:file create_file_perms;
 allow bcmstb_app cache_file:dir create_dir_perms;
 allow bcmstb_app cache_file:file create_file_perms;
 allow bcmstb_app nxserver:binder call;
-allow bcmstb_app nxserver:unix_stream_socket connectto;
-allow bcmstb_app nexus_data_file:dir { search read };
-allow bcmstb_app nexus_data_file:file { read open getattr };
 allow bcmstb_app hwcbinder:binder { transfer call };
-allow bcmstb_app nxserver_socket:sock_file write;
 allow bcmstb_app readonlyfs:file { read open getattr };
 allow bcmstb_app readonlyfs:dir search;
 allow bcmstb_app media_data_file:dir create_dir_perms;
@@ -45,6 +44,7 @@ allow bcmstb_app tv_input_service:service_manager find;
 allow bcmstb_app textservices_service:service_manager find;
 allow bcmstb_app input_service:service_manager find;
 allow bcmstb_app content_service:service_manager find;
+allow bcmstb_app notification_service:service_manager find;
 
 neverallow bcmstb_app domain:netlink_kobject_uevent_socket *;
 neverallow bcmstb_app domain:netlink_socket *;
@@ -52,4 +52,3 @@ neverallow bcmstb_app debugfs:file read;
 
 allow bcmstb_app cgroup:dir search;
 allow bcmstb_app cgroup:file { open read write };
-

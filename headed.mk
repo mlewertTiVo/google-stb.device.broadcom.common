@@ -187,6 +187,11 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINAR
 endif
 endif
 endif
+ifeq ($(SAGE_SECURE_LOG_SUPPORT),y)
+PRODUCT_PACKAGES += \
+   libsageseclog \
+   sageseclog
+endif
 endif
 
 ifneq ($(HW_WIFI_SUPPORT),n)
@@ -204,7 +209,7 @@ ifneq ($(filter usb uart,$(ANDROID_ENABLE_BT)),)
 $(call inherit-product-if-exists, device/broadcom/common/connectivity/bcmbt-device.mk)
 endif
 
-$(call inherit-product-if-exist, $(LOCAL_DEVICE_REFERENCE_BUILD))
+$(call inherit-product-if-exists, $(LOCAL_DEVICE_REFERENCE_BUILD))
 ifneq ($(LOCAL_DEVICE_DALVIK_CONFIG),)
 $(call inherit-product, $(LOCAL_DEVICE_DALVIK_CONFIG))
 else
@@ -218,7 +223,7 @@ PRODUCT_SYSTEM_VERITY_PARTITION := $(LOCAL_DEVICE_SYSTEM_VERITY_PARTITION)
 ifneq ($(LOCAL_NVI_LAYOUT),y)
 PRODUCT_VENDOR_VERITY_PARTITION := $(LOCAL_DEVICE_VENDOR_VERITY_PARTITION)
 endif
-RODUCT_PACKAGES                 += slideshow verity_warning_images
+PRODUCT_PACKAGES                += slideshow verity_warning_images
 PRODUCT_COPY_FILES              += frameworks/native/data/etc/android.software.verified_boot.xml:system/etc/permissions/android.software.verified_boot.xml
 endif
 
@@ -287,6 +292,7 @@ PRODUCT_PACKAGES += \
    android.hardware.audio@2.0-impl \
    android.hardware.audio.effect@2.0-impl \
    android.hardware.bluetooth@1.0-impl \
+   android.hardware.bluetooth@1.0-service \
    android.hardware.drm@1.0-impl \
    android.hardware.graphics.allocator@2.0-impl \
    android.hardware.graphics.allocator@2.0-service \
@@ -295,13 +301,18 @@ PRODUCT_PACKAGES += \
    android.hardware.graphics.composer@2.1-impl \
    android.hardware.graphics.mapper@2.0-impl \
    android.hardware.keymaster@3.0-impl \
+   android.hardware.keymaster@3.0-service \
    android.hardware.light@2.0-impl \
+   android.hardware.light@2.0-service \
    android.hardware.memtrack@1.0-impl \
+   android.hardware.memtrack@1.0-service \
    android.hardware.power@1.0-impl \
    android.hardware.thermal@1.0-impl \
+   android.hardware.thermal@1.0-service \
    android.hardware.tv.input@1.0-impl \
    android.hardware.tv.cec@1.0-impl \
-   android.hardware.usb@1.0-service
+   android.hardware.usb@1.0-service \
+   android.hardware.wifi@1.0-service
 
 ifneq ($(HW_AB_UPDATE_SUPPORT),n)
 PRODUCT_PACKAGES += \
@@ -367,4 +378,5 @@ PRODUCT_STATIC_BOOT_CONTROL_HAL := \
     libcutils
 endif
 
+PRODUCT_COPY_FILES   += device/broadcom/common/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
 $(call inherit-product-if-exists, ${BCM_VENDOR_STB_ROOT}/bcm_platform/device-vendor.mk)

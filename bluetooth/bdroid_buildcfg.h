@@ -19,6 +19,7 @@
 
 #define BTM_DEF_LOCAL_NAME   "Android Bluedroid"
 
+#define BLE_VND_INCLUDED     TRUE
 #define BLE_PRIVACY_SPT      FALSE
 
 // Change I/O capabilities to output only so pairing uses passkey instead of pin

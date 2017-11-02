@@ -4,9 +4,8 @@ type hwcbinder_exec, exec_type, file_type;
 # started by init
 init_daemon_domain(hwcbinder)
 
-allow hwcbinder self:capability {
-    sys_nice
-};
+nexus_verified_client(hwcbinder);
+allow hwcbinder self:capability { sys_nice };
 
 allow hwcbinder servicemanager:binder { call transfer };
 allow hwcbinder surfaceflinger:binder { call transfer };
@@ -20,9 +19,6 @@ allow hwcbinder nexus_service:service_manager add;
 
 allow hwcbinder dumpstate:fd use;
 allow hwcbinder dumpstate:unix_stream_socket { read write };
-
-allow hwcbinder nexus_data_file:dir { search read };
-allow hwcbinder nexus_data_file:file { read open getattr };
 
 allow hwcbinder cgroup:dir search;
 allow hwcbinder cgroup:file { open read write };
