@@ -2,7 +2,7 @@
 BRCM_NIC_PATH      := ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/brcm_nic
 BRCM_NIC_KO_NAME   := wl.ko
 BRCM_NIC_NVRAM_DIR ?= ${BROADCOM_NIC_SOURCE_PATH}/components/nvram
-ifeq ($(TARGET_PRODUCT), BCM97271WLAN)
+ifeq ($(TARGET_PRODUCT), b71wlan)
 BRCM_NIC_NVRAM_NAME ?= bcm97271wlan.txt
 else
 BRCM_NIC_NVRAM_NAME ?= bcm97271sv.txt
