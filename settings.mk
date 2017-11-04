@@ -87,6 +87,7 @@ export BOLT_IMG_TO_USE_OVERRIDE              ?= bolt-bb.bin
 export BROADCOM_WIFI_CHIPSET                 ?= 43570a2
 export LOCAL_NVI_LAYOUT                      ?= n
 export LOCAL_DEVICE_BOOT                     ?= 33554432    # 32M
+export LOCAL_DEVICE_RECOVERY_LEGACY          ?= 33554432    # 32M
 ifneq ($(LOCAL_NVI_LAYOUT),y)
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1048576000  # 1000M
 export LOCAL_DEVICE_VENDOR_LEGACY            ?= 234881024   # 224M
