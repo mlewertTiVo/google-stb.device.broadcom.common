@@ -9,3 +9,5 @@ type proc_interrupts, fs_type;
 type proc_irq, fs_type;
 type nexus_secdma_file, file_type, data_file_type;
 type nexus_fw_file, file_type, data_file_type;
+type debugfs_dri, fs_type, mlstrustedobject;
+allow debugfs_dri { debugfs }:filesystem associate;

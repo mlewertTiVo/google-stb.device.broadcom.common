@@ -23,3 +23,5 @@
 
 /eio(/.*)?                u:object_r:system_file:s0
 /hwcfg(/.*)?              u:object_r:system_file:s0
+
+/sys/kernel/debug/dri(/.*)?   u:object_r:debugfs_dri:s0
