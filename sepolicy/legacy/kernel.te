@@ -1,6 +1,4 @@
 allow kernel self:capability mknod;
-allow kernel device:blk_file create;
-allow kernel device:blk_file setattr;
 allow kernel adbd:process sigkill;
 allow kernel platform_app:process sigkill;
 allow kernel shell:process sigkill;
