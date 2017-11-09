@@ -115,6 +115,7 @@ export BCM_APP_CUSTOM                        ?= n
 export HW_HVD_REVISION                       ?= R
 export HW_HVD_REDUX                          ?= n
 export HAL_GR_VERSION                        ?= v-0.x
+export DTCP_IP_SAGE_SUPPORT                  ?= n
 
 export BCM_GPT_CONFIG_FILE                   := $(LOCAL_DEVICE_GPT)
 export ANDROID_BUILD                         := y
@@ -141,7 +142,6 @@ export SHELL                                 := /bin/bash
 export SMP                                   := y
 export SSL_SUPPORT                           := y
 export LIVEMEDIA_SUPPORT                     := n
-export DTCP_IP_SAGE_SUPPORT                  := y
 export ANDROID_USES_BORINGSSL                := y
 export NEXUS_C_STD                           := c99
 export NEXUS_EXPORT_FILE                     := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nexus_export_file.txt
