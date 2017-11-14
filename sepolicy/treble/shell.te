@@ -1,0 +1,2 @@
+nexus_hwservice(shell);
+get_prop(shell, nexus_prop);

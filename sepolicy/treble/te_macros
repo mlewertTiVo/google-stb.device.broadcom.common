@@ -1,0 +1,33 @@
+define(`nexus_verified_client', `
+allow $1 nexus_data_file:dir { search read };
+allow $1 nexus_data_file:file { read open getattr };
+')
+
+define(`nexus_verified_client_ignored', `
+dontaudit $1 nexus_data_file:dir { search };
+dontaudit $1 nexus_data_file:file { read open getattr };
+')
+
+define(`nexus_debugable', `
+allow $1 nexus_debug_file:dir { search read write add_name remove_name };
+allow $1 nexus_debug_file:file { open create read write setattr getattr };
+')
+
+define(`nexus_firmware', `
+allow $1 nexus_fw_file:dir { search read write add_name remove_name };
+allow $1 nexus_fw_file:file { open create read write setattr getattr };
+')
+
+define(`nexus_secdma', `
+allow $1 nexus_secdma_file:file { open create read write setattr getattr unlink };
+allow $1 nexus_secdma_file:dir { search setattr write add_name remove_name };
+')
+
+define(`nexus_hwservice', `
+hwbinder_use($1);
+allow $1 vnd_nexus_hwservice:hwservice_manager find;
+allow $1 nxserver:binder call;
+allow $1 nxserver:binder transfer;
+')
+
+

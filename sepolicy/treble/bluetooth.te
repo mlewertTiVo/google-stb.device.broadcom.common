@@ -1,0 +1,4 @@
+nexus_verified_client_ignored(bluetooth);
+nexus_hwservice(bluetooth);
+set_prop(bluetooth, nexus_prop);
+

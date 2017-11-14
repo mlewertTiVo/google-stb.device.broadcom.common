@@ -1,0 +1,5 @@
+nexus_verified_client(bootanim);
+nexus_hwservice(bootanim);
+set_prop(bootanim, nexus_prop);
+
+

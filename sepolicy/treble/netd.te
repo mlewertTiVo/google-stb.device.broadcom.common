@@ -1,0 +1,4 @@
+dontaudit netd self:capability sys_module;
+
+allow netd kernel:system module_request;
+

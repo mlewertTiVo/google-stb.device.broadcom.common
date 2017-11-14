@@ -115,7 +115,11 @@ endif
 TARGET_RECOVERY_UI_LIB         := librecovery_ui_ext
 TARGET_RECOVERY_PIXEL_FORMAT   := "RGBX_8888"
 
-BOARD_SEPOLICY_DIRS += device/broadcom/common/sepolicy
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+BOARD_SEPOLICY_DIRS += device/broadcom/common/sepolicy/treble
+else
+BOARD_SEPOLICY_DIRS += device/broadcom/common/sepolicy/legacy
+endif
 BOARD_SEPOLICY_DIRS += $(LOCAL_DEVICE_SEPOLICY_BLOCK)
 
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
