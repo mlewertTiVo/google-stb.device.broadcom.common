@@ -1,6 +1,7 @@
 nexus_verified_client(hal_tv_cec_default);
 set_prop(hal_tv_cec_default, nexus_prop);
 vndbinder_use(hal_tv_cec_default);
+nexus_hwservice(hal_tv_cec_default);
 allow hal_tv_cec_default hwcbinder_service:service_manager { find };
 binder_call(hal_tv_cec_default, hwcbinder);
 binder_call(hal_tv_cec_default, nxserver);
