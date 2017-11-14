@@ -129,6 +129,7 @@ export NEXUS_ANDROID_SUPPORT                 := y
 export NEXUS_MODE                            := proxy  # fixed!
 export NEXUS_KEYPAD_SUPPORT                  := n
 export NEXUS_LOGGER_EXTERNAL                 := y
+export NEXUS_LOGGER_LOCATION                 := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nxlogger
 export NEXUS_PLATFORM_7241_WIFI              := n
 export NEXUS_POWER_MANAGEMENT                := y
 export NEXUS_REPLACE_BOILERPLATE             := y
