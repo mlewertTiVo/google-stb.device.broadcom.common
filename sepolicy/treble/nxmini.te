@@ -4,6 +4,8 @@ type nxmini_exec, exec_type, vendor_file_type, file_type;
 # started by init
 init_daemon_domain(nxmini)
 wakelock_use(nxmini)
+set_prop(nxmini, nexus_prop);
+set_prop(nxmini, system_prop);
 
 allow nxmini block_device:dir { write add_name };
 allow nxmini block_device:file { write create open };
@@ -13,14 +15,11 @@ allow nxmini kernel:system module_request;
 allow nxmini gpu_device:chr_file rw_file_perms;
 allow nxmini self:capability dac_override;
 allow nxmini self:netlink_kobject_uevent_socket { create bind read };
-allow nxmini property_socket:sock_file write;
-allow nxmini system_prop:property_service set;
 allow nxmini rootfs:file entrypoint;
 allow nxmini input_device:dir search;
 allow nxmini input_device:chr_file { read open };
 allow nxmini self:udp_socket { create ioctl };
 allow nxmini self:capability { net_raw net_admin };
-allow nxmini nexus_prop:property_service set;
 allow nxmini proc:file { read open write getattr };
 allow nxmini sysfs:file { read open getattr };
 allow nxmini watchdog_device:chr_file rw_file_perms;
