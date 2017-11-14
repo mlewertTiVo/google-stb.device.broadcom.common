@@ -287,7 +287,8 @@ PRODUCT_PACKAGES += \
     memtrack.$(TARGET_BOARD_PLATFORM) \
     power.$(TARGET_BOARD_PLATFORM) \
     thermal.$(TARGET_BOARD_PLATFORM) \
-    tv_input.$(TARGET_BOARD_PLATFORM)
+    tv_input.$(TARGET_BOARD_PLATFORM) \
+    vulkan.$(TARGET_BOARD_PLATFORM)
 
 PRODUCT_PACKAGES += \
    android.hardware.audio@2.0-impl \
@@ -354,6 +355,7 @@ PRODUCT_PACKAGES += \
     libhwcbinder \
     libhwcconv \
     libGLES_nexus \
+    libbcmvulkan_icd \
     libnexusir \
     libpmlibservice \
     libstagefrighthw \
