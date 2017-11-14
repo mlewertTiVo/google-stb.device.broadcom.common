@@ -1,5 +1,6 @@
 import /init.bcm.usb.rc
 import /init.block.rc
+import /init.rts.rc
 import /init.nx.rc
 import /init.fs.rc
 import /init.eth.rc
