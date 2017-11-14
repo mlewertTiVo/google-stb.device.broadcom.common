@@ -398,5 +398,9 @@ PRODUCT_STATIC_BOOT_CONTROL_HAL := \
     libcutils
 endif
 
-PRODUCT_COPY_FILES   += device/broadcom/common/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+PRODUCT_COPY_FILES += device/broadcom/common/pub.libs/treble/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
+else
+PRODUCT_COPY_FILES += device/broadcom/common/pub.libs/legacy/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
+endif
 $(call inherit-product-if-exists, ${BCM_VENDOR_STB_ROOT}/bcm_platform/device-vendor.mk)
