@@ -27,7 +27,6 @@
 /data/misc/nxfw(/.*)?     u:object_r:nexus_fw_file:s0
 /data/nxmedia(/.*)?       u:object_r:nexus_debug_file:s0
 
-/dev/socket/nxserver      u:object_r:nxserver_socket:s0
 /data/nexus/nexus.log     u:object_r:nexus_log_file:s0
 /data/nexus/secdma(/.*)?  u:object_r:nexus_secdma_file:s0
 

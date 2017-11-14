@@ -1,5 +1,4 @@
 nexus_verified_client(mediacodec);
-nexus_communicate(mediacodec);
 nexus_debugable(mediacodec);
 set_prop(mediacodec, nexus_prop);
 

@@ -1,5 +1,4 @@
 nexus_verified_client(drmserver);
-nexus_communicate(drmserver);
 nexus_debugable(drmserver);
 
 allow drmserver nxserver:binder call;

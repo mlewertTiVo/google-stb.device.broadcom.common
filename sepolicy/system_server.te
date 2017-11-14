@@ -1,5 +1,4 @@
 nexus_verified_client(system_server);
-nexus_communicate(system_server);
 set_prop(system_server, nexus_prop);
 
 allow system_server nxserver:binder call;
