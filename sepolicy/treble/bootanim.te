@@ -2,4 +2,5 @@ nexus_verified_client(bootanim);
 nexus_hwservice(bootanim);
 set_prop(bootanim, nexus_prop);
 
+allow bootanim nxmem_device:chr_file rw_file_perms;
 

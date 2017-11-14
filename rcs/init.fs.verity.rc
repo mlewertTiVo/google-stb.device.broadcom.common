@@ -9,7 +9,7 @@ on fs
    setprop chrome.tv.hole_threshold 0
    setprop ro.nexus.devname mali
    setprop ro.nexus.wake.devname mali0
-   setprop ro.nexus.ashmem.devname ion
+   setprop ro.nexus.ashmem.devname nxmem
 
 on verity-logging
     exec u:r:slideshow:s0 -- /sbin/slideshow warning/verity_red_1 warning/verity_red_2

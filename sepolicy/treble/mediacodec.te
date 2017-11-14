@@ -11,3 +11,4 @@ allow mediacodec self:netlink_kobject_uevent_socket { create bind read };
 allow mediacodec proc:file r_file_perms;
 allow mediacodec hwcbinder_service:service_manager find;
 allow mediacodec system_file:dir r_dir_perms;
+allow mediacodec nxmem_device:chr_file rw_file_perms;
