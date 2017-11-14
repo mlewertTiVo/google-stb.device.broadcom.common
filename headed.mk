@@ -327,6 +327,18 @@ PRODUCT_PACKAGES += \
    android.hardware.wifi.supplicant@1.0
 endif
 
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+PRODUCT_PACKAGES += \
+   android.hardware.audio@2.0-service \
+   android.hardware.drm@1.0-service \
+   android.hardware.graphics.composer@2.1-service \
+   android.hardware.renderscript@1.0-impl \
+   android.hardware.power@1.0-service \
+   android.hardware.tv.cec@1.0-service \
+   android.hardware.tv.input@1.0-service \
+   bcm.hardware.nexus@1.0-impl
+endif
+
 PRODUCT_PACKAGES += \
     audio.usb.default \
     audio.r_submix.default \
