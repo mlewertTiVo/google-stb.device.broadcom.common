@@ -87,10 +87,18 @@ build_kernel:
 	-@if [ -f $(AUTOCONF_1ST_ARCH) ]; then \
 		cp -pv $(AUTOCONF_1ST_ARCH) $(AUTOCONF_1ST_ARCH)_refsw; \
 	fi
-	cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.der.x509 ${LINUX_OUT_1ST_ARCH}/
-	-@if [ -f ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
-		cp ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
+	-@if [ "$(LOCAL_LINUX_VERSION_NODASH)" == "4.1" ]; then \
+		cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
+		if [ -f ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
+			cp ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
+		fi; \
+	else \
+		cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.pem.x509 ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
 	fi
+	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
+	echo "CONFIG_SYSTEM_TRUSTED_KEYS=\"keys.pem.x509\"" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
+	cd $(LINUX) && ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm64/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment;
+	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
 	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) brcmstb_defconfig
 	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
 	-@if [ -f $(AUTOCONF_1ST_ARCH)_refsw ]; then \
