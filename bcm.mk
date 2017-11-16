@@ -106,3 +106,5 @@ ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 # full treble support.
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 endif
+
+PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/broadcom/bcm_platform/signing/testkey
