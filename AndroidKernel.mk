@@ -89,7 +89,11 @@ build_kernel:
 			cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
 		fi; \
 	else \
-		cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.pem.x509 ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
+		if [ -f ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/signing/keys.pem.x509 ]; then \
+			cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/signing/keys.pem.x509 ${LINUX_OUT_1ST_ARCH}/; \
+		else \
+			cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.pem.x509 ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
+		fi; \
 	fi
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment
 	echo "# CONFIG_BCM3390A0 is not set" > $(LINUX_OUT_1ST_ARCH)/config_fragment
@@ -127,7 +131,11 @@ build_kernel:
 			cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
 		fi; \
 	else \
-		cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.pem.x509 ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
+		if [ -f ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/signing/keys.pem.x509 ]; then \
+			cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/signing/keys.pem.x509 ${LINUX_OUT_1ST_ARCH}/; \
+		else \
+			cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.pem.x509 ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
+		fi; \
 	fi
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
 	echo "CONFIG_DRM_BRCM_V3D=y" >> $(LINUX_OUT_1ST_ARCH)/config_fragment;
@@ -175,7 +183,11 @@ build_kernel:
 			cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
 		fi; \
 	else \
-		cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.pem.x509 ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
+		if [ -f ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/signing/keys.pem.x509 ]; then \
+			cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/signing/keys.pem.x509 ${LINUX_OUT_1ST_ARCH}/; \
+		else \
+			cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.pem.x509 ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
+		fi; \
 	fi
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment
 	echo "# CONFIG_BCM3390A0 is not set" > $(LINUX_OUT_1ST_ARCH)/config_fragment
