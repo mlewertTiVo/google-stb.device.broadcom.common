@@ -83,6 +83,7 @@ export ANDROID_ENABLE_DHD_SECDMA             ?= n
 export BOLT_IMG_TO_USE_OVERRIDE              ?= bolt-bb.bin
 export BROADCOM_WIFI_CHIPSET                 ?= 43570a2
 export LOCAL_DEVICE_BOOT                     ?= 33554432    # 32M
+export LOCAL_DEVICE_RECOVERY_LEGACY          ?= 33554432    # 32M
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1283457024  # 1224M
 export LOCAL_DEVICE_SYSTEM_AB                ?= 1054867456  # 1006M
 export LOCAL_DEVICE_SAGE_DEV_N_PROD          ?= n
