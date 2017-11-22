@@ -1,6 +1,10 @@
 define(`nexus_verified_client', `
 allow $1 nexus_data_file:dir { search read };
 allow $1 nexus_data_file:file { read open getattr };
+# TODO(b/69667260): Remove data_between_core_and_vendor_violators once
+# nexus_verified_client is no longer used to share data between platform
+# and vendor processes.
+typeattribute $1 data_between_core_and_vendor_violators;
 ')
 
 define(`nexus_verified_client_ignored', `
@@ -11,6 +15,10 @@ dontaudit $1 nexus_data_file:file { read open getattr };
 define(`nexus_debugable', `
 allow $1 nexus_debug_file:dir { search read write add_name remove_name };
 allow $1 nexus_debug_file:file { open create read write setattr getattr };
+# TODO(b/69667260): Remove data_between_core_and_vendor_violators once
+# nexus_debugable is no longer used to share data between platform
+# and vendor processes.
+typeattribute $1 data_between_core_and_vendor_violators;
 ')
 
 define(`nexus_firmware', `

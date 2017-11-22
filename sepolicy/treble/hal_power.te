@@ -1,4 +1,4 @@
-nexus_verified_client(hal_power);
+nexus_verified_client(hal_power_default);
 get_prop(hal_power, nexus_prop);
 hwbinder_use(hal_power);
 
