@@ -5,6 +5,7 @@
 /dev/sw_sync              u:object_r:sw_sync_device:s0
 /dev/hdmi_hpd             u:object_r:hdmi_hpd_device:s0
 /dev/dri/card0            u:object_r:gpu_device:s0
+/dev/bcmpip               u:object_r:bcm_pip_device:s0
 
 /system/bin/hfrvideo u:object_r:hfrvideo_exec:s0
 /system/bin/hwcbinder u:object_r:hwcbinder_exec:s0
@@ -23,3 +24,5 @@
 
 /eio(/.*)?                u:object_r:system_file:s0
 /hwcfg(/.*)?              u:object_r:system_file:s0
+
+/sys/kernel/debug/dri(/.*)?   u:object_r:debugfs_dri:s0

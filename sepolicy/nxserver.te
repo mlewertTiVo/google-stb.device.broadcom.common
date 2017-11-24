@@ -76,4 +76,8 @@ allow nxserver sysfs_devices_system_cpu:file { open read write getattr };
 allow nxserver nexus_fw_file:dir { search read write add_name remove_name };
 allow nxserver nexus_fw_file:file { open create read write setattr getattr };
 
+allow nxserver bcm_pip_device:chr_file { read write open getattr ioctl };
+allow nxserver self:capability kill;
+allow nxserver domain:process { sigkill signal };
+
 set_prop(nxserver, nexus_prop);

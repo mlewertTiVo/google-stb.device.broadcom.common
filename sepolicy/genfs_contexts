@@ -2,3 +2,4 @@ genfscon cramfs / u:object_r:readonlyfs:s0
 genfscon proc /interrupts u:object_r:proc_interrupts:s0
 genfscon proc /irq u:object_r:proc_irq:s0
 genfscon proc /bluetooth/sleep u:object_r:proc_bluetooth_writable:s0
+genfscon debugfs /dri u:object_r:debugfs_dri:s0
