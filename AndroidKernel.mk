@@ -61,10 +61,14 @@ endif
 endif
 
 ifeq ($(LOCAL_ARM_AARCH64),y)
+ifeq ($(LOCAL_ARM_AARCH64_COMPAT_32_BIT),y)
+KERNEL_IMG := Image
+else
 ifeq ($(LOCAL_ARM_AARCH64_NOT_ABI_COMPATIBLE),y)
 KERNEL_IMG := zImage
 else
 KERNEL_IMG := Image
+endif
 endif
 else
 KERNEL_IMG := zImage
@@ -75,6 +79,38 @@ KERNEL_2ND_IMG := zImage
 .PHONY: build_kernel_2nd_arch
 AUTOCONF_1ST_ARCH := $(LINUX_OUT_1ST_ARCH)/include/generated/autoconf.h
 ifeq ($(LOCAL_ARM_AARCH64),y)
+ifeq ($(LOCAL_ARM_AARCH64_COMPAT_32_BIT),y)
+
+build_kernel:
+	@echo "'$@' started"
+	mkdir -p ${LINUX_OUT_1ST_ARCH}
+	-@if [ -f $(AUTOCONF_1ST_ARCH) ]; then \
+		cp -pv $(AUTOCONF_1ST_ARCH) $(AUTOCONF_1ST_ARCH)_refsw; \
+	fi
+	cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.der.x509 ${LINUX_OUT_1ST_ARCH}/
+	-@if [ -f ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
+		cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
+	fi
+	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
+	echo "CONFIG_DRM_BRCM_V3D=y" >> $(LINUX_OUT_1ST_ARCH)/config_fragment;
+	cd $(LINUX) && ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm64/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment;
+	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
+	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) brcmstb_defconfig
+	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
+	-@if [ -f $(AUTOCONF_1ST_ARCH)_refsw ]; then \
+		if [ `diff -q $(AUTOCONF_1ST_ARCH)_refsw $(AUTOCONF_1ST_ARCH) | wc -l` -eq 0 ]; then \
+			echo "'generated/autoconf.h' is unchanged"; \
+			cp -pv $(AUTOCONF_1ST_ARCH)_refsw $(AUTOCONF_1ST_ARCH); \
+		fi; \
+		rm -f $(AUTOCONF_1ST_ARCH)_refsw; \
+	fi
+	cp -pv $(LINUX_OUT_1ST_ARCH)/arch/arm64/boot/$(KERNEL_IMG) $(KERNEL_OUT_DIR_ABS)/kernel
+	@echo "'$@' completed"
+
+build_kernel_2nd_arch:
+	@echo "'$@' no-op"
+
+else
 ifeq ($(LOCAL_ARM_AARCH64_NOT_ABI_COMPATIBLE),y)
 
 build_kernel:
@@ -167,6 +203,7 @@ build_kernel_2nd_arch:
 	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_2ND_ARCH) ARCH=arm $(MAKE) $(KERNEL_2ND_IMG)
 	@echo "'$@' completed"
 
+endif
 endif
 
 else
