@@ -1,6 +1,8 @@
 ifeq ($(LOCAL_ARM_AARCH64),y)
 ifneq ($(LOCAL_ARM_AARCH64_NOT_ABI_COMPATIBLE),y)
+ifneq ($(LOCAL_ARM_AARCH64_COMPAT_32_BIT),y)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+endif
 endif
 endif
 
