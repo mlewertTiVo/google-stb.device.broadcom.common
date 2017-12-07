@@ -1,0 +1,5 @@
+nexus_verified_client(platform_app);
+set_prop(platform_app, nexus_prop);
+
+allow platform_app nxserver:binder call;
+allow platform_app nexus_service:service_manager find;

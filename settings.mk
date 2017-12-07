@@ -87,6 +87,7 @@ export BOLT_IMG_TO_USE_OVERRIDE              ?= bolt-bb.bin
 export BROADCOM_WIFI_CHIPSET                 ?= 43570a2
 export LOCAL_NVI_LAYOUT                      ?= n
 export LOCAL_DEVICE_BOOT                     ?= 33554432    # 32M
+export LOCAL_DEVICE_RECOVERY_LEGACY          ?= 33554432    # 32M
 ifneq ($(LOCAL_NVI_LAYOUT),y)
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1048576000  # 1000M
 export LOCAL_DEVICE_VENDOR_LEGACY            ?= 234881024   # 224M
@@ -99,6 +100,8 @@ endif
 export LOCAL_DEVICE_SYSTEM_VERITY_PARTITION  ?= /dev/block/by-name/system
 export LOCAL_DEVICE_VENDOR_VERITY_PARTITION  ?= /dev/block/by-name/vendor
 export LOCAL_DEVICE_SAGE_DEV_N_PROD          ?= n
+export LOCAL_DEVICE_RTS_MODE                 ?= 5
+export LOCAL_DEVICE_USE_VERITY               ?= n
 
 export HW_ENCODER_SUPPORT                    ?= y
 export HW_WIFI_NIC_SUPPORT                   ?= n
@@ -112,6 +115,7 @@ export BCM_APP_CUSTOM                        ?= n
 export HW_HVD_REVISION                       ?= R
 export HW_HVD_REDUX                          ?= n
 export HAL_GR_VERSION                        ?= v-0.x
+export DTCP_IP_SAGE_SUPPORT                  ?= n
 
 export BCM_GPT_CONFIG_FILE                   := $(LOCAL_DEVICE_GPT)
 export ANDROID_BUILD                         := y
@@ -127,6 +131,7 @@ export NEXUS_ANDROID_SUPPORT                 := y
 export NEXUS_MODE                            := proxy  # fixed!
 export NEXUS_KEYPAD_SUPPORT                  := n
 export NEXUS_LOGGER_EXTERNAL                 := y
+export NEXUS_LOGGER_LOCATION                 := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nxlogger
 export NEXUS_PLATFORM_7241_WIFI              := n
 export NEXUS_POWER_MANAGEMENT                := y
 export NEXUS_REPLACE_BOILERPLATE             := y
@@ -137,7 +142,6 @@ export SHELL                                 := /bin/bash
 export SMP                                   := y
 export SSL_SUPPORT                           := y
 export LIVEMEDIA_SUPPORT                     := n
-export DTCP_IP_SUPPORT                       := y
 export ANDROID_USES_BORINGSSL                := y
 export NEXUS_C_STD                           := c99
 export NEXUS_EXPORT_FILE                     := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nexus_export_file.txt

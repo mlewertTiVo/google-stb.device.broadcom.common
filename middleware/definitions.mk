@@ -76,7 +76,11 @@ B_BOLT_CFG_OVERRIDE          ?=
 B_BOLT_CUSTOM_OVERRIDE       ?=
 
 # local modules override for android integration of nexus functionalities.
+NEXUS_HAS_SOCKET_DRIVER      := y
+ifneq ($(NEXUS_HAS_SOCKET_DRIVER),y)
 NXCLIENT_SOCKET_INTF         := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nxsocket/nxclient_android_socket.c
+export NXCLIENT_SOCKET_INTF
+endif
 NEXUS_PLATFORM_PROXY_INTF    := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nxproxyif/nexus_platform_proxy_intf.c
 NEXUS_SAGE_BP3_BIN_PATH      := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nxsagebp3/nexus_sage_bp3_bin_path.c
 
@@ -97,11 +101,12 @@ export B_DHD_OBJ_ROOT
 export B_NIC_OBJ_ROOT
 export B_NIC_DUAL_OBJ_ROOT
 export B_REFSW_ANDROID_LIB_1ST_ARCH B_REFSW_ANDROID_LIB_2ND_ARCH
-export NXCLIENT_SOCKET_INTF NEXUS_PLATFORM_PROXY_INTF
+export NEXUS_PLATFORM_PROXY_INTF
 export B_LK_OBJ_ROOT
 export B_BL31_OBJ_ROOT
 export B_BOLT_CFG_OVERRIDE B_BOLT_CUSTOM_OVERRIDE
 export BINDIST_BIN_DIR_1ST_ARCH BINDIST_NXC_BIN_DIR_1ST_ARCH
+export NEXUS_HAS_SOCKET_DRIVER
 
 include ${NEXUS_TOP}/platforms/common/build/nexus_platforms.inc
 export BCHP_CHIP

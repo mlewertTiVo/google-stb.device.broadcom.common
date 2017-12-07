@@ -1,0 +1,4 @@
+nexus_hwservice(adbd);
+get_prop(adbd, nexus_prop);
+
+allow adbd nxmem_device:chr_file rw_file_perms;

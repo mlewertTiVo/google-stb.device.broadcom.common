@@ -52,8 +52,13 @@ PRODUCT_PACKAGES += \
 
 # media codec policy and setup.
 #
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+PRODUCT_PROPERTY_OVERRIDES += \
+   persist.media.treble_omx=true
+else
 PRODUCT_PROPERTY_OVERRIDES += \
    persist.media.treble_omx=false
+endif
 
 PRODUCT_COPY_FILES += \
    device/broadcom/common/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy
@@ -69,8 +74,13 @@ PRODUCT_COPY_FILES += \
 
 # hardware interface hal manifest.
 #
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 PRODUCT_COPY_FILES += \
-   device/broadcom/common/manifest.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
+   device/broadcom/common/manifest/treble.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
+else
+PRODUCT_COPY_FILES += \
+   device/broadcom/common/manifest/legacy.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
+endif
 
 # copy kernel image.
 ifeq ($(BCM_DIST_KNLIMG_BINS), y)
@@ -87,3 +97,10 @@ endif
 #
 PRODUCT_PACKAGES += \
    $(ANDROID_PRODUCT_OUT)-vndk
+
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+# full treble support.
+PRODUCT_FULL_TREBLE_OVERRIDE := true
+endif
+
+PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/broadcom/bcm_platform/signing/testkey

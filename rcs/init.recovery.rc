@@ -26,7 +26,6 @@ service nxmini /sbin/nxmini
    seclabel u:r:nxmini:s0
    user root
    group system
-   socket nxserver stream 0666 root system
 
 on property:dyn.nx.state=loaded
    insmod /oem/lib/bcmnexusfb.ko

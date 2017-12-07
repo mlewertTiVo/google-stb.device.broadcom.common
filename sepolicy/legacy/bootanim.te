@@ -1,0 +1,6 @@
+nexus_verified_client(bootanim);
+set_prop(bootanim, nexus_prop);
+
+allow bootanim nxserver:binder call;
+allow bootanim nexus_service:service_manager find;
+allow bootanim nxmem_device:chr_file rw_file_perms;

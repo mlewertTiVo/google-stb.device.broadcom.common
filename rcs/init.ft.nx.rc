@@ -1,0 +1,48 @@
+on early-boot
+   # install middleware drivers in order of dependencies
+   #
+   #     droid_pm.ko -> nexus.ko -> nx_ashmem.ko
+   #
+   # optional additional module parameters can be passed to nexus.ko
+   # insmod'ing command line.
+   #
+   # the config parameter has a maximum total length of 256 characters
+   # and accepts a set of '<key>=<value>' pairs separated by a semi-colon.
+   #
+   #
+   # in particular, for nexus logging:
+   #
+   # 1) specify 'config="msg_modules=xxx,yyy,zzz"' as an argument to
+   #    the server side insmod to trigger server logs setup.
+   #
+   # 2) specify 'aaa,bbb,ccc' to the setprop action to trigger client
+   #    logs setup.
+   #
+   # in doubt, or if unsure, you may specify the same value for 1 and 2.
+   #
+
+   # 
+   # droid_pm: gpl compliant power management bits used by nexus+android.
+   #
+   insmod /vendor/lib/modules/droid_pm.ko devname="mali0"
+   chown system system /sys/devices/platform/droid_pm/full_wol_wakeup
+   chown system system /sys/devices/platform/droid_pm/sw_lid
+   #
+   # nexus: middleware core, requires droid_pm.
+   #
+   setprop ro.nx.msg_modules ""
+   insmod /vendor/lib/modules/nexus.ko devname="mali" config="auto_subindex=true"
+   #
+   # start up nxserver service.
+   #
+   start nxserver
+   #
+   # nx_ashmem: memory management, requires nexus. 
+   #
+   # *** warning: an explicit wait for property is placed here to avoid race
+   #              between this action and the enabling of the property trigger
+   #              in init.cpp; which happens because we want to enable the
+   #              core middleware as soon as possible.
+   #
+   wait_for_prop dyn.nx.state memcfg
+   insmod /vendor/lib/modules/nx_ashmem.ko devname="nxmem" heap_grow="8m"

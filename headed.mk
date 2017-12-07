@@ -99,6 +99,7 @@ endif
 PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf
 # all those are defined per device, in the device configuration.
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RCS}
+PRODUCT_COPY_FILES       += device/broadcom/common/rcs/rts/init.rts_$(LOCAL_DEVICE_RTS_MODE).rc:root/init.rts.rc
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_MEDIA}
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RECOVERY_RCS}
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_FSTAB}
@@ -136,6 +137,9 @@ PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:$(T
 SAGE_APP_BINARY_PATH := $(SAGE_BL_BINARY_PATH)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_framework${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_antirollback${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_antirollback${SAGE_BINARY_EXT}.bin
+ifeq ($(DTCP_IP_SAGE_SUPPORT),y)
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_dtcpip${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_dtcpip${SAGE_BINARY_EXT}.bin
+endif
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_secure_video${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_utility${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_utility${SAGE_BINARY_EXT}.bin
@@ -154,6 +158,9 @@ PRODUCT_COPY_FILES    += ${SAGE_BL_BINARY_PATH2}/sage_bl${SAGE_BINARY_EXT2}.bin:
 SAGE_APP_BINARY_PATH2 := $(SAGE_BL_BINARY_PATH2)
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_framework${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_framework${SAGE_BINARY_EXT2}.bin
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_antirollback${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_antirollback${SAGE_BINARY_EXT2}.bin
+ifeq ($(DTCP_IP_SAGE_SUPPORT),y)
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH2}/sage_ta_dtcpip${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_dtcpip${SAGE_BINARY_EXT2}.bin
+endif
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_hdcp22${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_hdcp22${SAGE_BINARY_EXT2}.bin
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_secure_video${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_secure_video${SAGE_BINARY_EXT2}.bin
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_utility${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_utility${SAGE_BINARY_EXT2}.bin
@@ -173,6 +180,9 @@ PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:$(T
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_framework${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_antirollback${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_antirollback${SAGE_BINARY_EXT}.bin
+ifeq ($(DTCP_IP_SAGE_SUPPORT),y)
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_dtcpip${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_dtcpip${SAGE_BINARY_EXT}.bin
+endif
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_secure_video${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_utility${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_utility${SAGE_BINARY_EXT}.bin
@@ -186,6 +196,9 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINAR
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
 endif
 endif
+endif
+ifeq ($(DTCP_IP_SAGE_SUPPORT),y)
+PRODUCT_PACKAGES += libb_dtcp_ip
 endif
 ifeq ($(SAGE_SECURE_LOG_SUPPORT),y)
 PRODUCT_PACKAGES += \
@@ -286,7 +299,8 @@ PRODUCT_PACKAGES += \
     memtrack.$(TARGET_BOARD_PLATFORM) \
     power.$(TARGET_BOARD_PLATFORM) \
     thermal.$(TARGET_BOARD_PLATFORM) \
-    tv_input.$(TARGET_BOARD_PLATFORM)
+    tv_input.$(TARGET_BOARD_PLATFORM) \
+    vulkan.$(TARGET_BOARD_PLATFORM)
 
 PRODUCT_PACKAGES += \
    android.hardware.audio@2.0-impl \
@@ -326,6 +340,23 @@ PRODUCT_PACKAGES += \
    android.hardware.wifi.supplicant@1.0
 endif
 
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+PRODUCT_PACKAGES += \
+   android.hardware.audio@2.0-service \
+   android.hardware.drm@1.0-service \
+   android.hardware.graphics.composer@2.1-service \
+   android.hardware.renderscript@1.0-impl \
+   android.hardware.soundtrigger@2.0-impl \
+   android.hardware.power@1.0-service \
+   android.hardware.tv.cec@1.0-service \
+   android.hardware.tv.input@1.0-service \
+   bcm.hardware.nexus@1.0-impl
+ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
+PRODUCT_PACKAGES += \
+   android.hardware.drm@1.0-service.widevine
+endif
+endif
+
 PRODUCT_PACKAGES += \
     audio.usb.default \
     audio.r_submix.default \
@@ -336,6 +367,7 @@ PRODUCT_PACKAGES += \
     libhwcbinder \
     libhwcconv \
     libGLES_nexus \
+    libbcmvulkan_icd \
     libnexusir \
     libpmlibservice \
     libstagefrighthw \
@@ -376,5 +408,9 @@ PRODUCT_PACKAGES            += update_engine_sideload
 PRODUCT_STATIC_BOOT_CONTROL_HAL := bootctrl.$(TARGET_BOARD_PLATFORM)
 endif
 
-PRODUCT_COPY_FILES   += device/broadcom/common/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+PRODUCT_COPY_FILES += device/broadcom/common/pub.libs/treble/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
+else
+PRODUCT_COPY_FILES += device/broadcom/common/pub.libs/legacy/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
+endif
 $(call inherit-product-if-exists, ${BCM_VENDOR_STB_ROOT}/bcm_platform/device-vendor.mk)
