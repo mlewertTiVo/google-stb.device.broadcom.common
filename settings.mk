@@ -91,12 +91,17 @@ export ANDROID_ENABLE_DHD_SECDMA             ?= n
 export BOLT_IMG_TO_USE_OVERRIDE              ?= bolt-bb.bin
 export BROADCOM_WIFI_CHIPSET                 ?= 43570a2
 export LOCAL_NVI_LAYOUT                      ?= n
+export LOCAL_DEVICE_GPT_O_LAYOUT             ?= n
 export LOCAL_DEVICE_BOOT                     ?= 33554432    # 32M
 export LOCAL_DEVICE_RECOVERY_LEGACY          ?= 33554432    # 32M
 ifneq ($(LOCAL_NVI_LAYOUT),y)
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1048576000  # 1000M
 export LOCAL_DEVICE_VENDOR_LEGACY            ?= 234881024   # 224M
+ifeq ($(LOCAL_DEVICE_GPT_O_LAYOUT),y)
+export LOCAL_DEVICE_SYSTEM_AB                ?= 1486880768  # 1418M
+else
 export LOCAL_DEVICE_SYSTEM_AB                ?= 950009856   # 906M
+endif
 export LOCAL_DEVICE_VENDOR_AB                ?= 104857600   # 100M
 else
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1283457024  # 1224M
