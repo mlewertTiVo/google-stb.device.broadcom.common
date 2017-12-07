@@ -91,10 +91,6 @@ build_kernel:
 	-@if [ -f ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
 		cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
 	fi
-	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
-	echo "CONFIG_DRM_BRCM_V3D=y" >> $(LINUX_OUT_1ST_ARCH)/config_fragment;
-	cd $(LINUX) && ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm64/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment;
-	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
 	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) brcmstb_defconfig
 	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
 	-@if [ -f $(AUTOCONF_1ST_ARCH)_refsw ]; then \
@@ -127,7 +123,6 @@ build_kernel:
 	echo "# CONFIG_BCM3390A0 is not set" > $(LINUX_OUT_1ST_ARCH)/config_fragment
 	echo "# CONFIG_BCM7145 is not set" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
 	echo "CONFIG_CROSS_COMPILE=\"arm-linux-gnueabihf-\"" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
-	echo "CONFIG_DRM_BRCM_V3D=y" >> $(LINUX_OUT_1ST_ARCH)/config_fragment;
 	cd $(LINUX) && ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment
 	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
@@ -156,10 +151,6 @@ build_kernel:
 	-@if [ -f ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
 		cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
 	fi
-	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
-	echo "CONFIG_DRM_BRCM_V3D=y" >> $(LINUX_OUT_1ST_ARCH)/config_fragment;
-	cd $(LINUX) && ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm64/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment;
-	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
 	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) brcmstb_defconfig
 	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
 	-@if [ -f $(AUTOCONF_1ST_ARCH)_refsw ]; then \
@@ -179,7 +170,6 @@ build_kernel_2nd_arch:
 	echo "# CONFIG_BCM3390A0 is not set" > $(LINUX_OUT_2ND_ARCH)/config_fragment
 	echo "# CONFIG_BCM7145 is not set" >> $(LINUX_OUT_2ND_ARCH)/config_fragment
 	echo "CONFIG_CROSS_COMPILE=\"arm-linux-gnueabihf-\"" >> $(LINUX_OUT_2ND_ARCH)/config_fragment
-	echo "CONFIG_DRM_BRCM_V3D=y" >> $(LINUX_OUT_1ST_ARCH)/config_fragment;
 	cd $(LINUX) && ARCH=arm scripts/kconfig/merge_config.sh -O $(LINUX_OUT_2ND_ARCH) arch/arm/configs/brcmstb_defconfig $(LINUX_OUT_2ND_ARCH)/config_fragment
 	rm -f $(LINUX_OUT_2ND_ARCH)/config_fragment
 	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_2ND_ARCH) ARCH=arm $(MAKE) $(KERNEL_2ND_IMG)
