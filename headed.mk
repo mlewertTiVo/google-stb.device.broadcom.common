@@ -285,7 +285,6 @@ PRODUCT_PACKAGES += \
     makehwcfg \
     netcoal \
     nxdispfmt \
-    nxlogger \
     nxserver \
     togplm
 
