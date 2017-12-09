@@ -1,5 +1,4 @@
 libnexus.so
 libnxclient.so
 libnxwrap.so
-libbcmsideband.so
 

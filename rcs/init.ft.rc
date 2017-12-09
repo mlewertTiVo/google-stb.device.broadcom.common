@@ -1,5 +1,6 @@
 import /init.bcm.usb.rc
 import /init.block.rc
+import /init.rts.rc
 import /init.nx.rc
 import /init.fs.rc
 import /init.eth.rc
@@ -37,12 +38,6 @@ on boot
    # Match the TCP buffer size thresholds to the maximum of the current supported interfaces
    write /proc/sys/net/core/rmem_max 3145728
    write /proc/sys/net/core/wmem_max 3145728
-
-   # IPv6 Router Advertisement
-   write /proc/sys/net/ipv6/conf/wlan0/accept_ra_rt_info_min_plen 48
-   write /proc/sys/net/ipv6/conf/wlan0/accept_ra_rt_info_max_plen 64
-   write /proc/sys/net/ipv6/conf/wlan0/router_solicitation_max_interval 900
-   write /proc/sys/net/ipv6/conf/wlan0/router_solicitations -1
 
 on fs
    start hwservicemanager

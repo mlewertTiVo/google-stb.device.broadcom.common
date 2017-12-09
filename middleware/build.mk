@@ -153,7 +153,7 @@ bindist_build: bindist_core_build
 			fi; \
 			cp -faR ${BROADCOM_NIC_SOURCE_PATH}/src ${B_NIC_OBJ_ROOT}  && cp ${BROADCOM_NIC_SCRIPT_PATH}/*.sh ${B_NIC_OBJ_ROOT}; \
 			cp -faR ${BROADCOM_NIC_SOURCE_PATH}/components ${B_NIC_OBJ_ROOT}; \
-			cd ${B_NIC_OBJ_ROOT} && source ./setenv-android-stb7271.sh && ./build-drv-nic.sh ${BRCM_NIC_TARGET_NAME}; \
+			cd ${B_NIC_OBJ_ROOT} && source ./setenv-android-stb7271.sh && SHORTER_PATH=1 ./build-drv-nic.sh ${BRCM_NIC_TARGET_NAME}; \
 		fi; \
 		if [ "${HW_WIFI_NIC_DUAL_SUPPORT}" == "y" ]; then \
 			if [ ! -d "${B_NIC_DUAL_OBJ_ROOT}" ]; then \
@@ -469,7 +469,6 @@ export PRDY_TOP := $(REFSW_BASE_DIR)/prsrcs
 clean_security_user :
 	$(MAKE) -C $(REFSW_BASE_DIR)/secsrcs/common_drm clean
 	rm -f $(REFSW_BASE_DIR)/BSEAV/lib/security/common_drm/drm/common/drm_common.o
-	$(MAKE) -C $(REFSW_BASE_DIR)/secsrcs/third_party/android/drm/widevine/OEMCrypto clean
 	$(MAKE) -C $(REFSW_BASE_DIR)/prsrcs/2.5/source clean
 
 # build all the needed libs, then check them into the source tree as 'prebuilts'.
@@ -479,7 +478,6 @@ security_user:
 	@echo "'$@' started"
 	$(MAKE) $(NEXUS_ARCH_ENV) -C $(REFSW_BASE_DIR)/secsrcs/common_drm all
 	$(MAKE) $(NEXUS_ARCH_ENV) -C $(REFSW_BASE_DIR)/prsrcs/2.5/source all
-	$(MAKE) $(NEXUS_ARCH_ENV) -C $(REFSW_BASE_DIR)/secsrcs/third_party/android/drm/widevine/OEMCrypto
 	@echo "'$@' completed"
 
 ifeq ($(TARGET_2ND_ARCH),arm)

@@ -18,7 +18,7 @@ export TARGET_BOARD_PLATFORM                 := ${ANDROID_PRODUCT_OUT}
 # filter rules for build inclusions based on boards supported.  when adding a new
 # board to the system, you may want to add it here too.
 #
-export BCM_RBOARDS                           := avko% banff% cypress% dawson% elfin%
+export BCM_RBOARDS                           := avko% banff% cypress% dawson% elfin% fundy%
 export BCM_DBOARDS                           := b4% b5% b6% b7%
 export BCM_CBOARDS                           ?= fbx% c71kw%
 
@@ -31,35 +31,40 @@ export ANDROID_TOP                           := ${ANDROID}
 ifeq ($(LOCAL_ARM_AARCH64),y)
 ifeq ($(LOCAL_ARM_AARCH64_NOT_ABI_COMPATIBLE),y)
 export B_REFSW_ARCH_1ST_ARCH                 := arm-linux
-export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := arm-linux-
 export B_REFSW_TOOLCHAIN_ARCH_1ST_ARCH       := arm-linux
 export B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH   := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin
 export P_REFSW_CC                            := ${B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH}/arm-linux-androideabi-
-export P_REFSW_DRV_ARCH                      := arm
 export B_REFSW_PREBUILT_LIBGCC_1ST_ARCH      := prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/lib/gcc/arm-linux-androideabi/4.9.x/libgcc.a
+ifeq ($(LOCAL_ARM_AARCH64_COMPAT_32_BIT),y)
+export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := aarch64-linux-
+export P_REFSW_DRV_ARCH                      := arm64
+else
+export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := arm-linux-
+export P_REFSW_DRV_ARCH                      := arm
+endif
 else
 export B_REFSW_ARCH_1ST_ARCH                 := aarch64-linux
-export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := aarch64-linux-
 export B_REFSW_TOOLCHAIN_ARCH_1ST_ARCH       := aarch64-linux
 export B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH   := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin
 export B_REFSW_PREBUILT_LIBGCC_1ST_ARCH      := prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/lib/gcc/aarch64-linux-android/4.9.x/libgcc.a
 export P_REFSW_CC                            := ${B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH}/aarch64-linux-android-
-export P_REFSW_DRV_ARCH                      := arm64
 export B_REFSW_ARCH_2ND_ARCH                 := arm-linux
 export B_REFSW_KERNEL_CROSS_COMPILE_2ND_ARCH := arm-linux-
 export B_REFSW_TOOLCHAIN_ARCH_2ND_ARCH       := arm-linux
 export B_REFSW_PREBUILT_LIBGCC_2ND_ARCH      := prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/lib/gcc/arm-linux-androideabi/4.9.x/libgcc.a
 export B_REFSW_CROSS_COMPILE_PATH_2ND_ARCH   := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin
 export P_REFSW_CC_2ND_ARCH                   := ${B_REFSW_CROSS_COMPILE_PATH_2ND_ARCH}/arm-linux-androideabi-
+export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := aarch64-linux-
+export P_REFSW_DRV_ARCH                      := arm64
 endif
 else
 export B_REFSW_ARCH_1ST_ARCH                 := arm-linux
-export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := arm-linux-
 export B_REFSW_TOOLCHAIN_ARCH_1ST_ARCH       := arm-linux
 export B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH   := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin
 export P_REFSW_CC                            := ${B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH}/arm-linux-androideabi-
-export P_REFSW_DRV_ARCH                      := arm
 export B_REFSW_PREBUILT_LIBGCC_1ST_ARCH      := prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/lib/gcc/arm-linux-androideabi/4.9.x/libgcc.a
+export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := arm-linux-
+export P_REFSW_DRV_ARCH                      := arm
 endif
 export B_REFSW_USES_CLANG                    ?= y
 ifeq ($(B_REFSW_USES_CLANG),y)
@@ -86,12 +91,17 @@ export ANDROID_ENABLE_DHD_SECDMA             ?= n
 export BOLT_IMG_TO_USE_OVERRIDE              ?= bolt-bb.bin
 export BROADCOM_WIFI_CHIPSET                 ?= 43570a2
 export LOCAL_NVI_LAYOUT                      ?= n
+export LOCAL_DEVICE_GPT_O_LAYOUT             ?= n
 export LOCAL_DEVICE_BOOT                     ?= 33554432    # 32M
 export LOCAL_DEVICE_RECOVERY_LEGACY          ?= 33554432    # 32M
 ifneq ($(LOCAL_NVI_LAYOUT),y)
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1048576000  # 1000M
 export LOCAL_DEVICE_VENDOR_LEGACY            ?= 234881024   # 224M
+ifeq ($(LOCAL_DEVICE_GPT_O_LAYOUT),y)
+export LOCAL_DEVICE_SYSTEM_AB                ?= 1486880768  # 1418M
+else
 export LOCAL_DEVICE_SYSTEM_AB                ?= 950009856   # 906M
+endif
 export LOCAL_DEVICE_VENDOR_AB                ?= 104857600   # 100M
 else
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1283457024  # 1224M
@@ -102,6 +112,7 @@ export LOCAL_DEVICE_VENDOR_VERITY_PARTITION  ?= /dev/block/by-name/vendor
 export LOCAL_DEVICE_SAGE_DEV_N_PROD          ?= n
 export LOCAL_DEVICE_RTS_MODE                 ?= 5
 export LOCAL_DEVICE_USE_VERITY               ?= n
+export LOCAL_DEVICE_BGRCPKT_PLANES           ?= 2
 
 export HW_ENCODER_SUPPORT                    ?= y
 export HW_WIFI_NIC_SUPPORT                   ?= n

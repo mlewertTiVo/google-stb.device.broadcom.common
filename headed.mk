@@ -1,6 +1,8 @@
 ifeq ($(LOCAL_ARM_AARCH64),y)
 ifneq ($(LOCAL_ARM_AARCH64_NOT_ABI_COMPATIBLE),y)
+ifneq ($(LOCAL_ARM_AARCH64_COMPAT_32_BIT),y)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+endif
 endif
 endif
 
@@ -22,7 +24,11 @@ ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
 PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/common/rcs/google_aware.xml:system/etc/permissions/google_aware.xml
 endif
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/locales_full.mk)
+# prior to android-p
+$(call inherit-product-if-exists, $(SRC_TARGET_DIR)/product/locales_full.mk)
+# android-p onward
+$(call inherit-product-if-exists, $(SRC_TARGET_DIR)/product/languages_full.mk)
+
 $(call inherit-product, device/google/atv/products/atv_base.mk)
 include device/broadcom/common/settings.mk
 # include the gms packages and configuration
@@ -398,14 +404,19 @@ ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES            += liboemcrypto libwvdrmengine
 endif
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
-PRODUCT_PACKAGES            += libcmndrmprdy libplayreadydrmplugin libplayreadypk_host libplayready30pk
+PRODUCT_PACKAGES            += libcmndrmprdy libplayreadydrmplugin libplayreadypk_host
+ifneq ($(SAGE_VERSION),2x)
+PRODUCT_PACKAGES            += libplayready30pk
+endif
 endif
 endif
 
+ifneq ($(TARGET_BUILD_PDK),true)
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)
 PRODUCT_PACKAGES            += update_engine update_engine_client update_verifier
 PRODUCT_PACKAGES            += update_engine_sideload
 PRODUCT_STATIC_BOOT_CONTROL_HAL := bootctrl.$(TARGET_BOARD_PLATFORM)
+endif
 endif
 
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
