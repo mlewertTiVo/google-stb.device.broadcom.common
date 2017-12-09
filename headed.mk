@@ -402,7 +402,10 @@ ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES            += libwvdrmengine
 endif
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
-PRODUCT_PACKAGES            += libcmndrmprdy libplayreadydrmplugin libplayreadypk_host libplayready30pk
+PRODUCT_PACKAGES            += libcmndrmprdy libplayreadydrmplugin libplayreadypk_host
+ifneq ($(SAGE_VERSION),2x)
+PRODUCT_PACKAGES            += libplayready30pk
+endif
 endif
 endif
 
