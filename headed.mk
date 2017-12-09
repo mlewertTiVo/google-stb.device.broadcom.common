@@ -418,6 +418,7 @@ PRODUCT_STATIC_BOOT_CONTROL_HAL := \
     libcutils
 endif
 endif
+endif
 
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 PRODUCT_COPY_FILES += device/broadcom/common/pub.libs/treble/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
