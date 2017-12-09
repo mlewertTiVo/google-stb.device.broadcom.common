@@ -4,12 +4,16 @@ ifeq ($(LOCAL_ARM_AARCH64),y)
 ifeq ($(LOCAL_ARM_AARCH64_NOT_ABI_COMPATIBLE),y)
 include device/broadcom/common/BoardConfig32.mk
 else
+ifeq ($(LOCAL_ARM_AARCH64_COMPAT_32_BIT),y)
+include device/broadcom/common/BoardConfig32.mk
+else
 # yeah!
 include device/broadcom/common/BoardConfig64.mk
 ifeq ($(LOCAL_ANDROID_64BIT),y)
 TARGET_PREFER_32_BIT_APPS   :=
 TARGET_SUPPORTS_32_BIT_APPS :=
 TARGET_SUPPORTS_64_BIT_APPS := true
+endif
 endif
 endif
 # legacy armv7 platforms.
