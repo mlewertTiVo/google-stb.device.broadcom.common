@@ -153,7 +153,7 @@ bindist_build: bindist_core_build
 			fi; \
 			cp -faR ${BROADCOM_NIC_SOURCE_PATH}/src ${B_NIC_OBJ_ROOT}  && cp ${BROADCOM_NIC_SCRIPT_PATH}/*.sh ${B_NIC_OBJ_ROOT}; \
 			cp -faR ${BROADCOM_NIC_SOURCE_PATH}/components ${B_NIC_OBJ_ROOT}; \
-			cd ${B_NIC_OBJ_ROOT} && source ./setenv-android-stb7271.sh && ./build-drv-nic.sh ${BRCM_NIC_TARGET_NAME}; \
+			cd ${B_NIC_OBJ_ROOT} && source ./setenv-android-stb7271.sh && SHORTER_PATH=1 ./build-drv-nic.sh ${BRCM_NIC_TARGET_NAME}; \
 		fi; \
 		if [ "${HW_WIFI_NIC_DUAL_SUPPORT}" == "y" ]; then \
 			if [ ! -d "${B_NIC_DUAL_OBJ_ROOT}" ]; then \
