@@ -238,12 +238,14 @@ endif
 ifeq ($(LOCAL_DEVICE_USE_VERITY),y)
 $(call inherit-product, build/target/product/verity.mk)
 PRODUCT_SUPPORTS_BOOT_SIGNER    := false
+PRODUCT_VERITY_SIGNING_KEY      := vendor/broadcom/bcm_platform/signing/verity
 PRODUCT_SYSTEM_VERITY_PARTITION := $(LOCAL_DEVICE_SYSTEM_VERITY_PARTITION)
 ifneq ($(LOCAL_NVI_LAYOUT),y)
 PRODUCT_VENDOR_VERITY_PARTITION := $(LOCAL_DEVICE_VENDOR_VERITY_PARTITION)
 endif
-PRODUCT_PACKAGES                += slideshow verity_warning_images
+PRODUCT_PACKAGES                += slideshow verity_warning_images generate_verity_key
 PRODUCT_COPY_FILES              += frameworks/native/data/etc/android.software.verified_boot.xml:system/etc/permissions/android.software.verified_boot.xml
+PRODUCT_COPY_FILES              += vendor/broadcom/bcm_platform/signing/verity.key.pub:root/verity_key
 endif
 
 # packages for the system image content.
