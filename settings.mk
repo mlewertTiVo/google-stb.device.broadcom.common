@@ -36,9 +36,11 @@ export B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH   := ${ANDROID_TOP}/prebuilts/gcc/lin
 export P_REFSW_CC                            := ${B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH}/arm-linux-androideabi-
 export B_REFSW_PREBUILT_LIBGCC_1ST_ARCH      := prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/lib/gcc/arm-linux-androideabi/4.9.x/libgcc.a
 ifeq ($(LOCAL_ARM_AARCH64_COMPAT_32_BIT),y)
+export B_REFSW_KERNEL_ARCH_1ST_ARCH          := aarch64-linux
 export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := aarch64-linux-
 export P_REFSW_DRV_ARCH                      := arm64
 else
+export B_REFSW_KERNEL_ARCH_1ST_ARCH          := arm-linux
 export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := arm-linux-
 export P_REFSW_DRV_ARCH                      := arm
 endif
@@ -54,6 +56,7 @@ export B_REFSW_TOOLCHAIN_ARCH_2ND_ARCH       := arm-linux
 export B_REFSW_PREBUILT_LIBGCC_2ND_ARCH      := prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/lib/gcc/arm-linux-androideabi/4.9.x/libgcc.a
 export B_REFSW_CROSS_COMPILE_PATH_2ND_ARCH   := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin
 export P_REFSW_CC_2ND_ARCH                   := ${B_REFSW_CROSS_COMPILE_PATH_2ND_ARCH}/arm-linux-androideabi-
+export B_REFSW_KERNEL_ARCH_1ST_ARCH          := aarch64-linux
 export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := aarch64-linux-
 export P_REFSW_DRV_ARCH                      := arm64
 endif
@@ -63,6 +66,7 @@ export B_REFSW_TOOLCHAIN_ARCH_1ST_ARCH       := arm-linux
 export B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH   := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin
 export P_REFSW_CC                            := ${B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH}/arm-linux-androideabi-
 export B_REFSW_PREBUILT_LIBGCC_1ST_ARCH      := prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/lib/gcc/arm-linux-androideabi/4.9.x/libgcc.a
+export B_REFSW_KERNEL_ARCH_1ST_ARCH          := arm-linux
 export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := arm-linux-
 export P_REFSW_DRV_ARCH                      := arm
 endif
