@@ -26,6 +26,7 @@ allow nxserver gpu_device:chr_file { read write ioctl open getattr };
 allow nxserver input_device:chr_file { read open };
 allow nxserver proc:file write;
 allow nxserver property_socket:sock_file write;
+allow nxserver self:capability dac_override;
 allow nxserver sysfs:file write;
 allow nxserver sysfs_devices_system_cpu:file write;
 allow nxserver system_file:file execute_no_trans;
