@@ -17,6 +17,9 @@ get_prop(nxserver, hwservicemanager_prop);
 binder_call(nxserver, hal_graphics_composer_default);
 binder_call(nxserver, hal_power_default);
 binder_call(nxserver, hal_tv_cec_default);
+allow nxserver proc_brcm:file rw_file_perms;
+allow nxserver proc_brcm:dir search;
+nexus_ir(nxserver);
 
 allow nxserver system_server:binder call;
 allow nxserver surfaceflinger:binder call;
@@ -26,7 +29,6 @@ allow nxserver gpu_device:chr_file { read write ioctl open getattr };
 allow nxserver input_device:chr_file { read open };
 allow nxserver proc:file write;
 allow nxserver property_socket:sock_file write;
-allow nxserver self:capability dac_override;
 allow nxserver sysfs:file write;
 allow nxserver sysfs_devices_system_cpu:file write;
 allow nxserver system_file:file execute_no_trans;

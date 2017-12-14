@@ -38,4 +38,8 @@ allow $1 nxserver:binder call;
 allow $1 nxserver:binder transfer;
 ')
 
+define(`nexus_ir', `
+allow $1 nexus_ir_file:file { open read getattr };
+allow $1 nexus_ir_file:dir { search };
+')
 

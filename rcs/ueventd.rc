@@ -13,3 +13,5 @@
 
 /dev/nxmem                0666   root       root
 /dev/dri/card*            0666   root       root
+
+/dev/uinput               0666   root       root
