@@ -16,4 +16,4 @@
 /dev/ion                  0666   root       root
 /dev/bcmpip               0666   root       root
 
-/dev/dri/card*            0666   root       graphics
+/dev/dri/card*            0000   root       graphics
