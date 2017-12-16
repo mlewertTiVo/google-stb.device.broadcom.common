@@ -72,3 +72,5 @@ allow nxserver sysfs_devices_system_cpu:file { open read write getattr };
 
 allow nxserver bcm_pip_device:chr_file { read write open getattr ioctl };
 
+allow nxserver self:capability kill;
+allow nxserver domain:process { sigkill signal };
