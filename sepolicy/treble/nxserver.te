@@ -69,3 +69,6 @@ allow nxserver tmpfs:lnk_file read;
 allow nxserver sysfs:dir { open read };
 allow nxserver sysfs:file { read write getattr open };
 allow nxserver sysfs_devices_system_cpu:file { open read write getattr };
+
+allow nxserver bcm_pip_device:chr_file { read write open getattr ioctl };
+
