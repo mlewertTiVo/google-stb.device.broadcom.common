@@ -1,4 +1,3 @@
 type hdmi_hpd_device, dev_type;
 type eio_block_device, dev_type;
 type nxmem_device, dev_type, mlstrustedobject;
-type bcm_pip_device, dev_type, mlstrustedobject;
