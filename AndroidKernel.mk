@@ -47,7 +47,7 @@ else
 OUT_DIR := ${OUT_DIR_COMMON_BASE}/$(notdir ${PWD})
 endif
 endif
-KERNEL_OUT_DIR := ${OUT_DIR}/target/product/${ANDROID_PRODUCT_OUT}
+KERNEL_OUT_DIR := ${OUT_DIR}/target/product/${LOCAL_PRODUCT_OUT}
 KERNEL_OUT_DIR_ABS := $(abspath ${KERNEL_OUT_DIR})
 
 ifeq ($(BCHP_CHIP),)
@@ -88,8 +88,8 @@ build_kernel:
 		cp -pv $(AUTOCONF_1ST_ARCH) $(AUTOCONF_1ST_ARCH)_refsw; \
 	fi
 	cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.der.x509 ${LINUX_OUT_1ST_ARCH}/
-	-@if [ -f ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
-		cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
+	-@if [ -f ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
+		cp ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
 	fi
 	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) brcmstb_defconfig
 	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
@@ -117,12 +117,12 @@ build_kernel:
 	fi
 	-@if [ "$(LOCAL_LINUX_VERSION_NODASH)" == "4.1" ]; then \
 		cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
-		if [ -f ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
-			cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
+		if [ -f ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
+			cp ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
 		fi; \
 	else \
-		if [ -f ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/signing/keys.pem.x509 ]; then \
-			cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/signing/keys.pem.x509 ${LINUX_OUT_1ST_ARCH}/; \
+		if [ -f ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/signing/keys.pem.x509 ]; then \
+			cp ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/signing/keys.pem.x509 ${LINUX_OUT_1ST_ARCH}/; \
 		else \
 			cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.pem.x509 ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
 		fi; \
@@ -158,12 +158,12 @@ build_kernel:
 	fi
 	-@if [ "$(LOCAL_LINUX_VERSION_NODASH)" == "4.1" ]; then \
 		cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
-		if [ -f ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
-			cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
+		if [ -f ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
+			cp ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
 		fi; \
 	else \
-		if [ -f ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/signing/keys.pem.x509 ]; then \
-			cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/signing/keys.pem.x509 ${LINUX_OUT_1ST_ARCH}/; \
+		if [ -f ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/signing/keys.pem.x509 ]; then \
+			cp ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/signing/keys.pem.x509 ${LINUX_OUT_1ST_ARCH}/; \
 		else \
 			cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.pem.x509 ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
 		fi; \
@@ -209,12 +209,12 @@ build_kernel:
 	fi
 	-@if [ "$(LOCAL_LINUX_VERSION_NODASH)" == "4.1" ]; then \
 		cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
-		if [ -f ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
-			cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/dm-verity/${ANDROID_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
+		if [ -f ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
+			cp ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
 		fi; \
 	else \
-		if [ -f ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/signing/keys.pem.x509 ]; then \
-			cp ${TOP}/device/broadcom/${ANDROID_PRODUCT_OUT}/signing/keys.pem.x509 ${LINUX_OUT_1ST_ARCH}/; \
+		if [ -f ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/signing/keys.pem.x509 ]; then \
+			cp ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/signing/keys.pem.x509 ${LINUX_OUT_1ST_ARCH}/; \
 		else \
 			cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.pem.x509 ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
 		fi; \
