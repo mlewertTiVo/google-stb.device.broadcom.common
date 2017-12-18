@@ -1,6 +1,8 @@
 ifneq ($(REFSW_DEFS_EXPORTED),y)
 
-export PATH                  := ${ANDROID}/vendor/broadcom/prebuilts/stbgcc-4.8-1.6/bin:${PATH}
+ifneq ($(BCM_DIST_FORCED_BINDIST),y)
+export PATH                := ${ANDROID}/vendor/broadcom/prebuilts/stbgcc-4.8-1.6/bin:${PATH}
+endif
 
 ifneq ($(LOCAL_PRODUCT_OUT),)
 # filter out invalid constructs.
@@ -84,8 +86,8 @@ endif
 NEXUS_PLATFORM_PROXY_INTF    := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nxproxyif/nexus_platform_proxy_intf.c
 NEXUS_SAGE_BP3_BIN_PATH      := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nxsagebp3/nexus_sage_bp3_bin_path.c
 
-BINDIST_BIN_DIR_1ST_ARCH       := ${BCM_BINDIST_ROOT}/nximg/${LOCAL_LINUX_VERSION_NODASH}/${TARGET_BOARD_PLATFORM}
-BINDIST_NXC_BIN_DIR_1ST_ARCH   := ${BINDIST_BIN_DIR_1ST_ARCH}
+BINDIST_BIN_DIR_1ST_ARCH       := ${ANDROID}/${BCM_BINDIST_LIBS_ROOT}
+BINDIST_NXC_BIN_DIR_1ST_ARCH   := ${ANDROID}/${BCM_BINDIST_LIBS_ROOT}
 
 export B_REFSW_TOOLCHAINS_INSTALL
 export B_REFSW_CROSS_COMPILE := ${B_REFSW_TOOLCHAINS_INSTALL}
