@@ -41,8 +41,8 @@ EXTRA_SYSTEM_LIB_FILES := \
    ${NEXUS_BIN_DIR_1ST_ARCH}/nexus.ko
 else
 EXTRA_SYSTEM_LIB_FILES := \
-   ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/mods/$(TARGET_BOARD_PLATFORM)/bcmnexusfb.ko \
-   ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/mods/$(TARGET_BOARD_PLATFORM)/nexus.ko
+   ${BCM_BINDIST_KNL_ROOT}/bcmnexusfb.ko \
+   ${BCM_BINDIST_KNL_ROOT}/nexus.ko
 endif
 
 ifeq ($(SAGE_SUPPORT),y)

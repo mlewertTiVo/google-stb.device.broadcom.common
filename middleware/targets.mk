@@ -8,21 +8,38 @@
 # 'vendor/broadcom/bcm_platform/device-nexus.mk' in multi arch build.
 #
 
+ifeq ($(BCM_DIST_KNLIMG_BINS), y)
+REFSW_TARGET_LIST := \
+	${BINDIST_BIN_DIR_1ST_ARCH}/libnexus.so \
+	${BINDIST_BIN_DIR_1ST_ARCH}/libnexus_static.a \
+	${BINDIST_NXC_BIN_DIR_1ST_ARCH}/libnxclient.so \
+	${BINDIST_NXC_BIN_DIR_1ST_ARCH}/libnxclient_static.a \
+	${BINDIST_BIN_DIR_1ST_ARCH}/libnxserver.a
+else
 REFSW_TARGET_LIST := \
 	/${NEXUS_BIN_DIR_1ST_ARCH}/libnexus.so \
 	/${NEXUS_BIN_DIR_1ST_ARCH}/libnexus_static.a \
 	/${NEXUS_NXC_BIN_DIR_1ST_ARCH}/libnxclient.so \
 	/${NEXUS_NXC_BIN_DIR_1ST_ARCH}/libnxclient_static.a \
-	/${NEXUS_BIN_DIR_1ST_ARCH}/libnxserver.a \
-	\
+	/${NEXUS_BIN_DIR_1ST_ARCH}/libnxserver.a
+endif
+
+ifeq ($(BCM_DIST_KNLIMG_BINS), y)
+REFSW_TARGET_LIST += \
+	${BCM_BINDIST_KNL_ROOT}/nexus.ko \
+	${BCM_BINDIST_KNL_ROOT}/bcmnexusfb.ko \
+	${BCM_BINDIST_KNL_ROOT}/nx_ashmem.ko \
+	${BCM_BINDIST_KNL_ROOT}/droid_pm.ko
+else
+REFSW_TARGET_LIST += \
 	${NEXUS_BIN_DIR_1ST_ARCH}/nexus.ko \
 	${NEXUS_BIN_DIR_1ST_ARCH}/bcmnexusfb.ko \
 	${NEXUS_BIN_DIR_1ST_ARCH}/nx_ashmem.ko \
 	${NEXUS_BIN_DIR_1ST_ARCH}/droid_pm.ko
-
 ifeq ($(LOCAL_GATOR_SUPPORT), y)
 REFSW_TARGET_LIST += \
 	${NEXUS_BIN_DIR_1ST_ARCH}/gator.ko
+endif
 endif
 
 REFSW_TARGET_LIST_2ND_ARCH :=

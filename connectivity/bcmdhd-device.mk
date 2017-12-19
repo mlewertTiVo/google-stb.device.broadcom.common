@@ -13,7 +13,7 @@ PRODUCT_COPY_FILES += \
    ${B_DHD_OBJ_ROOT}/driver/bcmdhd.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/bcmdhd.ko
 else
 PRODUCT_COPY_FILES += \
-   ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/mods/$(TARGET_BOARD_PLATFORM)/bcmdhd.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/bcmdhd.ko
+   ${BCM_BINDIST_KNL_ROOT}/bcmdhd.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/bcmdhd.ko
 endif
 
 PRODUCT_COPY_FILES += \

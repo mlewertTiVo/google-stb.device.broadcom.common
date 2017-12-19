@@ -93,7 +93,7 @@ PRODUCT_COPY_FILES += \
    device/broadcom/${LOCAL_PRODUCT_OUT}-kernel/zImage:kernel
 else
 PRODUCT_COPY_FILES += \
-   ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/arm/kernel:kernel
+   ${BCM_BINDIST_KNL_ROOT}/kernel:kernel
 endif
 endif
 
