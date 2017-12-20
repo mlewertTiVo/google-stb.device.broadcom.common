@@ -367,9 +367,21 @@ else
 clean_bootloaderimg:
 	@echo "'$@' no-op using bins"
 
-.PHONY: build_bootloaderimg
 build_bootloaderimg:
-	@echo "'$@' no-op using bins"
+	@echo "'$@' started"
+	@if [ "${LOCAL_DEVICE_SAGE_DEV_N_PROD}" == "y" ]; then \
+		if [ -e "${BCM_BINDIST_BL_ROOT}/bootloader.dev.img" ]; then \
+			cp ${BCM_BINDIST_BL_ROOT}/bootloader.dev.img $(PRODUCT_OUT_FROM_TOP); \
+		fi; \
+		if [ -e "${BCM_BINDIST_BL_ROOT}/bootloader.prod.img" ]; then \
+			cp ${BCM_BINDIST_BL_ROOT}/bootloader.prod.img $(PRODUCT_OUT_FROM_TOP); \
+		fi; \
+	else \
+		if [ -e "${BCM_BINDIST_BL_ROOT}/bootloader.img" ]; then \
+			cp ${BCM_BINDIST_BL_ROOT}/bootloader.img $(PRODUCT_OUT_FROM_TOP); \
+		fi; \
+	fi
+	@echo "'$@' completed"
 endif
 
 .PHONY: build_lk
