@@ -1,5 +1,6 @@
 export BCM_BINDIST_LIBS_ROOT       ?= ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bindist/nximg/${LOCAL_LINUX_VERSION_NODASH}/${TARGET_BOARD_PLATFORM}
 export BCM_BINDIST_KNL_ROOT        ?= ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bindist/knlimg/${LOCAL_LINUX_VERSION_NODASH}/${TARGET_BOARD_PLATFORM}
+export BCM_BINDIST_BL_ROOT         ?= ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bindist/blimg/${TARGET_BOARD_PLATFORM}
 
 # by default, always build from source.
 export BCM_DIST_SOURCE_ONLY        ?= y
