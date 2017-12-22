@@ -80,6 +80,7 @@ on post-fs-data
    export NXCLIENT_PASSWORD /data/misc/nexus/nx_key
 
    setprop vold.post_fs_data_done 1
+   setprop ro.nx.bootreason ${ro.boot.bootreason}
    class_start pre_core
 
 on property:dyn.nx.state=loaded
