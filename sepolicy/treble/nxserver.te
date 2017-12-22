@@ -45,10 +45,9 @@ allow nxserver watchdog_device:chr_file rw_file_perms;
 
 allow nxserver nexus_log_file:file { open create read write setattr getattr unlink };
 allow nxserver system_data_file:dir { search setattr write add_name remove_name };
-allow nxserver self:udp_socket { write create setattr };
+allow nxserver self:udp_socket { write create setattr ioctl };
 allow nxserver self:capability { net_raw net_admin };
-allowxperm nxserver self:udp_socket ioctl priv_sock_ioctls;
-allowxperm nxserver self:udp_socket ioctl unpriv_sock_ioctls;
+allowxperm nxserver self:udp_socket ioctl { unpriv_sock_ioctls priv_sock_ioctls unpriv_tty_ioctls };
 
 allow nxserver cgroup:dir search;
 allow nxserver cgroup:file { open read write };

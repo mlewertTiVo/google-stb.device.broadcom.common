@@ -9,4 +9,4 @@ type nexus_secdma_file, file_type, data_file_type;
 type nexus_fw_file, file_type, data_file_type;
 type debugfs_dri, fs_type, mlstrustedobject;
 allow debugfs_dri { debugfs }:filesystem associate;
-
+type sysfs_net, fs_type, sysfs_type;

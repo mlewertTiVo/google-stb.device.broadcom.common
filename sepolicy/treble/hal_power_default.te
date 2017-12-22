@@ -5,3 +5,4 @@ set_prop(hal_power_default, nexus_prop);
 allow hal_power_default gpu_device:chr_file rw_file_perms;
 allow hal_power_default uhid_device:chr_file { write ioctl open };
 allow hal_power_default sysfs:file rw_file_perms;
+allow hal_power_default sysfs_net:dir r_dir_perms;
