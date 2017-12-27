@@ -13,6 +13,7 @@
 /(vendor|system/vendor)/bin/nxserver u:object_r:nxserver_exec:s0
 /(vendor|system/vendor)/bin/netcoal u:object_r:netcoal_exec:s0
 /(vendor|system/vendor)/bin/nxdispfmt u:object_r:nxdispfmt_exec:s0
+/(vendor|system/vendor)/bin/togplm u:object_r:togplm_exec:s0
 
 /sbin/nxmini u:object_r:nxmini_exec:s0
 
@@ -39,3 +40,4 @@
 
 /sys/kernel/debug/dri(/.*)?   u:object_r:debugfs_dri:s0
 /sys/class/net(/.*)?          u:object_r:sysfs_net:s0
+
