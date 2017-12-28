@@ -306,8 +306,12 @@ PRODUCT_PACKAGES += \
     memtrack.$(TARGET_BOARD_PLATFORM) \
     power.$(TARGET_BOARD_PLATFORM) \
     thermal.$(TARGET_BOARD_PLATFORM) \
-    tv_input.$(TARGET_BOARD_PLATFORM) \
+    tv_input.$(TARGET_BOARD_PLATFORM)
+
+ifeq ($(HW_GPU_VULKAN_SUPPORT),y)
+PRODUCT_PACKAGES += \
     vulkan.$(TARGET_BOARD_PLATFORM)
+endif
 
 PRODUCT_PACKAGES += \
    android.hardware.audio@2.0-impl \
@@ -374,13 +378,17 @@ PRODUCT_PACKAGES += \
     libhwcbinder \
     libhwcconv \
     libGLES_nexus \
-    libbcmvulkan_icd \
     libnexusir \
     libpmlibservice \
     libstagefrighthw \
     pmlibserver \
     send_cec \
     TvProvider
+
+ifeq ($(HW_GPU_VULKAN_SUPPORT),y)
+PRODUCT_PACKAGES += \
+    libbcmvulkan_icd
+endif
 
 # bcm custom test apps, can be compiled out.
 ifeq ($(BCM_APP_CUSTOM),y)

@@ -131,6 +131,7 @@ export HW_HVD_REVISION                       ?= R
 export HW_HVD_REDUX                          ?= n
 export HAL_GR_VERSION                        ?= v-0.x
 export DTCP_IP_SAGE_SUPPORT                  ?= n
+export HW_GPU_VULKAN_SUPPORT                 ?= n
 
 export BCM_GPT_CONFIG_FILE                   := $(LOCAL_DEVICE_GPT)
 export ANDROID_BUILD                         := y
