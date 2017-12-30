@@ -41,4 +41,4 @@ on boot
    #              core middleware as soon as possible.
    #
    wait_for_prop dyn.nx.state memcfg
-   insmod /vendor/lib/modules/nx_ashmem.ko devname="ion" heap_grow="8m"
+   insmod /vendor/lib/modules/nx_ashmem.ko devname="nxmem" heap_grow="8m"

@@ -1,0 +1,3 @@
+nexus_verified_client(platform_app);
+nexus_hwservice(platform_app);
+set_prop(platform_app, nexus_prop);

@@ -1,0 +1,2 @@
+allow vold tmpfs:lnk_file r_file_perms;
+

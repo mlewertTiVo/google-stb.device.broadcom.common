@@ -4,12 +4,16 @@ ifeq ($(LOCAL_ARM_AARCH64),y)
 ifeq ($(LOCAL_ARM_AARCH64_NOT_ABI_COMPATIBLE),y)
 include device/broadcom/common/BoardConfig32.mk
 else
+ifeq ($(LOCAL_ARM_AARCH64_COMPAT_32_BIT),y)
+include device/broadcom/common/BoardConfig32.mk
+else
 # yeah!
 include device/broadcom/common/BoardConfig64.mk
 ifeq ($(LOCAL_ANDROID_64BIT),y)
 TARGET_PREFER_32_BIT_APPS   :=
 TARGET_SUPPORTS_32_BIT_APPS :=
 TARGET_SUPPORTS_64_BIT_APPS := true
+endif
 endif
 endif
 # legacy armv7 platforms.
@@ -49,7 +53,7 @@ endif
 TARGET_USERIMAGES_USE_EXT4         := true
 BOARD_BOOTIMAGE_PARTITION_SIZE     := $(LOCAL_DEVICE_BOOT)
 ifneq ($(HW_AB_UPDATE_SUPPORT),y)
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432   # 32M
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := $(LOCAL_DEVICE_RECOVERY_LEGACY)
 BOARD_CACHEIMAGE_PARTITION_SIZE    := 268435456  # 256M
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE  := ext4
 BOARD_SYSTEMIMAGE_PARTITION_SIZE   := $(LOCAL_DEVICE_SYSTEM_LEGACY)
@@ -115,7 +119,11 @@ endif
 TARGET_RECOVERY_UI_LIB         := librecovery_ui_ext
 TARGET_RECOVERY_PIXEL_FORMAT   := "RGBX_8888"
 
-BOARD_SEPOLICY_DIRS += device/broadcom/common/sepolicy
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+BOARD_SEPOLICY_DIRS += device/broadcom/common/sepolicy/treble
+else
+BOARD_SEPOLICY_DIRS += device/broadcom/common/sepolicy/legacy
+endif
 BOARD_SEPOLICY_DIRS += $(LOCAL_DEVICE_SEPOLICY_BLOCK)
 
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3

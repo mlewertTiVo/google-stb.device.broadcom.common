@@ -1,0 +1,8 @@
+nexus_verified_client_ignored(untrusted_v2_app);
+get_prop(untrusted_v2_app, nexus_prop);
+
+allow untrusted_v2_app nxserver:binder call;
+allow untrusted_v2_app proc_sysrq:file getattr;
+allow untrusted_v2_app hwcbinder:binder { transfer call };
+allow untrusted_v2_app nexus_service:service_manager find;
+

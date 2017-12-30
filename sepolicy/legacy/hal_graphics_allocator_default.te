@@ -1,0 +1,8 @@
+nexus_verified_client(hal_graphics_allocator_default);
+get_prop(hal_graphics_allocator_default, nexus_prop);
+
+allow hal_graphics_allocator_default nxmem_device:chr_file { open ioctl read write };
+allow hal_graphics_allocator_default nxserver:binder { transfer call };
+allow hal_graphics_allocator_default servicemanager:binder { transfer call };
+allow hal_graphics_allocator_default nexus_service:service_manager find;
+

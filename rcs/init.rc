@@ -1,5 +1,6 @@
 import /init.bcm.usb.rc
 import /init.block.rc
+import /init.rts.rc
 import /init.nx.rc
 import /init.fs.rc
 import /init.eth.rc
@@ -38,12 +39,6 @@ on boot
    write /proc/sys/net/core/rmem_max 3145728
    write /proc/sys/net/core/wmem_max 3145728
 
-   # IPv6 Router Advertisement
-   write /proc/sys/net/ipv6/conf/wlan0/accept_ra_rt_info_min_plen 48
-   write /proc/sys/net/ipv6/conf/wlan0/accept_ra_rt_info_max_plen 64
-   write /proc/sys/net/ipv6/conf/wlan0/router_solicitation_max_interval 900
-   write /proc/sys/net/ipv6/conf/wlan0/router_solicitations -1
-
 on post-fs
    export SAGEBIN_PATH /vendor/bin
    export NEXUS_LOGGER /vendor/bin/nxlogger
@@ -81,6 +76,7 @@ on post-fs-data
    export NXCLIENT_PASSWORD /data/misc/nexus/nx_key
 
    setprop vold.post_fs_data_done 1
+   setprop ro.nx.bootreason ${ro.boot.bootreason}
    class_start pre_core
 
 on property:dyn.nx.state=loaded
@@ -92,7 +88,6 @@ on property:sys.gator=1
 
 on property:dev.bootcomplete=1
    setprop sys.init_log_level 4
-   write /proc/sys/kernel/printk 4
 
 on property:sys.shutdown.requested=*
    write /sys/devices/platform/droid_pm/notify shutdown

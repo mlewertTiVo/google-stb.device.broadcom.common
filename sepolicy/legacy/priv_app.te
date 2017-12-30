@@ -1,0 +1,5 @@
+nexus_verified_client(priv_app);
+get_prop(priv_app, nexus_prop);
+
+allow priv_app nexus_service:service_manager find;
+allow priv_app nxserver:binder call;

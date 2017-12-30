@@ -1,0 +1,5 @@
+nexus_verified_client(hal_graphics_allocator);
+nexus_hwservice(hal_graphics_allocator);
+get_prop(hal_graphics_allocator, nexus_prop);
+
+allow hal_graphics_allocator nxmem_device:chr_file rw_file_perms;

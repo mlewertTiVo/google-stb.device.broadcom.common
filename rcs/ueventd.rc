@@ -5,11 +5,11 @@
 /dev/ttyS1                0660   bluetooth  bluetooth
 
 /dev/sw_sync              0660   system     system
-/dev/brcm_lmk             0660   system     system
 
 # nexus in disguise...
 /dev/mali                 0666   root       root
 /dev/mali0                0666   root       root
-/dev/ion                  0666   root       root
 
+/dev/nxmem                0666   root       root
 /dev/dri/card*            0666   root       root
+/dev/bcmpip               0666   root       root

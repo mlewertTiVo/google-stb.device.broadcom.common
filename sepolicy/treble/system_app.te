@@ -1,0 +1,7 @@
+nexus_verified_client_ignored(system_app);
+nexus_hwservice(system_app);
+set_prop(system_app, nexus_prop);
+
+allow system_app cache_file:dir { write add_name create remove_name };
+allow system_app cache_file:file { create write open };
+

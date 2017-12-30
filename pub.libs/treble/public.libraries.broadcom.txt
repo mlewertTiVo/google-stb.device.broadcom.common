@@ -1,0 +1,4 @@
+libnexus.so
+libnxclient.so
+libnxwrap.so
+

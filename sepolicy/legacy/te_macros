@@ -1,0 +1,19 @@
+define(`nexus_verified_client', `
+allow $1 nexus_data_file:dir { search read };
+allow $1 nexus_data_file:file { read open getattr };
+')
+
+define(`nexus_verified_client_ignored', `
+dontaudit $1 nexus_data_file:dir { search };
+dontaudit $1 nexus_data_file:file { read open getattr };
+')
+
+define(`nexus_debugable', `
+allow $1 nexus_debug_file:dir { search read write add_name remove_name };
+allow $1 nexus_debug_file:file { open create read write setattr getattr };
+')
+
+define(`nexus_firmware', `
+allow $1 nexus_fw_file:dir { search read write add_name remove_name };
+allow $1 nexus_fw_file:file { open create read write setattr getattr };
+')

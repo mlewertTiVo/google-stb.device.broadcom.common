@@ -30,7 +30,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    ro.vendor.vndk.version=26.1.0
 
-ifeq ($(filter b52c%,$(ANDROID_PRODUCT_OUT)),)
+ifeq ($(filter b52c%,$(LOCAL_PRODUCT_OUT)),)
 ifneq ($(filter userdebug eng,$(TARGET_BUILD_VARIANT)),)
 PRODUCT_PROPERTY_OVERRIDES += \
    persist.adb.tcp.port=4321
@@ -52,8 +52,13 @@ PRODUCT_PACKAGES += \
 
 # media codec policy and setup.
 #
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+PRODUCT_PROPERTY_OVERRIDES += \
+   persist.media.treble_omx=true
+else
 PRODUCT_PROPERTY_OVERRIDES += \
    persist.media.treble_omx=false
+endif
 
 PRODUCT_COPY_FILES += \
    device/broadcom/common/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy
@@ -69,14 +74,19 @@ PRODUCT_COPY_FILES += \
 
 # hardware interface hal manifest.
 #
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 PRODUCT_COPY_FILES += \
-   device/broadcom/common/manifest.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
+   device/broadcom/common/manifest/treble.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
+else
+PRODUCT_COPY_FILES += \
+   device/broadcom/common/manifest/legacy.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
+endif
 
 # copy kernel image.
 ifeq ($(BCM_DIST_KNLIMG_BINS), y)
-ifneq ($(wildcard device/broadcom/${ANDROID_PRODUCT_OUT}-kernel/zImage),)
+ifneq ($(wildcard device/broadcom/${LOCAL_PRODUCT_OUT}-kernel/zImage),)
 PRODUCT_COPY_FILES += \
-   device/broadcom/${ANDROID_PRODUCT_OUT}-kernel/zImage:kernel
+   device/broadcom/${LOCAL_PRODUCT_OUT}-kernel/zImage:kernel
 else
 PRODUCT_COPY_FILES += \
    ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/arm/kernel:kernel
@@ -86,4 +96,11 @@ endif
 # vndk.
 #
 PRODUCT_PACKAGES += \
-   $(ANDROID_PRODUCT_OUT)-vndk
+   $(LOCAL_PRODUCT_OUT)-vndk
+
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+# full treble support.
+PRODUCT_FULL_TREBLE_OVERRIDE := true
+endif
+
+PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/broadcom/bcm_platform/signing/testkey
