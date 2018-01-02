@@ -27,6 +27,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.colordepth10b.force=1 \
    \
    ro.gfx.driver.0=gfxdriver-bcmstb \
+   ro.sf.disable_triple_buffer=0 \
    \
    ro.vendor.vndk.version=26.1.0
 
