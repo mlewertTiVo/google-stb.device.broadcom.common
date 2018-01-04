@@ -25,9 +25,6 @@
     <!-- This device does not allow sms service. -->
     <bool name="config_sms_capable">false</bool>
 
-    <!-- Regex of wired ethernet ifaces -->
-    <string translatable="false" name="config_ethernet_iface_regex">gphy</string>
-
     <!-- Don't allow volume change on the device. -->
     <bool name="config_useFixedVolume">true</bool>
 
