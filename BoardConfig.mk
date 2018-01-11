@@ -135,12 +135,6 @@ ifneq ($(LOCAL_NVI_LAYOUT),y)
 TARGET_COPY_OUT_VENDOR := vendor
 endif
 
-ifeq ($(LOCAL_USE_CLANG),n)
-USE_CLANG_PLATFORM_BUILD := false
-else
-USE_CLANG_PLATFORM_BUILD := true
-endif
-
 ifeq ($(HAL_HWC_VERSION),v-2.0)
 TARGET_USES_HWC2         := true
 endif
