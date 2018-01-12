@@ -1,0 +1,2 @@
+allow { domain -hal_configstore } debugfs_dri:{ dir file lnk_file } relabelto;
+allow domain debugfs_dri:dir search;

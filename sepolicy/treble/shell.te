@@ -2,3 +2,4 @@ nexus_hwservice(shell);
 get_prop(shell, nexus_prop);
 
 allow shell nxmem_device:chr_file rw_file_perms;
+allow shell sysfs_net:dir r_dir_perms;

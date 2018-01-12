@@ -1,0 +1,14 @@
+type togplm, domain, mlstrustedsubject;
+type togplm_exec, exec_type, vendor_file_type, file_type;
+
+# started by init
+init_daemon_domain(togplm);
+nexus_verified_client(togplm);
+set_prop(togplm, nexus_prop);
+nexus_hwservice(togplm);
+nexus_debugable(togplm);
+binder_call(togplm, hwcbinder);
+vndbinder_use(togplm);
+
+allow togplm hwcbinder_service:service_manager find;
+

@@ -27,10 +27,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.colordepth10b.force=1 \
    \
    ro.gfx.driver.0=gfxdriver-bcmstb \
+   ro.sf.disable_triple_buffer=0 \
    \
    ro.vendor.vndk.version=26.1.0
 
-ifeq ($(filter b52c%,$(ANDROID_PRODUCT_OUT)),)
+ifeq ($(filter b52c%,$(LOCAL_PRODUCT_OUT)),)
 ifneq ($(filter userdebug eng,$(TARGET_BUILD_VARIANT)),)
 PRODUCT_PROPERTY_OVERRIDES += \
    persist.adb.tcp.port=4321
@@ -88,19 +89,19 @@ endif
 
 # copy kernel image.
 ifeq ($(BCM_DIST_KNLIMG_BINS), y)
-ifneq ($(wildcard device/broadcom/${ANDROID_PRODUCT_OUT}-kernel/zImage),)
+ifneq ($(wildcard device/broadcom/${LOCAL_PRODUCT_OUT}-kernel/zImage),)
 PRODUCT_COPY_FILES += \
-   device/broadcom/${ANDROID_PRODUCT_OUT}-kernel/zImage:kernel
+   device/broadcom/${LOCAL_PRODUCT_OUT}-kernel/zImage:kernel
 else
 PRODUCT_COPY_FILES += \
-   ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/arm/kernel:kernel
+   ${BCM_BINDIST_KNL_ROOT}/kernel:kernel
 endif
 endif
 
 # vndk.
 #
 PRODUCT_PACKAGES += \
-   $(ANDROID_PRODUCT_OUT)-vndk
+   $(LOCAL_PRODUCT_OUT)-vndk
 
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 # full treble support.

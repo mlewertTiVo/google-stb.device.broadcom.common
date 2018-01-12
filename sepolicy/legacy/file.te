@@ -7,3 +7,5 @@ type nexus_log_file, file_type, data_file_type;
 type proc_irq, fs_type;
 type nexus_secdma_file, file_type, data_file_type;
 type nexus_fw_file, file_type, data_file_type;
+type debugfs_dri, fs_type, mlstrustedobject, debugfs_type;
+allow debugfs_dri { debugfs }:filesystem associate;

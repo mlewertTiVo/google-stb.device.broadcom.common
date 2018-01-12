@@ -10,10 +10,10 @@
 #
 #export OUT_DIR_COMMON_BASE=
 
-ifeq (${ANDROID_PRODUCT_OUT},)
-$(error please define ANDROID_PRODUCT_OUT)
+ifeq (${LOCAL_PRODUCT_OUT},)
+$(error please define LOCAL_PRODUCT_OUT)
 endif
-export TARGET_BOARD_PLATFORM                 := ${ANDROID_PRODUCT_OUT}
+export TARGET_BOARD_PLATFORM                 := ${LOCAL_PRODUCT_OUT}
 
 # filter rules for build inclusions based on boards supported.  when adding a new
 # board to the system, you may want to add it here too.
@@ -36,9 +36,11 @@ export B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH   := ${ANDROID_TOP}/prebuilts/gcc/lin
 export P_REFSW_CC                            := ${B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH}/arm-linux-androideabi-
 export B_REFSW_PREBUILT_LIBGCC_1ST_ARCH      := prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/lib/gcc/arm-linux-androideabi/4.9.x/libgcc.a
 ifeq ($(LOCAL_ARM_AARCH64_COMPAT_32_BIT),y)
+export B_REFSW_KERNEL_ARCH_1ST_ARCH          := aarch64-linux
 export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := aarch64-linux-
 export P_REFSW_DRV_ARCH                      := arm64
 else
+export B_REFSW_KERNEL_ARCH_1ST_ARCH          := arm-linux
 export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := arm-linux-
 export P_REFSW_DRV_ARCH                      := arm
 endif
@@ -54,6 +56,7 @@ export B_REFSW_TOOLCHAIN_ARCH_2ND_ARCH       := arm-linux
 export B_REFSW_PREBUILT_LIBGCC_2ND_ARCH      := prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/lib/gcc/arm-linux-androideabi/4.9.x/libgcc.a
 export B_REFSW_CROSS_COMPILE_PATH_2ND_ARCH   := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin
 export P_REFSW_CC_2ND_ARCH                   := ${B_REFSW_CROSS_COMPILE_PATH_2ND_ARCH}/arm-linux-androideabi-
+export B_REFSW_KERNEL_ARCH_1ST_ARCH          := aarch64-linux
 export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := aarch64-linux-
 export P_REFSW_DRV_ARCH                      := arm64
 endif
@@ -63,6 +66,7 @@ export B_REFSW_TOOLCHAIN_ARCH_1ST_ARCH       := arm-linux
 export B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH   := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin
 export P_REFSW_CC                            := ${B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH}/arm-linux-androideabi-
 export B_REFSW_PREBUILT_LIBGCC_1ST_ARCH      := prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/lib/gcc/arm-linux-androideabi/4.9.x/libgcc.a
+export B_REFSW_KERNEL_ARCH_1ST_ARCH          := arm-linux
 export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := arm-linux-
 export P_REFSW_DRV_ARCH                      := arm
 endif
@@ -127,6 +131,7 @@ export HW_HVD_REVISION                       ?= R
 export HW_HVD_REDUX                          ?= n
 export HAL_GR_VERSION                        ?= v-0.x
 export DTCP_IP_SAGE_SUPPORT                  ?= n
+export HW_GPU_VULKAN_SUPPORT                 ?= n
 
 export BCM_GPT_CONFIG_FILE                   := $(LOCAL_DEVICE_GPT)
 export ANDROID_BUILD                         := y
@@ -157,7 +162,11 @@ export ANDROID_USES_BORINGSSL                := y
 export NEXUS_C_STD                           := c99
 export NEXUS_EXPORT_FILE                     := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nexus_export_file.txt
 export NEXUS_DISPLAY_EXTENSION_INC           += $(NEXUS_TOP)/extensions/display/dynrng/dynrng.inc
+ifeq ($(LOCAL_ARM_AARCH64_COMPAT_32_BIT),y)
 export GMS_PACKAGE_ROOT                      := vendor/broadcom/prebuilts/gms/
+else
+export GMS_PACKAGE_ROOT                      := vendor/broadcom/prebuilts/gms/
+endif
 
 # if enabling region verification, enable this to dump firmware for
 # offline signing.

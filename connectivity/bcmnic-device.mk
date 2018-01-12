@@ -11,7 +11,7 @@ PRODUCT_COPY_FILES += \
    ${B_NIC_OBJ_ROOT}/driver/wl.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/wl.ko
 else
 PRODUCT_COPY_FILES += \
-   ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/mods/$(TARGET_BOARD_PLATFORM)/wl.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/wl.ko
+   ${BCM_BINDIST_KNL_ROOT}/wl.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/wl.ko
 endif
 
 PRODUCT_COPY_FILES += \

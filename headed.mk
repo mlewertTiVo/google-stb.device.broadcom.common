@@ -123,9 +123,9 @@ ifeq ($(LOCAL_GATOR_SUPPORT), y)
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/gator.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/gator.ko
 endif
 else
-PRODUCT_COPY_FILES       += ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/mods/$(TARGET_BOARD_PLATFORM)/nx_ashmem.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nx_ashmem.ko
-PRODUCT_COPY_FILES       += ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/mods/$(TARGET_BOARD_PLATFORM)/nexus.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nexus.ko
-PRODUCT_COPY_FILES       += ${BCM_BINDIST_ROOT}/knlimg/${LOCAL_LINUX_VERSION_NODASH}/mods/$(TARGET_BOARD_PLATFORM)/droid_pm.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/droid_pm.ko
+PRODUCT_COPY_FILES       += ${BCM_BINDIST_KNL_ROOT}/nx_ashmem.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nx_ashmem.ko
+PRODUCT_COPY_FILES       += ${BCM_BINDIST_KNL_ROOT}/nexus.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nexus.ko
+PRODUCT_COPY_FILES       += ${BCM_BINDIST_KNL_ROOT}/droid_pm.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/droid_pm.ko
 endif
 
 ifeq ($(SAGE_SUPPORT),y)
@@ -238,12 +238,14 @@ endif
 ifeq ($(LOCAL_DEVICE_USE_VERITY),y)
 $(call inherit-product, build/target/product/verity.mk)
 PRODUCT_SUPPORTS_BOOT_SIGNER    := false
+PRODUCT_VERITY_SIGNING_KEY      := vendor/broadcom/bcm_platform/signing/verity
 PRODUCT_SYSTEM_VERITY_PARTITION := $(LOCAL_DEVICE_SYSTEM_VERITY_PARTITION)
 ifneq ($(LOCAL_NVI_LAYOUT),y)
 PRODUCT_VENDOR_VERITY_PARTITION := $(LOCAL_DEVICE_VENDOR_VERITY_PARTITION)
 endif
-PRODUCT_PACKAGES                += slideshow verity_warning_images
+PRODUCT_PACKAGES                += slideshow verity_warning_images generate_verity_key
 PRODUCT_COPY_FILES              += frameworks/native/data/etc/android.software.verified_boot.xml:system/etc/permissions/android.software.verified_boot.xml
+PRODUCT_COPY_FILES              += vendor/broadcom/bcm_platform/signing/verity.key.pub:root/verity_key
 endif
 
 # packages for the system image content.
@@ -285,7 +287,6 @@ PRODUCT_PACKAGES += \
     makehwcfg \
     netcoal \
     nxdispfmt \
-    nxlogger \
     nxserver \
     togplm
 
@@ -305,8 +306,12 @@ PRODUCT_PACKAGES += \
     memtrack.$(TARGET_BOARD_PLATFORM) \
     power.$(TARGET_BOARD_PLATFORM) \
     thermal.$(TARGET_BOARD_PLATFORM) \
-    tv_input.$(TARGET_BOARD_PLATFORM) \
+    tv_input.$(TARGET_BOARD_PLATFORM)
+
+ifeq ($(HW_GPU_VULKAN_SUPPORT),y)
+PRODUCT_PACKAGES += \
     vulkan.$(TARGET_BOARD_PLATFORM)
+endif
 
 PRODUCT_PACKAGES += \
    android.hardware.audio@2.0-impl \
@@ -356,7 +361,7 @@ PRODUCT_PACKAGES += \
    android.hardware.power@1.0-service \
    android.hardware.tv.cec@1.0-service \
    android.hardware.tv.input@1.0-service \
-   bcm.hardware.nexus@1.0-impl
+   bcm.hardware.nexus@1.0
 ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES += \
    android.hardware.drm@1.0-service.widevine
@@ -373,13 +378,17 @@ PRODUCT_PACKAGES += \
     libhwcbinder \
     libhwcconv \
     libGLES_nexus \
-    libbcmvulkan_icd \
     libnexusir \
     libpmlibservice \
     libstagefrighthw \
     pmlibserver \
     send_cec \
     TvProvider
+
+ifeq ($(HW_GPU_VULKAN_SUPPORT),y)
+PRODUCT_PACKAGES += \
+    libbcmvulkan_icd
+endif
 
 # bcm custom test apps, can be compiled out.
 ifeq ($(BCM_APP_CUSTOM),y)

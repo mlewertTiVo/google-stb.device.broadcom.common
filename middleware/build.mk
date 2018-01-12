@@ -1,17 +1,20 @@
 SHELL := /bin/bash
 export SHELL
 
+include $(dir $(lastword $(MAKEFILE_LIST)))bindist.mk
 include $(dir $(lastword $(MAKEFILE_LIST)))definitions.mk
 include $(dir $(lastword $(MAKEFILE_LIST)))targets.mk
 
-NEXUS_ARCH_ENV := B_REFSW_ARCH=${B_REFSW_ARCH_1ST_ARCH}
-NEXUS_ARCH_ENV += B_REFSW_KERNEL_CROSS_COMPILE=${B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH}
+NEXUS_ARCH_ENV := B_REFSW_KERNEL_CROSS_COMPILE=${B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH}
 NEXUS_ARCH_ENV += B_REFSW_TOOLCHAIN_ARCH=${B_REFSW_TOOLCHAIN_ARCH_1ST_ARCH}
 NEXUS_ARCH_ENV += B_REFSW_OBJ_ROOT=${B_REFSW_OBJ_ROOT_1ST_ARCH}
 NEXUS_ARCH_ENV += B_REFSW_ANDROID_LIB=${B_REFSW_ANDROID_LIB_1ST_ARCH}
 NEXUS_ARCH_ENV += NEXUS_BIN_DIR=${NEXUS_BIN_DIR_1ST_ARCH}
 NEXUS_ARCH_ENV += LINUX_OUT=${LINUX_OUT_1ST_ARCH}
 NEXUS_ARCH_ENV += ANDROID_PREBUILT_LIBGCC=${B_REFSW_PREBUILT_LIBGCC_1ST_ARCH}
+NEXUS_ARCH_KERN_ENV := ${NEXUS_ARCH_ENV}
+NEXUS_ARCH_KERN_ENV += B_REFSW_ARCH=${B_REFSW_KERNEL_ARCH_1ST_ARCH}
+NEXUS_ARCH_ENV += B_REFSW_ARCH=${B_REFSW_ARCH_1ST_ARCH}
 
 NEXUS_2ND_ARCH_ENV := B_REFSW_ARCH=${B_REFSW_ARCH_2ND_ARCH}
 NEXUS_2ND_ARCH_ENV += B_REFSW_KERNEL_CROSS_COMPILE=${B_REFSW_KERNEL_CROSS_COMPILE_2ND_ARCH}
@@ -124,9 +127,9 @@ clean_nexus:
 
 .PHONY: clean_refsw
 clean_refsw: clean_nexus clean_bootloaderimg clean_lk
-	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/FAKE/refsw/
-	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxserver_*
-	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/obj/EXECUTABLES/nxmini_*
+	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${LOCAL_PRODUCT_OUT}/obj/FAKE/refsw/
+	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${LOCAL_PRODUCT_OUT}/obj/EXECUTABLES/nxserver_*
+	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${LOCAL_PRODUCT_OUT}/obj/EXECUTABLES/nxmini_*
 
 clean : clean_refsw
 
@@ -167,7 +170,11 @@ bindist_build: bindist_core_build
 				mkdir -p ${B_DHD_OBJ_ROOT}; \
 			fi; \
 			cp -faR ${BROADCOM_DHD_SOURCE_PATH}/dhd ${B_DHD_OBJ_ROOT} && cp ${BROADCOM_DHD_SOURCE_PATH}/*.sh ${B_DHD_OBJ_ROOT}; \
-			cd ${B_DHD_OBJ_ROOT} && source ./setenv-android-stb7445.sh ${BROADCOM_WIFI_CHIPSET} && LINUX_OUT=${LINUX_OUT_1ST_ARCH} BRCM_DHD_TARGET_NVRAM_PATH=${BRCM_DHD_TARGET_NVRAM_PATH} ./bfd-drv-cfg80211.sh; \
+			if [ "${LOCAL_ARM_AARCH64_COMPAT_32_BIT}" == "y" ]; then \
+				cd ${B_DHD_OBJ_ROOT} && source ./setenv-android-stb72xx.sh ${BROADCOM_WIFI_CHIPSET} && LINUX_OUT=${LINUX_OUT_1ST_ARCH} BRCM_DHD_TARGET_NVRAM_PATH=${BRCM_DHD_TARGET_NVRAM_PATH} ./bfd-drv-cfg80211.sh; \
+			else \
+				cd ${B_DHD_OBJ_ROOT} && source ./setenv-android-stb7445.sh ${BROADCOM_WIFI_CHIPSET} && LINUX_OUT=${LINUX_OUT_1ST_ARCH} BRCM_DHD_TARGET_NVRAM_PATH=${BRCM_DHD_TARGET_NVRAM_PATH} ./bfd-drv-cfg80211.sh; \
+			fi; \
 		fi; \
 	fi
 	@echo "'$@' completed"
@@ -184,11 +191,11 @@ bindist_core_build: build_kernel $(NEXUS_DEPS)
 	fi
 	$(MAKE) $(NEXUS_ARCH_ENV) -C $(NEXUS_TOP)/nxclient/server server
 	cp -faR $(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/ && \
-	$(MAKE) $(NEXUS_ARCH_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/droid_pm INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
+	$(MAKE) $(NEXUS_ARCH_KERN_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/droid_pm INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
 	cp -faR $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/ && \
-	$(MAKE) $(NEXUS_ARCH_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/fbdev INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
+	$(MAKE) $(NEXUS_ARCH_KERN_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/fbdev INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
 	cp -faR $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/ && \
-	$(MAKE) $(NEXUS_ARCH_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/nx_ashmem NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
+	$(MAKE) $(NEXUS_ARCH_KERN_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/nx_ashmem NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
 	@echo "'$@' completed"
 
 .PHONY: nexus_build
@@ -196,7 +203,7 @@ nexus_build: clean_recovery_ramdisk build_bootloaderimg build_lk bindist_build
 	@echo "'$@' started"
 	@if [ "${LOCAL_GATOR_SUPPORT}" == "y" ]; then \
 		mkdir -p ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/gator && cp -faR $(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/gator && \
-		$(MAKE) $(NEXUS_ARCH_ENV) ARCH=${P_REFSW_DRV_ARCH} -C $(LINUX_OUT_1ST_ARCH) M=${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/gator/driver modules && \
+		$(MAKE) $(NEXUS_ARCH_KERN_ENV) ARCH=${P_REFSW_DRV_ARCH} -C $(LINUX_OUT_1ST_ARCH) M=${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/gator/driver modules && \
 		cp ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/gator/driver/gator.ko $(NEXUS_BIN_DIR_1ST_ARCH); \
 	fi
 	@echo "'$@' completed"
@@ -360,9 +367,21 @@ else
 clean_bootloaderimg:
 	@echo "'$@' no-op using bins"
 
-.PHONY: build_bootloaderimg
 build_bootloaderimg:
-	@echo "'$@' no-op using bins"
+	@echo "'$@' started"
+	@if [ "${LOCAL_DEVICE_SAGE_DEV_N_PROD}" == "y" ]; then \
+		if [ -e "${BCM_BINDIST_BL_ROOT}/bootloader.dev.img" ]; then \
+			cp ${BCM_BINDIST_BL_ROOT}/bootloader.dev.img $(PRODUCT_OUT_FROM_TOP); \
+		fi; \
+		if [ -e "${BCM_BINDIST_BL_ROOT}/bootloader.prod.img" ]; then \
+			cp ${BCM_BINDIST_BL_ROOT}/bootloader.prod.img $(PRODUCT_OUT_FROM_TOP); \
+		fi; \
+	else \
+		if [ -e "${BCM_BINDIST_BL_ROOT}/bootloader.img" ]; then \
+			cp ${BCM_BINDIST_BL_ROOT}/bootloader.img $(PRODUCT_OUT_FROM_TOP); \
+		fi; \
+	fi
+	@echo "'$@' completed"
 endif
 
 .PHONY: build_lk
@@ -454,9 +473,9 @@ endif
 
 clean_recovery_ramdisk :
 	@echo "'$@' started"
-	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/root/system/*
-	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/root/vendor/*
-	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${ANDROID_PRODUCT_OUT}/root/sbin/nxmini
+	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${LOCAL_PRODUCT_OUT}/root/system/*
+	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${LOCAL_PRODUCT_OUT}/root/vendor/*
+	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${LOCAL_PRODUCT_OUT}/root/sbin/nxmini
 	@echo "'$@' completed"
 
 export URSR_TOP := ${REFSW_BASE_DIR}
