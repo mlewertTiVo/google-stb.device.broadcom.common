@@ -8,4 +8,4 @@ type proc_irq, fs_type;
 type nexus_secdma_file, file_type, data_file_type;
 type nexus_fw_file, file_type, data_file_type;
 type proc_brcm, fs_type;
-type nexus_ir_file, file_type;
+type nexus_ir_file, vendor_file_type, file_type;
