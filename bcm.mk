@@ -29,7 +29,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.gfx.driver.0=gfxdriver-bcmstb \
    ro.sf.disable_triple_buffer=0 \
    \
-   ro.vendor.vndk.version=26.1.0
+   ro.vendor.vndk.version=26.1.0 \
+   \
+   ro.pr.version=2.5
 
 ifeq ($(filter b52c%,$(LOCAL_PRODUCT_OUT)),)
 ifneq ($(filter userdebug eng,$(TARGET_BUILD_VARIANT)),)
