@@ -1,11 +1,11 @@
 type bluetooth_control, dev_type;
 type sw_sync_device, dev_type;
-type nexus_data_file, file_type, data_file_type;
+type nexus_data_file, file_type, data_file_type, core_data_file_type;
 type readonlyfs, fs_type;
-type nexus_debug_file, file_type, data_file_type;
-type nexus_log_file, file_type, data_file_type;
+type nexus_debug_file, file_type, data_file_type, core_data_file_type;
+type nexus_log_file, file_type, data_file_type, core_data_file_type;
 type proc_irq, fs_type;
-type nexus_secdma_file, file_type, data_file_type;
-type nexus_fw_file, file_type, data_file_type;
+type nexus_secdma_file, file_type, data_file_type, core_data_file_type;
+type nexus_fw_file, file_type, data_file_type, core_data_file_type;
 type proc_brcm, fs_type;
 type nexus_ir_file, vendor_file_type, file_type;
