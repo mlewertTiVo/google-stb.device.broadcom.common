@@ -101,6 +101,8 @@ BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 BOARD_USES_RECOVERY_AS_BOOT   := true
 endif
 
+TARGET_FS_CONFIG_GEN += device/broadcom/common/config.fs
+
 ifeq ($(LOCAL_DEVICE_KERNEL_CMDLINE),)
 $(error please define a valid kernel boot configuration)
 endif

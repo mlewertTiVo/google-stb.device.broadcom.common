@@ -332,7 +332,7 @@ PRODUCT_PACKAGES += \
    android.hardware.tv.input@1.0-impl \
    android.hardware.tv.cec@1.0-impl \
    android.hardware.usb@1.0-service \
-   android.hardware.wifi@1.0-service
+   android.hardware.wifi@1.0-bcm
 
 ifneq ($(HW_AB_UPDATE_SUPPORT),n)
 PRODUCT_PACKAGES += \

@@ -23,6 +23,8 @@
 /system/vendor/bin/netcoal u:object_r:netcoal_exec:s0
 /system/vendor/bin/togplm u:object_r:togplm_exec:s0
 
+/(vendor|system/vendor)/bin/hw/android\.hardware\.wifi@1\.0-bcm u:object_r:hal_wifi_default_exec:s0
+
 /sbin/nxmini u:object_r:nxmini_exec:s0
 
 /data/misc/nexus(/.*)?    u:object_r:nexus_data_file:s0
