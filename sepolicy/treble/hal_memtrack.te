@@ -1,4 +1,4 @@
-nexus_verified_client(hal_memtrack_default);
+nexus_vendor_verified_client(hal_memtrack_default);
 get_prop(hal_memtrack, nexus_prop);
 allow hal_memtrack gpu_device:chr_file rw_file_perms;
 allow hal_memtrack nxmem_device:chr_file { open ioctl read write };

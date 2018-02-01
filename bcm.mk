@@ -27,8 +27,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.colordepth10b.force=1 \
    \
    ro.gfx.driver.0=gfxdriver-bcmstb \
+   ro.sf.disable_triple_buffer=0 \
    \
-   ro.vendor.vndk.version=26.1.0
+   ro.vendor.vndk.version=26.1.0 \
+   \
+   ro.pr.version=2.5
 
 ifeq ($(filter b52c%,$(LOCAL_PRODUCT_OUT)),)
 ifneq ($(filter userdebug eng,$(TARGET_BUILD_VARIANT)),)
@@ -79,11 +82,9 @@ endif
 # hardware interface hal manifest.
 #
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
-PRODUCT_COPY_FILES += \
-   device/broadcom/common/manifest/treble.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
+DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/treble.xml
 else
-PRODUCT_COPY_FILES += \
-   device/broadcom/common/manifest/legacy.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
+DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/legacy.xml
 endif
 
 # copy kernel image.
@@ -112,3 +113,4 @@ PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/google/certs/devkeys/devkey
 else
 PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/broadcom/bcm_platform/signing/testkey
 endif
+

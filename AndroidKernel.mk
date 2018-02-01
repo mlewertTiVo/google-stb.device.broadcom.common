@@ -87,12 +87,20 @@ build_kernel:
 	-@if [ -f $(AUTOCONF_1ST_ARCH) ]; then \
 		cp -pv $(AUTOCONF_1ST_ARCH) $(AUTOCONF_1ST_ARCH)_refsw; \
 	fi
-	cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.der.x509 ${LINUX_OUT_1ST_ARCH}/
-	-@if [ -f ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
-		cp ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
+	-@if [ "$(LOCAL_LINUX_VERSION_NODASH)" == "4.1" ]; then \
+		cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
+		if [ -f ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ]; then \
+			cp ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
+		fi; \
+	else \
+		cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.pem.x509 ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
 	fi
-	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) brcmstb_defconfig
-	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
+	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
+	echo "CONFIG_SYSTEM_TRUSTED_KEYS=\"keys.pem.x509\"" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm64/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment;
+	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) brcmstb_defconfig
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
 	-@if [ -f $(AUTOCONF_1ST_ARCH)_refsw ]; then \
 		if [ `diff -q $(AUTOCONF_1ST_ARCH)_refsw $(AUTOCONF_1ST_ARCH) | wc -l` -eq 0 ]; then \
 			echo "'generated/autoconf.h' is unchanged"; \
@@ -132,9 +140,9 @@ build_kernel:
 	echo "# CONFIG_BCM7145 is not set" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
 	echo "CONFIG_CROSS_COMPILE=\"arm-linux-gnueabihf-\"" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
 	echo "CONFIG_SYSTEM_TRUSTED_KEYS=\"keys.pem.x509\"" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
-	cd $(LINUX) && ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment
-	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
 	-@if [ -f $(AUTOCONF_1ST_ARCH)_refsw ]; then \
 		if [ `diff -q $(AUTOCONF_1ST_ARCH)_refsw $(AUTOCONF_1ST_ARCH) | wc -l` -eq 0 ]; then \
 			echo "'generated/autoconf.h' is unchanged"; \
@@ -170,10 +178,10 @@ build_kernel:
 	fi
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
 	echo "CONFIG_SYSTEM_TRUSTED_KEYS=\"keys.pem.x509\"" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
-	cd $(LINUX) && ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm64/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment;
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm64/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment;
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
-	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) brcmstb_defconfig
-	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) brcmstb_defconfig
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
 	-@if [ -f $(AUTOCONF_1ST_ARCH)_refsw ]; then \
 		if [ `diff -q $(AUTOCONF_1ST_ARCH)_refsw $(AUTOCONF_1ST_ARCH) | wc -l` -eq 0 ]; then \
 			echo "'generated/autoconf.h' is unchanged"; \
@@ -191,9 +199,9 @@ build_kernel_2nd_arch:
 	echo "# CONFIG_BCM3390A0 is not set" > $(LINUX_OUT_2ND_ARCH)/config_fragment
 	echo "# CONFIG_BCM7145 is not set" >> $(LINUX_OUT_2ND_ARCH)/config_fragment
 	echo "CONFIG_CROSS_COMPILE=\"arm-linux-gnueabihf-\"" >> $(LINUX_OUT_2ND_ARCH)/config_fragment
-	cd $(LINUX) && ARCH=arm scripts/kconfig/merge_config.sh -O $(LINUX_OUT_2ND_ARCH) arch/arm/configs/brcmstb_defconfig $(LINUX_OUT_2ND_ARCH)/config_fragment
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH ARCH=arm scripts/kconfig/merge_config.sh -O $(LINUX_OUT_2ND_ARCH) arch/arm/configs/brcmstb_defconfig $(LINUX_OUT_2ND_ARCH)/config_fragment
 	rm -f $(LINUX_OUT_2ND_ARCH)/config_fragment
-	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_2ND_ARCH) ARCH=arm $(MAKE) $(KERNEL_2ND_IMG)
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_2ND_ARCH) ARCH=arm $(MAKE) $(KERNEL_2ND_IMG)
 	@echo "'$@' completed"
 
 endif
@@ -224,9 +232,9 @@ build_kernel:
 	echo "# CONFIG_BCM7145 is not set" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
 	echo "CONFIG_CROSS_COMPILE=\"arm-linux-gnueabihf-\"" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
 	echo "CONFIG_SYSTEM_TRUSTED_KEYS=\"keys.pem.x509\"" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
-	cd $(LINUX) && ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment
-	cd $(LINUX) && KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
 	-@if [ -f $(AUTOCONF_1ST_ARCH)_refsw ]; then \
 		if [ `diff -q $(AUTOCONF_1ST_ARCH)_refsw $(AUTOCONF_1ST_ARCH) | wc -l` -eq 0 ]; then \
 			echo "'generated/autoconf.h' is unchanged"; \

@@ -1,9 +1,5 @@
 ifneq ($(REFSW_DEFS_EXPORTED),y)
 
-ifneq ($(BCM_DIST_FORCED_BINDIST),y)
-export PATH                := ${ANDROID}/vendor/broadcom/prebuilts/stbgcc-4.8-1.6/bin:${PATH}
-endif
-
 ifneq ($(LOCAL_PRODUCT_OUT),)
 # filter out invalid constructs.
 LOCAL_PRODUCT_OUT          := $(notdir $(LOCAL_PRODUCT_OUT))

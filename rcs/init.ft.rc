@@ -63,11 +63,13 @@ on post-fs-data
    mkdir /data/nxmedia 0777 media media
    mkdir /data/nexus 0775 root system
    mkdir /data/misc/nexus 0755 root system
-   mkdir /data/misc/nxfw 0777 root root
+
+   mkdir /data/vendor/misc 0771 root root
+   mkdir /data/vendor/misc/nexus 0755 root system
+   mkdir /data/vendor/misc/nxfw 0777 root root
+   mkdir /data/vendor/nexus/secdma 0777 system system
 
    mkdir /data/mediadrm/playready/ 0770 mediadrm mediadrm
-
-   mkdir /data/nexus/secdma 0777 system system
 
    # *** sample only.
    #
@@ -75,11 +77,18 @@ on post-fs-data
    #    server/client authentication, note the syntax
    #    of the key-file content: 'trusted:<some-password>'
    #
+   #    we seed twice the same value for vendor policy realm
+   #    and core|platform policy realm, the value should be the
+   #    same always ... for now.
+   # 
    write /data/misc/nexus/nx_key trusted:test-passwd
    chmod 0644 /data/misc/nexus/nx_key
-   export NXCLIENT_PASSWORD /data/misc/nexus/nx_key
+   write /data/vendor/misc/nexus/nx_key trusted:test-passwd
+   chmod 0644 /data/vendor/misc/nexus/nx_key
+   export NXCLIENT_PASSWORD /data/vendor/misc/nexus/nx_key:/data/misc/nexus/nx_key
 
    setprop vold.post_fs_data_done 1
+   setprop ro.nx.bootreason ${ro.boot.bootreason}
    class_start pre_core
 
 on property:dyn.nx.state=loaded

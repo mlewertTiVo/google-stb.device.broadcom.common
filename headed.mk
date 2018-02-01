@@ -31,21 +31,14 @@ $(call inherit-product-if-exists, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 $(call inherit-product, device/google/atv/products/atv_base.mk)
 include device/broadcom/common/settings.mk
-# include the gms packages and configuration
-# TODO: FiX GMS package and configuration locations for intenal and extenal builds
-ifeq ($(PRODUCT_USE_PREBUILT_GMS),yes)
 $(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
-else
-$(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
-endif
 include device/broadcom/common/middleware/definitions.mk
 
 ifneq ($(BCM_DIST_KNLIMG_BINS),y)
-ifeq ($(TARGET_BUILD_VARIANT),user)
-export B_REFSW_DEBUG       ?= n
-export B_REFSW_DEBUG_LEVEL :=
-else
 export B_REFSW_DEBUG       ?= y
+ifeq ($(TARGET_BUILD_VARIANT),user)
+export B_REFSW_DEBUG_LEVEL := wrn
+else
 export B_REFSW_DEBUG_LEVEL := msg
 export NEXUS_EXTRA_CFLAGS  := -DNEXUS_P_TRACE=1 -DNEXUS_P_SYNC_TRACE=1
 endif
@@ -138,7 +131,7 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_os_app${SAGE_BINARY_EXT}.bi
 else
 ifeq ($(LOCAL_DEVICE_SAGE_DEV_N_PROD),y)
 SAGE_BINARY_EXT      := _dev
-SAGE_BL_BINARY_PATH  := $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)/dev
+SAGE_BL_BINARY_PATH  := ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/$(BCHP_CHIP)$(BCHP_VER)/dev
 PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_bl${SAGE_BINARY_EXT}.bin
 SAGE_APP_BINARY_PATH := $(SAGE_BL_BINARY_PATH)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_framework${SAGE_BINARY_EXT}.bin
@@ -159,7 +152,7 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINAR
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
 endif
 SAGE_BINARY_EXT2      :=
-SAGE_BL_BINARY_PATH2  := $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)
+SAGE_BL_BINARY_PATH2  := ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/$(BCHP_CHIP)$(BCHP_VER)
 PRODUCT_COPY_FILES    += ${SAGE_BL_BINARY_PATH2}/sage_bl${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_bl${SAGE_BINARY_EXT2}.bin
 SAGE_APP_BINARY_PATH2 := $(SAGE_BL_BINARY_PATH2)
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_framework${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_framework${SAGE_BINARY_EXT2}.bin
@@ -181,7 +174,7 @@ PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_playready_30${SAGE_BIN
 endif
 else
 SAGE_BINARY_EXT      ?= _dev
-SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)/dev
+SAGE_BL_BINARY_PATH  ?= ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/$(BCHP_CHIP)$(BCHP_VER)/dev
 PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_bl${SAGE_BINARY_EXT}.bin
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_framework${SAGE_BINARY_EXT}.bin
@@ -238,12 +231,14 @@ endif
 ifeq ($(LOCAL_DEVICE_USE_VERITY),y)
 $(call inherit-product, build/target/product/verity.mk)
 PRODUCT_SUPPORTS_BOOT_SIGNER    := false
+PRODUCT_VERITY_SIGNING_KEY      := vendor/broadcom/bcm_platform/signing/verity
 PRODUCT_SYSTEM_VERITY_PARTITION := $(LOCAL_DEVICE_SYSTEM_VERITY_PARTITION)
 ifneq ($(LOCAL_NVI_LAYOUT),y)
 PRODUCT_VENDOR_VERITY_PARTITION := $(LOCAL_DEVICE_VENDOR_VERITY_PARTITION)
 endif
-PRODUCT_PACKAGES                += slideshow verity_warning_images
+PRODUCT_PACKAGES                += slideshow verity_warning_images generate_verity_key
 PRODUCT_COPY_FILES              += frameworks/native/data/etc/android.software.verified_boot.xml:system/etc/permissions/android.software.verified_boot.xml
+PRODUCT_COPY_FILES              += vendor/broadcom/bcm_platform/signing/verity.key.pub:root/verity_key
 endif
 
 # packages for the system image content.
@@ -285,7 +280,6 @@ PRODUCT_PACKAGES += \
     makehwcfg \
     netcoal \
     nxdispfmt \
-    nxlogger \
     nxserver \
     togplm
 
@@ -298,6 +292,7 @@ endif
 PRODUCT_PACKAGES += \
     audio.primary.$(TARGET_BOARD_PLATFORM) \
     bootctrl.$(TARGET_BOARD_PLATFORM) \
+    gatekeeper.$(TARGET_BOARD_PLATFORM) \
     gralloc.$(TARGET_BOARD_PLATFORM) \
     hdmi_cec.$(TARGET_BOARD_PLATFORM) \
     hwcomposer.$(TARGET_BOARD_PLATFORM) \
@@ -305,8 +300,12 @@ PRODUCT_PACKAGES += \
     memtrack.$(TARGET_BOARD_PLATFORM) \
     power.$(TARGET_BOARD_PLATFORM) \
     thermal.$(TARGET_BOARD_PLATFORM) \
-    tv_input.$(TARGET_BOARD_PLATFORM) \
+    tv_input.$(TARGET_BOARD_PLATFORM)
+
+ifeq ($(HW_GPU_VULKAN_SUPPORT),y)
+PRODUCT_PACKAGES += \
     vulkan.$(TARGET_BOARD_PLATFORM)
+endif
 
 PRODUCT_PACKAGES += \
    android.hardware.audio@2.0-impl \
@@ -314,6 +313,7 @@ PRODUCT_PACKAGES += \
    android.hardware.bluetooth@1.0-impl \
    android.hardware.bluetooth@1.0-service \
    android.hardware.drm@1.0-impl \
+   android.hardware.gatekeeper@1.0-impl \
    android.hardware.graphics.allocator@2.0-impl \
    android.hardware.graphics.allocator@2.0-service \
    android.hardware.graphics.bufferqueue@1.0 \
@@ -350,13 +350,14 @@ ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 PRODUCT_PACKAGES += \
    android.hardware.audio@2.0-service \
    android.hardware.drm@1.0-service \
+   android.hardware.gatekeeper@1.0-service \
    android.hardware.graphics.composer@2.1-service \
    android.hardware.renderscript@1.0-impl \
    android.hardware.soundtrigger@2.1-impl \
    android.hardware.power@1.0-service \
    android.hardware.tv.cec@1.0-service \
    android.hardware.tv.input@1.0-service \
-   bcm.hardware.nexus@1.0-impl
+   bcm.hardware.nexus@1.0
 ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES += \
    android.hardware.drm@1.0-service.widevine
@@ -373,13 +374,17 @@ PRODUCT_PACKAGES += \
     libhwcbinder \
     libhwcconv \
     libGLES_nexus \
-    libbcmvulkan_icd \
     libnexusir \
     libpmlibservice \
     libstagefrighthw \
     pmlibserver \
     send_cec \
     TvProvider
+
+ifeq ($(HW_GPU_VULKAN_SUPPORT),y)
+PRODUCT_PACKAGES += \
+    libbcmvulkan_icd
+endif
 
 # bcm custom test apps, can be compiled out.
 ifeq ($(BCM_APP_CUSTOM),y)
@@ -404,9 +409,9 @@ ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES            += liboemcrypto libwvdrmengine
 endif
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
-PRODUCT_PACKAGES            += libcmndrmprdy libplayreadydrmplugin libplayreadypk_host
+PRODUCT_PACKAGES            += libcmndrmprdy libplayreadydrmplugin_2_5 libplayreadypk_host
 ifneq ($(SAGE_VERSION),2x)
-PRODUCT_PACKAGES            += libplayready30pk
+PRODUCT_PACKAGES            += libplayreadydrmplugin_3_0 libplayready30pk
 endif
 endif
 endif
@@ -415,9 +420,7 @@ ifneq ($(TARGET_BUILD_PDK),true)
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)
 PRODUCT_PACKAGES            += update_engine update_engine_client update_verifier
 PRODUCT_PACKAGES            += update_engine_sideload
-PRODUCT_STATIC_BOOT_CONTROL_HAL := \
-    bootctrl.$(TARGET_BOARD_PLATFORM) \
-    libcutils
+PRODUCT_STATIC_BOOT_CONTROL_HAL := bootctrl.$(TARGET_BOARD_PLATFORM)
 endif
 endif
 

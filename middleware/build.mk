@@ -5,14 +5,16 @@ include $(dir $(lastword $(MAKEFILE_LIST)))bindist.mk
 include $(dir $(lastword $(MAKEFILE_LIST)))definitions.mk
 include $(dir $(lastword $(MAKEFILE_LIST)))targets.mk
 
-NEXUS_ARCH_ENV := B_REFSW_ARCH=${B_REFSW_ARCH_1ST_ARCH}
-NEXUS_ARCH_ENV += B_REFSW_KERNEL_CROSS_COMPILE=${B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH}
+NEXUS_ARCH_ENV := B_REFSW_KERNEL_CROSS_COMPILE=${B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH}
 NEXUS_ARCH_ENV += B_REFSW_TOOLCHAIN_ARCH=${B_REFSW_TOOLCHAIN_ARCH_1ST_ARCH}
 NEXUS_ARCH_ENV += B_REFSW_OBJ_ROOT=${B_REFSW_OBJ_ROOT_1ST_ARCH}
 NEXUS_ARCH_ENV += B_REFSW_ANDROID_LIB=${B_REFSW_ANDROID_LIB_1ST_ARCH}
 NEXUS_ARCH_ENV += NEXUS_BIN_DIR=${NEXUS_BIN_DIR_1ST_ARCH}
 NEXUS_ARCH_ENV += LINUX_OUT=${LINUX_OUT_1ST_ARCH}
 NEXUS_ARCH_ENV += ANDROID_PREBUILT_LIBGCC=${B_REFSW_PREBUILT_LIBGCC_1ST_ARCH}
+NEXUS_ARCH_KERN_ENV := ${NEXUS_ARCH_ENV}
+NEXUS_ARCH_KERN_ENV += B_REFSW_ARCH=${B_REFSW_KERNEL_ARCH_1ST_ARCH}
+NEXUS_ARCH_ENV += B_REFSW_ARCH=${B_REFSW_ARCH_1ST_ARCH}
 
 NEXUS_2ND_ARCH_ENV := B_REFSW_ARCH=${B_REFSW_ARCH_2ND_ARCH}
 NEXUS_2ND_ARCH_ENV += B_REFSW_KERNEL_CROSS_COMPILE=${B_REFSW_KERNEL_CROSS_COMPILE_2ND_ARCH}
@@ -154,21 +156,25 @@ bindist_build: bindist_core_build
 			fi; \
 			cp -faR ${BROADCOM_NIC_SOURCE_PATH}/src ${B_NIC_OBJ_ROOT}  && cp ${BROADCOM_NIC_SCRIPT_PATH}/*.sh ${B_NIC_OBJ_ROOT}; \
 			cp -faR ${BROADCOM_NIC_SOURCE_PATH}/components ${B_NIC_OBJ_ROOT}; \
-			cd ${B_NIC_OBJ_ROOT} && source ./setenv-android-stb7271.sh && SHORTER_PATH=1 ./build-drv-nic.sh ${BRCM_NIC_TARGET_NAME}; \
+			cd ${B_NIC_OBJ_ROOT} && source ./setenv-android-stb7271.sh && PATH=${B_KNB_TOOLCHAIN}:$$PATH SHORTER_PATH=1 ./build-drv-nic.sh ${BRCM_NIC_TARGET_NAME}; \
 		fi; \
 		if [ "${HW_WIFI_NIC_DUAL_SUPPORT}" == "y" ]; then \
 			if [ ! -d "${B_NIC_DUAL_OBJ_ROOT}" ]; then \
 				mkdir -p ${B_NIC_DUAL_OBJ_ROOT}; \
 			fi; \
 			cp -faR ${BROADCOM_NIC_DUAL_SOURCE_PATH}/* ${B_NIC_DUAL_OBJ_ROOT}  && cp ${BROADCOM_NIC_DUAL_SOURCE_PATH}/*.sh ${B_NIC_DUAL_OBJ_ROOT}; \
-			cd ${B_NIC_DUAL_OBJ_ROOT} && source ./setenv-android-stb7445.sh ${BRCM_NIC_DUAL_CHIPVER} && LINUX_OUT=${LINUX_OUT_1ST_ARCH} ./build-drv.sh ${BRCM_NIC_DUAL_TARGET}; \
+			cd ${B_NIC_DUAL_OBJ_ROOT} && source ./setenv-android-stb7445.sh ${BRCM_NIC_DUAL_CHIPVER} && PATH=${B_KNB_TOOLCHAIN}:$$PATH LINUX_OUT=${LINUX_OUT_1ST_ARCH} ./build-drv.sh ${BRCM_NIC_DUAL_TARGET}; \
 		fi; \
 		if [[ "${HW_WIFI_NIC_SUPPORT}" != "y" && "${HW_WIFI_NIC_DUAL_SUPPORT}" != "y" ]]; then \
 			if [ ! -d "${B_DHD_OBJ_ROOT}" ]; then \
 				mkdir -p ${B_DHD_OBJ_ROOT}; \
 			fi; \
 			cp -faR ${BROADCOM_DHD_SOURCE_PATH}/dhd ${B_DHD_OBJ_ROOT} && cp ${BROADCOM_DHD_SOURCE_PATH}/*.sh ${B_DHD_OBJ_ROOT}; \
-			cd ${B_DHD_OBJ_ROOT} && source ./setenv-android-stb7445.sh ${BROADCOM_WIFI_CHIPSET} && LINUX_OUT=${LINUX_OUT_1ST_ARCH} BRCM_DHD_TARGET_NVRAM_PATH=${BRCM_DHD_TARGET_NVRAM_PATH} ./bfd-drv-cfg80211.sh; \
+			if [ "${LOCAL_ARM_AARCH64_COMPAT_32_BIT}" == "y" ]; then \
+				cd ${B_DHD_OBJ_ROOT} && source ./setenv-android-stb72xx.sh ${BROADCOM_WIFI_CHIPSET} && PATH=${B_KNB_TOOLCHAIN}:$$PATH LINUX_OUT=${LINUX_OUT_1ST_ARCH} BRCM_DHD_TARGET_NVRAM_PATH=${BRCM_DHD_TARGET_NVRAM_PATH} ./bfd-drv-cfg80211.sh; \
+			else \
+				cd ${B_DHD_OBJ_ROOT} && source ./setenv-android-stb7445.sh ${BROADCOM_WIFI_CHIPSET} && PATH=${B_KNB_TOOLCHAIN}:$$PATH LINUX_OUT=${LINUX_OUT_1ST_ARCH} BRCM_DHD_TARGET_NVRAM_PATH=${BRCM_DHD_TARGET_NVRAM_PATH} ./bfd-drv-cfg80211.sh; \
+			fi; \
 		fi; \
 	fi
 	@echo "'$@' completed"
@@ -183,13 +189,13 @@ bindist_core_build: build_kernel $(NEXUS_DEPS)
 	@if [ ! -d "${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/" ]; then \
 		mkdir -p ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/; \
 	fi
-	$(MAKE) $(NEXUS_ARCH_ENV) -C $(NEXUS_TOP)/nxclient/server server
+	PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) $(NEXUS_ARCH_ENV) -C $(NEXUS_TOP)/nxclient/server server
 	cp -faR $(BRCMSTB_ANDROID_DRIVER_PATH)/droid_pm ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/ && \
-	$(MAKE) $(NEXUS_ARCH_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/droid_pm INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
+	PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) $(NEXUS_ARCH_KERN_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/droid_pm INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
 	cp -faR $(BRCMSTB_ANDROID_DRIVER_PATH)/fbdev ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/ && \
-	$(MAKE) $(NEXUS_ARCH_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/fbdev INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
+	PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) $(NEXUS_ARCH_KERN_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/fbdev INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
 	cp -faR $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/ && \
-	$(MAKE) $(NEXUS_ARCH_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/nx_ashmem NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
+	PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) $(NEXUS_ARCH_KERN_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/nx_ashmem NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
 	@echo "'$@' completed"
 
 .PHONY: nexus_build
@@ -197,7 +203,7 @@ nexus_build: clean_recovery_ramdisk build_bootloaderimg build_lk bindist_build
 	@echo "'$@' started"
 	@if [ "${LOCAL_GATOR_SUPPORT}" == "y" ]; then \
 		mkdir -p ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/gator && cp -faR $(BRCMSTB_ANDROID_DRIVER_PATH)/gator/driver ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/gator && \
-		$(MAKE) $(NEXUS_ARCH_ENV) ARCH=${P_REFSW_DRV_ARCH} -C $(LINUX_OUT_1ST_ARCH) M=${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/gator/driver modules && \
+		PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) $(NEXUS_ARCH_KERN_ENV) ARCH=${P_REFSW_DRV_ARCH} -C $(LINUX_OUT_1ST_ARCH) M=${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/gator/driver modules && \
 		cp ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/gator/driver/gator.ko $(NEXUS_BIN_DIR_1ST_ARCH); \
 	fi
 	@echo "'$@' completed"
@@ -210,7 +216,7 @@ nexus_build_2nd_arch: $(NEXUS_DEPS_2ND_ARCH) build_kernel_2nd_arch nexus_build
 	@if [ ! -d "${NEXUS_BIN_DIR_2ND_ARCH}" ]; then \
 		mkdir -p ${NEXUS_BIN_DIR_2ND_ARCH}; \
 	fi
-	$(MAKE) $(NEXUS_2ND_ARCH_ENV) -C $(NEXUS_TOP)/nxclient/server server
+	PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) $(NEXUS_2ND_ARCH_ENV) -C $(NEXUS_TOP)/nxclient/server server
 	@echo "'$@' completed"
 else
 nexus_build_2nd_arch:
@@ -241,9 +247,9 @@ build_bolt:
 		cp -faR ${B_BOLT_CUSTOM_OVERRIDE}/* $(BOLT_DIR)/custom; \
 	fi
 	@if [ "${B_BOLT_CFG_OVERRIDE}" != "" ]; then \
-		$(MAKE) -C $(BOLT_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) CFG=${B_BOLT_CFG_OVERRIDE} ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT); \
+		PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(BOLT_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) CFG=${B_BOLT_CFG_OVERRIDE} ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT); \
 	else \
-		$(MAKE) -C $(BOLT_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT); \
+		PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(BOLT_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT); \
 	fi
 	cp -pv $(B_BOLT_OBJ_ROOT)/bolt-ba.bin $(PRODUCT_OUT_FROM_TOP)/bolt-ba.bin || :
 	cp -pv $(B_BOLT_OBJ_ROOT)/bolt-bb.bin $(PRODUCT_OUT_FROM_TOP)/bolt-bb.bin || :
@@ -259,9 +265,9 @@ build_bolt_vb:
 		cp -faR ${B_BOLT_CUSTOM_OVERRIDE}/* $(BOLT_DIR_VB)/custom; \
 	fi
 	@if [ "${B_BOLT_CFG_OVERRIDE}" != "" ]; then \
-		$(MAKE) -C $(BOLT_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_LOWER) CFG=${B_BOLT_CFG_OVERRIDE} SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT); \
+		PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(BOLT_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_LOWER) CFG=${B_BOLT_CFG_OVERRIDE} SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT); \
 	else \
-		$(MAKE) -C $(BOLT_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_LOWER) SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT); \
+		PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(BOLT_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_LOWER) SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT); \
 	fi
 	cp -pv $(B_BOLT_VB_OBJ_ROOT)/bolt-ba.bin $(PRODUCT_OUT_FROM_TOP)/bolt-ba-vb.bin || :
 	cp -pv $(B_BOLT_VB_OBJ_ROOT)/bolt-bb.bin $(PRODUCT_OUT_FROM_TOP)/bolt-bb-vb.bin || :
@@ -280,7 +286,7 @@ clean_android_bsu_vb:
 build_android_bsu: build_bolt gptbin
 	@echo "'$@' started"
 	cp -pv $(PRODUCT_OUT_FROM_TOP)/gpt.bin.gen.c $(B_BOLT_OBJ_ROOT)/gpt.bin.gen.c
-	$(MAKE) -C $(ANDROID_BSU_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT)
+	PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(ANDROID_BSU_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT)
 	cp -pv $(B_BOLT_OBJ_ROOT)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf || :
 	@echo "'$@' completed"
 
@@ -288,7 +294,7 @@ build_android_bsu: build_bolt gptbin
 build_android_bsu_vb: build_bolt_vb gptbin
 	@echo "'$@' started"
 	cp -pv $(PRODUCT_OUT_FROM_TOP)/gpt.bin.gen.c $(B_BOLT_VB_OBJ_ROOT)/gpt.bin.gen.c
-	$(MAKE) -C $(ANDROID_BSU_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_LOWER) SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT)
+	PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(ANDROID_BSU_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_LOWER) SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT)
 	cp -pv $(B_BOLT_VB_OBJ_ROOT)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/android_bsu-vb.elf || :
 	@echo "'$@' completed"
 
@@ -385,7 +391,7 @@ build_lk:
 	@if [ ! -d "${B_LK_OBJ_ROOT}" ]; then \
 		mkdir -p ${B_LK_OBJ_ROOT}; \
 	fi
-	$(MAKE) -f ${LKROOT}/makefile BUILDROOT=${B_LK_OBJ_ROOT} ${LOCAL_LK_DEVICE}
+	PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -f ${LKROOT}/makefile BUILDROOT=${B_LK_OBJ_ROOT} ${LOCAL_LK_DEVICE}
 	cp ${B_LK_OBJ_ROOT}/build-${LOCAL_LK_DEVICE}/lk.bin $(PRODUCT_OUT_FROM_TOP)/lk-tee.bin
 	@echo "'$@' completed"
 else
@@ -410,7 +416,7 @@ build_bl31:
 		mkdir -p ${B_BL31_OBJ_ROOT}; \
 	fi
 	cp -faR $(ARMTFROOT)/* ${B_BL31_OBJ_ROOT} && cd ${B_BL31_OBJ_ROOT} && \
-	CROSS_COMPILE=aarch64-linux-gnu- $(MAKE) -f Makefile PLAT=${LOCAL_BL31_DEVICE} SPD=trusty bl31
+	PATH=${B_KNB_TOOLCHAIN}:$$PATH CROSS_COMPILE=aarch64-linux-gnu- $(MAKE) -f Makefile PLAT=${LOCAL_BL31_DEVICE} SPD=trusty bl31
 	cp ${B_BL31_OBJ_ROOT}/build/${LOCAL_BL31_DEVICE}/release/bl31.bin $(PRODUCT_OUT_FROM_TOP)/bl31.bin
 	@echo "'$@' completed"
 else
@@ -478,11 +484,13 @@ export PLAYREADY_ROOT := $(REFSW_BASE_DIR)/prsrcs/2.5/
 export PLAYREADY_DIR := $(PLAYREADY_ROOT)/source/linux
 export _NTROOT=${PLAYREADY_ROOT}
 export PRDY_TOP := $(REFSW_BASE_DIR)/prsrcs
+export PLAYREADY_HOST_BUILD := y
 
 clean_security_user :
 	$(MAKE) -C $(REFSW_BASE_DIR)/secsrcs/common_drm clean
 	rm -f $(REFSW_BASE_DIR)/BSEAV/lib/security/common_drm/drm/common/drm_common.o
 	$(MAKE) -C $(REFSW_BASE_DIR)/prsrcs/2.5/source clean
+	$(MAKE) -C $(REFSW_BASE_DIR)/prsrcs/3.0/source clean
 
 # build all the needed libs, then check them into the source tree as 'prebuilts'.
 #
@@ -491,6 +499,9 @@ security_user:
 	@echo "'$@' started"
 	$(MAKE) $(NEXUS_ARCH_ENV) -C $(REFSW_BASE_DIR)/secsrcs/common_drm all
 	$(MAKE) $(NEXUS_ARCH_ENV) -C $(REFSW_BASE_DIR)/prsrcs/2.5/source all
+	$(MAKE) $(NEXUS_ARCH_ENV) -C $(REFSW_BASE_DIR)/prsrcs/3.0/source all
+	$(MAKE) -C $(REFSW_BASE_DIR)/prsrcs/3.0/source/linux/libraries clean
+	$(MAKE) $(NEXUS_ARCH_ENV) -C $(REFSW_BASE_DIR)/prsrcs/3.0/source/linux/libraries all
 	@echo "'$@' completed"
 
 ifeq ($(TARGET_2ND_ARCH),arm)
@@ -500,6 +511,9 @@ security_user_2nd_arch:
 	$(MAKE) $(NEXUS_2ND_ARCH_ENV) -C $(REFSW_BASE_DIR)/secsrcs/common_drm all
 	$(MAKE) $(NEXUS_2ND_ARCH_ENV) -C $(REFSW_BASE_DIR)/prsrcs/2.5/source all
 	$(MAKE) $(NEXUS_2ND_ARCH_ENV) -C $(REFSW_BASE_DIR)/secsrcs/third_party/android/drm/widevine/OEMCrypto
+	$(MAKE) $(NEXUS_2ND_ARCH_ENV) -C $(REFSW_BASE_DIR)/prsrcs/3.0/source all
+	$(MAKE) $(NEXUS_2ND_ARCH_ENV) -C $(REFSW_BASE_DIR)/prsrcs/3.0/source/linux/libraries clean
+	$(MAKE) $(NEXUS_2ND_ARCH_ENV) -C $(REFSW_BASE_DIR)/prsrcs/3.0/source/linux/libraries all
 	@echo "'$@' completed"
 else
 security_user_2nd_arch:

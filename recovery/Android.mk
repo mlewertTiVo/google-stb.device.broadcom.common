@@ -25,12 +25,10 @@ include $(BUILD_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE_TAGS := eng
+LOCAL_C_INCLUDES += bootable/recovery
 LOCAL_SRC_FILES := recovery_updater.cpp
 # should match TARGET_RECOVERY_UPDATER_LIBS set in BoardConfig.mk
 LOCAL_MODULE := librecovery_updater_ext
-LOCAL_STATIC_LIBRARIES := \
-    libedify \
-    libotautil
 include $(BUILD_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
@@ -57,7 +55,7 @@ EXTRA_SYSTEM_BIN_FILES := \
    ${SAGE_APP_BINARY_PATH}/sage_os_app${SAGE_BINARY_EXT}.bin
 else
 ifeq ($(LOCAL_DEVICE_SAGE_DEV_N_PROD),y)
-SAGE_BL_BINARY_PATH := $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)/dev
+SAGE_BL_BINARY_PATH := ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/$(BCHP_CHIP)$(BCHP_VER)/dev
 SAGE_BINARY_EXT := _dev
 SAGE_APP_BINARY_PATH := $(SAGE_BL_BINARY_PATH)
 EXTRA_SYSTEM_BIN_FILES := \
@@ -80,7 +78,7 @@ EXTRA_SYSTEM_BIN_FILES += \
    ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin \
    ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
 endif
-SAGE_BL_BINARY_PATH2 := $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)
+SAGE_BL_BINARY_PATH2 := ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/$(BCHP_CHIP)$(BCHP_VER)
 SAGE_BINARY_EXT2 :=
 SAGE_APP_BINARY_PATH2 := $(SAGE_BL_BINARY_PATH2)
 EXTRA_SYSTEM_BIN_FILES += \
@@ -104,7 +102,7 @@ EXTRA_SYSTEM_BIN_FILES += \
    ${SAGE_APP_BINARY_PATH2}/sage_ta_playready_30${SAGE_BINARY_EXT2}.bin
 endif
 else
-SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/$(BCHP_CHIP)$(BCHP_VER)/dev
+SAGE_BL_BINARY_PATH  ?= ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/$(BCHP_CHIP)$(BCHP_VER)/dev
 SAGE_BINARY_EXT ?= _dev
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)
 EXTRA_SYSTEM_BIN_FILES := \

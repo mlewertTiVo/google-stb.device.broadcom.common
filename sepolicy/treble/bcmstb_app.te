@@ -3,7 +3,7 @@ app_domain(bcmstb_app)
 net_domain(bcmstb_app)
 bluetooth_domain(bcmstb_app)
 create_pty(bcmstb_app)
-nexus_verified_client(bcmstb_app);
+nexus_vendor_verified_client(bcmstb_app);
 nexus_hwservice(bcmstb_app);
 binder_call(bcmstb_app, hwcbinder);
 

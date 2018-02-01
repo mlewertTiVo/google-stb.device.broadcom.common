@@ -5,7 +5,7 @@ type hwcbinder_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hwcbinder)
 
 vndbinder_use(hwcbinder);
-nexus_verified_client(hwcbinder);
+nexus_vendor_verified_client(hwcbinder);
 binder_call(hwcbinder, hal_graphics_composer_default);
 allow hwcbinder self:capability { sys_nice };
 
@@ -14,6 +14,7 @@ allow hwcbinder mediaserver:binder { call transfer };
 allow hwcbinder untrusted_app:binder { call transfer };
 allow hwcbinder bcmstb_app:binder { call transfer };
 allow hwcbinder mediacodec:binder { call transfer };
+allow hwcbinder togplm:binder { call transfer };
 
 add_service(hwcbinder, hwcbinder_service);
 

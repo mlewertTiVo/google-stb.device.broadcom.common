@@ -1,4 +1,4 @@
-nexus_verified_client(hal_tv_input_default);
+nexus_vendor_verified_client(hal_tv_input_default);
 set_prop(hal_tv_input_default, nexus_prop);
 vndbinder_use(hal_tv_input_default);
 allow hal_tv_input_default hwcbinder_service:service_manager { find };

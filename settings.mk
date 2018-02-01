@@ -28,6 +28,7 @@ export BCM_VENDOR_STB_ROOT                   := vendor/broadcom
 #
 export ANDROID                               := $(shell pwd)
 export ANDROID_TOP                           := ${ANDROID}
+export B_KNB_TOOLCHAIN                       := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-4.8-1.6/bin
 ifeq ($(LOCAL_ARM_AARCH64),y)
 ifeq ($(LOCAL_ARM_AARCH64_NOT_ABI_COMPATIBLE),y)
 export B_REFSW_ARCH_1ST_ARCH                 := arm-linux
@@ -36,9 +37,11 @@ export B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH   := ${ANDROID_TOP}/prebuilts/gcc/lin
 export P_REFSW_CC                            := ${B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH}/arm-linux-androideabi-
 export B_REFSW_PREBUILT_LIBGCC_1ST_ARCH      := prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/lib/gcc/arm-linux-androideabi/4.9.x/libgcc.a
 ifeq ($(LOCAL_ARM_AARCH64_COMPAT_32_BIT),y)
+export B_REFSW_KERNEL_ARCH_1ST_ARCH          := aarch64-linux
 export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := aarch64-linux-
 export P_REFSW_DRV_ARCH                      := arm64
 else
+export B_REFSW_KERNEL_ARCH_1ST_ARCH          := arm-linux
 export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := arm-linux-
 export P_REFSW_DRV_ARCH                      := arm
 endif
@@ -54,6 +57,7 @@ export B_REFSW_TOOLCHAIN_ARCH_2ND_ARCH       := arm-linux
 export B_REFSW_PREBUILT_LIBGCC_2ND_ARCH      := prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/lib/gcc/arm-linux-androideabi/4.9.x/libgcc.a
 export B_REFSW_CROSS_COMPILE_PATH_2ND_ARCH   := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin
 export P_REFSW_CC_2ND_ARCH                   := ${B_REFSW_CROSS_COMPILE_PATH_2ND_ARCH}/arm-linux-androideabi-
+export B_REFSW_KERNEL_ARCH_1ST_ARCH          := aarch64-linux
 export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := aarch64-linux-
 export P_REFSW_DRV_ARCH                      := arm64
 endif
@@ -63,6 +67,7 @@ export B_REFSW_TOOLCHAIN_ARCH_1ST_ARCH       := arm-linux
 export B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH   := ${ANDROID_TOP}/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin
 export P_REFSW_CC                            := ${B_REFSW_CROSS_COMPILE_PATH_1ST_ARCH}/arm-linux-androideabi-
 export B_REFSW_PREBUILT_LIBGCC_1ST_ARCH      := prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/lib/gcc/arm-linux-androideabi/4.9.x/libgcc.a
+export B_REFSW_KERNEL_ARCH_1ST_ARCH          := arm-linux
 export B_REFSW_KERNEL_CROSS_COMPILE_1ST_ARCH := arm-linux-
 export P_REFSW_DRV_ARCH                      := arm
 endif
@@ -113,6 +118,7 @@ export LOCAL_DEVICE_SAGE_DEV_N_PROD          ?= n
 export LOCAL_DEVICE_RTS_MODE                 ?= 5
 export LOCAL_DEVICE_USE_VERITY               ?= n
 export LOCAL_DEVICE_BGRCPKT_PLANES           ?= 2
+export LOCAL_DEVICE_MKBOOTIMG_ARGS           ?= --ramdisk_offset 0x02200000
 
 export HW_ENCODER_SUPPORT                    ?= y
 export HW_WIFI_NIC_SUPPORT                   ?= n
@@ -127,6 +133,7 @@ export HW_HVD_REVISION                       ?= R
 export HW_HVD_REDUX                          ?= n
 export HAL_GR_VERSION                        ?= v-0.x
 export DTCP_IP_SAGE_SUPPORT                  ?= n
+export HW_GPU_VULKAN_SUPPORT                 ?= n
 
 export BCM_GPT_CONFIG_FILE                   := $(LOCAL_DEVICE_GPT)
 export ANDROID_BUILD                         := y
@@ -167,6 +174,13 @@ export NEXUS_REGION_VERIFICATION_DUMP_FIRMWARE_RAW ?= n
 # some massaging for security support, make it simple to remove as it often requires to
 # be disabled for new device bring up.
 #
+
+# *** warning
+#
+export ANDROID_SUPPORTS_PLAYREADY            := n
+#
+# *** warning
+
 export ANDROID_SUPPORTS_WIDEVINE             ?= y
 export ANDROID_ENABLE_HDMI_HDCP              ?= y
 ifneq ($(ANDROID_SUPPORTS_PLAYREADY),n)
@@ -179,6 +193,7 @@ endif
 
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY) $(ANDROID_ENABLE_HDMI_HDCP),y),)
 	export SAGE_SUPPORT                  := y
+	export SAGE_BINARIES_AVAILABLE       := y
 	export NEXUS_SECURITY_SUPPORT        := y
 	export KEYLADDER_SUPPORT             := y
 	export NEXUS_COMMON_CRYPTO_SUPPORT   := y

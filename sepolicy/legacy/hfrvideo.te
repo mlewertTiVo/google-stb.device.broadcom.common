@@ -1,5 +1,5 @@
 type hfrvideo, domain, mlstrustedsubject;
-type hfrvideo_exec, exec_type, vendor_file_type, file_type;
+type hfrvideo_exec, exec_type, file_type;
 
 # started by init
 init_daemon_domain(hfrvideo)

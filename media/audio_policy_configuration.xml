@@ -16,6 +16,8 @@
 
 <audioPolicyConfiguration version="1.0" xmlns:xi="http://www.w3.org/2001/XInclude">
 
+    <globalConfiguration speaker_drc_enabled="false"/>
+
     <modules>
         <module name="primary" halVersion="2.0">
             <attachedDevices>
@@ -32,11 +34,18 @@
                 </mixPort>
                 <mixPort name="tunnel" role="source" flags="AUDIO_OUTPUT_FLAG_DIRECT|AUDIO_OUTPUT_FLAG_HW_AV_SYNC">
                 </mixPort>
+                <mixPort name="tv-remote input" role="sink">
+                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="8000"
+                             channelMasks="AUDIO_CHANNEL_IN_MONO"/>
+                </mixPort>
             </mixPorts>
             <devicePorts>
                 <devicePort tagName="Speaker" type="AUDIO_DEVICE_OUT_SPEAKER" role="sink">
                 </devicePort>
                 <devicePort tagName="Out Aux Digital" type="AUDIO_DEVICE_OUT_AUX_DIGITAL" role="sink">
+                </devicePort>
+                <devicePort tagName="TV Remote Mic" type="AUDIO_DEVICE_IN_WIRED_HEADSET" role="source">
                 </devicePort>
             </devicePorts>
             <routes>
@@ -44,6 +53,8 @@
                        sources="primary output,tunnel"/>
                 <route type="mix" sink="Out Aux Digital"
                        sources="primary output,direct,tunnel"/>
+                <route type="mix" sink="tv-remote input"
+                       sources="TV Remote Mic"/>
             </routes>
         </module>
 
