@@ -1,5 +1,5 @@
 type nxdispfmt, domain;
-type nxdispfmt_exec, exec_type, file_type;
+type nxdispfmt_exec, exec_type, file_type, vendor_file_type;
 
 # started by init
 init_daemon_domain(nxdispfmt)

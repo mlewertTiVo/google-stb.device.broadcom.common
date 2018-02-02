@@ -1,5 +1,5 @@
 type hwcbinder, domain;
-type hwcbinder_exec, exec_type, file_type;
+type hwcbinder_exec, exec_type, file_type, vendor_file_type;
 
 # started by init
 init_daemon_domain(hwcbinder)

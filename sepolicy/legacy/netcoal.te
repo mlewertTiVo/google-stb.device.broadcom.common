@@ -1,5 +1,5 @@
 type netcoal, domain, mlstrustedsubject;
-type netcoal_exec, exec_type, file_type;
+type netcoal_exec, exec_type, file_type, vendor_file_type;
 
 # started by init
 init_daemon_domain(netcoal)
