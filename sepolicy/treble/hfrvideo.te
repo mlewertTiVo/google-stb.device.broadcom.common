@@ -12,14 +12,14 @@ allow hfrvideo mediacodec:process { getsched setsched };
 allow hfrvideo mediadrmserver:process { getsched setsched };
 allow hfrvideo hwcbinder:process { getsched setsched };
 allow hfrvideo audioserver:process { getsched setsched };
-allow hfrvideo untrusted_app:process { getsched setsched };
+allow hfrvideo untrusted_app_all:process { getsched setsched };
 
 # Read /proc/pid data for all domains.
 r_dir_file(hfrvideo, domain)
 r_dir_file(hfrvideo, appdomain)
 
 dontaudit hfrvideo platform_app:dir search;
-dontaudit hfrvideo untrusted_app:dir search;
+dontaudit hfrvideo untrusted_app_all:dir search;
 dontaudit hfrvideo self:capability sys_ptrace;
 
 get_prop(hfrvideo, nexus_prop);

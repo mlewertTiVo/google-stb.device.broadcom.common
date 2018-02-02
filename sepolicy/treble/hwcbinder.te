@@ -11,7 +11,7 @@ allow hwcbinder self:capability { sys_nice };
 
 allow hwcbinder surfaceflinger:binder { call transfer };
 allow hwcbinder mediaserver:binder { call transfer };
-allow hwcbinder untrusted_app:binder { call transfer };
+allow hwcbinder untrusted_app_all:binder { call transfer };
 allow hwcbinder bcmstb_app:binder { call transfer };
 allow hwcbinder mediacodec:binder { call transfer };
 allow hwcbinder togplm:binder { call transfer };

@@ -4,7 +4,7 @@ allow kernel device:blk_file setattr;
 allow kernel adbd:process sigkill;
 allow kernel platform_app:process sigkill;
 allow kernel shell:process sigkill;
-allow kernel untrusted_app:process sigkill;
+allow kernel untrusted_app_all:process sigkill;
 allow kernel device:dir w_dir_perms;
 allow kernel device:chr_file create;
 allow kernel device:chr_file setattr;
