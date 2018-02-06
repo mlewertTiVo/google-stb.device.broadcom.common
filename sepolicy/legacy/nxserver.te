@@ -1,5 +1,5 @@
 type nxserver, domain, mlstrustedsubject;
-type nxserver_exec, exec_type, file_type;
+type nxserver_exec, exec_type, vendor_file_type, file_type;
 
 # started by init
 init_daemon_domain(nxserver)

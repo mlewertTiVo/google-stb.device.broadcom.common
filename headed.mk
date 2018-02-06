@@ -37,11 +37,10 @@ endif
 include device/broadcom/common/middleware/definitions.mk
 
 ifneq ($(BCM_DIST_KNLIMG_BINS),y)
-ifeq ($(TARGET_BUILD_VARIANT),user)
-export B_REFSW_DEBUG       ?= n
-export B_REFSW_DEBUG_LEVEL :=
-else
 export B_REFSW_DEBUG       ?= y
+ifeq ($(TARGET_BUILD_VARIANT),user)
+export B_REFSW_DEBUG_LEVEL := wrn
+else
 export B_REFSW_DEBUG_LEVEL := msg
 export NEXUS_EXTRA_CFLAGS  := -DNEXUS_P_TRACE=1 -DNEXUS_P_SYNC_TRACE=1
 endif
@@ -409,9 +408,9 @@ ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES            += liboemcrypto libwvdrmengine
 endif
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
-PRODUCT_PACKAGES            += libcmndrmprdy libplayreadydrmplugin libplayreadypk_host
+PRODUCT_PACKAGES            += libcmndrmprdy libplayreadydrmplugin_2_5 libplayreadypk_host
 ifneq ($(SAGE_VERSION),2x)
-PRODUCT_PACKAGES            += libplayready30pk
+PRODUCT_PACKAGES            += libplayreadydrmplugin_3_0 libplayready30pk
 endif
 endif
 endif
