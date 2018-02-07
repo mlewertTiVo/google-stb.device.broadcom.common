@@ -25,7 +25,8 @@ VNDK_SP_LIBRARIES := \
     libpng \
     libunwind \
     libunwindstack \
-    libutils
+    libutils \
+    libstdc++
 
 ifneq ($(TARGET_BUILD_PDK),true)
 VNDK_SP_LIBRARIES += \
