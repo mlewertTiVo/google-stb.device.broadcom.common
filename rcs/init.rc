@@ -99,3 +99,11 @@ on property:dev.bootcomplete=1
 
 on property:sys.shutdown.requested=*
    write /sys/devices/platform/droid_pm/notify shutdown
+
+# bugreport is triggered by holding down volume down, volume up and power
+service bugreport /system/bin/dumpstate -d -p -B -z \
+        -o /data/user_de/0/com.android.shell/files/bugreports/bugreport
+    class main
+    disabled
+    oneshot
+    keycodes 114 115 116
