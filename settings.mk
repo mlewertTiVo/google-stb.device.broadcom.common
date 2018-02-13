@@ -118,6 +118,7 @@ export LOCAL_DEVICE_RTS_MODE                 ?= 5
 export LOCAL_DEVICE_USE_VERITY               ?= n
 export LOCAL_DEVICE_BGRCPKT_PLANES           ?= 2
 export LOCAL_DEVICE_MKBOOTIMG_ARGS           ?= --ramdisk_offset 0x02200000
+export LOCAL_DEVICE_USE_AVB                  ?= n
 
 export HW_ENCODER_SUPPORT                    ?= y
 export HW_WIFI_NIC_SUPPORT                   ?= n

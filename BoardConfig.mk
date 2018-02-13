@@ -153,3 +153,6 @@ DONT_DEXPREOPT_PREBUILTS := true
 
 MALLOC_SVELTE := true
 
+ifeq ($(LOCAL_DEVICE_USE_AVB),y)
+BOARD_AVB_ENABLE := true
+endif
