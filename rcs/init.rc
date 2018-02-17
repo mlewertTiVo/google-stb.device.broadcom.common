@@ -17,9 +17,10 @@ on init
    symlink /sdcard /mnt/sdcard
    symlink /sdcard /storage/sdcard0
 
-   # allocate node(s) which are part of the CTS exception list.
    export NEXUS_DEVICE_NODE /dev/mali
    export NEXUS_WAKE_DEVICE_NODE /dev/mali0
+
+   export NXCLIENT_PASSWORD /data/vendor/misc/nexus/nx_key:/data/misc/nexus/nx_key
 
 on boot
    # LED permissions
@@ -78,7 +79,6 @@ on post-fs-data
    chmod 0644 /data/misc/nexus/nx_key
    write /data/vendor/misc/nexus/nx_key trusted:test-passwd
    chmod 0644 /data/vendor/misc/nexus/nx_key
-   export NXCLIENT_PASSWORD /data/vendor/misc/nexus/nx_key:/data/misc/nexus/nx_key
 
    setprop vold.post_fs_data_done 1
    class_start pre_core
