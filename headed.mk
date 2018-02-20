@@ -250,6 +250,7 @@ endif
 # packages for the system image content.
 PRODUCT_PACKAGES += \
     wpa_supplicant \
+    wpa_supplicant.conf \
     dhcpcd.conf \
     wificond
 
