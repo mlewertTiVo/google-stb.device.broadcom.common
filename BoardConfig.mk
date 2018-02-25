@@ -28,7 +28,7 @@ HAVE_HTC_AUDIO_DRIVER        := true
 USE_OPENGL_RENDERER          := true
 BOARD_USES_GENERIC_AUDIO     := false
 USE_LEGACY_AUDIO_POLICY      := 0
-USE_CUSTOM_AUDIO_POLICY      := 1
+USE_CUSTOM_AUDIO_POLICY      := 0
 USE_XML_AUDIO_POLICY_CONF    := 1
 
 # Wifi related defines
