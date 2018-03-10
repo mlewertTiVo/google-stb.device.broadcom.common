@@ -9,6 +9,7 @@ binder_call(bcmstb_app, hwcbinder);
 get_prop(bcmstb_app, nexus_prop);
 dspsvcext_hwservice(bcmstb_app);
 binder_call(bcmstb_app, hal_dspsvcext);
+nexus_hwcfg(bcmstb_app);
 
 allow bcmstb_app shell_data_file:file r_file_perms;
 allow bcmstb_app shell_data_file:dir r_dir_perms;
@@ -20,8 +21,6 @@ allow bcmstb_app media_rw_data_file:dir create_dir_perms;
 allow bcmstb_app media_rw_data_file:file create_file_perms;
 allow bcmstb_app cache_file:dir create_dir_perms;
 allow bcmstb_app cache_file:file create_file_perms;
-allow bcmstb_app readonlyfs:file { read open getattr };
-allow bcmstb_app readonlyfs:dir search;
 allow bcmstb_app media_data_file:dir create_dir_perms;
 allow bcmstb_app media_data_file:file create_file_perms;
 

@@ -187,6 +187,7 @@ else
 	export ANDROID_SUPPORTS_PLAYREADY    := n
 endif
 endif
+export ANDROID_DEVICE_SUPPORTS_BP3      ?= n
 
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY) $(ANDROID_ENABLE_HDMI_HDCP),y),)
 	export SAGE_SUPPORT                  := y

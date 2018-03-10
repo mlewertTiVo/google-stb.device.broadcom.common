@@ -17,3 +17,17 @@ define(`nexus_firmware', `
 allow $1 nexus_fw_file:dir { search read write add_name remove_name };
 allow $1 nexus_fw_file:file { open create read write setattr getattr };
 ')
+
+define(`not_bp3', ifelse(target_bp3, `false', $1, ))
+define(`bp3', ifelse(target_bp3, `true', $1, ))
+
+define(`nexus_hwcfg', `
+bp3(`
+allow $1 vfat:file rw_file_perms;
+allow $1 vfat:dir { r_dir_perms search };
+')
+not_bp3(`
+allow $1 readonlyfs:file r_file_perms;
+allow $1 readonlyfs:dir { r_dir_perms search };
+')
+')

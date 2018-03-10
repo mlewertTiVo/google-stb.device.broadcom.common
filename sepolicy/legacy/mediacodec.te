@@ -1,12 +1,11 @@
 nexus_verified_client(mediacodec);
 nexus_debugable(mediacodec);
+nexus_hwcfg(mediacodec);
 set_prop(mediacodec, nexus_prop);
 
 allow mediacodec graphics_device:dir search;
 allow mediacodec hwcbinder:binder { transfer call };
 allow mediacodec nxserver:binder call;
-allow mediacodec readonlyfs:file { read open getattr };
-allow mediacodec readonlyfs:dir search;
 allow mediacodec self:netlink_kobject_uevent_socket { create bind read };
 allow mediacodec nexus_service:service_manager find;
 allow mediacodec proc:file r_file_perms;

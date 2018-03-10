@@ -5,10 +5,9 @@ set_prop(mediacodec, nexus_prop);
 binder_call(mediacodec, hwcbinder);
 dspsvcext_hwservice(mediacodec);
 binder_call(mediacodec, hal_dspsvcext);
+nexus_hwcfg(mediacodec);
 
 allow mediacodec graphics_device:dir search;
-allow mediacodec readonlyfs:file { read open getattr };
-allow mediacodec readonlyfs:dir search;
 allow mediacodec self:netlink_kobject_uevent_socket { create bind read };
 allow mediacodec proc:file r_file_perms;
 allow mediacodec hwcbinder_service:service_manager find;
