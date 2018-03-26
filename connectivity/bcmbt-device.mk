@@ -15,13 +15,13 @@ endif
 
 ifeq ($(BROADCOM_WIFI_CHIPSET),43570a2)
 PRODUCT_COPY_FILES += \
-    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btusb/firmware/BCM43569A2_001.003.004.0118.0000_Generic_USB_40MHz_fcbga_BU_WakeOn_BLE_Google.hcd:$(TARGET_COPY_OUT_VENDOR)/broadcom/btusb/firmware/BCM_bt_fw.hcd
+    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btusb/firmware/BCM43569A2_001.003.004.0138.0000_Generic_USB_40MHz_fcbga_BU_WakeOn_BLE_Google_BT4_2.hcd:$(TARGET_COPY_OUT_VENDOR)/broadcom/btusb/firmware/BCM_bt_fw.hcd
 endif
 
 else # BT UART
 PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.bcm.bt.rc:root/init.brcm_bt.rc
 PRODUCT_COPY_FILES += ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btuart/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
-PRODUCT_COPY_FILES += ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btuart/firmware/BCM20703A1_001.001.005.0376.0759.hcd:$(TARGET_COPY_OUT_VENDOR)/broadcom/btuart/firmware/BCM_bt_fw.hcd
+PRODUCT_COPY_FILES += ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btuart/firmware/20703A1_Generic_UART_20MHz_fcbga_BU_Wake_On_BLE_Google.hcd:$(TARGET_COPY_OUT_VENDOR)/broadcom/btuart/firmware/BCM_bt_fw.hcd
 endif # $(ANDROID_ENABLE_BT)
 
 PRODUCT_COPY_FILES += \

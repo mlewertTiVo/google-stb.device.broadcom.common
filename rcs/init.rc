@@ -64,8 +64,12 @@ on post-fs-data
    mkdir /data/vendor/misc/nexus 0755 root system
    mkdir /data/vendor/misc/nxfw 0777 root root
    mkdir /data/vendor/nexus/secdma 0777 system system
+   mkdir /data/vendor/nexus/ssd 0777 system system
 
    mkdir /data/mediadrm/playready/ 0770 mediadrm mediadrm
+   mkdir /data/nexus/secdma 0777 system system
+
+   mkdir /data/nexus/secdma 0777 system system
 
    # *** sample only.
    #
@@ -98,12 +102,12 @@ on property:dev.bootcomplete=1
    setprop sys.init_log_level 4
 
 on property:sys.shutdown.requested=*
-   write /sys/devices/platform/droid_pm/notify shutdown
+   write /sys/devices/platform/droid_pm/notify ${sys.shutdown.requested}
 
 # bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/dumpstate -d -p -B -z \
-        -o /data/user_de/0/com.android.shell/files/bugreports/bugreport
-    class main
-    disabled
-    oneshot
-    keycodes 114 115 116
+   -o /data/user_de/0/com.android.shell/files/bugreports/bugreport
+   class main
+   disabled
+   oneshot
+   keycodes 114 115 116

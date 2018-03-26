@@ -14,14 +14,16 @@ REFSW_TARGET_LIST := \
 	${BINDIST_BIN_DIR_1ST_ARCH}/libnexus_static.a \
 	${BINDIST_NXC_BIN_DIR_1ST_ARCH}/libnxclient.so \
 	${BINDIST_NXC_BIN_DIR_1ST_ARCH}/libnxclient_static.a \
-	${BINDIST_BIN_DIR_1ST_ARCH}/libnxserver.a
+	${BINDIST_BIN_DIR_1ST_ARCH}/libnxserver.a \
+	${BINDIST_BIN_DIR_1ST_ARCH}/libnxserver_vendor.a
 else
 REFSW_TARGET_LIST := \
 	/${NEXUS_BIN_DIR_1ST_ARCH}/libnexus.so \
 	/${NEXUS_BIN_DIR_1ST_ARCH}/libnexus_static.a \
 	/${NEXUS_NXC_BIN_DIR_1ST_ARCH}/libnxclient.so \
 	/${NEXUS_NXC_BIN_DIR_1ST_ARCH}/libnxclient_static.a \
-	/${NEXUS_BIN_DIR_1ST_ARCH}/libnxserver.a
+	/${NEXUS_BIN_DIR_1ST_ARCH}/libnxserver.a \
+	/${NEXUS_BIN_DIR_1ST_ARCH}/libnxserver_vendor.a
 endif
 
 ifeq ($(BCM_DIST_KNLIMG_BINS), y)
@@ -49,5 +51,6 @@ REFSW_TARGET_LIST_2ND_ARCH += \
 	/${NEXUS_BIN_DIR_2ND_ARCH}/libnexus_static.a \
 	/${NEXUS_NXC_BIN_DIR_2ND_ARCH}/libnxclient.so \
 	/${NEXUS_NXC_BIN_DIR_2ND_ARCH}/libnxclient_static.a \
-	/${NEXUS_BIN_DIR_2ND_ARCH}/libnxserver.a
+	/${NEXUS_BIN_DIR_2ND_ARCH}/libnxserver.a \
+	/${NEXUS_BIN_DIR_2ND_ARCH}/libnxserver_vendor.a
 endif

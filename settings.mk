@@ -18,7 +18,7 @@ export TARGET_BOARD_PLATFORM                 := ${LOCAL_PRODUCT_OUT}
 # filter rules for build inclusions based on boards supported.  when adding a new
 # board to the system, you may want to add it here too.
 #
-export BCM_RBOARDS                           := avko% banff% cypress% dawson% elfin% fundy%
+export BCM_RBOARDS                           := avko% banff% cypress% dawson% elfin% fundy% grouse%
 export BCM_DBOARDS                           := b4% b5% b6% b7%
 export BCM_CBOARDS                           ?= fbx% c71kw%
 
@@ -73,7 +73,7 @@ export P_REFSW_DRV_ARCH                      := arm
 endif
 export B_REFSW_USES_CLANG                    ?= y
 ifeq ($(B_REFSW_USES_CLANG),y)
-   export P_REFSW_CC_CLANG_VER               := clang-4393122
+   export P_REFSW_CC_CLANG_VER               := clang-4579689
    export P_REFSW_CC_CLANG                   := ${ANDROID_TOP}/prebuilts/clang/host/linux-x86/${P_REFSW_CC_CLANG_VER}/bin
 endif
 export B_REFSW_CCACHE                        := ${ANDROID_TOP}/prebuilts/misc/linux-x86/ccache/ccache
@@ -94,6 +94,7 @@ export NEXUS_HDMI_INPUT_SUPPORT              ?= y
 export ANDROID_ENABLE_BT                     ?= usb
 export ANDROID_ENABLE_DHD_SECDMA             ?= n
 export BOLT_IMG_TO_USE_OVERRIDE              ?= bolt-bb.bin
+export BOLT_IMG_TO_USE_OVERRIDE_2ND          ?=
 export BROADCOM_WIFI_CHIPSET                 ?= 43570a2
 export LOCAL_NVI_LAYOUT                      ?= n
 export LOCAL_DEVICE_GPT_O_LAYOUT             ?= n
@@ -119,6 +120,7 @@ export LOCAL_DEVICE_RTS_MODE                 ?= 5
 export LOCAL_DEVICE_USE_VERITY               ?= n
 export LOCAL_DEVICE_BGRCPKT_PLANES           ?= 2
 export LOCAL_DEVICE_MKBOOTIMG_ARGS           ?= --ramdisk_offset 0x02200000
+export LOCAL_DEVICE_USE_AVB                  ?= n
 
 export HW_ENCODER_SUPPORT                    ?= y
 export HW_WIFI_NIC_SUPPORT                   ?= n
@@ -128,7 +130,7 @@ export HW_WIFI_NIC_DUAL_SUPPORT              ?= n
 export HAL_HWC_VERSION                       ?= v-2.0
 export HW_GPU_MMU_SUPPORT                    ?= n
 export HW_DTU_SUPPORT                        ?= n
-export BCM_APP_CUSTOM                        ?= n
+export BCM_APP_CUSTOM                        ?= y
 export HW_HVD_REVISION                       ?= R
 export HW_HVD_REDUX                          ?= n
 export HAL_GR_VERSION                        ?= v-0.x
@@ -164,7 +166,11 @@ export ANDROID_USES_BORINGSSL                := y
 export NEXUS_C_STD                           := c99
 export NEXUS_EXPORT_FILE                     := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nexus_export_file.txt
 export NEXUS_DISPLAY_EXTENSION_INC           += $(NEXUS_TOP)/extensions/display/dynrng/dynrng.inc
-export GMS_PACKAGE_ROOT                      := vendor/broadcom/prebuilts/gms/
+ifeq ($(LOCAL_ARM_AARCH64_COMPAT_32_BIT),y)
+export GMS_PACKAGE_ROOT                      := vendor/google/gms/arm/
+else
+export GMS_PACKAGE_ROOT                      := vendor/google/gms/${P_REFSW_DRV_ARCH}/
+endif
 
 # if enabling region verification, enable this to dump firmware for
 # offline signing.
@@ -174,6 +180,8 @@ export NEXUS_REGION_VERIFICATION_DUMP_FIRMWARE_RAW ?= n
 # some massaging for security support, make it simple to remove as it often requires to
 # be disabled for new device bring up.
 #
+export ANDROID_SUPPORTS_WIDEVINE        ?= y
+export ANDROID_ENABLE_HDMI_HDCP         ?= y
 
 # *** warning
 #
@@ -181,19 +189,20 @@ export ANDROID_SUPPORTS_PLAYREADY            := n
 #
 # *** warning
 
-export ANDROID_SUPPORTS_WIDEVINE             ?= y
-export ANDROID_ENABLE_HDMI_HDCP              ?= y
 ifneq ($(ANDROID_SUPPORTS_PLAYREADY),n)
-ifneq ($(wildcard vendor/broadcom/playready),)
+ifneq ($(wildcard vendor/playready),)
 	export ANDROID_SUPPORTS_PLAYREADY    := y
 else
 	export ANDROID_SUPPORTS_PLAYREADY    := n
 endif
 endif
+export ANDROID_SUPPORTS_RPMB            ?= y
+export ANDROID_SUPPORTS_KEYMASTER       ?= y
+export ANDROID_DEVICE_SUPPORTS_BP3      ?= n
 
-ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY) $(ANDROID_ENABLE_HDMI_HDCP),y),)
+ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY) $(ANDROID_ENABLE_HDMI_HDCP) $(ANDROID_SUPPORTS_RPMB) $(ANDROID_SUPPORTS_KEYMASTER),y),)
 	export SAGE_SUPPORT                  := y
-	export SAGE_BINARIES_AVAILABLE       := y
+   export SAGE_BINARIES_AVAILABLE       := y
 	export NEXUS_SECURITY_SUPPORT        := y
 	export KEYLADDER_SUPPORT             := y
 	export NEXUS_COMMON_CRYPTO_SUPPORT   := y

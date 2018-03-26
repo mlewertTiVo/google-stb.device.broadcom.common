@@ -33,9 +33,8 @@ ANDROID_BSU_DIR_VB := ${BOLT_DIR_VB}/android
 ifeq ($(BCHP_VER_LOWER),)
 BCHP_VER_LOWER := $(shell echo ${BCHP_VER} | tr [:upper:] [:lower:])
 endif
-
-ifeq ($(BOLT_IMG_TO_USE_OVERRIDE),)
-BOLT_IMG_TO_USE_OVERRIDE := bolt-bb.bin
+ifeq ($(BCHP_VER_BOLT),)
+BCHP_VER_BOLT := ${BCHP_VER_LOWER}
 endif
 
 # Include Nexus platform application Makefile include
@@ -47,9 +46,6 @@ PWD := $(PWD_BEFORE_PLATFORM_APP)
 # filter out flags clashing with Android build system
 FILTER_OUT_NEXUS_CFLAGS := -march=armv7-a -Wstrict-prototypes
 NEXUS_CFLAGS := $(filter-out $(FILTER_OUT_NEXUS_CFLAGS), $(NEXUS_CFLAGS))
-
-BRCMSTB_MODEL_NAME := bcm$(BCHP_CHIP)_$(BCHP_VER_LOWER)_$(MODEL_NAME)_$(HARDWARE_REV)
-export BRCMSTB_MODEL_NAME
 
 NEXUS_DEPS := \
 	${PRODUCT_OUT}/obj/lib/libc.so \
@@ -228,14 +224,12 @@ ifneq ($(BCM_DIST_BLIMG_BINS),y)
 .PHONY: clean_bolt
 clean_bolt: clean_android_bsu
 	rm -rf $(B_BOLT_OBJ_ROOT)
-	rm -f $(PRODUCT_OUT_FROM_TOP)/bolt-ba.bin
-	rm -f $(PRODUCT_OUT_FROM_TOP)/bolt-bb.bin
+	rm -f $(PRODUCT_OUT_FROM_TOP)/bolt*.bin
 
 .PHONY: clean_bolt_vb
 clean_bolt_vb: clean_android_bsu_vb
 	rm -rf $(B_BOLT_VB_OBJ_ROOT)
-	rm -f $(PRODUCT_OUT_FROM_TOP)/bolt-ba-vb.bin
-	rm -f $(PRODUCT_OUT_FROM_TOP)/bolt-bb-vb.bin
+	rm -f $(PRODUCT_OUT_FROM_TOP)/bolt*.bin
 
 .PHONY: build_bolt
 build_bolt:
@@ -247,12 +241,14 @@ build_bolt:
 		cp -faR ${B_BOLT_CUSTOM_OVERRIDE}/* $(BOLT_DIR)/custom; \
 	fi
 	@if [ "${B_BOLT_CFG_OVERRIDE}" != "" ]; then \
-		PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(BOLT_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) CFG=${B_BOLT_CFG_OVERRIDE} ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT); \
+		PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(BOLT_DIR) $(BCHP_CHIP)$(BCHP_VER_BOLT) CFG=${B_BOLT_CFG_OVERRIDE} ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT); \
 	else \
-		PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(BOLT_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT); \
+		PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(BOLT_DIR) $(BCHP_CHIP)$(BCHP_VER_BOLT) ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT); \
 	fi
-	cp -pv $(B_BOLT_OBJ_ROOT)/bolt-ba.bin $(PRODUCT_OUT_FROM_TOP)/bolt-ba.bin || :
-	cp -pv $(B_BOLT_OBJ_ROOT)/bolt-bb.bin $(PRODUCT_OUT_FROM_TOP)/bolt-bb.bin || :
+	cp -pv $(B_BOLT_OBJ_ROOT)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE);
+	@if [ "${BOLT_IMG_TO_USE_OVERRIDE_2ND}" != "" ]; then \
+		cp -pv $(B_BOLT_OBJ_ROOT)/$(BOLT_IMG_TO_USE_OVERRIDE_2ND) $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE_2ND); \
+	fi
 	@echo "'$@' completed"
 
 .PHONY: build_bolt_vb
@@ -265,12 +261,11 @@ build_bolt_vb:
 		cp -faR ${B_BOLT_CUSTOM_OVERRIDE}/* $(BOLT_DIR_VB)/custom; \
 	fi
 	@if [ "${B_BOLT_CFG_OVERRIDE}" != "" ]; then \
-		PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(BOLT_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_LOWER) CFG=${B_BOLT_CFG_OVERRIDE} SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT); \
+		PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(BOLT_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_BOLT) CFG=${B_BOLT_CFG_OVERRIDE} SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT); \
 	else \
-		PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(BOLT_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_LOWER) SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT); \
+		PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(BOLT_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_BOLT) SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT); \
 	fi
-	cp -pv $(B_BOLT_VB_OBJ_ROOT)/bolt-ba.bin $(PRODUCT_OUT_FROM_TOP)/bolt-ba-vb.bin || :
-	cp -pv $(B_BOLT_VB_OBJ_ROOT)/bolt-bb.bin $(PRODUCT_OUT_FROM_TOP)/bolt-bb-vb.bin || :
+	cp -pv $(B_BOLT_VB_OBJ_ROOT)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE).vb || :
 	cp -pv $(B_BOLT_VB_OBJ_ROOT)/external_bfw*_avs_memsys.bin $(PRODUCT_OUT_FROM_TOP)/ || :
 	@echo "'$@' completed"
 
@@ -286,7 +281,7 @@ clean_android_bsu_vb:
 build_android_bsu: build_bolt gptbin
 	@echo "'$@' started"
 	cp -pv $(PRODUCT_OUT_FROM_TOP)/gpt.bin.gen.c $(B_BOLT_OBJ_ROOT)/gpt.bin.gen.c
-	PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(ANDROID_BSU_DIR) $(BCHP_CHIP)$(BCHP_VER_LOWER) ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT)
+	PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(ANDROID_BSU_DIR) $(BCHP_CHIP)$(BCHP_VER_BOLT) ODIR=$(B_BOLT_OBJ_ROOT) GEN=$(B_BOLT_OBJ_ROOT)
 	cp -pv $(B_BOLT_OBJ_ROOT)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf || :
 	@echo "'$@' completed"
 
@@ -294,7 +289,7 @@ build_android_bsu: build_bolt gptbin
 build_android_bsu_vb: build_bolt_vb gptbin
 	@echo "'$@' started"
 	cp -pv $(PRODUCT_OUT_FROM_TOP)/gpt.bin.gen.c $(B_BOLT_VB_OBJ_ROOT)/gpt.bin.gen.c
-	PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(ANDROID_BSU_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_LOWER) SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT)
+	PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) -C $(ANDROID_BSU_DIR_VB) $(BCHP_CHIP)$(BCHP_VER_BOLT) SECURE_BOOT=y SINGLE_BOARD=$(BOLT_BOARD_VB) ODIR=$(B_BOLT_VB_OBJ_ROOT) GEN=$(B_BOLT_VB_OBJ_ROOT)
 	cp -pv $(B_BOLT_VB_OBJ_ROOT)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/android_bsu-vb.elf || :
 	@echo "'$@' completed"
 
@@ -303,6 +298,9 @@ ifeq ($(HW_TZ_SUPPORT),y)
 build_bootloaderimg: build_android_bsu build_bl31
 	@echo "'$@' started"
 	cp $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/orig.$(BOLT_IMG_TO_USE_OVERRIDE)
+	@if [ "${BOLT_IMG_TO_USE_OVERRIDE_2ND}" != "" ]; then \
+		cp $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE_2ND) $(PRODUCT_OUT_FROM_TOP)/orig.$(BOLT_IMG_TO_USE_OVERRIDE_2ND); \
+	fi
 	@if [ "${LOCAL_DEVICE_SAGE_DEV_N_PROD}" == "y" ]; then \
 		$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/bl31.bin $(PRODUCT_OUT_FROM_TOP)/bootloader.dev.img; \
 		cp $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE); \
@@ -318,12 +316,18 @@ build_bootloaderimg: build_android_bsu build_bl31
 		rm $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE); \
 	else \
 		$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/bl31.bin $(PRODUCT_OUT_FROM_TOP)/bootloader.img; \
+		if [ "${BOLT_IMG_TO_USE_OVERRIDE_2ND}" != "" ]; then \
+			$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE_2ND) $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/bl31.bin $(PRODUCT_OUT_FROM_TOP)/bootloader.2nd.img; \
+		fi; \
 	fi
 	@echo "'$@' completed"
 else
 build_bootloaderimg: build_android_bsu
 	@echo "'$@' started"
 	cp $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/orig.$(BOLT_IMG_TO_USE_OVERRIDE)
+	@if [ "${BOLT_IMG_TO_USE_OVERRIDE_2ND}" != "" ]; then \
+		cp $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE_2ND) $(PRODUCT_OUT_FROM_TOP)/orig.$(BOLT_IMG_TO_USE_OVERRIDE_2ND); \
+	fi
 	@if [ "${LOCAL_DEVICE_SAGE_DEV_N_PROD}" == "y" ]; then \
 		$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/bootloader.dev.img; \
 		cp $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE); \
@@ -339,6 +343,9 @@ build_bootloaderimg: build_android_bsu
 		rm $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE); \
 	else \
 		$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/bootloader.img; \
+		if [ "${BOLT_IMG_TO_USE_OVERRIDE_2ND}" != "" ]; then \
+			$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE_2ND) $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/bootloader.2nd.img; \
+		fi; \
 	fi
 	@echo "'$@' completed"
 endif
@@ -487,8 +494,6 @@ export PRDY_TOP := $(REFSW_BASE_DIR)/prsrcs
 export PLAYREADY_HOST_BUILD := y
 
 clean_security_user :
-	$(MAKE) -C $(REFSW_BASE_DIR)/secsrcs/common_drm clean
-	rm -f $(REFSW_BASE_DIR)/BSEAV/lib/security/common_drm/drm/common/drm_common.o
 	$(MAKE) -C $(REFSW_BASE_DIR)/prsrcs/2.5/source clean
 	$(MAKE) -C $(REFSW_BASE_DIR)/prsrcs/3.0/source clean
 
@@ -497,7 +502,6 @@ clean_security_user :
 security_user:
 	$(call setup_nexus_toolchains,1st_arch)
 	@echo "'$@' started"
-	$(MAKE) $(NEXUS_ARCH_ENV) -C $(REFSW_BASE_DIR)/secsrcs/common_drm all
 	$(MAKE) $(NEXUS_ARCH_ENV) -C $(REFSW_BASE_DIR)/prsrcs/2.5/source all
 	$(MAKE) $(NEXUS_ARCH_ENV) -C $(REFSW_BASE_DIR)/prsrcs/3.0/source all
 	$(MAKE) -C $(REFSW_BASE_DIR)/prsrcs/3.0/source/linux/libraries clean
@@ -508,7 +512,6 @@ ifeq ($(TARGET_2ND_ARCH),arm)
 security_user_2nd_arch:
 	$(call setup_nexus_toolchains,2nd_arch)
 	@echo "'$@' started"
-	$(MAKE) $(NEXUS_2ND_ARCH_ENV) -C $(REFSW_BASE_DIR)/secsrcs/common_drm all
 	$(MAKE) $(NEXUS_2ND_ARCH_ENV) -C $(REFSW_BASE_DIR)/prsrcs/2.5/source all
 	$(MAKE) $(NEXUS_2ND_ARCH_ENV) -C $(REFSW_BASE_DIR)/secsrcs/third_party/android/drm/widevine/OEMCrypto
 	$(MAKE) $(NEXUS_2ND_ARCH_ENV) -C $(REFSW_BASE_DIR)/prsrcs/3.0/source all

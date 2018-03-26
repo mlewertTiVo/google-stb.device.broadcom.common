@@ -20,6 +20,7 @@ binder_call(nxserver, hal_tv_cec_default);
 allow nxserver proc_brcm:file rw_file_perms;
 allow nxserver proc_brcm:dir search;
 nexus_ir(nxserver);
+nexus_hwcfg(nxserver);
 
 allow nxserver system_server:binder call;
 allow nxserver surfaceflinger:binder call;
@@ -40,8 +41,6 @@ allow nxserver input_device:dir search;
 allow nxserver dumpstate:fd use;
 allow nxserver dumpstate:unix_stream_socket { read write };
 allow nxserver self:netlink_kobject_uevent_socket { create bind read };
-allow nxserver readonlyfs:file { read open getattr};
-allow nxserver readonlyfs:dir search;
 allow nxserver hdmi_hpd_device:chr_file { read write open getattr ioctl };
 allow nxserver watchdog_device:chr_file rw_file_perms;
 

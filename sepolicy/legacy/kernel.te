@@ -9,3 +9,4 @@ allow kernel device:dir w_dir_perms;
 allow kernel device:chr_file create;
 allow kernel device:chr_file setattr;
 allow kernel device:dir create;
+allow kernel proc_uptime:file r_file_perms;

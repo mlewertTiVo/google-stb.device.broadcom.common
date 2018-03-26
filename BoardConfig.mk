@@ -30,6 +30,7 @@ BOARD_USES_GENERIC_AUDIO     := false
 USE_LEGACY_AUDIO_POLICY      := 0
 USE_CUSTOM_AUDIO_POLICY      := 0
 USE_XML_AUDIO_POLICY_CONF    := 1
+BOARD_VNDK_VERSION           := current
 
 # Wifi related defines
 BOARD_WLAN_DEVICE                      := bcmdhd
@@ -101,6 +102,8 @@ BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 BOARD_USES_RECOVERY_AS_BOOT   := true
 endif
 
+TARGET_FS_CONFIG_GEN += device/broadcom/common/config.fs
+
 ifeq ($(LOCAL_DEVICE_KERNEL_CMDLINE),)
 $(error please define a valid kernel boot configuration)
 endif
@@ -125,6 +128,11 @@ else
 BOARD_SEPOLICY_DIRS += device/broadcom/common/sepolicy/legacy
 endif
 BOARD_SEPOLICY_DIRS += $(LOCAL_DEVICE_SEPOLICY_BLOCK)
+ifeq ($(ANDROID_DEVICE_SUPPORTS_BP3),y)
+BOARD_SEPOLICY_M4DEFS += target_bp3=true
+else
+BOARD_SEPOLICY_M4DEFS += target_bp3=false
+endif
 
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
@@ -149,4 +157,6 @@ DONT_UNCOMPRESS_PRIV_APPS_DEXS := true
 
 MALLOC_SVELTE := true
 
-
+ifeq ($(LOCAL_DEVICE_USE_AVB),y)
+BOARD_AVB_ENABLE := true
+endif

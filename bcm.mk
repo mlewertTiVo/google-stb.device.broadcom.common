@@ -114,6 +114,3 @@ else
 PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/broadcom/bcm_platform/signing/testkey
 endif
 
-# temporary until proper vndk enabling.
-PRODUCT_TREBLE_LINKER_NAMESPACES_OVERRIDE := false
-

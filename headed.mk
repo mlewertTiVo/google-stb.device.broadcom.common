@@ -69,13 +69,12 @@ TARGET_CPU_SMP           := true
 
 PRODUCT_COPY_FILES       += device/broadcom/common/bootanimation.zip:system/media/bootanimation.zip
 PRODUCT_COPY_FILES       += device/broadcom/common/keylayout/nexus_silver_remote.kl:system/usr/keylayout/NexusIrHandler.kl
-PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml
+PRODUCT_COPY_FILES       += device/broadcom/common/media/media_codecs_google_audio_no_aac.xml:system/etc/media_codecs_google_audio.xml
 PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video.xml
 PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_tv.xml:system/etc/media_codecs_google_tv.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.hdmi.cec.xml:system/etc/permissions/android.hardware.hdmi.cec.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.screen.landscape.xml:system/etc/permissions/android.hardware.screen.landscape.xml
-PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.software.live_tv.xml:system/etc/permissions/android.software.live_tv.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.software.webview.xml:system/etc/permissions/android.software.webview.xml
@@ -141,6 +140,9 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_dtcpip${SAGE_BINARY_EXT}
 endif
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_secure_video${SAGE_BINARY_EXT}.bin
+ifeq ($(ANDROID_SUPPORTS_RPMB),y)
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_ssd${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_ssd${SAGE_BINARY_EXT}.bin
+endif
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_utility${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_utility${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_bp3${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_bp3${SAGE_BINARY_EXT}.bin
 ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
@@ -162,6 +164,9 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH2}/sage_ta_dtcpip${SAGE_BINARY_EXT
 endif
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_hdcp22${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_hdcp22${SAGE_BINARY_EXT2}.bin
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_secure_video${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_secure_video${SAGE_BINARY_EXT2}.bin
+ifeq ($(ANDROID_SUPPORTS_RPMB),y)
+PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_ssd${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_ssd${SAGE_BINARY_EXT2}.bin
+endif
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_utility${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_utility${SAGE_BINARY_EXT2}.bin
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_bp3${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_bp3${SAGE_BINARY_EXT2}.bin
 ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
@@ -184,6 +189,9 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_dtcpip${SAGE_BINARY_EXT}
 endif
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_secure_video${SAGE_BINARY_EXT}.bin
+ifeq ($(ANDROID_SUPPORTS_RPMB),y)
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_ssd${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_ssd${SAGE_BINARY_EXT}.bin
+endif
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_utility${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_utility${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_bp3${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_bp3${SAGE_BINARY_EXT}.bin
 ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
@@ -244,6 +252,7 @@ endif
 # packages for the system image content.
 PRODUCT_PACKAGES += \
     wpa_supplicant \
+    wpa_supplicant.conf \
     dhcpcd.conf \
     wificond
 
@@ -414,6 +423,11 @@ ifneq ($(SAGE_VERSION),2x)
 PRODUCT_PACKAGES            += libplayreadydrmplugin_3_0 libplayready30pk
 endif
 endif
+endif
+
+ifneq ($(filter $(ANDROID_SUPPORTS_RPMB),y),)
+PRODUCT_PACKAGES            += libsagessd
+PRODUCT_PACKAGES            += nxssd
 endif
 
 ifneq ($(TARGET_BUILD_PDK),true)

@@ -1,5 +1,7 @@
 ifneq ($(filter $(BCM_RBOARDS) $(BCM_DBOARDS),$(TARGET_DEVICE)),)
 
+ifndef BOARD_VNDK_VERSION
+
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 VNDK_SP_LIBRARIES := \
     android.hardware.graphics.allocator@2.0 \
@@ -61,6 +63,7 @@ EXTRA_VENDOR_LIBRARIES := \
     android.hardware.usb@1.0 \
     android.hardware.wifi.supplicant@1.0
 
+endif
 
 #-------------------------------------------------------------------------------
 # VNDK Modules
