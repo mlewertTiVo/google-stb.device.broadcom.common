@@ -42,3 +42,5 @@
 /sys/kernel/debug/dri(/.*)?   u:object_r:debugfs_dri:s0
 /sys/class/net(/.*)?          u:object_r:sysfs_net:s0
 
+/(vendor|system/vendor)/bin/hw/bcm\.hardware\.dspsvcext@1\.0-service       u:object_r:hal_dspsvcext_exec:s0
+

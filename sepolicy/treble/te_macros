@@ -30,4 +30,7 @@ allow $1 nxserver:binder call;
 allow $1 nxserver:binder transfer;
 ')
 
-
+define(`dspsvcext_hwservice', `
+hwbinder_use($1);
+allow $1 vnd_dspsvcext_hwservice:hwservice_manager find;
+')
