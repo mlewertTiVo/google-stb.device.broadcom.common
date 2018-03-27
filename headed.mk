@@ -14,6 +14,16 @@ endif
 #
 PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.usb.configfs.bcm.rc:root/init.usb.configfs.rc
 
+# To prevent from including GMS twice in Google's internal source.
+ifeq ($(wildcard vendor/unbundled_google),)
+PRODUCT_USE_PREBUILT_GMS := yes
+endif
+
+# Only include google_aware.xml if building on Google internal structure.
+ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
+PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/common/rcs/google_aware.xml:system/etc/permissions/google_aware.xml
+endif
+
 # prior to android-p
 $(call inherit-product-if-exists, $(SRC_TARGET_DIR)/product/locales_full.mk)
 # android-p onward
@@ -129,7 +139,7 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_os_app${SAGE_BINARY_EXT}.bi
 else
 ifeq ($(LOCAL_DEVICE_SAGE_DEV_N_PROD),y)
 SAGE_BINARY_EXT      := _dev
-SAGE_BL_BINARY_PATH  := ${BCM_VENDOR_STB_ROOT}/sage/$(BCHP_CHIP)$(BCHP_VER)/dev
+SAGE_BL_BINARY_PATH  := ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/$(BCHP_CHIP)$(BCHP_VER)/dev
 PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_bl${SAGE_BINARY_EXT}.bin
 SAGE_APP_BINARY_PATH := $(SAGE_BL_BINARY_PATH)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_framework${SAGE_BINARY_EXT}.bin
@@ -153,7 +163,7 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINAR
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
 endif
 SAGE_BINARY_EXT2      :=
-SAGE_BL_BINARY_PATH2  := ${BCM_VENDOR_STB_ROOT}/sage/$(BCHP_CHIP)$(BCHP_VER)
+SAGE_BL_BINARY_PATH2  := ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/$(BCHP_CHIP)$(BCHP_VER)
 PRODUCT_COPY_FILES    += ${SAGE_BL_BINARY_PATH2}/sage_bl${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_bl${SAGE_BINARY_EXT2}.bin
 SAGE_APP_BINARY_PATH2 := $(SAGE_BL_BINARY_PATH2)
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_framework${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_framework${SAGE_BINARY_EXT2}.bin
@@ -178,7 +188,7 @@ PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_playready_30${SAGE_BIN
 endif
 else
 SAGE_BINARY_EXT      ?= _dev
-SAGE_BL_BINARY_PATH  ?= ${BCM_VENDOR_STB_ROOT}/sage/$(BCHP_CHIP)$(BCHP_VER)/dev
+SAGE_BL_BINARY_PATH  ?= ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/$(BCHP_CHIP)$(BCHP_VER)/dev
 PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_bl${SAGE_BINARY_EXT}.bin
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_framework${SAGE_BINARY_EXT}.bin
