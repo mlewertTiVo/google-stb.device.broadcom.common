@@ -6,7 +6,7 @@ BRCM_DHD_DRIVER_TARGETS := \
 PRODUCT_COPY_FILES += \
    ${B_DHD_OBJ_ROOT}/fw.bin.trx:$(TARGET_COPY_OUT_VENDOR)/firmware/broadcom/dhd/firmware/fw.bin.trx \
    ${B_DHD_OBJ_ROOT}/nvm.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/broadcom/dhd/nvrams/nvm.txt \
-   ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/init.brcm_dhd.rc:root/init.brcm_dhd.rc
+   ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/init.brcm_dhd.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.brcm_dhd.rc
 
 ifneq ($(BCM_DIST_KNLIMG_BINS),y)
 PRODUCT_COPY_FILES += \
