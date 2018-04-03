@@ -25,8 +25,8 @@ PRODUCT_COPY_FILES += ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btuart/firmware/B
 endif # $(ANDROID_ENABLE_BT)
 
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
-    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
+    frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml
 
 ifneq ($(BT_RFKILL_SUPPORT),y)
 PRODUCT_PROPERTY_OVERRIDES += \
