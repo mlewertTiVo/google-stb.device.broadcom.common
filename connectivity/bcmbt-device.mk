@@ -19,7 +19,11 @@ endif
 
 else # BT UART
 
+ifneq ($(LOCAL_NVI_LAYOUT),y)
 PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.bcm.bt.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.brcm_bt.rc
+else
+PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.bcm.bt.rc:root/init.brcm_bt.rc
+endif
 PRODUCT_COPY_FILES += ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btuart/firmware/BCM20703A1_001.001.005.0376.0759.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/BCM20703.hcd
 
 endif # $(ANDROID_ENABLE_BT)
