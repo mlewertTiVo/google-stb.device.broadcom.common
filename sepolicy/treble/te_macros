@@ -67,3 +67,8 @@ allow $1 readonlyfs:file r_file_perms;
 allow $1 readonlyfs:dir { r_dir_perms search };
 ')
 ')
+
+define(`dspsvcext_hwservice', `
+hwbinder_use($1);
+allow $1 vnd_dspsvcext_hwservice:hwservice_manager find;
+')

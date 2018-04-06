@@ -28,7 +28,10 @@ export BCM_VENDOR_STB_ROOT                   := vendor/broadcom
 #
 export ANDROID                               := $(shell pwd)
 export ANDROID_TOP                           := ${ANDROID}
-export B_KNB_TOOLCHAIN                       := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-4.8-1.6/bin
+
+export GPERF_BCM                             := ${ANDROID}/device/broadcom/common/prebuilts/gperf
+export B_KNB_TOOLCHAIN                       := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-6.3-1.3/bin
+
 ifeq ($(LOCAL_ARM_AARCH64),y)
 ifeq ($(LOCAL_ARM_AARCH64_NOT_ABI_COMPATIBLE),y)
 export B_REFSW_ARCH_1ST_ARCH                 := arm-linux
@@ -166,7 +169,11 @@ export ANDROID_USES_BORINGSSL                := y
 export NEXUS_C_STD                           := c99
 export NEXUS_EXPORT_FILE                     := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nexus_export_file.txt
 export NEXUS_DISPLAY_EXTENSION_INC           += $(NEXUS_TOP)/extensions/display/dynrng/dynrng.inc
-export GMS_PACKAGE_ROOT                      := vendor/broadcom/prebuilts/gms/
+ifeq ($(LOCAL_ARM_AARCH64_COMPAT_32_BIT),y)
+export GMS_PACKAGE_ROOT                      := vendor/google/gms/arm/
+else
+export GMS_PACKAGE_ROOT                      := vendor/google/gms/${P_REFSW_DRV_ARCH}/
+endif
 
 # if enabling region verification, enable this to dump firmware for
 # offline signing.

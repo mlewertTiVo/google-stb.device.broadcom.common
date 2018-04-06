@@ -31,7 +31,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    ro.vendor.vndk.version=26.1.0 \
    \
-   ro.pr.version=2.5
+   ro.pr.version=2.5 \
+   \
+   setup.bt_remote_pairing=true
 
 ifeq ($(filter b52c%,$(LOCAL_PRODUCT_OUT)),)
 ifneq ($(filter userdebug eng,$(TARGET_BUILD_VARIANT)),)
@@ -72,11 +74,11 @@ PRODUCT_COPY_FILES += \
 #   ro.control_privapp_permission=enforce
 
 PRODUCT_COPY_FILES += \
-   device/broadcom/common/permissions/privapp-permissions-bcm.xml:system/etc/permissions/privapp-permissions-bcm.xml
+   device/broadcom/common/permissions/privapp-permissions-bcm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-bcm.xml
 
 ifneq ($(TARGET_BUILD_PDK),true)
 PRODUCT_COPY_FILES += \
-   frameworks/base/data/etc/privapp-permissions-platform.xml:system/etc/permissions/privapp-permissions-platform.xml
+   frameworks/base/data/etc/privapp-permissions-platform.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-platform.xml
 endif
 
 # hardware interface hal manifest.
@@ -108,9 +110,5 @@ ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 endif
 
-ifneq ($(wildcard vendor/google/certs),)
-PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/google/certs/devkeys/devkey
-else
 PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/broadcom/bcm_platform/signing/testkey
-endif
 

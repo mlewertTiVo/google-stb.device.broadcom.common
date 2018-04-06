@@ -226,6 +226,15 @@
         </interface>
     </hal>
     <hal format="hidl">
+        <name>bcm.hardware.dspsvcext</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IDspSvcExt</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
         <name>bcm.hardware.nexus</name>
         <transport>hwbinder</transport>
         <version>1.0</version>

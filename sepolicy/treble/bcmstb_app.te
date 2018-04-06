@@ -8,6 +8,9 @@ nexus_hwservice(bcmstb_app);
 binder_call(bcmstb_app, hwcbinder);
 get_prop(bcmstb_app, nexus_prop);
 nexus_hwcfg(bcmstb_app);
+get_prop(bcmstb_app, nexus_prop);
+dspsvcext_hwservice(bcmstb_app);
+binder_call(bcmstb_app, hal_dspsvcext);
 
 allow bcmstb_app shell_data_file:file r_file_perms;
 allow bcmstb_app shell_data_file:dir r_dir_perms;

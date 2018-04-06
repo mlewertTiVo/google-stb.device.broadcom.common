@@ -1,26 +1,33 @@
-import /vendor/etc/init/hw/init.bcm.usb.rc
-import /vendor/etc/init/hw/init.block.rc
-import /vendor/etc/init/hw/init.rts.rc
-import /vendor/etc/init/hw/init.nx.rc
-import /vendor/etc/init/hw/init.fs.rc
-import /vendor/etc/init/hw/init.eth.rc
+import /init.bcm.usb.rc
+import /init.block.rc
+import /init.rts.rc
+import /init.nx.rc
+import /init.fs.rc
+import /init.eth.rc
 
-import /vendor/etc/init/hw/init.brcm_dhd.rc
-import /vendor/etc/init/hw/init.brcm_nic.rc
-import /vendor/etc/init/hw/init.brcm_bt.rc
+import /init.brcm_dhd.rc
+import /init.brcm_nic.rc
+import /init.brcm_bt.rc
 
 on early-init
    # Mount kernel debugfs
    mount debugfs debugfs /sys/kernel/debug mode=0755
 
 on init
+   # Support legacy paths
    symlink /sdcard /mnt/sdcard
+   symlink /sdcard /storage/sdcard0
 
    # allocate node(s) which are part of the CTS exception list.
    export NEXUS_DEVICE_NODE /dev/mali
    export NEXUS_WAKE_DEVICE_NODE /dev/mali0
 
 on boot
+   # Subsytem Ramdump collection
+   mkdir /data/tombstones 0777 system system
+   mkdir /data/tombstones/ramdump 0777 system system
+   restorecon_recursive /data/tombstones
+
    # LED permissions
    chown system system /sys/class/leds/power/brightness
    chown system system /sys/class/leds/wifi-red/brightness
@@ -35,7 +42,7 @@ on boot
 on post-fs
    export SAGEBIN_PATH /vendor/bin
    export NEXUS_LOGGER /vendor/bin/nxlogger
-   export NEXUS_LOGGER_FILE /data/vendor/nexus/nexus.log
+   export NEXUS_LOGGER_FILE /data/nexus/nexus.log
 
    setprop ro.nx.v3d.no_map_lock 0
    setprop dyn.nx.state none
@@ -52,15 +59,9 @@ on post-fs-data
    mkdir /data/nxmedia 0777 media media
    mkdir /data/nexus 0775 root system
    mkdir /data/misc/nexus 0755 root system
-
-   mkdir /data/vendor/misc 0771 root root
-   mkdir /data/vendor/misc/nexus 0755 root system
-   mkdir /data/vendor/misc/nxfw 0777 root root
-   mkdir /data/vendor/nexus/secdma 0777 system system
-   mkdir /data/vendor/nexus/ssd 0777 system system
+   mkdir /data/misc/nxfw 0777 root root
 
    mkdir /data/mediadrm/playready/ 0770 mediadrm mediadrm
-   mkdir /data/nexus/secdma 0777 system system
 
    mkdir /data/nexus/secdma 0777 system system
 
@@ -70,15 +71,9 @@ on post-fs-data
    #    server/client authentication, note the syntax
    #    of the key-file content: 'trusted:<some-password>'
    #
-   #    we seed twice the same value for vendor policy realm
-   #    and core|platform policy realm, the value should be the
-   #    same always ... for now.
-   #
    write /data/misc/nexus/nx_key trusted:test-passwd
    chmod 0644 /data/misc/nexus/nx_key
-   write /data/vendor/misc/nexus/nx_key trusted:test-passwd
-   chmod 0644 /data/vendor/misc/nexus/nx_key
-   export NXCLIENT_PASSWORD /data/vendor/misc/nexus/nx_key:/data/misc/nexus/nx_key
+   export NXCLIENT_PASSWORD /data/misc/nexus/nx_key
 
    setprop vold.post_fs_data_done 1
    setprop ro.nx.bootreason ${ro.boot.bootreason}
@@ -96,11 +91,3 @@ on property:dev.bootcomplete=1
 
 on property:sys.shutdown.requested=*
    write /sys/devices/platform/droid_pm/notify ${sys.shutdown.requested}
-
-# bugreport is triggered by holding down volume down, volume up and power
-service bugreport /system/bin/dumpstate -d -p -B -z \
-   -o /data/user_de/0/com.android.shell/files/bugreports/bugreport
-   class main
-   disabled
-   oneshot
-   keycodes 114 115 116

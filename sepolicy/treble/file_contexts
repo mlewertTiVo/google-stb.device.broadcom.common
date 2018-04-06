@@ -32,7 +32,7 @@
 /(vendor|system/vendor)/usr/irkeymap(/.*)? u:object_r:nexus_ir_file:s0
 
 /eio(/.*)?                u:object_r:system_file:s0
-/hwcfg(/.*)?              u:object_r:system_file:s0
+/dev/hwcfg(/.*)?          u:object_r:system_file:s0
 
 /vendor/lib/bcm\.hardware\.nexus@1\.0\.so       u:object_r:same_process_hal_file:s0
 /vendor/lib/libnexus\.so                        u:object_r:same_process_hal_file:s0
@@ -48,4 +48,6 @@
 
 /sys/kernel/debug/dri(/.*)?   u:object_r:debugfs_dri:s0
 /sys/class/net(/.*)?          u:object_r:sysfs_net:s0
+
+/(vendor|system/vendor)/bin/hw/bcm\.hardware\.dspsvcext@1\.0-service       u:object_r:hal_dspsvcext_exec:s0
 
