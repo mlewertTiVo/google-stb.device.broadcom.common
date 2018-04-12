@@ -5,4 +5,4 @@
 /dev/block/by-name/misc         /misc           emmc     defaults defaults
 /dev/block/by-name/eio          /eio            emmc     defaults defaults
 /dev/block/by-name/cache        /cache          ext4     noatime,nosuid,nodev,barrier=1,data=ordered,nomblk_io_submit,noauto_da_alloc,errors=panic wait,check
-/dev/block/mmcblk0boot1         /hwcfg          cramfs   ro,noatime,barrier=1 wait
+/dev/block/mmcblk0boot1         /dev/hwcfg      cramfs   ro,noatime,barrier=1 wait

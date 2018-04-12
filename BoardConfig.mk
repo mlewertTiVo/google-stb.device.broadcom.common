@@ -87,7 +87,7 @@ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE    := ext4
 endif
 endif
 
-BOARD_ROOT_EXTRA_FOLDERS  := eio hwcfg
+BOARD_ROOT_EXTRA_FOLDERS  := eio
 BOARD_ROOT_EXTRA_SYMLINKS :=
 
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)
@@ -154,4 +154,8 @@ include device/broadcom/common/middleware/build.mk
 DONT_DEXPREOPT_PREBUILTS := true
 
 MALLOC_SVELTE := true
+
+ifneq ($(LOCAL_NVI_LAYOUT),y)
+BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
+endif
 

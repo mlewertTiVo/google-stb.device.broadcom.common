@@ -1,1 +1,2 @@
 type vnd_nexus_hwservice, hwservice_manager_type, untrusted_app_visible_hwservice;
+type vnd_dspsvcext_hwservice, hwservice_manager_type, untrusted_app_visible_hwservice;

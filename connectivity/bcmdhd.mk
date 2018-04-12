@@ -2,7 +2,7 @@
 BRCM_DHD_PATH      := ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/brcm_dhd
 BRCM_DHD_KO_NAME   := bcmdhd.ko
 BRCM_DHD_NVRAM_DIR ?= ${BROADCOM_DHD_SOURCE_PATH}/nvrams
-BRCM_DHD_TARGET_NVRAM_PATH := "/hwcfg/nvm.txt"
+BRCM_DHD_TARGET_NVRAM_PATH := "/dev/hwcfg/nvm.txt"
 ifeq ($(BROADCOM_WIFI_CHIPSET), 4365b1)
 BRCM_DHD_FW_NAME    ?= pcie-ag-pktctx-splitrx-amsdutx-txbf-p2p-mchan-idauth-idsup-tdls-mfp-sr-proptxstatus-wowlpf-pktfilter-ampduhostreorder-chkd2hdma-ringer-dmaindex16-keepalive.bin
 BRCM_DHD_NVRAM_NAME ?= bcm4365.nvm

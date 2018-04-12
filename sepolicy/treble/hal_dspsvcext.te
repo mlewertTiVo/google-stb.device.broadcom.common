@@ -1,0 +1,11 @@
+type hal_dspsvcext, domain;
+type hal_dspsvcext_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_dspsvcext);
+add_hwservice(hal_dspsvcext, vnd_dspsvcext_hwservice);
+
+allow hal_dspsvcext hwcbinder_service:service_manager { find };
+binder_call(hal_dspsvcext, hwcbinder);
+
+get_prop(hal_dspsvcext, hwservicemanager_prop);
+hwbinder_use(hal_dspsvcext);
+vndbinder_use(hal_dspsvcext);

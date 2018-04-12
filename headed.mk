@@ -71,16 +71,16 @@ TARGET_CPU_SMP           := true
 
 PRODUCT_COPY_FILES       += device/broadcom/common/bootanimation.zip:system/media/bootanimation.zip
 PRODUCT_COPY_FILES       += device/broadcom/common/keylayout/nexus_silver_remote.kl:system/usr/keylayout/NexusIrHandler.kl
-PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml
-PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video.xml
-PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_tv.xml:system/etc/media_codecs_google_tv.xml
-PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml
-PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.hdmi.cec.xml:system/etc/permissions/android.hardware.hdmi.cec.xml
-PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.screen.landscape.xml:system/etc/permissions/android.hardware.screen.landscape.xml
-PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml
-PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.software.live_tv.xml:system/etc/permissions/android.software.live_tv.xml
-PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.software.webview.xml:system/etc/permissions/android.software.webview.xml
-PRODUCT_COPY_FILES       += device/broadcom/common/permissions/nrdp.xml:system/etc/permissions/nrdp.xml
+PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml
+PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
+PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_tv.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_tv.xml
+PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.ethernet.xml
+PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.hdmi.cec.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.hdmi.cec.xml
+PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.screen.landscape.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.landscape.xml
+PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml
+PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.software.live_tv.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.live_tv.xml
+PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.software.webview.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.webview.xml
+PRODUCT_COPY_FILES       += device/broadcom/common/permissions/nrdp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/nrdp.xml
 PRODUCT_COPY_FILES       += device/broadcom/common/sysconfig/netflix.xml:system/etc/sysconfig/netflix.xml
 PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_black.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/broadcom_black.ikm
 PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_silver.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/broadcom_silver.ikm
@@ -100,7 +100,11 @@ endif
 PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf
 # all those are defined per device, in the device configuration.
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RCS}
+ifneq ($(LOCAL_NVI_LAYOUT),y)
+PRODUCT_COPY_FILES       += device/broadcom/common/rcs/rts/init.rts_$(LOCAL_DEVICE_RTS_MODE).rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.rts.rc
+else
 PRODUCT_COPY_FILES       += device/broadcom/common/rcs/rts/init.rts_$(LOCAL_DEVICE_RTS_MODE).rc:root/init.rts.rc
+endif
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_MEDIA}
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RECOVERY_RCS}
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_FSTAB}
@@ -239,13 +243,14 @@ ifneq ($(LOCAL_NVI_LAYOUT),y)
 PRODUCT_VENDOR_VERITY_PARTITION := $(LOCAL_DEVICE_VENDOR_VERITY_PARTITION)
 endif
 PRODUCT_PACKAGES                += slideshow verity_warning_images generate_verity_key
-PRODUCT_COPY_FILES              += frameworks/native/data/etc/android.software.verified_boot.xml:system/etc/permissions/android.software.verified_boot.xml
+PRODUCT_COPY_FILES              += frameworks/native/data/etc/android.software.verified_boot.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.verified_boot.xml
 PRODUCT_COPY_FILES              += vendor/broadcom/bcm_platform/signing/verity.key.pub:root/verity_key
 endif
 
 # packages for the system image content.
 PRODUCT_PACKAGES += \
     wpa_supplicant \
+    wpa_supplicant.conf \
     dhcpcd.conf \
     wificond
 
@@ -356,7 +361,9 @@ PRODUCT_PACKAGES += \
    android.hardware.power@1.0-service \
    android.hardware.tv.cec@1.0-service \
    android.hardware.tv.input@1.0-service \
-   bcm.hardware.nexus@1.0-impl
+   bcm.hardware.nexus@1.0-impl \
+   bcm.hardware.dspsvcext@1.0-service \
+   bcm.hardware.dspsvcext-V1.0-java
 ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES += \
    android.hardware.drm@1.0-service.widevine

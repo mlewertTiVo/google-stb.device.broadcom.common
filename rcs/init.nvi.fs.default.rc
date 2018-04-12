@@ -1,6 +1,5 @@
 on fs
-   mkdir /dev/hwcfg 0777 root root
-   mount_all /vendor/etc/fstab.bcm
+   mount_all /fstab.bcm
    setprop chrome.tv.hole_threshold 0
    setprop ro.nexus.devname mali
    setprop ro.nexus.wake.devname mali0

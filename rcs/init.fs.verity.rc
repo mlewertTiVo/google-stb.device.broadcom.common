@@ -2,7 +2,8 @@ on init
    verity_load_state
 
 on fs
-   mount_all /fstab.bcm
+   mkdir /dev/hwcfg 0777 root root
+   mount_all /vendor/etc/fstab.bcm
    write /sys/block/dm-0/queue/read_ahead_kb 2048
    write /sys/module/dm_verity/parameters/prefetch_cluster 524288
    verity_update_state

@@ -1,13 +1,13 @@
-import /vendor/etc/init/hw/init.bcm.usb.rc
-import /vendor/etc/init/hw/init.block.rc
-import /vendor/etc/init/hw/init.rts.rc
-import /vendor/etc/init/hw/init.nx.rc
-import /vendor/etc/init/hw/init.fs.rc
-import /vendor/etc/init/hw/init.eth.rc
+import /init.bcm.usb.rc
+import /init.block.rc
+import /init.rts.rc
+import /init.nx.rc
+import /init.fs.rc
+import /init.eth.rc
 
-import /vendor/etc/init/hw/init.brcm_dhd.rc
-import /vendor/etc/init/hw/init.brcm_nic.rc
-import /vendor/etc/init/hw/init.brcm_bt.rc
+import /init.brcm_dhd.rc
+import /init.brcm_nic.rc
+import /init.brcm_bt.rc
 
 on early-init
    # Mount kernel debugfs
