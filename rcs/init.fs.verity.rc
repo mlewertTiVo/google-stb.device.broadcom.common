@@ -3,6 +3,7 @@ on init
 
 on fs
    mount_all /vendor/etc/fstab.bcm
+   swapon_all /vendor/etc/fstab.bcm
    write /sys/block/dm-0/queue/read_ahead_kb 2048
    write /sys/module/dm_verity/parameters/prefetch_cluster 524288
    verity_update_state
