@@ -146,7 +146,10 @@ endif
 ifeq ($(HAL_HWC_VERSION),v-2.0)
 TARGET_USES_HWC2         := true
 endif
+
+ifneq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 SF_START_GRAPHICS_ALLOCATOR_SERVICE := true
+endif
 
 include device/broadcom/common/middleware/build.mk
 

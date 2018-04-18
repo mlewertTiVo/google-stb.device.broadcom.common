@@ -399,7 +399,9 @@ PRODUCT_PACKAGES += \
     BcmCustomizer \
     BcmHdmiTvInput \
     BcmSidebandViewer \
-    BcmTVInput
+    BcmTVInput \
+    libbcmsideband \
+    libbcmsidebandviewer_jni
 else
 PRODUCT_PACKAGES += \
     BcmCustomizerBase
