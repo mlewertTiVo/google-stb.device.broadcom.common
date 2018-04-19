@@ -93,13 +93,16 @@ build_kernel:
 			cp ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/dm-verity/${LOCAL_PRODUCT_OUT}.verifiedboot.der.x509 ${LINUX_OUT_1ST_ARCH}/; \
 		fi; \
 	else \
-		cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.pem.x509 ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
+		if [ -f ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/signing/keys.pem.x509 ]; then \
+			cp ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/signing/keys.pem.x509 ${LINUX_OUT_1ST_ARCH}/; \
+		else \
+			cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity.x509.pem ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
+		fi; \
 	fi
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
-	echo "CONFIG_SYSTEM_TRUSTED_KEYS=\"keys.pem.x509\"" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
-	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm64/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment;
-	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
-	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) brcmstb_defconfig
+	echo "CONFIG_SYSTEM_TRUSTED_KEYS=\"keys.pem.x509\"" > $(LINUX_OUT_1ST_ARCH)/config_fragment
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm64/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment
+	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment
 	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
 	-@if [ -f $(AUTOCONF_1ST_ARCH)_refsw ]; then \
 		if [ `diff -q $(AUTOCONF_1ST_ARCH)_refsw $(AUTOCONF_1ST_ARCH) | wc -l` -eq 0 ]; then \
@@ -132,7 +135,7 @@ build_kernel:
 		if [ -f ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/signing/keys.pem.x509 ]; then \
 			cp ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/signing/keys.pem.x509 ${LINUX_OUT_1ST_ARCH}/; \
 		else \
-			cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.pem.x509 ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
+			cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity.x509.pem ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
 		fi; \
 	fi
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment
@@ -173,14 +176,13 @@ build_kernel:
 		if [ -f ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/signing/keys.pem.x509 ]; then \
 			cp ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/signing/keys.pem.x509 ${LINUX_OUT_1ST_ARCH}/; \
 		else \
-			cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.pem.x509 ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
+			cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity.x509.pem ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
 		fi; \
 	fi
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
 	echo "CONFIG_SYSTEM_TRUSTED_KEYS=\"keys.pem.x509\"" >> $(LINUX_OUT_1ST_ARCH)/config_fragment
 	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm64/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment;
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
-	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) brcmstb_defconfig
 	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
 	-@if [ -f $(AUTOCONF_1ST_ARCH)_refsw ]; then \
 		if [ `diff -q $(AUTOCONF_1ST_ARCH)_refsw $(AUTOCONF_1ST_ARCH) | wc -l` -eq 0 ]; then \
@@ -224,7 +226,7 @@ build_kernel:
 		if [ -f ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/signing/keys.pem.x509 ]; then \
 			cp ${TOP}/device/broadcom/${LOCAL_PRODUCT_OUT}/signing/keys.pem.x509 ${LINUX_OUT_1ST_ARCH}/; \
 		else \
-			cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity_dev_key.pem.x509 ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
+			cp ${BCM_VENDOR_STB_ROOT}/bcm_platform/signing/verity.x509.pem ${LINUX_OUT_1ST_ARCH}/keys.pem.x509; \
 		fi; \
 	fi
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment

@@ -1,0 +1,2 @@
+r_dir_file(hal_wifi_supplicant_default, proc_net)
+allow hal_wifi_supplicant_default proc_net:file w_file_perms;

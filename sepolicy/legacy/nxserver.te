@@ -29,7 +29,6 @@ allow nxserver sysfs_devices_system_cpu:file write;
 allow nxserver system_file:file execute_no_trans;
 allow nxserver vendor_file:file execute_no_trans;
 allow nxserver nexus_prop:property_service set;
-allow nxserver system_prop:property_service set;
 allow nxserver uhid_device:chr_file { write ioctl open };
 allow nxserver gpu_device:chr_file ioctl;
 allow nxserver input_device:dir search;
@@ -79,4 +78,8 @@ allow nxserver domain:process { sigkill signal };
 
 allow nxserver debugfs_dri:dir search;
 allow nxserver debugfs_dri:file r_file_perms;
+
+get_prop(nxserver, system_boot_reason_prop);
+
+allow nxserver system_prop:property_service set;
 

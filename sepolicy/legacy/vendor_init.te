@@ -1,5 +1,8 @@
 typeattribute vendor_init data_between_core_and_vendor_violators;
 
+nexus_hwcfg(vendor_init);
+set_prop(vendor_init, nexus_prop);
+
 allow vendor_init {
    media_rw_data_file
    system_data_file

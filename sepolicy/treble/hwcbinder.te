@@ -15,6 +15,7 @@ allow hwcbinder untrusted_app_all:binder { call transfer };
 allow hwcbinder bcmstb_app:binder { call transfer };
 allow hwcbinder mediacodec:binder { call transfer };
 allow hwcbinder togplm:binder { call transfer };
+allow hwcbinder hal_tv_input_default:binder { call transfer };
 
 add_service(hwcbinder, hwcbinder_service);
 

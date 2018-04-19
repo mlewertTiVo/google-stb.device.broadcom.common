@@ -133,6 +133,9 @@ BOARD_SEPOLICY_M4DEFS += target_bp3=true
 else
 BOARD_SEPOLICY_M4DEFS += target_bp3=false
 endif
+ifeq ($(call math_lt,27,$(PRODUCT_SHIPPING_API_LEVEL)),)
+BOARD_SEPOLICY_M4DEFS += target_nxsysprop=true
+endif
 
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
@@ -146,7 +149,10 @@ endif
 ifeq ($(HAL_HWC_VERSION),v-2.0)
 TARGET_USES_HWC2         := true
 endif
+
+ifneq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 SF_START_GRAPHICS_ALLOCATOR_SERVICE := true
+endif
 
 include device/broadcom/common/middleware/build.mk
 

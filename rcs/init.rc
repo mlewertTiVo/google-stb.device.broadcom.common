@@ -15,6 +15,7 @@ on early-init
 
 on init
    symlink /sdcard /mnt/sdcard
+   symlink /sdcard /storage/sdcard0
 
    # allocate node(s) which are part of the CTS exception list.
    export NEXUS_DEVICE_NODE /dev/mali
@@ -81,7 +82,6 @@ on post-fs-data
    export NXCLIENT_PASSWORD /data/vendor/misc/nexus/nx_key:/data/misc/nexus/nx_key
 
    setprop vold.post_fs_data_done 1
-   setprop ro.nx.bootreason ${ro.boot.bootreason}
    class_start pre_core
 
 on property:dyn.nx.state=loaded
