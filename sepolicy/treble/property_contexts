@@ -3,3 +3,4 @@ ro.nexus.                           u:object_r:nexus_prop:s0
 ro.nx.                              u:object_r:nexus_prop:s0
 dyn.nx.                             u:object_r:nexus_prop:s0
 persist.nx.                         u:object_r:nexus_prop:s0
+ro.v3d.                             u:object_r:nexus_prop:s0

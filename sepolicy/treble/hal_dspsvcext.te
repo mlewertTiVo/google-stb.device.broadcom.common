@@ -5,6 +5,8 @@ add_hwservice(hal_dspsvcext, vnd_dspsvcext_hwservice);
 
 allow hal_dspsvcext hwcbinder_service:service_manager { find };
 binder_call(hal_dspsvcext, hwcbinder);
+binder_call(hal_dspsvcext, bcmstb_app);
+binder_call(hal_dspsvcext, hal_tv_input_default);
 
 get_prop(hal_dspsvcext, hwservicemanager_prop);
 hwbinder_use(hal_dspsvcext);

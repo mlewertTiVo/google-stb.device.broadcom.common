@@ -30,3 +30,5 @@ allow init vfat:dir mounton;
 ')
 
 domain_trans(init, rootfs, nxmini)
+
+get_prop(init, bootloader_boot_reason_prop)

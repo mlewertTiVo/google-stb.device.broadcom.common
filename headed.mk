@@ -326,8 +326,8 @@ PRODUCT_PACKAGES += \
 endif
 
 PRODUCT_PACKAGES += \
-   android.hardware.audio@2.0-impl \
-   android.hardware.audio.effect@2.0-impl \
+   android.hardware.audio@4.0-impl \
+   android.hardware.audio.effect@4.0-impl \
    android.hardware.bluetooth@1.0-impl \
    android.hardware.bluetooth@1.0-service \
    android.hardware.drm@1.0-impl \
@@ -413,7 +413,9 @@ PRODUCT_PACKAGES += \
     BcmCustomizer \
     BcmHdmiTvInput \
     BcmSidebandViewer \
-    BcmTVInput
+    BcmTVInput \
+    libbcmsideband \
+    libbcmsidebandviewer_jni
 else
 PRODUCT_PACKAGES += \
     BcmCustomizerBase
