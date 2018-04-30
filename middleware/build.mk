@@ -309,12 +309,16 @@ build_bootloaderimg: build_android_bsu build_bl31
 		$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/bl31.bin $(PRODUCT_OUT_FROM_TOP)/bootloader.dev.img; \
 		cp $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE); \
 		if [ -e "${BOLT_IMG_SWAP_BBL}" ]; then \
-			$(PRODUCT_OUT_FROM_TOP)/obj/FAKE/bolt/scripts/patcher.pl -p ${BOLT_IMG_SWAP_BBL} -i $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE) -o $(PRODUCT_OUT_FROM_TOP)/swap.bbl.$(BOLT_IMG_TO_USE_OVERRIDE) -z zeus42 -t bbl; \
+			$(PRODUCT_OUT_FROM_TOP)/obj/FAKE/bolt/scripts/patcher.pl -p ${BOLT_IMG_SWAP_BBL} -i $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE) -o $(PRODUCT_OUT_FROM_TOP)/swap.bbl.$(BOLT_IMG_TO_USE_OVERRIDE) -z $(BOLT_ZEUS_VER) -t bbl; \
 			cp $(PRODUCT_OUT_FROM_TOP)/swap.bbl.$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE); \
 		fi; \
 		if [ -e "${BOLT_IMG_SWAP_BFW}" ]; then \
-			$(PRODUCT_OUT_FROM_TOP)/obj/FAKE/bolt/scripts/patcher.pl -p ${BOLT_IMG_SWAP_BFW} -i $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE) -o $(PRODUCT_OUT_FROM_TOP)/swap.bfw.$(BOLT_IMG_TO_USE_OVERRIDE) -z zeus42 -t bfw; \
+			$(PRODUCT_OUT_FROM_TOP)/obj/FAKE/bolt/scripts/patcher.pl -p ${BOLT_IMG_SWAP_BFW} -i $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE) -o $(PRODUCT_OUT_FROM_TOP)/swap.bfw.$(BOLT_IMG_TO_USE_OVERRIDE) -z $(BOLT_ZEUS_VER) -t bfw; \
 			cp $(PRODUCT_OUT_FROM_TOP)/swap.bfw.$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE); \
+		fi; \
+		if [ -e "${BOLT_IMG_SWAP_RD}" ]; then \
+			$(PRODUCT_OUT_FROM_TOP)/obj/FAKE/bolt/scripts/patcher.pl -p ${BOLT_IMG_SWAP_RD} -i $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE) -o $(PRODUCT_OUT_FROM_TOP)/swap.rd.$(BOLT_IMG_TO_USE_OVERRIDE) -z $(BOLT_ZEUS_VER) -t reserveddata; \
+			cp $(PRODUCT_OUT_FROM_TOP)/swap.rd.$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE); \
 		fi; \
 		$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/bl31.bin $(PRODUCT_OUT_FROM_TOP)/bootloader.prod.img; \
 		rm $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE); \
@@ -336,12 +340,16 @@ build_bootloaderimg: build_android_bsu
 		$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/bootloader.dev.img; \
 		cp $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE); \
 		if [ -e "${BOLT_IMG_SWAP_BBL}" ]; then \
-			$(PRODUCT_OUT_FROM_TOP)/obj/FAKE/bolt/scripts/patcher.pl -p ${BOLT_IMG_SWAP_BBL} -i $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE) -o $(PRODUCT_OUT_FROM_TOP)/swap.bbl.$(BOLT_IMG_TO_USE_OVERRIDE) -z zeus42 -t bbl; \
+			$(PRODUCT_OUT_FROM_TOP)/obj/FAKE/bolt/scripts/patcher.pl -p ${BOLT_IMG_SWAP_BBL} -i $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE) -o $(PRODUCT_OUT_FROM_TOP)/swap.bbl.$(BOLT_IMG_TO_USE_OVERRIDE) -z $(BOLT_ZEUS_VER) -t bbl; \
 			cp $(PRODUCT_OUT_FROM_TOP)/swap.bbl.$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE); \
 		fi; \
 		if [ -e "${BOLT_IMG_SWAP_BFW}" ]; then \
-			$(PRODUCT_OUT_FROM_TOP)/obj/FAKE/bolt/scripts/patcher.pl -p ${BOLT_IMG_SWAP_BFW} -i $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE) -o $(PRODUCT_OUT_FROM_TOP)/swap.bfw.$(BOLT_IMG_TO_USE_OVERRIDE) -z zeus42 -t bfw; \
+			$(PRODUCT_OUT_FROM_TOP)/obj/FAKE/bolt/scripts/patcher.pl -p ${BOLT_IMG_SWAP_BFW} -i $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE) -o $(PRODUCT_OUT_FROM_TOP)/swap.bfw.$(BOLT_IMG_TO_USE_OVERRIDE) -z $(BOLT_ZEUS_VER) -t bfw; \
 			cp $(PRODUCT_OUT_FROM_TOP)/swap.bfw.$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE); \
+		fi; \
+		if [ -e "${BOLT_IMG_SWAP_RD}" ]; then \
+			$(PRODUCT_OUT_FROM_TOP)/obj/FAKE/bolt/scripts/patcher.pl -p ${BOLT_IMG_SWAP_RD} -i $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE) -o $(PRODUCT_OUT_FROM_TOP)/swap.rd.$(BOLT_IMG_TO_USE_OVERRIDE) -z $(BOLT_ZEUS_VER) -t reserveddata; \
+			cp $(PRODUCT_OUT_FROM_TOP)/swap.rd.$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE); \
 		fi; \
 		$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE) $(PRODUCT_OUT_FROM_TOP)/android_bsu.elf $(PRODUCT_OUT_FROM_TOP)/bootloader.prod.img; \
 		rm $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE); \

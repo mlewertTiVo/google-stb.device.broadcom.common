@@ -14,3 +14,5 @@
 /dev/dri/card*            0666   root       root
 /dev/bcmpip               0666   root       root
 /dev/uinput               0666   root       root
+
+/dev/video0               0660   system     camera
