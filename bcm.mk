@@ -105,5 +105,8 @@ ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 endif
 
+ifneq ($(wildcard vendor/google/certs),)
+PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/google/certs/devkeys/devkey
+else
 PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/broadcom/bcm_platform/signing/testkey
-
+endif
