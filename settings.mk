@@ -172,6 +172,7 @@ export LOCAL_DEVICE_PAK_BINARY_ALT           ?=
 export HW_THERMAL_CONFIG_SUPPORT             ?= y
 export LOCAL_DTBO_SUPPORT                    ?= n
 export LOCAL_DEVICE_DTBO_IMAGE               ?=
+export HW_CAMERA_SUPPORT                     ?= y
 
 export BCM_GPT_CONFIG_FILE                   := $(LOCAL_DEVICE_GPT)
 export ANDROID_BUILD                         := y

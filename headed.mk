@@ -96,6 +96,10 @@ ifeq ($(HW_GPU_VULKAN_SUPPORT),y)
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.vulkan.level-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-0.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.vulkan.version-1_0_3.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_0_3.xml
 endif
+ifeq ($(HW_CAMERA_SUPPORT),y)
+PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.camera.external.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.external.xml
+PRODUCT_COPY_FILES       += device/broadcom/common/media/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
+endif
 PRODUCT_COPY_FILES       += device/broadcom/common/permissions/atv-bcm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/atv-bcm.xml
 PRODUCT_COPY_FILES       += device/broadcom/common/jwl:$(TARGET_COPY_OUT_VENDOR)/usr/jwl
 ifneq ($(HW_THERMAL_CONFIG_SUPPORT),n)
@@ -333,7 +337,6 @@ ifeq ($(wildcard ${GMS_PACKAGE_ROOT}/google/Android.mk),)
 PRODUCT_PACKAGES += \
    Browser \
    Calculator \
-   Camera2 \
    Contacts \
    Clock \
    DeskClock \
@@ -492,6 +495,13 @@ PRODUCT_PACKAGES += \
     send_cec \
     topv3d \
     TvProvider
+
+ifeq ($(HW_CAMERA_SUPPORT),y)
+PRODUCT_PACKAGES += \
+   Camera2 \
+   android.hardware.camera.provider@2.4-impl \
+   android.hardware.camera.provider@2.4-external-service
+endif
 
 ifeq ($(HW_GPU_VULKAN_SUPPORT),y)
 PRODUCT_PACKAGES += \
