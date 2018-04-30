@@ -80,7 +80,7 @@ ifeq ($(B_REFSW_USES_CLANG),y)
    export P_REFSW_CC_CLANG                   := ${ANDROID_TOP}/prebuilts/clang/host/linux-x86/${P_REFSW_CC_CLANG_VER}/bin
 endif
 export B_REFSW_CCACHE                        := ${ANDROID_TOP}/prebuilts/misc/linux-x86/ccache/ccache
-export USE_CCACHE                            := 1
+export USE_CCACHE
 
 export LOCAL_LINUX_VERSION                   ?= -4.9
 export LOCAL_LINUX_VERSION_NODASH            ?= 4.9
