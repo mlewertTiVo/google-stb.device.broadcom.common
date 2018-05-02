@@ -29,7 +29,11 @@ export BCM_VENDOR_STB_ROOT                   := vendor/broadcom
 export ANDROID                               := $(shell pwd)
 export ANDROID_TOP                           := ${ANDROID}
 
+ifeq ($(HOST_OS),darwin)
+export GPERF_BCM                             := gperf
+else
 export GPERF_BCM                             := ${ANDROID}/device/broadcom/common/prebuilts/gperf
+endif
 export B_KNB_TOOLCHAIN                       := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-6.3-1.3/bin
 
 ifeq ($(LOCAL_ARM_AARCH64),y)
