@@ -435,6 +435,7 @@ endif
 # temporary adding command line support for BP3.
 ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
 PRODUCT_PACKAGES += libhost_bp3 bp3
+export BP3_PROVISIONING := y
 endif
 
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)
