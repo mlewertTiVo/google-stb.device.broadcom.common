@@ -396,18 +396,15 @@ endif
 ifeq ($(BCM_APP_CUSTOM),y)
 PRODUCT_PACKAGES += \
     BcmAdjustScreenOffset \
-    BcmCustomizer \
     BcmHdmiTvInput \
     BcmSidebandViewer \
     BcmTVInput \
     libbcmsideband \
     libbcmsidebandviewer_jni
-else
-PRODUCT_PACKAGES += \
-    BcmCustomizerBase
 endif
 
 PRODUCT_PACKAGES += \
+    BcmCustomizer \
     BcmPlayAutoInstallConfig
 
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY),y),)
