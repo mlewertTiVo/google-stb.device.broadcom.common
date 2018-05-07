@@ -17,3 +17,7 @@ allow vendor_init {
 
 allow vendor_init self:capability sys_module;
 allow vendor_init vendor_file:system module_load;
+
+allow vendor_init self:udp_socket { create ioctl };
+allowxperm vendor_init self:udp_socket ioctl SIOCSIFFLAGS;
+allow vendor_init self:global_capability_class_set net_raw;

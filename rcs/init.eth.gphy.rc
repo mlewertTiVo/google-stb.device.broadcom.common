@@ -5,9 +5,3 @@ on init
 on boot
    # gphy depends on eth0 being up
    ifup eth0
-
-service dhcpcd_gphy /system/bin/dhcpcd -dABKL
-   class main
-   group dhcp
-   disabled
-   oneshot

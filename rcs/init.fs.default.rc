@@ -4,5 +4,5 @@ on fs
    setprop chrome.tv.hole_threshold 0
    setprop ro.nexus.devname mali
    setprop ro.nexus.wake.devname mali0
-   setprop ro.nexus.ashmem.devname nxmem
+   setprop ro.nx.ashmem.devname nxmem
 

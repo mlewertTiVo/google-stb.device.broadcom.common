@@ -8,6 +8,7 @@
 /dev/nxmem                u:object_r:nxmem_device:s0
 /dev/bcmpip               u:object_r:gpu_device:s0
 /dev/block/mmcblk0rpmb    u:object_r:rpmb_block_device:s0
+/dev/block/mmcblk1rpmb    u:object_r:rpmb_block_device:s0
 
 # standard targets.
 /vendor/bin/hfrvideo u:object_r:hfrvideo_exec:s0

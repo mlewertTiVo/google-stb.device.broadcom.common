@@ -46,8 +46,8 @@ on post-fs
 
    setprop ro.nx.v3d.no_map_lock 0
    setprop dyn.nx.state none
-   setprop ro.nexus.nxserver.hdcp1x_keys /dev/hwcfg/drm_hdcp1x.bin
-   setprop ro.nexus.nxserver.hdcp2x_keys /dev/hwcfg/drm.bin
+   setprop ro.nx.nxserver.hdcp1x_keys /dev/hwcfg/drm_hdcp1x.bin
+   setprop ro.nx.nxserver.hdcp2x_keys /dev/hwcfg/drm.bin
 
    # Allow Launcher wallpaper picker to use landscape mode
    setprop log.tag.launcher_force_rotate VERBOSE

@@ -29,7 +29,11 @@ export BCM_VENDOR_STB_ROOT                   := vendor/broadcom
 export ANDROID                               := $(shell pwd)
 export ANDROID_TOP                           := ${ANDROID}
 
+ifeq ($(HOST_OS),darwin)
+export GPERF_BCM                             := gperf
+else
 export GPERF_BCM                             := ${ANDROID}/device/broadcom/common/prebuilts/gperf
+endif
 export B_KNB_TOOLCHAIN                       := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-6.3-1.3/bin
 
 ifeq ($(LOCAL_ARM_AARCH64),y)
@@ -80,10 +84,10 @@ ifeq ($(B_REFSW_USES_CLANG),y)
    export P_REFSW_CC_CLANG                   := ${ANDROID_TOP}/prebuilts/clang/host/linux-x86/${P_REFSW_CC_CLANG_VER}/bin
 endif
 export B_REFSW_CCACHE                        := ${ANDROID_TOP}/prebuilts/misc/linux-x86/ccache/ccache
-export USE_CCACHE                            := 1
+export USE_CCACHE
 
-export LOCAL_LINUX_VERSION                   ?= -4.1
-export LOCAL_LINUX_VERSION_NODASH            ?= 4.1
+export LOCAL_LINUX_VERSION                   ?= -4.9
+export LOCAL_LINUX_VERSION_NODASH            ?= 4.9
 export LINUX                                 := ${ANDROID_TOP}/kernel/private/bcm-97xxx/linux${LOCAL_LINUX_VERSION}
 export REFSW_BASE_DIR                        := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/refsw
 export ROCKFORD                              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/refsw/rockford
@@ -108,6 +112,7 @@ export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1048576000  # 1000M
 export LOCAL_DEVICE_VENDOR_LEGACY            ?= 234881024   # 224M
 ifeq ($(LOCAL_DEVICE_GPT_O_LAYOUT),y)
 export LOCAL_DEVICE_SYSTEM_AB                ?= 1486880768  # 1418M
+export LOCAL_DEVICE_SYSTEM_XL                := y
 else
 export LOCAL_DEVICE_SYSTEM_AB                ?= 950009856   # 906M
 endif
@@ -139,6 +144,8 @@ export HW_HVD_REDUX                          ?= n
 export HAL_GR_VERSION                        ?= v-0.x
 export DTCP_IP_SAGE_SUPPORT                  ?= n
 export HW_GPU_VULKAN_SUPPORT                 ?= n
+export LOCAL_DEVICE_USE_FIXED_SLOT           ?= n
+export BOLT_ZEUS_VER                         ?= zeus42
 
 export BCM_GPT_CONFIG_FILE                   := $(LOCAL_DEVICE_GPT)
 export ANDROID_BUILD                         := y

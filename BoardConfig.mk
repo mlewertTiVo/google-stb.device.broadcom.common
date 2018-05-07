@@ -54,12 +54,20 @@ endif
 TARGET_USERIMAGES_USE_EXT4         := true
 BOARD_BOOTIMAGE_PARTITION_SIZE     := $(LOCAL_DEVICE_BOOT)
 ifneq ($(HW_AB_UPDATE_SUPPORT),y)
+ifeq ($(LOCAL_DEVICE_FORCED_NAB),y)
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864   # 64M
+BOARD_CACHEIMAGE_PARTITION_SIZE    := 536870912  # 512M
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE  := ext4
+BOARD_SYSTEMIMAGE_PARTITION_SIZE   := $(LOCAL_DEVICE_SYSTEM_AB)  # align with a|b ref.
+BOARD_VENDORIMAGE_PARTITION_SIZE   := $(LOCAL_DEVICE_VENDOR_AB)  # align with a|b ref.
+else
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := $(LOCAL_DEVICE_RECOVERY_LEGACY)
 BOARD_CACHEIMAGE_PARTITION_SIZE    := 268435456  # 256M
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE  := ext4
 BOARD_SYSTEMIMAGE_PARTITION_SIZE   := $(LOCAL_DEVICE_SYSTEM_LEGACY)
 ifneq ($(LOCAL_NVI_LAYOUT),y)
 BOARD_VENDORIMAGE_PARTITION_SIZE   := $(LOCAL_DEVICE_VENDOR_LEGACY)
+endif
 endif
 else
 BOARD_CACHEIMAGE_PARTITION_SIZE    := 10485760   # 10M
@@ -156,11 +164,6 @@ endif
 
 include device/broadcom/common/middleware/build.mk
 
-# Don't dex preopt prebuilt apps that will be updated from Play Store
-DONT_DEXPREOPT_PREBUILTS := true
-# Don't uncompress dex files in priv apps APKs to save on space.
-DONT_UNCOMPRESS_PRIV_APPS_DEXS := true
-
 MALLOC_SVELTE := true
 
 ifeq ($(LOCAL_DEVICE_USE_AVB),y)
@@ -169,4 +172,13 @@ endif
 
 ifneq ($(LOCAL_NVI_LAYOUT),y)
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
+endif
+
+ifeq ($(LOCAL_DEVICE_SYSTEM_XL),y)
+# devices with large enough system partitions can allow
+# dexpreopt of apk's.  only a|b devices with 'o' gpt layout
+# can afford this in our reference.
+else
+DONT_DEXPREOPT_PREBUILTS       := true
+DONT_UNCOMPRESS_PRIV_APPS_DEXS := true
 endif

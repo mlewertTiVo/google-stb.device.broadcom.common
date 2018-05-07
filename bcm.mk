@@ -25,18 +25,21 @@ PRODUCT_PROPERTY_OVERRIDES += \
    persist.sys.hdmi.keep_awake=false \
    ro.hdmi.wake_on_hotplug=false \
    \
-   media.aac_51_output_enabled=true \
    media.stagefright.cache-params=32768/65536/25 \
    \
    ro.bq.gpu_to_cpu_unsupported=1 \
    ro.zygote.disable_gl_preload=true \
    ro.sf.disable_triple_buffer=0 \
+   \
    ro.gfx.driver.0=gfxdriver-bcmstb \
    \
    sys.display-size=1920x1080 \
    \
-   ro.vendor.vndk.version=26.1.0 \
-   \
+   ro.vendor.vndk.version=26.1.0
+#
+# system properties (eg gtvs related).
+#
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
    setup.bt_remote_pairing=true
 
 # pull in specific target based settings.
@@ -71,7 +74,11 @@ endif
 # hardware interface hal manifest.
 #
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+ifeq ($(HW_CAMERA_SUPPORT),y)
+DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/treble.cam.xml
+else
 DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/treble.xml
+endif
 else
 DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/legacy.xml
 endif
@@ -103,4 +110,3 @@ PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/google/certs/devkeys/devkey
 else
 PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/broadcom/bcm_platform/signing/testkey
 endif
-
