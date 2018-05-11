@@ -61,7 +61,7 @@ on post-fs-data
    mkdir /data/misc/nexus 0755 root system
    mkdir /data/misc/nxfw 0777 root root
 
-   mkdir /data/mediadrm/playready/ 0770 mediadrm mediadrm
+   mkdir /data/vendor/mediadrm/playready/ 0770 mediadrm mediadrm
 
    mkdir /data/nexus/secdma 0777 system system
 

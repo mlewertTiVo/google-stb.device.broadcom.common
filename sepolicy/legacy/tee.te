@@ -1,5 +1,5 @@
 nexus_verified_client(tee);
-get_prop(tee, nexus_prop);
+set_prop(tee, nexus_prop);
 allow tee gpu_device:chr_file rw_file_perms;
 allow tee block_device:dir search;
 nexus_ssd(tee);

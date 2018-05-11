@@ -18,6 +18,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    ro.nx.pr.version=2.5
 #
+# proprietary properties not applicable always.
+#
+# ro.nx.dhd.secdma: secure dhd comms, defaults to 16MB.
+#
+ifeq ($(ANDROID_ENABLE_DHD_SECDMA),y)
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.dhd.secdma=16777216
+endif
+#
 # system inherited|whitelisted properties.
 #
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -74,11 +83,7 @@ endif
 # hardware interface hal manifest.
 #
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
-ifeq ($(HW_CAMERA_SUPPORT),y)
-DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/treble.cam.xml
-else
 DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/treble.xml
-endif
 else
 DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/legacy.xml
 endif
@@ -110,3 +115,4 @@ PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/google/certs/devkeys/devkey
 else
 PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/broadcom/bcm_platform/signing/testkey
 endif
+

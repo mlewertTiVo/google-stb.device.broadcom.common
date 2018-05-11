@@ -16,3 +16,5 @@ allow netcoal proc_irq:dir r_dir_perms;
 allow netcoal proc_irq:file rw_file_perms;
 
 get_prop(netcoal, nexus_prop);
+
+dontaudit netcoal self:global_capability_class_set dac_override;
