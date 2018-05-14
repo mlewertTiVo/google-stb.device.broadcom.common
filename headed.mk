@@ -138,10 +138,10 @@ SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)/securemode$(SAGE_SECURE_MODE)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_os_app${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_os_app${SAGE_BINARY_EXT}.bin
 else
 ifeq ($(LOCAL_DEVICE_SAGE_DEV_N_PROD),y)
-SAGE_BINARY_EXT      := _dev
-SAGE_BL_BINARY_PATH  := ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/$(BCHP_CHIP)$(BCHP_VER)/dev
+SAGE_BINARY_EXT      ?= _dev
+SAGE_BL_BINARY_PATH  ?= ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/$(BCHP_CHIP)$(BCHP_VER)/dev
 PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_bl${SAGE_BINARY_EXT}.bin
-SAGE_APP_BINARY_PATH := $(SAGE_BL_BINARY_PATH)
+SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_framework${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_antirollback${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_antirollback${SAGE_BINARY_EXT}.bin
 ifeq ($(DTCP_IP_SAGE_SUPPORT),y)
@@ -162,10 +162,10 @@ ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_25${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
 endif
-SAGE_BINARY_EXT2      :=
-SAGE_BL_BINARY_PATH2  := ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/$(BCHP_CHIP)$(BCHP_VER)
+SAGE_BINARY_EXT2      ?=
+SAGE_BL_BINARY_PATH2  ?= ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/$(BCHP_CHIP)$(BCHP_VER)
 PRODUCT_COPY_FILES    += ${SAGE_BL_BINARY_PATH2}/sage_bl${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_bl${SAGE_BINARY_EXT2}.bin
-SAGE_APP_BINARY_PATH2 := $(SAGE_BL_BINARY_PATH2)
+SAGE_APP_BINARY_PATH2 ?= $(SAGE_BL_BINARY_PATH2)
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_framework${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_framework${SAGE_BINARY_EXT2}.bin
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_antirollback${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_antirollback${SAGE_BINARY_EXT2}.bin
 ifeq ($(DTCP_IP_SAGE_SUPPORT),y)
@@ -245,6 +245,7 @@ else
 $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk)
 endif
 
+ifneq ($(LOCAL_DEVICE_USE_AVB),y)
 ifeq ($(LOCAL_DEVICE_USE_VERITY),y)
 $(call inherit-product, build/target/product/verity.mk)
 PRODUCT_SUPPORTS_BOOT_SIGNER    := false
@@ -256,6 +257,7 @@ endif
 PRODUCT_PACKAGES                += slideshow verity_warning_images generate_verity_key
 PRODUCT_COPY_FILES              += frameworks/native/data/etc/android.software.verified_boot.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.verified_boot.xml
 PRODUCT_COPY_FILES              += vendor/broadcom/bcm_platform/signing/verity.key.pub:root/verity_key
+endif
 endif
 
 # packages for the system image content.
@@ -380,7 +382,7 @@ PRODUCT_PACKAGES += \
    bcm.hardware.dspsvcext-V1.0-java
 ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES += \
-   android.hardware.drm@1.0-service.widevine
+   android.hardware.drm@1.1-service.widevine
 endif
 endif
 
@@ -410,18 +412,15 @@ endif
 ifeq ($(BCM_APP_CUSTOM),y)
 PRODUCT_PACKAGES += \
     BcmAdjustScreenOffset \
-    BcmCustomizer \
     BcmHdmiTvInput \
     BcmSidebandViewer \
     BcmTVInput \
     libbcmsideband \
     libbcmsidebandviewer_jni
-else
-PRODUCT_PACKAGES += \
-    BcmCustomizerBase
 endif
 
 PRODUCT_PACKAGES += \
+    BcmCustomizer \
     BcmPlayAutoInstallConfig
 
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY),y),)
@@ -443,12 +442,22 @@ PRODUCT_PACKAGES            += libsagessd
 PRODUCT_PACKAGES            += nxssd
 endif
 
+ifneq ($(filter $(ANDROID_SUPPORTS_KEYMASTER),y),)
+PRODUCT_PACKAGES            += libkmtl
+endif
+
 ifneq ($(TARGET_BUILD_PDK),true)
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)
 PRODUCT_PACKAGES            += update_engine update_engine_client update_verifier
 PRODUCT_PACKAGES            += update_engine_sideload
 PRODUCT_STATIC_BOOT_CONTROL_HAL := bootctrl.$(TARGET_BOARD_PLATFORM)
 endif
+endif
+
+# temporary adding command line support for BP3.
+ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
+PRODUCT_PACKAGES += libhost_bp3 bp3
+export BP3_PROVISIONING := y
 endif
 
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)

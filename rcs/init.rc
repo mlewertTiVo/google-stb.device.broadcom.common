@@ -54,10 +54,11 @@ on post-fs-data
    mkdir /data/vendor/misc 0771 root root
    mkdir /data/vendor/misc/nexus 0755 root system
    mkdir /data/vendor/misc/nxfw 0777 root root
+   mkdir /data/vendor/nexus 0775 root system
    mkdir /data/vendor/nexus/secdma 0777 system system
    mkdir /data/vendor/nexus/ssd 0777 system system
 
-   mkdir /data/mediadrm/playready/ 0770 mediadrm mediadrm
+   mkdir /data/vendor/mediadrm/playready/ 0770 mediadrm mediadrm
 
    # *** sample only.
    #

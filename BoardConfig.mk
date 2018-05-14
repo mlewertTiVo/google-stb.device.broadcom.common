@@ -116,6 +116,7 @@ ifeq ($(LOCAL_DEVICE_KERNEL_CMDLINE),)
 $(error please define a valid kernel boot configuration)
 endif
 BOARD_KERNEL_CMDLINE := $(LOCAL_DEVICE_KERNEL_CMDLINE)
+BOARD_KERNEL_CMDLINE += cgroup.memory=nokmem
 BOARD_MKBOOTIMG_ARGS := $(LOCAL_DEVICE_MKBOOTIMG_ARGS)
 
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)

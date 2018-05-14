@@ -1,6 +1,6 @@
 nexus_vendor_verified_client(tee);
 nexus_hwservice(tee);
-get_prop(tee, nexus_prop);
+set_prop(tee, nexus_prop);
 allow tee block_device:dir search;
 nexus_ssd(tee);
 allow tee rpmb_block_device:blk_file rw_file_perms;
