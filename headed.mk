@@ -341,7 +341,7 @@ endif
 PRODUCT_PACKAGES += \
    android.hardware.audio@4.0-impl \
    android.hardware.audio.effect@4.0-impl \
-   android.hardware.bluetooth@1.0-impl \
+   android.hardware.bluetooth@1.0-impl-bcm \
    android.hardware.bluetooth@1.0-service \
    android.hardware.drm@1.0-impl \
    android.hardware.gatekeeper@1.0-impl \
