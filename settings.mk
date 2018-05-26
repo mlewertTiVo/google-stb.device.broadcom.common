@@ -168,7 +168,7 @@ export NEXUS_REPLACE_BOILERPLATE             := y
 export NEXUS_SHARED_LIB                      := y
 export PVR_SUPPORT                           := y
 export SHAREABLE                             := y
-export SHELL                                 := /bin/bash
+export SHELL
 export SMP                                   := y
 export SSL_SUPPORT                           := y
 export LIVEMEDIA_SUPPORT                     := n
