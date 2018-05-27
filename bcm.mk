@@ -49,7 +49,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # system properties (eg gtvs related).
 #
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-   setup.bt_remote_pairing=true
+   atv.setup.bt_remote_pairing=true  \
+   atv.setup.play_background_movie=0 \
+   atv.setup.play_background_music=0 \
 
 # pull in specific target based settings.
 #
