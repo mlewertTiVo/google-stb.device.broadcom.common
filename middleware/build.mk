@@ -1,4 +1,3 @@
-SHELL := /bin/bash
 export SHELL
 
 include $(dir $(lastword $(MAKEFILE_LIST)))bindist.mk
