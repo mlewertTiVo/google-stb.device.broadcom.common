@@ -190,3 +190,5 @@ else
 DONT_DEXPREOPT_PREBUILTS       := true
 DONT_UNCOMPRESS_PRIV_APPS_DEXS := true
 endif
+
+BOARD_HAL_STATIC_LIBRARIES := libhealthd.bcmstb
