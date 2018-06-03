@@ -1,2 +1,6 @@
 bcm.hardware.nexus::INexus              u:object_r:vnd_nexus_hwservice:s0
 bcm.hardware.dspsvcext::IDspSvcExt      u:object_r:vnd_dspsvcext_hwservice:s0
+bcm.hardware.sdbhak::ISdbHak            u:object_r:vnd_sdbhak_hwservice:s0
+bcm.hardware.tvisvcext::ITviSvcExt      u:object_r:vnd_tvisvcext_hwservice:s0
+bcm.hardware.bp3::Ibp3                  u:object_r:vnd_bp3_hwservice:s0
+bcm.hardware.dpthak::IDptHak            u:object_r:vnd_dpthak_hwservice:s0

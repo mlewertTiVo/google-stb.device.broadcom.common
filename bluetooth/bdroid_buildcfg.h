@@ -22,6 +22,10 @@
 #define BLE_VND_INCLUDED     TRUE
 #define BLE_PRIVACY_SPT      FALSE
 
+// Increase background scanning to reduce reconnect time
+#define BTM_BLE_SCAN_SLOW_INT_1    110    /* 68.75 ms   = 110 *0.625 */
+#define BTM_BLE_SCAN_SLOW_WIN_1    8      /* 5 ms = 8 *0.625 */
+
 // Change I/O capabilities to output only so pairing uses passkey instead of pin
 #define BTM_LOCAL_IO_CAPS BTM_IO_CAP_OUT
 

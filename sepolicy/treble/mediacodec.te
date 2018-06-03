@@ -6,6 +6,8 @@ binder_call(mediacodec, hwcbinder);
 nexus_hwcfg(mediacodec);
 dspsvcext_hwservice(mediacodec);
 binder_call(mediacodec, hal_dspsvcext);
+dpthak_hwservice(mediacodec);
+binder_call(mediacodec, hal_dpthak);
 
 allow mediacodec graphics_device:dir search;
 allow mediacodec self:netlink_kobject_uevent_socket { create bind read };

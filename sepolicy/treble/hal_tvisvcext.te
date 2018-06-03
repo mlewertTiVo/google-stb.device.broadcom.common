@@ -1,0 +1,14 @@
+type hal_tvisvcext, domain;
+type hal_tvisvcext_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_tvisvcext);
+add_hwservice(hal_tvisvcext, vnd_tvisvcext_hwservice);
+
+nexus_vendor_verified_client(hal_tvisvcext);
+allow hal_tvisvcext hwcbinder_service:service_manager { find };
+binder_call(hal_tvisvcext, bcmstb_app);
+
+get_prop(hal_tvisvcext, hwservicemanager_prop);
+hwbinder_use(hal_tvisvcext);
+vndbinder_use(hal_tvisvcext);
+allow hal_tvisvcext gpu_device:chr_file rw_file_perms;
+
