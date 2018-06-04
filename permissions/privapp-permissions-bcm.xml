@@ -4,4 +4,7 @@
         <permission name="android.permission.HDMI_CEC"/>
         <permission name="android.permission.TV_INPUT_HARDWARE"/>
     </privapp-permissions>
+    <privapp-permissions package="com.broadcom.sideband">
+        <permission name="android.permission.READ_EXTERNAL_STORAGE"/>
+    </privapp-permissions>
 </permissions>

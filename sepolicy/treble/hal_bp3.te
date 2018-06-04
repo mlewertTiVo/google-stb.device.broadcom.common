@@ -1,0 +1,9 @@
+type hal_bp3, domain;
+type hal_bp3_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_bp3);
+add_hwservice(hal_bp3, vnd_bp3_hwservice);
+vndbinder_use(hal_bp3);
+get_prop(hal_bp3, hwservicemanager_prop);
+hwbinder_use(hal_bp3);
+
+allow hal_bp3 hwcbinder_service:service_manager { find };

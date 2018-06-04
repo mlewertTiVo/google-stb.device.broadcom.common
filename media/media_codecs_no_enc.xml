@@ -305,7 +305,7 @@ Only the three quirks included above are recognized at this point:
         </MediaCodec>
         <MediaCodec name="OMX.broadcom.audio_decoder.eac3" >
             <Type name="audio/eac3" >
-                <Limit name="channel-count" max="6" />
+                <Limit name="channel-count" max="8" />
                 <Limit name="sample-rate" ranges="8000,11025,12000,16000,22050,24000,32000,44100,48000" />
                 <Limit name="concurrent-instances" max="1" />
             </Type>
@@ -332,7 +332,7 @@ Only the three quirks included above are recognized at this point:
         <MediaCodec name="OMX.broadcom.audio_decoder.eac3.secure" >
             <Type name="audio/eac3" >
                 <Feature name="secure-playback" required="true" />
-                <Limit name="channel-count" max="6" />
+                <Limit name="channel-count" max="8" />
                 <Limit name="sample-rate" ranges="8000,11025,12000,16000,22050,24000,32000,44100,48000" />
                 <Limit name="concurrent-instances" max="1" />
             </Type>

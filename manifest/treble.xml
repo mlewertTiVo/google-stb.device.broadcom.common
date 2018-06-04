@@ -226,6 +226,24 @@
         </interface>
     </hal>
     <hal format="hidl">
+        <name>bcm.hardware.bp3</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>Ibp3</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>bcm.hardware.dpthak</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IDptHak</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
         <name>bcm.hardware.dspsvcext</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -240,6 +258,24 @@
         <version>1.0</version>
         <interface>
             <name>INexus</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>bcm.hardware.sdbhak</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ISdbHak</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>bcm.hardware.tvisvcext</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ITviSvcExt</name>
             <instance>default</instance>
         </interface>
     </hal>

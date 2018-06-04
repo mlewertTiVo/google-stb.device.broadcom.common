@@ -10,10 +10,8 @@
 /dev/block/mmcblk0rpmb    u:object_r:rpmb_block_device:s0
 /dev/block/mmcblk1rpmb    u:object_r:rpmb_block_device:s0
 
-/(vendor|system/vendor)/bin/hfrvideo u:object_r:hfrvideo_exec:s0
 /(vendor|system/vendor)/bin/hwcbinder u:object_r:hwcbinder_exec:s0
 /(vendor|system/vendor)/bin/nxserver u:object_r:nxserver_exec:s0
-/(vendor|system/vendor)/bin/netcoal u:object_r:netcoal_exec:s0
 /(vendor|system/vendor)/bin/nxdispfmt u:object_r:nxdispfmt_exec:s0
 /(vendor|system/vendor)/bin/togplm u:object_r:togplm_exec:s0
 /(vendor|system/vendor)/bin/nxssd u:object_r:tee_exec:s0
@@ -29,6 +27,7 @@
 /data/vendor/nexus/nexus.log     u:object_r:nexus_log_file:s0
 /data/vendor/nexus/secdma(/.*)?  u:object_r:nexus_secdma_file:s0
 /data/vendor/nexus/ssd(/.*)?     u:object_r:nexus_ssd_file:s0
+/data/vendor/nexus/sdbhak(/.*)?  u:object_r:nexus_sdbhak_file:s0
 
 /(vendor|system/vendor)/usr/irkeymap(/.*)? u:object_r:nexus_ir_file:s0
 
@@ -51,4 +50,8 @@
 /sys/class/net(/.*)?          u:object_r:sysfs_net:s0
 
 /(vendor|system/vendor)/bin/hw/bcm\.hardware\.dspsvcext@1\.0-service       u:object_r:hal_dspsvcext_exec:s0
+/(vendor|system/vendor)/bin/hw/bcm\.hardware\.sdbhak@1\.0-service          u:object_r:hal_sdbhak_exec:s0
+/(vendor|system/vendor)/bin/hw/bcm\.hardware\.tvisvcext@1\.0-service       u:object_r:hal_tvisvcext_exec:s0
+/(vendor|system/vendor)/bin/hw/bcm\.hardware\.bp3@1\.0-service             u:object_r:hal_bp3_exec:s0
+/(vendor|system/vendor)/bin/hw/bcm\.hardware\.dpthak@1\.0-service          u:object_r:hal_dpthak_exec:s0
 

@@ -75,10 +75,36 @@ hwbinder_use($1);
 allow $1 vnd_dspsvcext_hwservice:hwservice_manager find;
 ')
 
+define(`bp3_hwservice', `
+hwbinder_use($1);
+allow $1 vnd_bp3_hwservice:hwservice_manager find;
+')
+
 define(`nexus_sys_prop_allowed', ifelse(target_nxsysprop, `true', $1, ))
 
 define(`nexus_sys_prop_forced', `
 nexus_sys_prop_allowed(`
 allow $1 system_prop:property_service set;
 ')
+')
+
+define(`sdbhak_hwservice', `
+hwbinder_use($1);
+allow $1 vnd_sdbhak_hwservice:hwservice_manager find;
+')
+
+define(`nexus_sdbhak', `
+allow $1 nexus_sdbhak_file:file { open create read write setattr getattr unlink };
+allow $1 vendor_data_file:file { open read getattr };
+allow $1 nexus_sdbhak_file:dir { search setattr write add_name remove_name };
+')
+
+define(`tvisvcext_hwservice', `
+hwbinder_use($1);
+allow $1 vnd_tvisvcext_hwservice:hwservice_manager find;
+')
+
+define(`dpthak_hwservice', `
+hwbinder_use($1);
+allow $1 vnd_dpthak_hwservice:hwservice_manager find;
 ')
