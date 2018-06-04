@@ -44,6 +44,11 @@ on post-fs
    setprop ro.nx.nxserver.hdcp1x_keys /dev/hwcfg/drm_hdcp1x.bin
    setprop ro.nx.nxserver.hdcp2x_keys /dev/hwcfg/drm.bin
 
+   # properties translations to allow use beyond vendor_init.
+   setprop ro.nx.sf.lcd_density ${ro.sf.lcd_density}
+   setprop ro.nx.hdmi.device_type ${ro.hdmi.device_type}
+   setprop ro.nx.hdmi.wake_on_hotplug ${ro.hdmi.wake_on_hotplug}
+
    # Allow Launcher wallpaper picker to use landscape mode
    setprop log.tag.launcher_force_rotate VERBOSE
 
@@ -92,6 +97,9 @@ on property:sys.gator=1
 
 on property:dev.bootcomplete=1
    setprop sys.init_log_level 4
+
+on property:sys.boot_completed=1
+   setprop ro.nx.boot_completed 1
 
 on property:sys.shutdown.requested=*
    write /sys/devices/platform/droid_pm/notify ${sys.shutdown.requested}

@@ -36,15 +36,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    media.stagefright.cache-params=32768/65536/25 \
    \
-   ro.bq.gpu_to_cpu_unsupported=1 \
-   ro.zygote.disable_gl_preload=true \
    ro.sf.disable_triple_buffer=0 \
    \
-   ro.gfx.driver.0=gfxdriver-bcmstb \
-   \
-   sys.display-size=1920x1080 \
-   \
-   ro.vendor.vndk.version=26.1.0
+   ro.gfx.driver.0=gfxdriver-bcmstb
 #
 # system properties (eg gtvs related).
 #
@@ -52,6 +46,17 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
    atv.setup.bt_remote_pairing=true  \
    atv.setup.play_background_movie=0 \
    atv.setup.play_background_music=0 \
+#
+# system properties valid before P split for compatibility on
+# legacy platforms.
+#
+ifeq ($(LOCAL_DEVICE_PROPERTIES_LEGACY),y)
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.zygote.disable_gl_preload=true \
+   ro.bq.gpu_to_cpu_unsupported=1 \
+   \
+   sys.display-size=1920x1080
+endif
 
 # pull in specific target based settings.
 #
