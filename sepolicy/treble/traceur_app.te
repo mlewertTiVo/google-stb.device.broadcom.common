@@ -1,0 +1,3 @@
+get_prop(traceur_app, nexus_prop);
+nexus_verified_client(traceur_app);
+allow traceur_app gpu_device:chr_file rw_file_perms;
