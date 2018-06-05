@@ -446,6 +446,11 @@ PRODUCT_PACKAGES += \
     BcmCustomizer \
     BcmPlayAutoInstallConfig
 
+ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
+PRODUCT_PACKAGES += \
+    BcmBP3Config
+endif
+
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY),y),)
 PRODUCT_PROPERTY_OVERRIDES  += drm.service.enabled=true
 PRODUCT_PACKAGES            += libbcrypt libdrmrootfs libcmndrm libcmndrm_tl libsrai
