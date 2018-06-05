@@ -5,5 +5,7 @@ add_hwservice(hal_bp3, vnd_bp3_hwservice);
 vndbinder_use(hal_bp3);
 get_prop(hal_bp3, hwservicemanager_prop);
 hwbinder_use(hal_bp3);
-
+nexus_vendor_verified_client(hal_bp3);
+nexus_hwservice(hal_bp3);
+allow hal_bp3 gpu_device:chr_file rw_file_perms;
 allow hal_bp3 hwcbinder_service:service_manager { find };
