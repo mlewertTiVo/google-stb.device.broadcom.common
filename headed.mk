@@ -399,6 +399,7 @@ PRODUCT_PACKAGES += \
     BcmHdmiTvInput \
     BcmSidebandViewer \
     BcmTVInput \
+    libbcmtuner \
     libbcmsideband \
     libbcmsidebandviewer_jni
 endif
