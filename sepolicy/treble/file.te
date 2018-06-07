@@ -14,4 +14,5 @@ type proc_brcm, fs_type, proc_type;
 type nexus_ir_file, file_type, vendor_file_type;
 type nexus_ssd_file, file_type, data_file_type;
 type readonlyfs, fs_type;
+type nexus_sdbhak_file, file_type, data_file_type;
 

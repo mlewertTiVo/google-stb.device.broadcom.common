@@ -11,6 +11,13 @@ nexus_hwcfg(bcmstb_app);
 get_prop(bcmstb_app, nexus_prop);
 dspsvcext_hwservice(bcmstb_app);
 binder_call(bcmstb_app, hal_dspsvcext);
+sdbhak_hwservice(bcmstb_app);
+binder_call(bcmstb_app, hal_sdbhak);
+nexus_sdbhak(bcmstb_app);
+tvisvcext_hwservice(bcmstb_app);
+binder_call(bcmstb_app, hal_tvisvcext);
+bp3_hwservice(bcmstb_app);
+binder_call(bcmstb_app, hal_bp3);
 
 allow bcmstb_app shell_data_file:file r_file_perms;
 allow bcmstb_app shell_data_file:dir r_dir_perms;

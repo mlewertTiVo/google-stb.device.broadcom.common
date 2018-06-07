@@ -142,7 +142,12 @@ BOARD_SEPOLICY_M4DEFS += target_bp3=true
 else
 BOARD_SEPOLICY_M4DEFS += target_bp3=false
 endif
+ifdef PRODUCT_SHIPPING_API_LEVEL
 ifeq ($(call math_lt,27,$(PRODUCT_SHIPPING_API_LEVEL)),)
+BOARD_SEPOLICY_M4DEFS += target_nxsysprop=true
+endif
+else
+# warning: assume legacy configuration.
 BOARD_SEPOLICY_M4DEFS += target_nxsysprop=true
 endif
 

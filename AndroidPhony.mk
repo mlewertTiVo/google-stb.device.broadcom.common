@@ -3,7 +3,7 @@
 .PHONY: bootloader.dev.img
 .PHONY: bootloader.prod.img
 
-ifneq ($(BCM_DIST_BLIM_BINS),y)
+ifneq ($(BCM_DIST_BLIMG_BINS),y)
 .PHONY: gpt.bin
 gpt.bin: makegpt
 endif

@@ -1,0 +1,35 @@
+type hal_dpthak, domain;
+type hal_dpthak_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_dpthak);
+add_hwservice(hal_dpthak, vnd_dpthak_hwservice);
+
+binder_call(hal_dpthak, mediacodec);
+get_prop(hal_dpthak, hwservicemanager_prop);
+hwbinder_use(hal_dpthak);
+get_prop(hal_dpthak, nexus_prop);
+
+# allow network coalescence.
+allow hal_dpthak property_socket:sock_file write;
+allow hal_dpthak self:udp_socket create_socket_perms;
+allow hal_dpthak self:capability { net_raw net_admin };
+allowxperm hal_dpthak self:udp_socket ioctl unpriv_sock_ioctls;
+allowxperm hal_dpthak self:udp_socket ioctl priv_sock_ioctls;
+allow hal_dpthak proc_interrupts:file r_file_perms;
+allow hal_dpthak proc_irq:dir r_dir_perms;
+allow hal_dpthak proc_irq:file rw_file_perms;
+allow hal_dpthak sysfs_net:dir r_dir_perms;
+
+# allow process|thread priority manipulation.
+allow hal_dpthak self:capability { sys_nice };
+allow hal_dpthak surfaceflinger:process { getsched setsched };
+allow hal_dpthak nxserver:process { getsched setsched };
+allow hal_dpthak mediacodec:process { getsched setsched };
+allow hal_dpthak mediadrmserver:process { getsched setsched };
+allow hal_dpthak hwcbinder:process { getsched setsched };
+allow hal_dpthak audioserver:process { getsched setsched };
+allow hal_dpthak untrusted_app_all:process { getsched setsched };
+r_dir_file(hal_dpthak, domain)
+r_dir_file(hal_dpthak, appdomain)
+dontaudit hal_dpthak platform_app:dir search;
+dontaudit hal_dpthak untrusted_app_all:dir search;
+dontaudit hal_dpthak self:capability sys_ptrace;

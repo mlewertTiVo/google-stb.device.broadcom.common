@@ -1,0 +1,13 @@
+type hal_sdbhak, domain;
+type hal_sdbhak_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_sdbhak);
+add_hwservice(hal_sdbhak, vnd_sdbhak_hwservice);
+
+nexus_vendor_verified_client(hal_sdbhak);
+nexus_hwservice(hal_sdbhak);
+binder_call(hal_sdbhak, bcmstb_app);
+get_prop(hal_sdbhak, hwservicemanager_prop);
+hwbinder_use(hal_sdbhak);
+get_prop(hal_sdbhak, nexus_prop);
+allow hal_sdbhak gpu_device:chr_file rw_file_perms;
+nexus_sdbhak(hal_sdbhak);

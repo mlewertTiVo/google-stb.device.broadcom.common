@@ -296,12 +296,9 @@ endif
 PRODUCT_PACKAGES += \
     e2fsck \
     gptbin \
-    hfrvideo \
     makehwcfg \
-    netcoal \
     nxdispfmt \
-    nxserver \
-    togplm
+    nxserver
 
 ifeq ($(LOCAL_GATOR_SUPPORT), y)
 PRODUCT_PACKAGES += \
@@ -379,10 +376,18 @@ PRODUCT_PACKAGES += \
    android.hardware.tv.input@1.0-service \
    bcm.hardware.nexus@1.0-impl \
    bcm.hardware.dspsvcext@1.0-service \
-   bcm.hardware.dspsvcext-V1.0-java
+   bcm.hardware.dspsvcext-V1.0-java \
+   bcm.hardware.sdbhak@1.0-service \
+   bcm.hardware.tvisvcext@1.0-service \
+   bcm.hardware.dpthak@1.0-service
 ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES += \
    android.hardware.drm@1.1-service.widevine
+endif
+ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
+PRODUCT_PACKAGES += \
+   bcm.hardware.bp3@1.0-service \
+   bcm.hardware.bp3-V1.0-java
 endif
 endif
 
@@ -401,6 +406,7 @@ PRODUCT_PACKAGES += \
     libstagefrighthw \
     pmlibserver \
     send_cec \
+    topv3d \
     TvProvider
 
 ifeq ($(HW_GPU_VULKAN_SUPPORT),y)
@@ -415,6 +421,7 @@ PRODUCT_PACKAGES += \
     BcmHdmiTvInput \
     BcmSidebandViewer \
     BcmTVInput \
+    libbcmtuner \
     libbcmsideband \
     libbcmsidebandviewer_jni
 endif

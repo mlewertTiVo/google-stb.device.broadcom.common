@@ -48,6 +48,9 @@ on post-fs
 
    mount tracefs tracefs /sys/kernel/debug/tracing remount mode=755
 
+   chown root system /proc/irq
+   chmod 0775 /proc/irq
+
 on post-fs-data
    mkdir /data/misc/nexus 0755 root system
 
@@ -57,6 +60,7 @@ on post-fs-data
    mkdir /data/vendor/nexus 0775 root system
    mkdir /data/vendor/nexus/secdma 0777 system system
    mkdir /data/vendor/nexus/ssd 0777 system system
+   mkdir /data/vendor/nexus/sdbhak 0777 system system
 
    mkdir /data/vendor/mediadrm/playready/ 0770 mediadrm mediadrm
 
