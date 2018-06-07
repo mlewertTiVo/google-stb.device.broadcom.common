@@ -1,6 +1,6 @@
 nexus_verified_client(surfaceflinger);
 nexus_hwservice(surfaceflinger);
-set_prop(surfaceflinger, nexus_prop);
+get_prop(surfaceflinger, nexus_prop);
 hal_server_domain(surfaceflinger, hal_graphics_allocator)
 nexus_debugable(surfaceflinger);
 

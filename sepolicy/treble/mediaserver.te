@@ -1,7 +1,7 @@
 nexus_verified_client(mediaserver);
 nexus_hwservice(mediaserver);
 nexus_debugable(mediaserver);
-set_prop(mediaserver, nexus_prop);
+get_prop(mediaserver, nexus_prop);
 nexus_hwcfg(mediaserver);
 
 allow mediaserver graphics_device:dir search;
