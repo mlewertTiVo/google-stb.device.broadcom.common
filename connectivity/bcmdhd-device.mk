@@ -7,7 +7,13 @@ PRODUCT_COPY_FILES += \
    ${B_DHD_OBJ_ROOT}/fw.bin.trx:$(TARGET_COPY_OUT_VENDOR)/firmware/broadcom/dhd/firmware/fw.bin.trx \
    ${B_DHD_OBJ_ROOT}/nvm.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/broadcom/dhd/nvrams/nvm.txt
 
-ifneq ($(LOCAL_NVI_LAYOUT),y)
+COPY_2_VENDOR  ?= y
+ifneq ($(HW_AB_UPDATE_SUPPORT),y)
+ifeq ($(LOCAL_NVI_LAYOUT),y)
+COPY_2_VENDOR := n
+endif
+endif
+ifneq ($(COPY_2_VENDOR),n)
 PRODUCT_COPY_FILES += \
    ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/dhd/init.brcm_dhd.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.brcm_dhd.rc
 else
