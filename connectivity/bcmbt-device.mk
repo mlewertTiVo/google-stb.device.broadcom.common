@@ -19,7 +19,13 @@ endif
 
 else # BT UART
 
-ifneq ($(LOCAL_NVI_LAYOUT),y)
+COPY_2_VENDOR  ?= y
+ifneq ($(HW_AB_UPDATE_SUPPORT),y)
+ifeq ($(LOCAL_NVI_LAYOUT),y)
+COPY_2_VENDOR := n
+endif
+endif
+ifneq ($(COPY_2_VENDOR),n)
 PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.bcm.bt.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.brcm_bt.rc
 else
 PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.bcm.bt.rc:root/init.brcm_bt.rc

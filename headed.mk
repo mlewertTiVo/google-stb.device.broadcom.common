@@ -100,7 +100,14 @@ endif
 PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf
 # all those are defined per device, in the device configuration.
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RCS}
-ifneq ($(LOCAL_NVI_LAYOUT),y)
+
+COPY_2_VENDOR  ?= y
+ifneq ($(HW_AB_UPDATE_SUPPORT),y)
+ifeq ($(LOCAL_NVI_LAYOUT),y)
+COPY_2_VENDOR := n
+endif
+endif
+ifneq ($(COPY_2_VENDOR),n)
 PRODUCT_COPY_FILES       += device/broadcom/common/rcs/rts/init.rts_$(LOCAL_DEVICE_RTS_MODE).rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.rts.rc
 else
 PRODUCT_COPY_FILES       += device/broadcom/common/rcs/rts/init.rts_$(LOCAL_DEVICE_RTS_MODE).rc:root/init.rts.rc
