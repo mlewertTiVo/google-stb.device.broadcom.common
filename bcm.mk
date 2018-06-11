@@ -45,7 +45,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
    atv.setup.bt_remote_pairing=true  \
    atv.setup.play_background_movie=0 \
-   atv.setup.play_background_music=0 \
+   atv.setup.play_background_music=0
 #
 # system properties valid before P split for compatibility on
 # legacy platforms.
