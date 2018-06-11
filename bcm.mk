@@ -78,11 +78,9 @@ PRODUCT_COPY_FILES += \
 # hardware interface hal manifest.
 #
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
-PRODUCT_COPY_FILES += \
-   device/broadcom/common/manifest/treble.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
+DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/treble.xml
 else
-PRODUCT_COPY_FILES += \
-   device/broadcom/common/manifest/legacy.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
+DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/legacy.xml
 endif
 
 # copy kernel image.
