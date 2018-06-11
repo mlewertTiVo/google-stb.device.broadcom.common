@@ -1,7 +1,7 @@
 nexus_vendor_verified_client(mediacodec);
 nexus_hwservice(mediacodec);
 nexus_vendor_debugable(mediacodec);
-set_prop(mediacodec, nexus_prop);
+get_prop(mediacodec, nexus_prop);
 binder_call(mediacodec, hwcbinder);
 nexus_hwcfg(mediacodec);
 dspsvcext_hwservice(mediacodec);

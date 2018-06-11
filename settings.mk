@@ -105,6 +105,7 @@ export BOLT_IMG_TO_USE_OVERRIDE_2ND          ?=
 export BROADCOM_WIFI_CHIPSET                 ?= 43570a2
 export LOCAL_NVI_LAYOUT                      ?= n
 export LOCAL_DEVICE_GPT_O_LAYOUT             ?= n
+export LOCAL_ARM_TRUSTZONE_USE               ?= n
 export LOCAL_DEVICE_BOOT                     ?= 33554432    # 32M
 export LOCAL_DEVICE_RECOVERY_LEGACY          ?= 33554432    # 32M
 ifneq ($(LOCAL_NVI_LAYOUT),y)
@@ -116,11 +117,16 @@ export LOCAL_DEVICE_SYSTEM_XL                := y
 else
 export LOCAL_DEVICE_SYSTEM_AB                ?= 950009856   # 906M
 endif
+ifeq ($(LOCAL_ARM_TRUSTZONE_USE),y)
+export LOCAL_DEVICE_VENDOR_AB                ?= 99614720    # 95M
+else
 export LOCAL_DEVICE_VENDOR_AB                ?= 104857600   # 100M
+endif
 else
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1283457024  # 1224M
 export LOCAL_DEVICE_SYSTEM_AB                ?= 1054867456  # 1006M
 endif
+export LOCAL_DEVICE_USERDATA_FS              ?= ext4
 export LOCAL_DEVICE_SYSTEM_VERITY_PARTITION  ?= /dev/block/by-name/system
 export LOCAL_DEVICE_VENDOR_VERITY_PARTITION  ?= /dev/block/by-name/vendor
 export LOCAL_DEVICE_SAGE_DEV_N_PROD          ?= n
@@ -129,6 +135,7 @@ export LOCAL_DEVICE_USE_VERITY               ?= n
 export LOCAL_DEVICE_BGRCPKT_PLANES           ?= 2
 export LOCAL_DEVICE_MKBOOTIMG_ARGS           ?= --ramdisk_offset 0x02200000
 export LOCAL_DEVICE_USE_AVB                  ?= n
+export LOCAL_DEVICE_PROPERTIES_LEGACY        ?= y
 
 export HW_ENCODER_SUPPORT                    ?= y
 export HW_WIFI_NIC_SUPPORT                   ?= n

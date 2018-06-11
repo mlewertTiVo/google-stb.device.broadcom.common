@@ -49,6 +49,8 @@ allow bcmstb_app tv_input_service:service_manager find;
 allow bcmstb_app textservices_service:service_manager find;
 allow bcmstb_app input_service:service_manager find;
 allow bcmstb_app content_service:service_manager find;
+allow bcmstb_app notification_service:service_manager find;
+allow bcmstb_app mount_service:service_manager find;
 
 neverallow bcmstb_app domain:netlink_kobject_uevent_socket *;
 neverallow bcmstb_app domain:netlink_socket *;

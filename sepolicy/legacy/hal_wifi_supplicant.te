@@ -5,3 +5,5 @@ allow hal_wifi_supplicant wifi_data_file:file create_file_perms;
 allow hal_wifi_supplicant wpa_socket:dir create_dir_perms;
 allow hal_wifi_supplicant wpa_socket:sock_file create_file_perms;
 
+r_dir_file(hal_wifi_supplicant, proc_uptime)
+

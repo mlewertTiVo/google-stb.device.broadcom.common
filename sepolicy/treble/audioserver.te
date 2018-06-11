@@ -1,4 +1,4 @@
 nexus_verified_client(audioserver);
-set_prop(audioserver, nexus_prop);
+get_prop(audioserver, nexus_prop);
 
 allow audioserver gpu_device:chr_file rw_file_perms;

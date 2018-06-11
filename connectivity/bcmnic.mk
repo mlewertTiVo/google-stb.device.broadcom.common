@@ -2,13 +2,16 @@
 BRCM_NIC_PATH      := ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/brcm_nic
 BRCM_NIC_KO_NAME   := wl.ko
 BRCM_NIC_NVRAM_DIR ?= ${BROADCOM_NIC_SOURCE_PATH}/components/nvram
-ifeq ($(TARGET_PRODUCT), b71wlan%)
-BRCM_NIC_NVRAM_NAME ?= bcm97271wlan.txt
+ifeq ($(TARGET_PRODUCT), b71wlan)
+BRCM_NIC_NVRAM_NAME := bcm97271wlan.txt
 BRCM_NIC_TARGET_NAME := apdef-stadef-extnvm-p2p-mchan-tdls-mfp-wowl-cfg80211-android-stbsoc
-else
-BRCM_NIC_NVRAM_NAME ?= bcm97271sv.txt
-BRCM_NIC_TARGET_NAME := apdef-stadef-extnvm-p2p-mchan-tdls-mfp-wowl-cfg80211-android-slvradar-stbsoc
 endif
+ifeq ($(TARGET_PRODUCT), b71wlanr)
+BRCM_NIC_NVRAM_NAME := bcm97271wlan.txt
+BRCM_NIC_TARGET_NAME := apdef-stadef-extnvm-mfp-wet-pspretend-cfg80211-stbsoc-android
+endif
+BRCM_NIC_NVRAM_NAME ?= bcm97271sv.txt
+BRCM_NIC_TARGET_NAME ?= apdef-stadef-extnvm-p2p-mchan-tdls-mfp-wowl-cfg80211-android-slvradar-stbsoc
 
 BRCM_NIC_SPLIT_DRIVERS := \
 	${B_NIC_OBJ_ROOT}/driver/wl.ko \

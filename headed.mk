@@ -102,7 +102,14 @@ endif
 PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf
 # all those are defined per device, in the device configuration.
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RCS}
-ifneq ($(LOCAL_NVI_LAYOUT),y)
+
+COPY_2_VENDOR  ?= y
+ifneq ($(HW_AB_UPDATE_SUPPORT),y)
+ifeq ($(LOCAL_NVI_LAYOUT),y)
+COPY_2_VENDOR := n
+endif
+endif
+ifneq ($(COPY_2_VENDOR),n)
 PRODUCT_COPY_FILES       += device/broadcom/common/rcs/rts/init.rts_$(LOCAL_DEVICE_RTS_MODE).rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.rts.rc
 else
 PRODUCT_COPY_FILES       += device/broadcom/common/rcs/rts/init.rts_$(LOCAL_DEVICE_RTS_MODE).rc:root/init.rts.rc
@@ -148,6 +155,9 @@ ifeq ($(DTCP_IP_SAGE_SUPPORT),y)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_dtcpip${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_dtcpip${SAGE_BINARY_EXT}.bin
 endif
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin
+ifeq ($(ANDROID_SUPPORTS_KEYMASTER),y)
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_keymaster${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_keymaster${SAGE_BINARY_EXT}.bin
+endif
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_secure_video${SAGE_BINARY_EXT}.bin
 ifeq ($(ANDROID_SUPPORTS_RPMB),y)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_ssd${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_ssd${SAGE_BINARY_EXT}.bin
@@ -172,6 +182,9 @@ ifeq ($(DTCP_IP_SAGE_SUPPORT),y)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH2}/sage_ta_dtcpip${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_dtcpip${SAGE_BINARY_EXT2}.bin
 endif
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_hdcp22${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_hdcp22${SAGE_BINARY_EXT2}.bin
+ifeq ($(ANDROID_SUPPORTS_KEYMASTER),y)
+PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_keymaster${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_keymaster${SAGE_BINARY_EXT2}.bin
+endif
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_secure_video${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_secure_video${SAGE_BINARY_EXT2}.bin
 ifeq ($(ANDROID_SUPPORTS_RPMB),y)
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_ssd${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_ssd${SAGE_BINARY_EXT2}.bin
@@ -197,6 +210,9 @@ ifeq ($(DTCP_IP_SAGE_SUPPORT),y)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_dtcpip${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_dtcpip${SAGE_BINARY_EXT}.bin
 endif
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_hdcp22${SAGE_BINARY_EXT}.bin
+ifeq ($(ANDROID_SUPPORTS_KEYMASTER),y)
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_keymaster${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_keymaster${SAGE_BINARY_EXT}.bin
+endif
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_video${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_secure_video${SAGE_BINARY_EXT}.bin
 ifeq ($(ANDROID_SUPPORTS_RPMB),y)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_ssd${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_ssd${SAGE_BINARY_EXT}.bin
@@ -324,10 +340,15 @@ PRODUCT_PACKAGES += \
     vulkan.$(TARGET_BOARD_PLATFORM)
 endif
 
+ifeq ($(ANDROID_SUPPORTS_KEYMASTER),y)
+PRODUCT_PACKAGES += \
+    keystore.$(TARGET_BOARD_PLATFORM)
+endif
+
 PRODUCT_PACKAGES += \
    android.hardware.audio@4.0-impl \
    android.hardware.audio.effect@4.0-impl \
-   android.hardware.bluetooth@1.0-impl \
+   android.hardware.bluetooth@1.0-impl-bcm \
    android.hardware.bluetooth@1.0-service \
    android.hardware.drm@1.0-impl \
    android.hardware.gatekeeper@1.0-impl \
@@ -369,6 +390,8 @@ PRODUCT_PACKAGES += \
    android.hardware.drm@1.0-service \
    android.hardware.gatekeeper@1.0-service \
    android.hardware.graphics.composer@2.1-service \
+   android.hardware.health@1.0-impl \
+   android.hardware.health@1.0-service \
    android.hardware.renderscript@1.0-impl \
    android.hardware.soundtrigger@2.1-impl \
    android.hardware.power@1.0-service \
@@ -429,6 +452,11 @@ endif
 PRODUCT_PACKAGES += \
     BcmCustomizer \
     BcmPlayAutoInstallConfig
+
+ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
+PRODUCT_PACKAGES += \
+    BcmBP3Config
+endif
 
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY),y),)
 PRODUCT_PROPERTY_OVERRIDES  += drm.service.enabled=true

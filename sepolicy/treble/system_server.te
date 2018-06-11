@@ -1,6 +1,6 @@
 nexus_verified_client(system_server);
 nexus_hwservice(system_server);
-set_prop(system_server, nexus_prop);
+get_prop(system_server, nexus_prop);
 
 allow system_server fuse:dir search;
 allow system_server gpu_device:chr_file r_file_perms;
