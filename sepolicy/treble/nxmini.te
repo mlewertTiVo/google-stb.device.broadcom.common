@@ -5,6 +5,7 @@ type nxmini_exec, exec_type, file_type;
 init_daemon_domain(nxmini)
 wakelock_use(nxmini)
 get_prop(nxmini, nexus_prop);
+nexus_nx_prop_forced(nxmini);
 set_prop(nxmini, system_prop);
 allow nxmini proc_brcm:file rw_file_perms;
 allow nxmini proc_brcm:dir search;
