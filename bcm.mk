@@ -45,7 +45,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
    atv.setup.bt_remote_pairing=true  \
    atv.setup.play_background_movie=0 \
-   atv.setup.play_background_music=0 \
+   atv.setup.play_background_music=0
 #
 # system properties valid before P split for compatibility on
 # legacy platforms.
@@ -90,7 +90,11 @@ endif
 # hardware interface hal manifest.
 #
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
+DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/treble.msd.xml
+else
 DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/treble.xml
+endif
 else
 DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/legacy.xml
 endif
