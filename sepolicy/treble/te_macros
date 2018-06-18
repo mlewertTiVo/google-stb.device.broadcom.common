@@ -88,12 +88,6 @@ allow $1 system_prop:property_service set;
 ')
 ')
 
-define(`nexus_nx_prop_forced', `
-nexus_sys_prop_allowed(`
-allow $1 nexus_prop:property_service set;
-')
-')
-
 define(`sdbhak_hwservice', `
 hwbinder_use($1);
 allow $1 vnd_sdbhak_hwservice:hwservice_manager find;
