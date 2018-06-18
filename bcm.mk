@@ -47,6 +47,14 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
    atv.setup.play_background_movie=0 \
    atv.setup.play_background_music=0
 #
+# system properties (for msd support).
+#
+ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+   audio.offload.min.duration.secs=0 \
+   audio.offload.video=true
+endif
+#
 # system properties valid before P split for compatibility on
 # legacy platforms.
 #
