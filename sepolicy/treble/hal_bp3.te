@@ -9,3 +9,6 @@ nexus_vendor_verified_client(hal_bp3);
 nexus_hwservice(hal_bp3);
 allow hal_bp3 gpu_device:chr_file rw_file_perms;
 allow hal_bp3 hwcbinder_service:service_manager { find };
+allow hal_bp3 self:udp_socket create_socket_perms;
+nexus_hwcfg(hal_bp3);
+
