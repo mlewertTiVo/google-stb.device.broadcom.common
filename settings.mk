@@ -154,6 +154,7 @@ export HW_GPU_VULKAN_SUPPORT                 ?= n
 export LOCAL_DEVICE_USE_FIXED_SLOT           ?= n
 export BOLT_ZEUS_VER                         ?= zeus42
 export LOCAL_DEVICE_MSD_SUPPORT              ?= n
+export LOCAL_DEVICE_PAK_BINARY               ?=
 
 export BCM_GPT_CONFIG_FILE                   := $(LOCAL_DEVICE_GPT)
 export ANDROID_BUILD                         := y

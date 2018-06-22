@@ -30,6 +30,7 @@
 /data/vendor/nexus/sdbhak(/.*)?  u:object_r:nexus_sdbhak_file:s0
 
 /(vendor|system/vendor)/usr/irkeymap(/.*)? u:object_r:nexus_ir_file:s0
+/(vendor|system/vendor)/usr/pak(/.*)? u:object_r:nexus_pak_file:s0
 
 /eio(/.*)?                u:object_r:system_file:s0
 /dev/hwcfg(/.*)?          u:object_r:system_file:s0

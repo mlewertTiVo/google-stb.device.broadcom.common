@@ -108,3 +108,8 @@ define(`dpthak_hwservice', `
 hwbinder_use($1);
 allow $1 vnd_dpthak_hwservice:hwservice_manager find;
 ')
+
+define(`nexus_pak', `
+allow $1 nexus_pak_file:file { open read getattr };
+allow $1 nexus_pak_file:dir { search };
+')

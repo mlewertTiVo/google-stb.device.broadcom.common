@@ -113,6 +113,9 @@ endif
 PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf
 # all those are defined per device, in the device configuration.
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RCS}
+ifneq ($(LOCAL_DEVICE_PAK_BINARY),)
+PRODUCT_COPY_FILES       += device/broadcom/common/pak/$(LOCAL_DEVICE_PAK_BINARY):$(TARGET_COPY_OUT_VENDOR)/usr/pak/pak.bin
+endif
 
 COPY_2_VENDOR  ?= y
 ifneq ($(HW_AB_UPDATE_SUPPORT),y)
