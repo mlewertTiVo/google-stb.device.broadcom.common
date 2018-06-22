@@ -41,6 +41,8 @@ on boot
 
 on post-fs
    export SAGEBIN_PATH /vendor/bin
+   export PAKBIN_PATH /vendor/usr/pak
+   export DRMBIN_PATH /dev/hwcfg
    export NEXUS_LOGGER /vendor/bin/nxlogger
    export NEXUS_LOGGER_FILE /data/nexus/nexus.log
 
