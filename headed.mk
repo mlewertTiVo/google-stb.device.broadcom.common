@@ -102,6 +102,9 @@ PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:$(TARGET_COPY_OU
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RCS}
 ifneq ($(LOCAL_DEVICE_PAK_BINARY),)
 PRODUCT_COPY_FILES       += device/broadcom/common/pak/$(LOCAL_DEVICE_PAK_BINARY):$(TARGET_COPY_OUT_VENDOR)/usr/pak/pak.bin
+ifneq ($(LOCAL_DEVICE_PAK_BINARY_ALT),)
+PRODUCT_COPY_FILES       += device/broadcom/common/pak/$(LOCAL_DEVICE_PAK_BINARY_ALT):$(TARGET_COPY_OUT_VENDOR)/usr/pak/pak_dev.bin
+endif
 endif
 
 COPY_2_VENDOR  ?= y
