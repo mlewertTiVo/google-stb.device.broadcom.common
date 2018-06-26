@@ -519,6 +519,10 @@ endif
 
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 PRODUCT_COPY_FILES += device/broadcom/common/pub.libs/treble/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
+ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
+PRODUCT_COPY_FILES += vendor/dolby/msd/android.hardware.audio@4.0-service-msd.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.audio@4.0-service-msd.rc
+PRODUCT_COPY_FILES += vendor/dolby/msdPrebuilt/android.hardware.audio@4.0-service-msd:$(TARGET_COPY_OUT_VENDOR)/bin/hw/android.hardware.audio@4.0-service-msd
+endif
 else
 PRODUCT_COPY_FILES += device/broadcom/common/pub.libs/legacy/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
 endif
