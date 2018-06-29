@@ -100,6 +100,9 @@ endif
 PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf
 # all those are defined per device, in the device configuration.
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RCS}
+ifneq ($(LOCAL_DEVICE_PAK_BINARY),)
+PRODUCT_COPY_FILES       += device/broadcom/common/pak/$(LOCAL_DEVICE_PAK_BINARY):$(TARGET_COPY_OUT_VENDOR)/usr/pak/pak.bin
+endif
 
 COPY_2_VENDOR  ?= y
 ifneq ($(HW_AB_UPDATE_SUPPORT),y)
@@ -427,6 +430,12 @@ ifneq ($(SAGE_VERSION),2x)
 PRODUCT_PACKAGES            += libplayreadydrmplugin_3_0 libplayready30pk
 endif
 endif
+endif
+
+# temporary adding command line support for BP3.
+ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
+PRODUCT_PACKAGES += libhost_bp3 bp3
+export BP3_PROVISIONING := y
 endif
 
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)

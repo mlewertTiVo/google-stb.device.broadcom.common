@@ -6,6 +6,7 @@ bluetooth_domain(bcmstb_app)
 create_pty(bcmstb_app)
 
 nexus_verified_client(bcmstb_app);
+nexus_hwcfg(bcmstb_app);
 
 allow bcmstb_app shell_data_file:file r_file_perms;
 allow bcmstb_app shell_data_file:dir r_dir_perms;
@@ -19,8 +20,6 @@ allow bcmstb_app cache_file:dir create_dir_perms;
 allow bcmstb_app cache_file:file create_file_perms;
 allow bcmstb_app nxserver:binder call;
 allow bcmstb_app hwcbinder:binder { transfer call };
-allow bcmstb_app readonlyfs:file { read open getattr };
-allow bcmstb_app readonlyfs:dir search;
 allow bcmstb_app media_data_file:dir create_dir_perms;
 allow bcmstb_app media_data_file:file create_file_perms;
 

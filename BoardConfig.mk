@@ -135,6 +135,11 @@ else
 BOARD_SEPOLICY_DIRS += device/broadcom/common/sepolicy/legacy
 endif
 BOARD_SEPOLICY_DIRS += $(LOCAL_DEVICE_SEPOLICY_BLOCK)
+ifeq ($(ANDROID_DEVICE_SUPPORTS_BP3),y)
+BOARD_SEPOLICY_M4DEFS += target_bp3=true
+else
+BOARD_SEPOLICY_M4DEFS += target_bp3=false
+endif
 
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 

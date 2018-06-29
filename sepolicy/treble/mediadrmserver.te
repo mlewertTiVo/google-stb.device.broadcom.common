@@ -1,10 +1,9 @@
 nexus_verified_client(mediadrmserver);
 nexus_hwservice(mediadrmserver);
 nexus_debugable(mediadrmserver);
+nexus_hwcfg(mediadrmserver);
 
 allow mediadrmserver gpu_device:chr_file rw_file_perms;
-allow mediadrmserver readonlyfs:dir r_dir_perms;
-allow mediadrmserver readonlyfs:file r_file_perms;
 allow mediadrmserver self:netlink_kobject_uevent_socket { create bind read };
 allow mediadrmserver tmpfs:dir search;
 allow mediadrmserver tmpfs:lnk_file read;

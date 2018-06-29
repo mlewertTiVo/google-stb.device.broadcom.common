@@ -1,7 +1,6 @@
 type bluetooth_control, dev_type;
 type sw_sync_device, dev_type;
 type nexus_data_file, file_type, data_file_type;
-type readonlyfs, fs_type;
 type nexus_debug_file, file_type, data_file_type;
 type nexus_log_file, file_type;
 type proc_irq, fs_type;
@@ -9,3 +8,5 @@ type nexus_secdma_file, file_type, data_file_type;
 type nexus_fw_file, file_type, data_file_type;
 type debugfs_dri, fs_type, mlstrustedobject;
 allow debugfs_dri { debugfs }:filesystem associate;
+type readonlyfs, fs_type;
+

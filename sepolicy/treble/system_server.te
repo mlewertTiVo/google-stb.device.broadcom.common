@@ -6,6 +6,4 @@ allow system_server fuse:dir search;
 allow system_server gpu_device:chr_file r_file_perms;
 allow system_server shell_exec:file { read open execute getattr };
 allow system_server zygote_exec:file { execute };
-allow system_server readonlyfs:dir search;
-allow system_server readonlyfs:file { read open getattr };
 allow system_server nxmem_device:chr_file { open ioctl read write };
