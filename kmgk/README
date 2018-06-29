@@ -1,0 +1,4 @@
+# this is the generic (type 1) binary for keymaster|gatekeeper drm fragment.
+#
+# this contains the generic|test attestation keys from google; it is the default|fallback
+# used when per device keys are not located or not present on a device.

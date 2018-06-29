@@ -113,3 +113,9 @@ define(`nexus_pak', `
 allow $1 nexus_pak_file:file { open read getattr };
 allow $1 nexus_pak_file:dir { search };
 ')
+
+define(`nexus_kmgk', `
+allow $1 nexus_kmgk_file:file { open read getattr };
+allow $1 nexus_kmgk_file:dir { search };
+allow $1 vendor_data_file:file { open read getattr };
+')

@@ -3,3 +3,5 @@ nexus_hwservice(hal_keymaster_default);
 nexus_hwcfg(hal_keymaster_default);
 get_prop(hal_keymaster_default, nexus_prop);
 allow hal_keymaster_default gpu_device:chr_file rw_file_perms;
+nexus_kmgk(hal_keymaster_default);
+
