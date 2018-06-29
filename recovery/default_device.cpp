@@ -39,7 +39,7 @@ Device* make_device() {
 
    for (;;) {
       memset(value, 0, sizeof(value));
-      property_get("dyn.nx.state", value, NULL);
+      property_get("sys.recov.nx.state", value, NULL);
       if (strlen(value) && !strncmp(value, "loaded", strlen(value))) {
          break;
       }
