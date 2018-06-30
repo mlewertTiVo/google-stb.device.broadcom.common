@@ -501,6 +501,7 @@ endif
 
 ifneq ($(filter $(ANDROID_SUPPORTS_KEYMASTER),y),)
 PRODUCT_PACKAGES            += libkmtl
+PRODUCT_PACKAGES            += libmfgtl
 endif
 
 ifneq ($(TARGET_BUILD_PDK),true)
