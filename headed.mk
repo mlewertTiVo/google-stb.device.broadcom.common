@@ -113,6 +113,12 @@ endif
 PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf
 # all those are defined per device, in the device configuration.
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RCS}
+ifneq ($(LOCAL_DEVICE_PAK_BINARY),)
+PRODUCT_COPY_FILES       += device/broadcom/common/pak/$(LOCAL_DEVICE_PAK_BINARY):$(TARGET_COPY_OUT_VENDOR)/usr/pak/pak.bin
+ifneq ($(LOCAL_DEVICE_PAK_BINARY_ALT),)
+PRODUCT_COPY_FILES       += device/broadcom/common/pak/$(LOCAL_DEVICE_PAK_BINARY_ALT):$(TARGET_COPY_OUT_VENDOR)/usr/pak/pak_dev.bin
+endif
+endif
 
 COPY_2_VENDOR  ?= y
 ifneq ($(HW_AB_UPDATE_SUPPORT),y)
@@ -362,6 +368,7 @@ PRODUCT_PACKAGES += \
    android.hardware.bluetooth@1.0-impl-bcm \
    android.hardware.bluetooth@1.0-service \
    android.hardware.drm@1.0-impl \
+   android.hardware.drm@1.1-service.clearkey \
    android.hardware.gatekeeper@1.0-impl \
    android.hardware.graphics.allocator@2.0-impl \
    android.hardware.graphics.allocator@2.0-service \
@@ -381,7 +388,7 @@ PRODUCT_PACKAGES += \
    android.hardware.tv.input@1.0-impl \
    android.hardware.tv.cec@1.0-impl \
    android.hardware.usb@1.0-service \
-   android.hardware.wifi@1.0-service
+   android.hardware.wifi@1.0-bcm
 
 ifneq ($(HW_AB_UPDATE_SUPPORT),n)
 PRODUCT_PACKAGES += \

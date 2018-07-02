@@ -88,12 +88,6 @@ allow $1 system_prop:property_service set;
 ')
 ')
 
-define(`nexus_nx_prop_forced', `
-nexus_sys_prop_allowed(`
-allow $1 nexus_prop:property_service set;
-')
-')
-
 define(`sdbhak_hwservice', `
 hwbinder_use($1);
 allow $1 vnd_sdbhak_hwservice:hwservice_manager find;
@@ -113,4 +107,9 @@ allow $1 vnd_tvisvcext_hwservice:hwservice_manager find;
 define(`dpthak_hwservice', `
 hwbinder_use($1);
 allow $1 vnd_dpthak_hwservice:hwservice_manager find;
+')
+
+define(`nexus_pak', `
+allow $1 nexus_pak_file:file { open read getattr };
+allow $1 nexus_pak_file:dir { search };
 ')

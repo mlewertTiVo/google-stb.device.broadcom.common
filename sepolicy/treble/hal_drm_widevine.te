@@ -12,3 +12,4 @@ binder_call(hal_drm_widevine, hwcbinder);
 nexus_hwcfg(hal_drm_widevine);
 allow hal_drm_widevine vendor_data_file:dir create_dir_perms;
 allow hal_drm_widevine vendor_data_file:file create_file_perms;
+allow hal_drm_widevine hal_allocator:fd use;

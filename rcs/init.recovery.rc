@@ -5,7 +5,7 @@ on early-init
    export LD_LIBRARY_PATH /oem/lib
    export SAGEBIN_PATH /oem/bin
    export NEXUS_DEVICE_NODE /dev/mali
-   setprop dyn.nx.state none
+   setprop sys.recov.nx.state none
    insmod /oem/lib/nexus.ko devname="mali" config="auto_subindex=true"
 
 on init
@@ -27,6 +27,6 @@ service nxmini /sbin/nxmini
    user root
    group system
 
-on property:dyn.nx.state=loaded
+on property:sys.recov.nx.state=loaded
    insmod /oem/lib/bcmnexusfb.ko
 

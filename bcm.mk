@@ -38,7 +38,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    ro.sf.disable_triple_buffer=0 \
    \
-   ro.gfx.driver.0=gfxdriver-bcmstb
+   ro.gfx.driver.0=gfxdriver-bcmstb \
+   \
+   debug.hwui.renderer=opengl
 #
 # system properties (eg gtvs related).
 #
