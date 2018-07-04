@@ -17,4 +17,5 @@ type readonlyfs, fs_type;
 type nexus_sdbhak_file, file_type, data_file_type;
 type nexus_pak_file, file_type, vendor_file_type;
 type nexus_kmgk_file, file_type, vendor_file_type;
+type nexus_jwl_file, file_type, vendor_file_type;
 

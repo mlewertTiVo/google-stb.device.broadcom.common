@@ -22,6 +22,7 @@ allow nxserver proc_brcm:dir search;
 nexus_ir(nxserver);
 nexus_hwcfg(nxserver);
 nexus_pak(nxserver);
+nexus_jwl(nxserver);
 
 allow nxserver system_server:binder call;
 allow nxserver surfaceflinger:binder call;
