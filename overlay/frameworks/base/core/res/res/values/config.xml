@@ -107,4 +107,10 @@
     <string-array name="config_keySystemUuidMapping" translatable="false">
         <item>"x-com.microsoft.playready,9A04F079-9840-4286-AB92-E65BE0885F95"</item>
     </string-array>
+
+    <!-- True if the device supports split screen as a form of multi-window. -->
+    <bool name="config_supportsSplitScreenMultiWindow">false</bool>
+
+    <!-- True if the device supports running activities on secondary displays. -->
+    <bool name="config_supportsMultiDisplay">false</bool>
 </resources>
