@@ -32,7 +32,7 @@
 /(vendor|system/vendor)/usr/irkeymap(/.*)? u:object_r:nexus_ir_file:s0
 /(vendor|system/vendor)/usr/pak(/.*)? u:object_r:nexus_pak_file:s0
 /(vendor|system/vendor)/usr/kmgk(/.*)? u:object_r:nexus_kmgk_file:s0
-/(vendor|system/vendor)/usr/nxwl u:object_r:nexus_jwl_file:s0
+/(vendor|system/vendor)/usr/jwl u:object_r:nexus_jwl_file:s0
 
 /eio(/.*)?                u:object_r:system_file:s0
 /dev/hwcfg(/.*)?          u:object_r:system_file:s0
