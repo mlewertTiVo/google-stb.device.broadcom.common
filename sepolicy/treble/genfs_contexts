@@ -3,3 +3,5 @@ genfscon proc /bluetooth/sleep u:object_r:proc_bluetooth_writable:s0
 genfscon debugfs /dri u:object_r:debugfs_dri:s0
 genfscon proc /brcm u:object_r:proc_brcm:s0
 genfscon cramfs / u:object_r:readonlyfs:s0
+genfscon sysfs /devices/virtual/thermal u:object_r:sysfs_thermal:s0
+
