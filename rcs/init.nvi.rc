@@ -50,6 +50,7 @@ on post-fs
    setprop dyn.nx.state none
    setprop ro.nx.nxserver.hdcp1x_keys /dev/hwcfg/drm_hdcp1x.bin
    setprop ro.nx.nxserver.hdcp2x_keys /dev/hwcfg/drm.bin
+   setprop ro.nx.nxserver.thermal /vendor/usr/thermal/default.cfg
 
    # Allow Launcher wallpaper picker to use landscape mode
    setprop log.tag.launcher_force_rotate VERBOSE

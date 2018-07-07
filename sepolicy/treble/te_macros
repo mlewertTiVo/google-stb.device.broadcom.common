@@ -124,3 +124,16 @@ define(`nexus_jwl', `
 allow $1 nexus_jwl_file:file { open read getattr };
 allow $1 vendor_data_file:file { open read getattr };
 ')
+
+define(`nexus_thermal_cfg', `
+allow $1 nexus_thermal_file:file { open read getattr };
+allow $1 vendor_data_file:file { open read getattr };
+')
+
+define(`nexus_thermal', `
+allow $1 sysfs_thermal:dir r_dir_perms;
+allow $1 sysfs_thermal:file rw_file_perms;
+allow $1 sysfs_thermal:lnk_file r_file_perms;
+allow $1 proc_stat:file r_file_perms;
+')
+
