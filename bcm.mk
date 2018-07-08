@@ -87,7 +87,7 @@ PRODUCT_COPY_FILES += \
 # whitelisting privapp permissions.
 #
 #PRODUCT_PROPERTY_OVERRIDES += \
-#   ro.control_privapp_permission=enforce
+#   ro.control_privapp_permissions=enforce
 
 PRODUCT_COPY_FILES += \
    device/broadcom/common/permissions/privapp-permissions-bcm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-bcm.xml
