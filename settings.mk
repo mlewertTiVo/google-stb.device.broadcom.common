@@ -134,6 +134,7 @@ export HAL_GR_VERSION                        ?= v-0.x
 export DTCP_IP_SAGE_SUPPORT                  ?= n
 export HW_GPU_VULKAN_SUPPORT                 ?= n
 export LOCAL_DEVICE_PAK_BINARY               ?=
+export LOCAL_DEVICE_PAK_BINARY_ALT           ?=
 
 export BCM_GPT_CONFIG_FILE                   := $(LOCAL_DEVICE_GPT)
 export ANDROID_BUILD                         := y
