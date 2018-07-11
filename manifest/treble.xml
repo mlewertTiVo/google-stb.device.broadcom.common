@@ -60,6 +60,8 @@
         <fqname>@1.1::IDrmFactory/clearkey</fqname>
         <fqname>@1.1::ICryptoFactory/widevine</fqname>
         <fqname>@1.1::IDrmFactory/widevine</fqname>
+        <fqname>@1.1::ICryptoFactory/playready</fqname>
+        <fqname>@1.1::IDrmFactory/playready</fqname>
     </hal>
     <hal format="hidl">
         <name>android.hardware.cas</name>

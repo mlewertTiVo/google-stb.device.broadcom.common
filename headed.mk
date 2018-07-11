@@ -443,6 +443,10 @@ ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES += \
    android.hardware.drm@1.1-service.widevine
 endif
+ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
+PRODUCT_PACKAGES += \
+   android.hardware.drm@1.1-service.playready
+endif
 ifeq ($(SAGE_SUPPORT),y)
 ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
 PRODUCT_PACKAGES += \
