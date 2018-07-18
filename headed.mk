@@ -116,17 +116,11 @@ PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:$(TARGET_COPY_OU
 # all those are defined per device, in the device configuration.
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RCS}
 
-# pak - primary and alternate (both together) use primary for production and alternate for development.
-ifneq ($(LOCAL_DEVICE_PAK_BINARY_ALT),)
-ifneq ($(LOCAL_DEVICE_PAK_BINARY),)
-PRODUCT_COPY_FILES       += device/broadcom/common/pak/$(LOCAL_DEVICE_PAK_BINARY):$(TARGET_COPY_OUT_VENDOR)/usr/pak/pak.bin
-PRODUCT_COPY_FILES       += device/broadcom/common/pak/$(LOCAL_DEVICE_PAK_BINARY_ALT):$(TARGET_COPY_OUT_VENDOR)/usr/pak/pak_dev.bin
+ifneq ($(LOCAL_DEVICE_PAK_BINARY_PROD),)
+PRODUCT_COPY_FILES       += device/broadcom/common/pak/$(LOCAL_DEVICE_PAK_BINARY_PROD):$(TARGET_COPY_OUT_VENDOR)/usr/pak/pak.bin
 endif
-# pak - primary only, use for development.
-else
-ifneq ($(LOCAL_DEVICE_PAK_BINARY),)
-PRODUCT_COPY_FILES       += device/broadcom/common/pak/$(LOCAL_DEVICE_PAK_BINARY):$(TARGET_COPY_OUT_VENDOR)/usr/pak/pak_dev.bin
-endif
+ifneq ($(LOCAL_DEVICE_PAK_BINARY_DEV),)
+PRODUCT_COPY_FILES       += device/broadcom/common/pak/$(LOCAL_DEVICE_PAK_BINARY_DEV):$(TARGET_COPY_OUT_VENDOR)/usr/pak/pak_dev.bin
 endif
 
 COPY_2_VENDOR  ?= y
