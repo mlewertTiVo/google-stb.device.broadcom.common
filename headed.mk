@@ -432,10 +432,12 @@ ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES += \
    android.hardware.drm@1.1-service.widevine
 endif
+ifeq ($(SAGE_SUPPORT),y)
 ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
 PRODUCT_PACKAGES += \
    bcm.hardware.bp3@1.0-service \
    bcm.hardware.bp3-V1.0-java
+endif
 endif
 ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
 PRODUCT_PACKAGES += \
@@ -482,9 +484,11 @@ PRODUCT_PACKAGES += \
     BcmCustomizer \
     BcmPlayAutoInstallConfig
 
+ifeq ($(SAGE_SUPPORT),y)
 ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
 PRODUCT_PACKAGES += \
     BcmBP3Config
+endif
 endif
 
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY),y),)
@@ -520,9 +524,11 @@ endif
 endif
 
 # temporary adding command line support for BP3.
+ifeq ($(SAGE_SUPPORT),y)
 ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
 PRODUCT_PACKAGES += libhost_bp3 bp3
 export BP3_PROVISIONING := y
+endif
 endif
 
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
