@@ -12,7 +12,7 @@ endif
 endif
 
 ifeq ($(BCM_DIST_BLIMS_SRCS), y)
-export BCM_DIST_BLIMG_BINS        := n
+export BCM_DIST_BLIMG_BINS        ?= n
 else
 ifeq ($(BCM_DIST_FORCED_BINDIST), y)
 export BCM_DIST_BLIMG_BINS        := y
@@ -28,7 +28,7 @@ endif
 endif
 
 ifeq ($(BCM_DIST_KNLIMS_SRCS), y)
-export BCM_DIST_KNLIMG_BINS       := n
+export BCM_DIST_KNLIMG_BINS       ?= n
 else
 ifeq ($(BCM_DIST_FORCED_BINDIST), y)
 export BCM_DIST_KNLIMG_BINS       := y
