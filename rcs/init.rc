@@ -73,6 +73,7 @@ on post-fs-data
    mkdir /data/vendor/nexus/kmgk 0777 system system
 
    mkdir /data/vendor/mediadrm/playready/ 0770 mediadrm mediadrm
+   mkdir /data/vendor/mediacas 0770 media media
 
    # *** sample only.
    #
