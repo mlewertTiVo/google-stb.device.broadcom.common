@@ -202,32 +202,33 @@ export ANDROID_SUPPORTS_PLAYREADY       ?= y
 
 ifneq ($(ANDROID_SUPPORTS_PLAYREADY),n)
 ifneq ($(wildcard vendor/playready),)
-	export ANDROID_SUPPORTS_PLAYREADY    := y
+    export ANDROID_SUPPORTS_PLAYREADY    := y
 else
-	export ANDROID_SUPPORTS_PLAYREADY    := n
+    export ANDROID_SUPPORTS_PLAYREADY    := n
 endif
 endif
 export ANDROID_SUPPORTS_RPMB            ?= y
 export ANDROID_SUPPORTS_KEYMASTER       ?= y
 export ANDROID_DEVICE_SUPPORTS_BP3      ?= n
 
-ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY) $(ANDROID_ENABLE_HDMI_HDCP) $(ANDROID_SUPPORTS_RPMB) $(ANDROID_SUPPORTS_KEYMASTER),y),)
-	export SAGE_SUPPORT                  := y
-   export SAGE_BINARIES_AVAILABLE       := y
-	export NEXUS_SECURITY_SUPPORT        := y
-	export KEYLADDER_SUPPORT             := y
-	export NEXUS_COMMON_CRYPTO_SUPPORT   := y
-	export BMRC_ALLOW_XPT_TO_ACCESS_KERNEL := y
-	ifeq ($(ANDROID_ENABLE_HDMI_HDCP), y)
-		export NEXUS_HDCP_SUPPORT    := y
-	endif
-	ifeq ($(ANDROID_SUPPORTS_PLAYREADY), y)
-		export MSDRM_PRDY_SUPPORT     := y
-		export MSDRM_PRDY_SDK_VERSION := 2.5
-	endif
-	ifeq ($(SAGE_VERSION),2x)
-		export SAGE_SECURE_MODE ?= 5
-	endif
+ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY) $(ANDROID_ENABLE_HDMI_HDCP) \
+                $(ANDROID_SUPPORTS_RPMB) $(ANDROID_SUPPORTS_KEYMASTER) $(ANDROID_SUPPORTS_MEDIACAS),y),)
+    export SAGE_SUPPORT                  := y
+    export SAGE_BINARIES_AVAILABLE       := y
+    export NEXUS_SECURITY_SUPPORT        := y
+    export KEYLADDER_SUPPORT             := y
+    export NEXUS_COMMON_CRYPTO_SUPPORT   := y
+    export BMRC_ALLOW_XPT_TO_ACCESS_KERNEL := y
+    ifeq ($(ANDROID_ENABLE_HDMI_HDCP), y)
+        export NEXUS_HDCP_SUPPORT    := y
+    endif
+    ifeq ($(ANDROID_SUPPORTS_PLAYREADY), y)
+        export MSDRM_PRDY_SUPPORT     := y
+        export MSDRM_PRDY_SDK_VERSION := 2.5
+    endif
+    ifeq ($(SAGE_VERSION),2x)
+        export SAGE_SECURE_MODE ?= 5
+    endif
 endif
 
 ifeq ($(HW_TZ_SUPPORT),y)
