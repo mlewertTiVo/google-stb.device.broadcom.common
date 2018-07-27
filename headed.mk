@@ -429,6 +429,10 @@ PRODUCT_PACKAGES += \
    bcm.hardware.sdbhak@1.0-service \
    bcm.hardware.tvisvcext@1.0-service \
    bcm.hardware.dpthak@1.0-service
+ifeq ($(ANDROID_SUPPORTS_MEDIACAS),y)
+PRODUCT_PACKAGES += \
+   bcm.hardware.sfhak@1.0-service
+endif
 ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES += \
    android.hardware.drm@1.1-service.widevine

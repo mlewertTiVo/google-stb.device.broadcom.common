@@ -98,6 +98,11 @@ hwbinder_use($1);
 allow $1 vnd_sdbhak_hwservice:hwservice_manager find;
 ')
 
+define(`sfhak_hwservice', `
+hwbinder_use($1);
+allow $1 vnd_sfhak_hwservice:hwservice_manager find;
+')
+
 define(`nexus_sdbhak', `
 allow $1 nexus_sdbhak_file:file { open create read write setattr getattr unlink };
 allow $1 vendor_data_file:file { open read getattr };

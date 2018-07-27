@@ -4,3 +4,4 @@ type vnd_sdbhak_hwservice, hwservice_manager_type, untrusted_app_visible_hwservi
 type vnd_tvisvcext_hwservice, hwservice_manager_type, untrusted_app_visible_hwservice;
 type vnd_bp3_hwservice, hwservice_manager_type;
 type vnd_dpthak_hwservice, hwservice_manager_type;
+type vnd_sfhak_hwservice, hwservice_manager_type;

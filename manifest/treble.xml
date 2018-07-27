@@ -282,6 +282,15 @@
         </interface>
     </hal>
     <hal format="hidl">
+        <name>bcm.hardware.sfhak</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ISfHak</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
         <name>bcm.hardware.tvisvcext</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
