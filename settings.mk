@@ -35,6 +35,7 @@ else
 export GPERF_BCM                             := ${ANDROID}/device/broadcom/common/prebuilts/gperf
 endif
 export B_KNB_TOOLCHAIN                       := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-6.3-1.3/bin
+export TZ_TOOLCHAIN                          := ${ANDROID}/prebuilts/gcc/linux-x86/tzos/gcc-aarch64-tzos-musl-5.3
 
 ifeq ($(LOCAL_ARM_AARCH64),y)
 ifeq ($(LOCAL_ARM_AARCH64_NOT_ABI_COMPATIBLE),y)
