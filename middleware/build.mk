@@ -151,7 +151,7 @@ bindist_build: bindist_core_build
 			fi; \
 			cp -faR ${BROADCOM_NIC_SOURCE_PATH}/src ${B_NIC_OBJ_ROOT}  && cp ${BROADCOM_NIC_SCRIPT_PATH}/*.sh ${B_NIC_OBJ_ROOT}; \
 			cp -faR ${BROADCOM_NIC_SOURCE_PATH}/components ${B_NIC_OBJ_ROOT}; \
-			if [ "${LOCAL_ARM_AARCH64_COMPAT_32_BIT}" == "y" ]; then \
+			if [[ "${LOCAL_ARM_AARCH64_COMPAT_32_BIT}" == "y" || "${LOCAL_ANDROID_64BIT}" == "y" ]]; then \
 				cd ${B_NIC_OBJ_ROOT} && source ./setenv-android-stb7271v8.sh && PATH=${B_KNB_TOOLCHAIN}:$$PATH SHORTER_PATH=1 ./build-drv-nic.sh ${BRCM_NIC_TARGET_NAME}; \
 			else \
 				cd ${B_NIC_OBJ_ROOT} && source ./setenv-android-stb7271.sh && PATH=${B_KNB_TOOLCHAIN}:$$PATH SHORTER_PATH=1 ./build-drv-nic.sh ${BRCM_NIC_TARGET_NAME}; \
@@ -169,7 +169,7 @@ bindist_build: bindist_core_build
 				mkdir -p ${B_DHD_OBJ_ROOT}; \
 			fi; \
 			cp -faR ${BROADCOM_DHD_SOURCE_PATH}/dhd ${B_DHD_OBJ_ROOT} && cp ${BROADCOM_DHD_SOURCE_PATH}/*.sh ${B_DHD_OBJ_ROOT}; \
-			if [ "${LOCAL_ARM_AARCH64_COMPAT_32_BIT}" == "y" ]; then \
+			if [[ "${LOCAL_ARM_AARCH64_COMPAT_32_BIT}" == "y" || "${LOCAL_ANDROID_64BIT}" == "y" ]]; then \
 				cd ${B_DHD_OBJ_ROOT} && source ./setenv-android-stb72xx.sh ${BROADCOM_WIFI_CHIPSET} && PATH=${B_KNB_TOOLCHAIN}:$$PATH LINUX_OUT=${LINUX_OUT_1ST_ARCH} BRCM_DHD_TARGET_NVRAM_PATH=${BRCM_DHD_TARGET_NVRAM_PATH} ./bfd-drv-cfg80211.sh; \
 			else \
 				cd ${B_DHD_OBJ_ROOT} && source ./setenv-android-stb7445.sh ${BROADCOM_WIFI_CHIPSET} && PATH=${B_KNB_TOOLCHAIN}:$$PATH LINUX_OUT=${LINUX_OUT_1ST_ARCH} BRCM_DHD_TARGET_NVRAM_PATH=${BRCM_DHD_TARGET_NVRAM_PATH} ./bfd-drv-cfg80211.sh; \

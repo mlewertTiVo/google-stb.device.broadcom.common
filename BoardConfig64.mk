@@ -10,6 +10,6 @@ TARGET_2ND_CPU_ABI        := armeabi-v7a
 TARGET_2ND_CPU_ABI2       := armeabi
 TARGET_2ND_CPU_VARIANT    := cortex-a15
 
-TARGET_USES_64_BIT_BCMDHD := false
+TARGET_USES_64_BIT_BCMDHD := true
 TARGET_USES_64_BIT_BINDER := true
 
