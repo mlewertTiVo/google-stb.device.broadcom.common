@@ -1,6 +1,7 @@
 ifneq ($(filter $(BCM_RBOARDS) $(BCM_DBOARDS) $(BCM_CBOARDS),$(TARGET_DEVICE)),)
 
 ifndef BOARD_VNDK_VERSION
+ifneq ($(LOCAL_ANDROID_64BIT_ONLY),y)
 
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 VNDK_SP_LIBRARIES := \
@@ -63,6 +64,7 @@ EXTRA_VENDOR_LIBRARIES := \
     android.hardware.usb@1.0 \
     android.hardware.wifi.supplicant@1.0
 
+endif
 endif
 
 #-------------------------------------------------------------------------------

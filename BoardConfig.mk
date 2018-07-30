@@ -9,11 +9,6 @@ include device/broadcom/common/BoardConfig32.mk
 else
 # yeah!
 include device/broadcom/common/BoardConfig64.mk
-ifeq ($(LOCAL_ANDROID_64BIT),y)
-TARGET_PREFER_32_BIT_APPS   :=
-TARGET_SUPPORTS_32_BIT_APPS :=
-TARGET_SUPPORTS_64_BIT_APPS := true
-endif
 endif
 endif
 # legacy armv7 platforms.
@@ -30,7 +25,9 @@ BOARD_USES_GENERIC_AUDIO     := false
 USE_LEGACY_AUDIO_POLICY      := 0
 USE_CUSTOM_AUDIO_POLICY      := 0
 USE_XML_AUDIO_POLICY_CONF    := 1
+ifneq ($(LOCAL_ANDROID_64BIT_ONLY),y)
 BOARD_VNDK_VERSION           := current
+endif
 
 # Wifi related defines
 BOARD_WLAN_DEVICE                      := bcmdhd
