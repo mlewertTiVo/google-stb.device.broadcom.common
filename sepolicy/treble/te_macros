@@ -147,3 +147,7 @@ allow $1 sysfs_thermal:lnk_file r_file_perms;
 allow $1 proc_stat:file r_file_perms;
 ')
 
+define(`nexus_sopass', `
+allow $1 nexus_sopass_file:file { open read getattr };
+allow $1 vendor_data_file:file { open read getattr };
+')
