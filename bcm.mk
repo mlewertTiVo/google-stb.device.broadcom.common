@@ -90,7 +90,8 @@ PRODUCT_COPY_FILES += \
 #   ro.control_privapp_permissions=enforce
 
 PRODUCT_COPY_FILES += \
-   device/broadcom/common/permissions/privapp-permissions-bcm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-bcm.xml
+   device/broadcom/common/permissions/privapp-permissions-bcm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-bcm.xml \
+   device/broadcom/common/permissions/privapp-permissions-bcm-sys.xml:system/etc/permissions/privapp-permissions-bcm-sys.xml
 
 ifneq ($(TARGET_BUILD_PDK),true)
 PRODUCT_COPY_FILES += \
