@@ -113,13 +113,17 @@ ifneq ($(LOCAL_NVI_LAYOUT),y)
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1602224128  # 1528M
 export LOCAL_DEVICE_VENDOR_LEGACY            ?= 234881024   # 224M
 ifeq ($(LOCAL_DEVICE_GPT_O_LAYOUT),y)
+ifeq ($(LOCAL_ARM_TRUSTZONE_USE),y)
+export LOCAL_DEVICE_SYSTEM_AB                ?= 1468006400  # 1400M
+else
 export LOCAL_DEVICE_SYSTEM_AB                ?= 1486880768  # 1418M
+endif
 export LOCAL_DEVICE_SYSTEM_XL                := y
 else
 export LOCAL_DEVICE_SYSTEM_AB                ?= 950009856   # 906M
 endif
 ifeq ($(LOCAL_ARM_TRUSTZONE_USE),y)
-export LOCAL_DEVICE_VENDOR_AB                ?= 99614720    # 95M
+export LOCAL_DEVICE_VENDOR_AB                ?= 89128960    # 85M
 else
 export LOCAL_DEVICE_VENDOR_AB                ?= 104857600   # 100M
 endif
