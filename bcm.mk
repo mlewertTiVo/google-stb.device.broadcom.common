@@ -142,3 +142,4 @@ else
 PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/broadcom/bcm_platform/signing/testkey
 endif
 
+include device/broadcom/common/vsp.mk
