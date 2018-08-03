@@ -84,7 +84,7 @@ PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.software.live_tv.
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.software.webview.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.webview.xml
 ifeq ($(HW_GPU_VULKAN_SUPPORT),y)
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.vulkan.level-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-0.xml
-PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.vulkan.compute-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.compute-0.xml
+PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.vulkan.version-1_0_3.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_0_3.xml
 endif
 PRODUCT_COPY_FILES       += device/broadcom/common/permissions/atv-bcm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/atv-bcm.xml
 PRODUCT_COPY_FILES       += device/broadcom/common/permissions/nrdp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/nrdp.xml
