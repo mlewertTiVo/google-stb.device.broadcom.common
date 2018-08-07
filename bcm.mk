@@ -100,18 +100,6 @@ PRODUCT_COPY_FILES += \
    frameworks/base/data/etc/privapp-permissions-platform.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-platform.xml
 endif
 
-# hardware interface hal manifest.
-#
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
-ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
-DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/treble.msd.xml
-else
-DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/treble.xml
-endif
-else
-DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/legacy.xml
-endif
-
 # copy kernel image.
 ifeq ($(BCM_DIST_KNLIMG_BINS), y)
 ifneq ($(wildcard device/broadcom/${LOCAL_PRODUCT_OUT}-kernel/zImage),)

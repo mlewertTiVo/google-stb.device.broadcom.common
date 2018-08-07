@@ -192,3 +192,29 @@ BOARD_HAL_STATIC_LIBRARIES := libhealthd.bcmstb
 
 WIFI_HIDL_FEATURE_DISABLE_AP := true
 
+# hardware interface hal manifest.
+#
+MANIFEST_FILE_SET ?= n
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
+DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/treble.msd.xml
+else
+ifdef PRODUCT_SHIPPING_API_LEVEL
+ifeq ($(call math_lt,26,$(PRODUCT_SHIPPING_API_LEVEL)),)
+DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/treble.xml
+MANIFEST_FILE_SET    := y
+endif
+ifneq ($(MANIFEST_FILE_SET),y)
+ifeq ($(call math_lt,27,$(PRODUCT_SHIPPING_API_LEVEL)),)
+DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/treble.l2.xml
+MANIFEST_FILE_SET    := y
+endif
+endif
+ifneq ($(MANIFEST_FILE_SET),y)
+DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/treble.l3.xml
+endif
+endif
+endif
+else
+DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/legacy.xml
+endif
