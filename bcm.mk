@@ -40,6 +40,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    ro.gfx.driver.0=gfxdriver-bcmstb \
    \
+   ro.lmk.use_minfree_levels=true \
+   \
    debug.hwui.renderer=opengl
 #
 # system properties (eg gtvs related).
