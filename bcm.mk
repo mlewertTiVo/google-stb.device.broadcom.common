@@ -102,12 +102,12 @@ endif
 #
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
-DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/treble.msd.xml
+DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/treble.msd.xml
 else
-DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/treble.xml
+DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/treble.xml
 endif
 else
-DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/legacy.xml
+DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/legacy.xml
 endif
 
 # copy kernel image.
