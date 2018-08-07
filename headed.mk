@@ -520,9 +520,9 @@ ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES            += liboemcrypto libwvdrmengine
 endif
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
-PRODUCT_PACKAGES            += libcmndrmprdy libplayreadydrmplugin_2_5 libplayreadypk_host
+PRODUCT_PACKAGES            += libcmndrmprdy libplayreadydrmplugin_2_5 libplayreadypk_host libprhidl_2_5
 ifneq ($(SAGE_VERSION),2x)
-PRODUCT_PACKAGES            += libplayreadydrmplugin_3_0 libplayready30pk
+PRODUCT_PACKAGES            += libplayreadydrmplugin_3_0 libplayready30pk libprhidl_3_0
 endif
 endif
 endif

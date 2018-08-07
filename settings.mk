@@ -204,6 +204,7 @@ export NEXUS_REGION_VERIFICATION_DUMP_FIRMWARE_RAW ?= n
 export ANDROID_SUPPORTS_WIDEVINE        ?= y
 export ANDROID_ENABLE_HDMI_HDCP         ?= y
 export ANDROID_SUPPORTS_PLAYREADY       ?= y
+export ANDROID_PLAYREADY_VERSION        ?= 2.5
 
 ifneq ($(ANDROID_SUPPORTS_PLAYREADY),n)
 ifneq ($(wildcard vendor/playready),)

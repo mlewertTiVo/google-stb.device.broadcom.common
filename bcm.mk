@@ -14,9 +14,17 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.logger_size=4096 \
    ro.v3d.fence.expose=true \
    \
-   ro.nx.colordepth10b.force=1 \
-   \
+   ro.nx.colordepth10b.force=1
+#
+# ro.nx.pr.version defaults to 2.5
+#
+ifneq ($(ANDROID_PLAYREADY_VERSION),3.0)
+PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.pr.version=2.5
+else
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.pr.version=3.0
+endif
 #
 # proprietary properties not applicable always.
 #
