@@ -42,6 +42,10 @@ ifeq ($(LOCAL_GATOR_SUPPORT), y)
 REFSW_TARGET_LIST += \
 	${NEXUS_BIN_DIR_1ST_ARCH}/gator.ko
 endif
+ifeq ($(LOCAL_ARM_TRUSTZONE_USE), y)
+REFSW_TARGET_LIST += \
+	${NEXUS_BIN_DIR_1ST_ARCH}/bcm_astra.ko
+endif
 endif
 
 REFSW_TARGET_LIST_2ND_ARCH :=

@@ -157,6 +157,9 @@ PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/droid_pm.ko:$(TARGET_COPY_
 ifeq ($(LOCAL_GATOR_SUPPORT), y)
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/gator.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/gator.ko
 endif
+ifeq ($(LOCAL_ARM_TRUSTZONE_USE), y)
+PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/bcm_astra.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/tee.ko
+endif
 else
 PRODUCT_COPY_FILES       += ${BCM_BINDIST_KNL_ROOT}/nx_ashmem.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nx_ashmem.ko
 PRODUCT_COPY_FILES       += ${BCM_BINDIST_KNL_ROOT}/nexus.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nexus.ko
