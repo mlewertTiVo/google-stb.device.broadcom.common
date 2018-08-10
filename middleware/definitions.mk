@@ -69,6 +69,7 @@ NEXUS_BIN_DIR_2ND_ARCH       := $(B_REFSW_OBJ_ROOT_2ND_ARCH)/nexus/bin
 NEXUS_NXC_BIN_DIR_2ND_ARCH   := $(B_REFSW_OBJ_ROOT_2ND_ARCH)/nexus/nxclient/${B_REFSW_ARCH_2ND_ARCH}/server
 B_LK_OBJ_ROOT                := ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${LOCAL_PRODUCT_OUT}/obj/FAKE/lk
 B_BL31_OBJ_ROOT              := ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${LOCAL_PRODUCT_OUT}/obj/FAKE/bl31
+ASTRA_BIN_DIR                := $(B_REFSW_OBJ_ROOT_1ST_ARCH)/astra/user
 
 B_BOLT_CFG_OVERRIDE          ?=
 B_BOLT_CUSTOM_OVERRIDE       ?=
@@ -106,6 +107,7 @@ export B_BOLT_CFG_OVERRIDE B_BOLT_CUSTOM_OVERRIDE
 export BINDIST_BIN_DIR_1ST_ARCH BINDIST_NXC_BIN_DIR_1ST_ARCH
 export NEXUS_HAS_SOCKET_DRIVER
 export NEXUS_SAGE_BP3_BIN_PATH
+export ASTRA_BIN_DIR
 
 include ${NEXUS_TOP}/platforms/common/build/nexus_platforms.inc
 export BCHP_CHIP

@@ -348,7 +348,8 @@ PRODUCT_PACKAGES += \
     gptbin \
     makehwcfg \
     nxdispfmt \
-    nxserver
+    nxserver \
+    teebin
 
 ifeq ($(LOCAL_GATOR_SUPPORT), y)
 PRODUCT_PACKAGES += \

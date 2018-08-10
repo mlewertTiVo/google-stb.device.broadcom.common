@@ -44,7 +44,8 @@ REFSW_TARGET_LIST += \
 endif
 ifeq ($(LOCAL_ARM_TRUSTZONE_USE), y)
 REFSW_TARGET_LIST += \
-	${NEXUS_BIN_DIR_1ST_ARCH}/bcm_astra.ko
+	${NEXUS_BIN_DIR_1ST_ARCH}/bcm_astra.ko \
+	${ASTRA_BIN_DIR}/astra64.bin
 endif
 endif
 
