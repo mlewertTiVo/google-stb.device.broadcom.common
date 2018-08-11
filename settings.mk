@@ -171,6 +171,7 @@ export BROADCOM_NIC_SOURCE_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT
 export BROADCOM_NIC_DUAL_SOURCE_PATH         := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmnic_dual
 export HLS_PROTOCOL_SUPPORT                  := y
 
+export NEXUS_POWER_MANAGEMENT                ?= y
 export NEXUS_USE_PRECOMPILED_HEADERS         := n
 export NEXUS_ANDROID_SUPPORT                 := y
 export NEXUS_MODE                            := proxy  # fixed!
@@ -178,7 +179,6 @@ export NEXUS_KEYPAD_SUPPORT                  := n
 export NEXUS_LOGGER_EXTERNAL                 := y
 export NEXUS_LOGGER_LOCATION                 := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/nxlogger
 export NEXUS_PLATFORM_7241_WIFI              := n
-export NEXUS_POWER_MANAGEMENT                := y
 export NEXUS_REPLACE_BOILERPLATE             := y
 export NEXUS_SHARED_LIB                      := y
 export PVR_SUPPORT                           := y
