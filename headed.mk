@@ -159,6 +159,7 @@ PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/gator.ko:$(TARGET_COPY_OUT
 endif
 ifeq ($(LOCAL_ARM_TRUSTZONE_USE), y)
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/bcm_astra.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/tee.ko
+PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/swxpt.elf:$(TARGET_COPY_OUT_VENDOR)/usr/tee/swxpt.elf
 endif
 else
 PRODUCT_COPY_FILES       += ${BCM_BINDIST_KNL_ROOT}/nx_ashmem.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nx_ashmem.ko
