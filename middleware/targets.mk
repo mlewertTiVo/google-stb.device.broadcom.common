@@ -25,7 +25,7 @@ REFSW_TARGET_LIST := \
 	/${NEXUS_BIN_DIR_1ST_ARCH}/libnxserver.a \
 	/${NEXUS_BIN_DIR_1ST_ARCH}/libnxserver_vendor.a
 ifeq ($(LOCAL_ARM_TRUSTZONE_USE), y)
-REFSW_TARGET_LIST := \
+REFSW_TARGET_LIST += \
 	/${NEXUS_BIN_DIR_1ST_ARCH}/swxpt.elf
 endif
 endif
