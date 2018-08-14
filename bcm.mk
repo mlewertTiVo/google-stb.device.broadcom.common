@@ -46,9 +46,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    ro.gfx.driver.0=gfxdriver-bcmstb \
    \
-   ro.lmk.use_minfree_levels=true \
-   \
-   debug.hwui.renderer=opengl
+   ro.lmk.use_minfree_levels=true
 
 ifeq ($(LOCAL_DEVICE_LOWRAM),y)
 PRODUCT_PROPERTY_OVERRIDES += \
