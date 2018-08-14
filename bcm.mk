@@ -28,11 +28,11 @@ endif
 #
 # proprietary properties not applicable always.
 #
-# ro.nx.dhd.secdma: secure dhd comms, defaults to 16MB.
+# ro.nx.dhd.secdma: secure dhd comms, defaults to 20MB.
 #
 ifeq ($(ANDROID_ENABLE_DHD_SECDMA),y)
 PRODUCT_PROPERTY_OVERRIDES += \
-   ro.nx.dhd.secdma=16777216
+   ro.nx.dhd.secdma=20971520
 endif
 #
 # system inherited|whitelisted properties.
