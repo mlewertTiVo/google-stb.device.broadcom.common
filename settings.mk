@@ -97,6 +97,7 @@ export ROCKFORD                              := ${ANDROID}/${BCM_VENDOR_STB_ROOT
 # variations which may be overriden by local device custom.
 #
 export BDSP_MS10_SUPPORT                     ?= n
+export BDSP_MS11_SUPPORT                     ?= n
 export BDSP_MS12_SUPPORT                     ?= n
 export NEXUS_HDMI_INPUT_SUPPORT              ?= y
 export ANDROID_ENABLE_BT                     ?= usb
