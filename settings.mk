@@ -161,6 +161,7 @@ export BOLT_ZEUS_VER                         ?= zeus42
 export LOCAL_DEVICE_MSD_SUPPORT              ?= n
 export LOCAL_DEVICE_PAK_BINARY               ?=
 export LOCAL_DEVICE_PAK_BINARY_ALT           ?=
+export HW_THERMAL_CONFIG_SUPPORT             ?= y
 
 export BCM_GPT_CONFIG_FILE                   := $(LOCAL_DEVICE_GPT)
 export ANDROID_BUILD                         := y

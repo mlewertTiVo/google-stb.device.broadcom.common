@@ -90,7 +90,9 @@ PRODUCT_COPY_FILES       += device/broadcom/common/permissions/atv-bcm.xml:$(TAR
 PRODUCT_COPY_FILES       += device/broadcom/common/permissions/nrdp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/nrdp.xml
 PRODUCT_COPY_FILES       += device/broadcom/common/sysconfig/netflix.xml:system/etc/sysconfig/netflix.xml
 PRODUCT_COPY_FILES       += device/broadcom/common/jwl:$(TARGET_COPY_OUT_VENDOR)/usr/jwl
+ifneq ($(HW_THERMAL_CONFIG_SUPPORT),n)
 PRODUCT_COPY_FILES       += device/broadcom/common/thermal/thermal.default.cfg:$(TARGET_COPY_OUT_VENDOR)/usr/thermal/default.cfg
+endif
 PRODUCT_COPY_FILES       += device/broadcom/common/idc/Smart_Remote_S.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Smart_Remote_S.idc
 PRODUCT_COPY_FILES       += device/broadcom/common/idc/virtual-remote.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/virtual-remote.idc
 PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_black.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/broadcom_black.ikm
