@@ -72,7 +72,8 @@ PRODUCT_AAPT_PREF_CONFIG ?= xhdpi
 TARGET_CPU_SMP           := true
 
 PRODUCT_COPY_FILES       += device/broadcom/common/bootanimation.zip:system/media/bootanimation.zip
-PRODUCT_COPY_FILES       += device/broadcom/common/keylayout/nexus_silver_remote.kl:system/usr/keylayout/NexusIrHandler.kl
+PRODUCT_COPY_FILES       += device/broadcom/common/keylayout/nexus_silver_remote.kl:vendor/usr/keylayout/NexusIrHandler.kl
+PRODUCT_COPY_FILES       += device/broadcom/common/keylayout/Smart_Remote_S.kl:vendor/usr/keylayout/Smart_Remote_S.kl
 ifeq ($(LOCAL_DOLBY_SUPPORT),y)
 PRODUCT_COPY_FILES       += device/broadcom/common/media/media_codecs_frag_dolby.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby.xml
 else
