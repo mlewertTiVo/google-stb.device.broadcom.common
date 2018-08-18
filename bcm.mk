@@ -44,13 +44,19 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    media.stagefright.cache-params=32768/65536/25 \
    \
-   ro.sf.disable_triple_buffer=0 \
-   \
    ro.gfx.driver.0=gfxdriver-bcmstb \
    \
    ro.lmk.use_minfree_levels=true \
    \
    debug.hwui.renderer=opengl
+
+ifeq ($(LOCAL_DEVICE_LOWRAM),y)
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.sf.disable_triple_buffer=1
+else
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.sf.disable_triple_buffer=0
+endif
 #
 # system properties (eg gtvs related).
 #
