@@ -1,0 +1,13 @@
+# this is the generic (type 1) binary for keymaster|gatekeeper drm fragment.
+#
+# this contains the generic|test attestation keys from google; it is the default|fallback
+# used when per device keys are not located or not present on a device.
+
+#
+# km.zd.bcm.generic.bin  >>>>  generic cert for all 'zd' devices.
+#
+# km.zb.bcm.generic.bin  >>>>  generic cert for all 'zb' devices using broadcom oem identifier (0x1111).
+#
+# km.zb.cus.generic.bin  >>>>  generic cert for all 'zb' devices using custom oem identifier (0xb208),
+#                              in particular targets the reference devices deployed at google.
+#

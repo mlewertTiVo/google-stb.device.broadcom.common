@@ -1,7 +1,11 @@
 ifeq ($(LOCAL_ARM_AARCH64),y)
 ifneq ($(LOCAL_ARM_AARCH64_NOT_ABI_COMPATIBLE),y)
 ifneq ($(LOCAL_ARM_AARCH64_COMPAT_32_BIT),y)
+ifeq ($(LOCAL_ANDROID_64BIT_ONLY),y)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
+else
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+endif
 endif
 endif
 endif
@@ -80,13 +84,18 @@ PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.software.live_tv.
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.software.webview.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.webview.xml
 ifeq ($(HW_GPU_VULKAN_SUPPORT),y)
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.vulkan.level-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-0.xml
-PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.vulkan.compute-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.compute-0.xml
+PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.vulkan.version-1_0_3.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_0_3.xml
 endif
+PRODUCT_COPY_FILES       += device/broadcom/common/permissions/atv-bcm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/atv-bcm.xml
 PRODUCT_COPY_FILES       += device/broadcom/common/permissions/nrdp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/nrdp.xml
 PRODUCT_COPY_FILES       += device/broadcom/common/sysconfig/netflix.xml:system/etc/sysconfig/netflix.xml
+PRODUCT_COPY_FILES       += device/broadcom/common/jwl:$(TARGET_COPY_OUT_VENDOR)/usr/jwl
+PRODUCT_COPY_FILES       += device/broadcom/common/thermal/thermal.default.cfg:$(TARGET_COPY_OUT_VENDOR)/usr/thermal/default.cfg
+PRODUCT_COPY_FILES       += device/broadcom/common/idc/Smart_Remote_S.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Smart_Remote_S.idc
+PRODUCT_COPY_FILES       += device/broadcom/common/idc/virtual-remote.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/virtual-remote.idc
 PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_black.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/broadcom_black.ikm
 PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_silver.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/broadcom_silver.ikm
-PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/hals/power/sopass.key:data/misc/nexus/sopass.key
+PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/hals/power/sopass.key:$(TARGET_COPY_OUT_VENDOR)/usr/sopass
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml
@@ -113,11 +122,12 @@ endif
 PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf
 # all those are defined per device, in the device configuration.
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RCS}
-ifneq ($(LOCAL_DEVICE_PAK_BINARY),)
-PRODUCT_COPY_FILES       += device/broadcom/common/pak/$(LOCAL_DEVICE_PAK_BINARY):$(TARGET_COPY_OUT_VENDOR)/usr/pak/pak.bin
-ifneq ($(LOCAL_DEVICE_PAK_BINARY_ALT),)
-PRODUCT_COPY_FILES       += device/broadcom/common/pak/$(LOCAL_DEVICE_PAK_BINARY_ALT):$(TARGET_COPY_OUT_VENDOR)/usr/pak/pak_dev.bin
+
+ifneq ($(LOCAL_DEVICE_PAK_BINARY_PROD),)
+PRODUCT_COPY_FILES       += device/broadcom/common/pak/$(LOCAL_DEVICE_PAK_BINARY_PROD):$(TARGET_COPY_OUT_VENDOR)/usr/pak/pak.bin
 endif
+ifneq ($(LOCAL_DEVICE_PAK_BINARY_DEV),)
+PRODUCT_COPY_FILES       += device/broadcom/common/pak/$(LOCAL_DEVICE_PAK_BINARY_DEV):$(TARGET_COPY_OUT_VENDOR)/usr/pak/pak_dev.bin
 endif
 
 COPY_2_VENDOR  ?= y
@@ -154,6 +164,10 @@ PRODUCT_COPY_FILES       += ${BCM_BINDIST_KNL_ROOT}/droid_pm.ko:$(TARGET_COPY_OU
 endif
 
 ifeq ($(SAGE_SUPPORT),y)
+ifeq ($(ANDROID_SUPPORTS_KEYMASTER),y)
+PRODUCT_COPY_FILES   += device/broadcom/common/kmgk/km.zd.bcm.generic.bin:$(TARGET_COPY_OUT_VENDOR)/usr/kmgk/km.zd.bin
+PRODUCT_COPY_FILES   += device/broadcom/common/kmgk/km.zb.cus.generic.bin:$(TARGET_COPY_OUT_VENDOR)/usr/kmgk/km.zb.bin
+endif
 ifeq ($(SAGE_VERSION),2x)
 SAGE_BINARY_EXT      ?= _dev
 SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/2x/$(BCHP_CHIP)$(BCHP_VER)
@@ -408,8 +422,6 @@ PRODUCT_PACKAGES += \
    android.hardware.drm@1.0-service \
    android.hardware.gatekeeper@1.0-service \
    android.hardware.graphics.composer@2.1-service \
-   android.hardware.health@1.0-impl \
-   android.hardware.health@1.0-service \
    android.hardware.renderscript@1.0-impl \
    android.hardware.soundtrigger@2.1-impl \
    android.hardware.power@1.0-service \
@@ -421,19 +433,38 @@ PRODUCT_PACKAGES += \
    bcm.hardware.sdbhak@1.0-service \
    bcm.hardware.tvisvcext@1.0-service \
    bcm.hardware.dpthak@1.0-service
+ifeq ($(ANDROID_SUPPORTS_MEDIACAS),y)
+PRODUCT_PACKAGES += \
+   bcm.hardware.sfhak@1.0-service
+endif
 ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES += \
    android.hardware.drm@1.1-service.widevine
 endif
+ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
+PRODUCT_PACKAGES += \
+   android.hardware.drm@1.1-service.playready
+endif
+ifeq ($(SAGE_SUPPORT),y)
 ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
 PRODUCT_PACKAGES += \
    bcm.hardware.bp3@1.0-service \
    bcm.hardware.bp3-V1.0-java
 endif
+endif
 ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
 PRODUCT_PACKAGES += \
    android.hardware.audio@4.0-service-msd
 endif
+endif
+ifeq ($(LOCAL_DEVICE_HEALTH_2),y)
+PRODUCT_PACKAGES += \
+   android.hardware.health@2.0-impl \
+   android.hardware.health@2.0-service
+else
+PRODUCT_PACKAGES += \
+   android.hardware.health@1.0-impl \
+   android.hardware.health@1.0-service
 endif
 
 PRODUCT_PACKAGES += \
@@ -475,9 +506,11 @@ PRODUCT_PACKAGES += \
     BcmCustomizer \
     BcmPlayAutoInstallConfig
 
+ifeq ($(SAGE_SUPPORT),y)
 ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
 PRODUCT_PACKAGES += \
     BcmBP3Config
+endif
 endif
 
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY),y),)
@@ -487,9 +520,9 @@ ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES            += liboemcrypto libwvdrmengine
 endif
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
-PRODUCT_PACKAGES            += libcmndrmprdy libplayreadydrmplugin_2_5 libplayreadypk_host
+PRODUCT_PACKAGES            += libcmndrmprdy libplayreadydrmplugin_2_5 libplayreadypk_host libprhidl_2_5
 ifneq ($(SAGE_VERSION),2x)
-PRODUCT_PACKAGES            += libplayreadydrmplugin_3_0 libplayready30pk
+PRODUCT_PACKAGES            += libplayreadydrmplugin_3_0 libplayready30pk libprhidl_3_0
 endif
 endif
 endif
@@ -501,6 +534,7 @@ endif
 
 ifneq ($(filter $(ANDROID_SUPPORTS_KEYMASTER),y),)
 PRODUCT_PACKAGES            += libkmtl
+PRODUCT_PACKAGES            += libmfgtl
 endif
 
 ifneq ($(TARGET_BUILD_PDK),true)
@@ -512,9 +546,11 @@ endif
 endif
 
 # temporary adding command line support for BP3.
+ifeq ($(SAGE_SUPPORT),y)
 ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
 PRODUCT_PACKAGES += libhost_bp3 bp3
 export BP3_PROVISIONING := y
+endif
 endif
 
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)

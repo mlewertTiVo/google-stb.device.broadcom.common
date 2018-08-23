@@ -10,5 +10,12 @@ nexus_hwservice(hal_bp3);
 allow hal_bp3 gpu_device:chr_file rw_file_perms;
 allow hal_bp3 hwcbinder_service:service_manager { find };
 allow hal_bp3 self:udp_socket create_socket_perms;
+allow hal_bp3 node:udp_socket node_bind;
+allow hal_bp3 port_type:udp_socket name_bind;
+allow hal_bp3 self:capability { net_admin net_raw };
+allow hal_bp3 self:netlink_socket create_socket_perms_no_ioctl;
+allow hal_bp3 self:netlink_generic_socket create_socket_perms_no_ioctl;
+allow hal_bp3 self:tcp_socket create_socket_perms;
+allow hal_bp3 port_type:tcp_socket name_connect;
 nexus_hwcfg(hal_bp3);
 

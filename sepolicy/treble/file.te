@@ -4,6 +4,7 @@ type nexus_data_file, file_type, core_data_file_type, data_file_type;
 type nexus_vendor_data_file, file_type, data_file_type;
 type nexus_debug_file, file_type, core_data_file_type, data_file_type;
 type nexus_vendor_debug_file, file_type, data_file_type;
+type nexus_vendor_mediacas_file, file_type, data_file_type;
 type nexus_log_file, file_type, data_file_type;
 type proc_irq, fs_type, proc_type;
 type nexus_secdma_file, file_type, data_file_type;
@@ -16,4 +17,9 @@ type nexus_ssd_file, file_type, data_file_type;
 type readonlyfs, fs_type;
 type nexus_sdbhak_file, file_type, data_file_type;
 type nexus_pak_file, file_type, vendor_file_type;
+type nexus_kmgk_file, file_type, vendor_file_type;
+type nexus_jwl_file, file_type, vendor_file_type;
+type nexus_thermal_file, file_type, vendor_file_type;
+type nexus_sopass_file, file_type, vendor_file_type;
+type nexus_idc_file, file_type, vendor_file_type;
 

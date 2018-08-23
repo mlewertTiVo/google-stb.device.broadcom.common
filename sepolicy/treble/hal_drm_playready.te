@@ -1,0 +1,15 @@
+type hal_drm_playready, domain;
+hal_server_domain(hal_drm_playready, hal_drm);
+type hal_drm_playready_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_drm_playready);
+vndbinder_use(hal_drm_playready);
+nexus_vendor_verified_client(hal_drm_playready);
+nexus_hwservice(hal_drm_playready);
+get_prop(hal_drm_playready, nexus_prop);
+allow hal_drm_playready gpu_device:chr_file rw_file_perms;
+allow hal_drm_playready hwcbinder_service:service_manager { find };
+binder_call(hal_drm_playready, hwcbinder);
+nexus_hwcfg(hal_drm_playready);
+allow hal_drm_playready vendor_data_file:dir create_dir_perms;
+allow hal_drm_playready vendor_data_file:file create_file_perms;
+allow hal_drm_playready hal_allocator:fd use;

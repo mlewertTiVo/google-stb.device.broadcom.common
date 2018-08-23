@@ -18,7 +18,7 @@ export TARGET_BOARD_PLATFORM                 := ${LOCAL_PRODUCT_OUT}
 # filter rules for build inclusions based on boards supported.  when adding a new
 # board to the system, you may want to add it here too.
 #
-export BCM_RBOARDS                           := avko% banff% cypress% dawson% elfin% fundy% grouse%
+export BCM_RBOARDS                           := avko% banff% cypress% dawson% elfin% fundy% grouse% hudson%
 export BCM_DBOARDS                           := b4% b5% b6% b7%
 export BCM_CBOARDS                           ?= fbx% c71kw%
 
@@ -35,6 +35,7 @@ else
 export GPERF_BCM                             := ${ANDROID}/device/broadcom/common/prebuilts/gperf
 endif
 export B_KNB_TOOLCHAIN                       := ${ANDROID}/prebuilts/gcc/linux-x86/arm/stb/stbgcc-6.3-1.3/bin
+export TZ_TOOLCHAIN                          := ${ANDROID}/prebuilts/gcc/linux-x86/tzos/gcc-aarch64-tzos-musl-5.3
 
 ifeq ($(LOCAL_ARM_AARCH64),y)
 ifeq ($(LOCAL_ARM_AARCH64_NOT_ABI_COMPATIBLE),y)
@@ -112,13 +113,17 @@ ifneq ($(LOCAL_NVI_LAYOUT),y)
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1602224128  # 1528M
 export LOCAL_DEVICE_VENDOR_LEGACY            ?= 234881024   # 224M
 ifeq ($(LOCAL_DEVICE_GPT_O_LAYOUT),y)
+ifeq ($(LOCAL_ARM_TRUSTZONE_USE),y)
+export LOCAL_DEVICE_SYSTEM_AB                ?= 1468006400  # 1400M
+else
 export LOCAL_DEVICE_SYSTEM_AB                ?= 1486880768  # 1418M
+endif
 export LOCAL_DEVICE_SYSTEM_XL                := y
 else
 export LOCAL_DEVICE_SYSTEM_AB                ?= 950009856   # 906M
 endif
 ifeq ($(LOCAL_ARM_TRUSTZONE_USE),y)
-export LOCAL_DEVICE_VENDOR_AB                ?= 99614720    # 95M
+export LOCAL_DEVICE_VENDOR_AB                ?= 89128960    # 85M
 else
 export LOCAL_DEVICE_VENDOR_AB                ?= 104857600   # 100M
 endif
@@ -199,35 +204,37 @@ export NEXUS_REGION_VERIFICATION_DUMP_FIRMWARE_RAW ?= n
 export ANDROID_SUPPORTS_WIDEVINE        ?= y
 export ANDROID_ENABLE_HDMI_HDCP         ?= y
 export ANDROID_SUPPORTS_PLAYREADY       ?= y
+export ANDROID_PLAYREADY_VERSION        ?= 2.5
 
 ifneq ($(ANDROID_SUPPORTS_PLAYREADY),n)
 ifneq ($(wildcard vendor/playready),)
-	export ANDROID_SUPPORTS_PLAYREADY    := y
+    export ANDROID_SUPPORTS_PLAYREADY    := y
 else
-	export ANDROID_SUPPORTS_PLAYREADY    := n
+    export ANDROID_SUPPORTS_PLAYREADY    := n
 endif
 endif
 export ANDROID_SUPPORTS_RPMB            ?= y
 export ANDROID_SUPPORTS_KEYMASTER       ?= y
 export ANDROID_DEVICE_SUPPORTS_BP3      ?= n
 
-ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY) $(ANDROID_ENABLE_HDMI_HDCP) $(ANDROID_SUPPORTS_RPMB) $(ANDROID_SUPPORTS_KEYMASTER),y),)
-	export SAGE_SUPPORT                  := y
-   export SAGE_BINARIES_AVAILABLE       := y
-	export NEXUS_SECURITY_SUPPORT        := y
-	export KEYLADDER_SUPPORT             := y
-	export NEXUS_COMMON_CRYPTO_SUPPORT   := y
-	export BMRC_ALLOW_XPT_TO_ACCESS_KERNEL := y
-	ifeq ($(ANDROID_ENABLE_HDMI_HDCP), y)
-		export NEXUS_HDCP_SUPPORT    := y
-	endif
-	ifeq ($(ANDROID_SUPPORTS_PLAYREADY), y)
-		export MSDRM_PRDY_SUPPORT     := y
-		export MSDRM_PRDY_SDK_VERSION := 2.5
-	endif
-	ifeq ($(SAGE_VERSION),2x)
-		export SAGE_SECURE_MODE ?= 5
-	endif
+ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY) $(ANDROID_ENABLE_HDMI_HDCP) \
+                $(ANDROID_SUPPORTS_RPMB) $(ANDROID_SUPPORTS_KEYMASTER) $(ANDROID_SUPPORTS_MEDIACAS),y),)
+    export SAGE_SUPPORT                  := y
+    export SAGE_BINARIES_AVAILABLE       := y
+    export NEXUS_SECURITY_SUPPORT        := y
+    export KEYLADDER_SUPPORT             := y
+    export NEXUS_COMMON_CRYPTO_SUPPORT   := y
+    export BMRC_ALLOW_XPT_TO_ACCESS_KERNEL := y
+    ifeq ($(ANDROID_ENABLE_HDMI_HDCP), y)
+        export NEXUS_HDCP_SUPPORT    := y
+    endif
+    ifeq ($(ANDROID_SUPPORTS_PLAYREADY), y)
+        export MSDRM_PRDY_SUPPORT     := y
+        export MSDRM_PRDY_SDK_VERSION := 2.5
+    endif
+    ifeq ($(SAGE_VERSION),2x)
+        export SAGE_SECURE_MODE ?= 5
+    endif
 endif
 
 ifeq ($(HW_TZ_SUPPORT),y)

@@ -45,6 +45,7 @@ on post-fs
    setprop dyn.nx.state none
    setprop ro.nx.nxserver.hdcp1x_keys /dev/hwcfg/drm_hdcp1x.bin
    setprop ro.nx.nxserver.hdcp2x_keys /dev/hwcfg/drm.bin
+   setprop ro.nx.nxserver.thermal /vendor/usr/thermal/default.cfg
 
    # properties translations to allow use beyond vendor_init.
    setprop ro.nx.sf.lcd_density ${ro.sf.lcd_density}
@@ -69,8 +70,10 @@ on post-fs-data
    mkdir /data/vendor/nexus/secdma 0777 system system
    mkdir /data/vendor/nexus/ssd 0777 system system
    mkdir /data/vendor/nexus/sdbhak 0777 system system
+   mkdir /data/vendor/nexus/kmgk 0777 system system
 
    mkdir /data/vendor/mediadrm/playready/ 0770 mediadrm mediadrm
+   mkdir /data/vendor/mediacas 0770 media media
 
    # *** sample only.
    #

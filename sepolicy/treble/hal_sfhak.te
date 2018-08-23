@@ -1,0 +1,6 @@
+type hal_sfhak, domain;
+type hal_sfhak_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_sfhak);
+add_hwservice(hal_sfhak, vnd_sfhak_hwservice);
+get_prop(hal_sfhak, hwservicemanager_prop);
+hwbinder_use(hal_sfhak);

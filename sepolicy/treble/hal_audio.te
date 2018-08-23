@@ -1,5 +1,3 @@
 nexus_vendor_verified_client(hal_audio_default);
-set_prop(hal_audio, nexus_prop);
-
-allow hal_audio gpu_device:chr_file rw_file_perms;
-
+get_prop(hal_audio_default, nexus_prop);
+allow hal_audio_default gpu_device:chr_file rw_file_perms;

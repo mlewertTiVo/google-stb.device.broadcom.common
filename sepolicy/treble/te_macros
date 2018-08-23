@@ -29,6 +29,11 @@ allow $1 nexus_vendor_debug_file:dir { search read write add_name remove_name };
 allow $1 nexus_vendor_debug_file:file { open create read write setattr getattr };
 ')
 
+define(`nexus_vendor_mediacas', `
+allow $1 nexus_vendor_mediacas_file:dir { search read write add_name remove_name };
+allow $1 nexus_vendor_mediacas_file:file { open create read write setattr getattr };
+')
+
 define(`nexus_firmware', `
 allow $1 nexus_fw_file:dir { search read write add_name remove_name };
 allow $1 nexus_fw_file:file { open create read write setattr getattr };
@@ -93,6 +98,11 @@ hwbinder_use($1);
 allow $1 vnd_sdbhak_hwservice:hwservice_manager find;
 ')
 
+define(`sfhak_hwservice', `
+hwbinder_use($1);
+allow $1 vnd_sfhak_hwservice:hwservice_manager find;
+')
+
 define(`nexus_sdbhak', `
 allow $1 nexus_sdbhak_file:file { open create read write setattr getattr unlink };
 allow $1 vendor_data_file:file { open read getattr };
@@ -112,4 +122,37 @@ allow $1 vnd_dpthak_hwservice:hwservice_manager find;
 define(`nexus_pak', `
 allow $1 nexus_pak_file:file { open read getattr };
 allow $1 nexus_pak_file:dir { search };
+')
+
+define(`nexus_kmgk', `
+allow $1 nexus_kmgk_file:file { open read getattr };
+allow $1 nexus_kmgk_file:dir { search };
+allow $1 vendor_data_file:file { open read getattr };
+')
+
+define(`nexus_jwl', `
+allow $1 nexus_jwl_file:file { open read getattr };
+allow $1 vendor_data_file:file { open read getattr };
+')
+
+define(`nexus_thermal_cfg', `
+allow $1 nexus_thermal_file:file { open read getattr };
+allow $1 vendor_data_file:file { open read getattr };
+')
+
+define(`nexus_thermal', `
+allow $1 sysfs_thermal:dir r_dir_perms;
+allow $1 sysfs_thermal:file rw_file_perms;
+allow $1 sysfs_thermal:lnk_file r_file_perms;
+allow $1 proc_stat:file r_file_perms;
+')
+
+define(`nexus_sopass', `
+allow $1 nexus_sopass_file:file { open read getattr };
+allow $1 vendor_data_file:file { open read getattr };
+')
+
+define(`nexus_idc', `
+allow $1 nexus_idc_file:file { open read getattr };
+allow $1 nexus_idc_file:dir { search };
 ')

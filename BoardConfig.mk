@@ -9,11 +9,6 @@ include device/broadcom/common/BoardConfig32.mk
 else
 # yeah!
 include device/broadcom/common/BoardConfig64.mk
-ifeq ($(LOCAL_ANDROID_64BIT),y)
-TARGET_PREFER_32_BIT_APPS   :=
-TARGET_SUPPORTS_32_BIT_APPS :=
-TARGET_SUPPORTS_64_BIT_APPS := true
-endif
 endif
 endif
 # legacy armv7 platforms.
@@ -30,7 +25,9 @@ BOARD_USES_GENERIC_AUDIO     := false
 USE_LEGACY_AUDIO_POLICY      := 0
 USE_CUSTOM_AUDIO_POLICY      := 0
 USE_XML_AUDIO_POLICY_CONF    := 1
+ifneq ($(LOCAL_ANDROID_64BIT_ONLY),y)
 BOARD_VNDK_VERSION           := current
+endif
 
 # Wifi related defines
 BOARD_WLAN_DEVICE                      := bcmdhd
@@ -192,3 +189,32 @@ DONT_UNCOMPRESS_PRIV_APPS_DEXS := true
 endif
 
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.bcmstb
+
+WIFI_HIDL_FEATURE_DISABLE_AP := true
+
+# hardware interface hal manifest.
+#
+MANIFEST_FILE_SET ?= n
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
+DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/treble.msd.xml
+else
+ifdef PRODUCT_SHIPPING_API_LEVEL
+ifeq ($(call math_lt,26,$(PRODUCT_SHIPPING_API_LEVEL)),)
+DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/treble.xml
+MANIFEST_FILE_SET    := y
+endif
+ifneq ($(MANIFEST_FILE_SET),y)
+ifeq ($(call math_lt,27,$(PRODUCT_SHIPPING_API_LEVEL)),)
+DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/treble.l2.xml
+MANIFEST_FILE_SET    := y
+endif
+endif
+ifneq ($(MANIFEST_FILE_SET),y)
+DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/treble.l3.xml
+endif
+endif
+endif
+else
+DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/legacy.xml
+endif

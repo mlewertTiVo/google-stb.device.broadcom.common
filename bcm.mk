@@ -14,9 +14,17 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.logger_size=4096 \
    ro.v3d.fence.expose=true \
    \
-   ro.nx.colordepth10b.force=1 \
-   \
+   ro.nx.colordepth10b.force=1
+#
+# ro.nx.pr.version defaults to 2.5
+#
+ifneq ($(ANDROID_PLAYREADY_VERSION),3.0)
+PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.pr.version=2.5
+else
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.pr.version=3.0
+endif
 #
 # proprietary properties not applicable always.
 #
@@ -39,6 +47,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.sf.disable_triple_buffer=0 \
    \
    ro.gfx.driver.0=gfxdriver-bcmstb \
+   \
+   ro.lmk.use_minfree_levels=true \
    \
    debug.hwui.renderer=opengl
 #
@@ -87,26 +97,15 @@ PRODUCT_COPY_FILES += \
 # whitelisting privapp permissions.
 #
 #PRODUCT_PROPERTY_OVERRIDES += \
-#   ro.control_privapp_permission=enforce
+#   ro.control_privapp_permissions=enforce
 
 PRODUCT_COPY_FILES += \
-   device/broadcom/common/permissions/privapp-permissions-bcm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-bcm.xml
+   device/broadcom/common/permissions/privapp-permissions-bcm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-bcm.xml \
+   device/broadcom/common/permissions/privapp-permissions-bcm-sys.xml:system/etc/permissions/privapp-permissions-bcm-sys.xml
 
 ifneq ($(TARGET_BUILD_PDK),true)
 PRODUCT_COPY_FILES += \
    frameworks/base/data/etc/privapp-permissions-platform.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/privapp-permissions-platform.xml
-endif
-
-# hardware interface hal manifest.
-#
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
-ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
-DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/treble.msd.xml
-else
-DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/treble.xml
-endif
-else
-DEVICE_MANIFEST_FILE := device/broadcom/common/manifest/legacy.xml
 endif
 
 # copy kernel image.
@@ -126,9 +125,13 @@ PRODUCT_PACKAGES += \
    $(LOCAL_PRODUCT_OUT)-vndk \
    vndk_package
 
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 # full treble support.
+ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
+ifeq ($(LOCAL_ANDROID_64BIT_ONLY),y)
+PRODUCT_FULL_TREBLE_OVERRIDE := false
+else
 PRODUCT_FULL_TREBLE_OVERRIDE := true
+endif
 endif
 
 ifneq ($(wildcard vendor/google/certs),)
@@ -137,3 +140,4 @@ else
 PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/broadcom/bcm_platform/signing/testkey
 endif
 
+include device/broadcom/common/vsp.mk
