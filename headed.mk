@@ -469,15 +469,8 @@ PRODUCT_PACKAGES += \
    android.hardware.audio@4.0-service-msd
 endif
 endif
-ifeq ($(LOCAL_DEVICE_HEALTH_2),y)
 PRODUCT_PACKAGES += \
-   android.hardware.health@2.0-impl \
-   android.hardware.health@2.0-service
-else
-PRODUCT_PACKAGES += \
-   android.hardware.health@1.0-impl \
-   android.hardware.health@1.0-service
-endif
+   android.hardware.health@2.0-service.bcm
 
 PRODUCT_PACKAGES += \
     audio.usb.default \

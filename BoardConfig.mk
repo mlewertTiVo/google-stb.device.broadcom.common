@@ -192,8 +192,6 @@ DONT_DEXPREOPT_PREBUILTS       := true
 DONT_UNCOMPRESS_PRIV_APPS_DEXS := true
 endif
 
-BOARD_HAL_STATIC_LIBRARIES := libhealthd.bcmstb
-
 WIFI_HIDL_FEATURE_DISABLE_AP := true
 
 # hardware interface hal manifest.
@@ -222,3 +220,7 @@ endif
 else
 DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/legacy.xml
 endif
+# health2 support.
+#
+DEVICE_FRAMEWORK_MANIFEST_FILE += system/libhidl/vintfdata/manifest_healthd_exclude.xml
+
