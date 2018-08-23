@@ -130,7 +130,12 @@ export LOCAL_DEVICE_VENDOR_AB                ?= 104857600   # 100M
 endif
 else
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1283457024  # 1224M
+ifeq ($(LOCAL_DEVICE_GPT_O_LAYOUT),y)
+export LOCAL_DEVICE_SYSTEM_AB                ?= 1486880768  # 1418M
+export LOCAL_DEVICE_SYSTEM_XL                := y
+else
 export LOCAL_DEVICE_SYSTEM_AB                ?= 1054867456  # 1006M
+endif
 endif
 export LOCAL_DEVICE_USERDATA_FS              ?= ext4
 export LOCAL_DEVICE_SYSTEM_VERITY_PARTITION  ?= /dev/block/by-name/system
