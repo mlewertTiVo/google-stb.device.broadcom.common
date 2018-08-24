@@ -169,6 +169,7 @@ ifneq ($(BCM_DIST_KNLIMG_BINS), y)
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nx_ashmem.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nx_ashmem.ko
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nexus.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nexus.ko
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/droid_pm.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/droid_pm.ko
+PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/ldvbon.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/ldvbon.ko
 ifeq ($(LOCAL_GATOR_SUPPORT), y)
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/gator.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/gator.ko
 endif
@@ -180,6 +181,7 @@ else
 PRODUCT_COPY_FILES       += ${BCM_BINDIST_KNL_ROOT}/nx_ashmem.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nx_ashmem.ko
 PRODUCT_COPY_FILES       += ${BCM_BINDIST_KNL_ROOT}/nexus.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nexus.ko
 PRODUCT_COPY_FILES       += ${BCM_BINDIST_KNL_ROOT}/droid_pm.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/droid_pm.ko
+PRODUCT_COPY_FILES       += ${BCM_BINDIST_KNL_ROOT}/ldvbon.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/ldvbon.ko
 endif
 
 ifeq ($(SAGE_SUPPORT),y)

@@ -195,6 +195,8 @@ bindist_core_build: build_kernel build_dtboimg $(NEXUS_DEPS)
 	PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) $(NEXUS_ARCH_KERN_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/fbdev INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
 	cp -faR $(BRCMSTB_ANDROID_DRIVER_PATH)/nx_ashmem ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/ && \
 	PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) $(NEXUS_ARCH_KERN_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/nx_ashmem NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
+	cp -faR $(BRCMSTB_ANDROID_DRIVER_PATH)/ldvbon ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/ && \
+	PATH=${B_KNB_TOOLCHAIN}:$$PATH $(MAKE) $(NEXUS_ARCH_KERN_ENV) ARCH=${P_REFSW_DRV_ARCH} -C ${B_REFSW_OBJ_ROOT_1ST_ARCH}/k_drivers/ldvbon NEXUS_MODE=driver INSTALL_DIR=$(NEXUS_BIN_DIR_1ST_ARCH) install
 	@echo "'$@' completed"
 
 .PHONY: nexus_build
