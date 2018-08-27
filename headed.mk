@@ -108,6 +108,7 @@ PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/r_submix_a
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml
+PRODUCT_COPY_FILES       += frameworks/av/media/libeffects/data/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml
 ifneq ($(filter usb uart,$(ANDROID_ENABLE_BT)),)
 PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy_btusb.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy.conf
 ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
