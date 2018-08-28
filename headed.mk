@@ -79,7 +79,11 @@ PRODUCT_COPY_FILES       += device/broadcom/common/media/media_codecs_frag_dolby
 else
 PRODUCT_COPY_FILES       += device/broadcom/common/media/media_codecs_frag_empty.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby.xml
 endif
+ifeq ($(LOCAL_DEVICE_MEDIA_NO_HW_AUDIO),y)
+PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml
+else
 PRODUCT_COPY_FILES       += device/broadcom/common/media/media_codecs_google_audio_no_aac.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml
+endif
 PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
 PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_tv.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_tv.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.ethernet.xml
