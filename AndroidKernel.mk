@@ -75,6 +75,9 @@ KERNEL_IMG := zImage
 endif
 KERNEL_2ND_IMG := zImage
 
+# producing a dummy device tree for compliance.
+DTB_BINARY := brcmstb-dummy.dtb
+
 .PHONY: build_kernel
 .PHONY: build_kernel_2nd_arch
 AUTOCONF_1ST_ARCH := $(LINUX_OUT_1ST_ARCH)/include/generated/autoconf.h
@@ -104,6 +107,7 @@ build_kernel:
 	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm64/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment
 	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) dtbs
 	-@if [ -f $(AUTOCONF_1ST_ARCH)_refsw ]; then \
 		if [ `diff -q $(AUTOCONF_1ST_ARCH)_refsw $(AUTOCONF_1ST_ARCH) | wc -l` -eq 0 ]; then \
 			echo "'generated/autoconf.h' is unchanged"; \
@@ -112,6 +116,7 @@ build_kernel:
 		rm -f $(AUTOCONF_1ST_ARCH)_refsw; \
 	fi
 	cp -pv $(LINUX_OUT_1ST_ARCH)/arch/arm64/boot/$(KERNEL_IMG) $(KERNEL_OUT_DIR_ABS)/kernel
+	cp -pv $(LINUX_OUT_1ST_ARCH)/arch/arm64/boot/dts/broadcom/$(DTB_BINARY) $(KERNEL_OUT_DIR_ABS)/bcm.dtb
 	@echo "'$@' completed"
 
 build_kernel_2nd_arch:
@@ -146,6 +151,7 @@ build_kernel:
 	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment
 	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) dtbs
 	-@if [ -f $(AUTOCONF_1ST_ARCH)_refsw ]; then \
 		if [ `diff -q $(AUTOCONF_1ST_ARCH)_refsw $(AUTOCONF_1ST_ARCH) | wc -l` -eq 0 ]; then \
 			echo "'generated/autoconf.h' is unchanged"; \
@@ -154,6 +160,7 @@ build_kernel:
 		rm -f $(AUTOCONF_1ST_ARCH)_refsw; \
 	fi
 	cp -pv $(LINUX_OUT_1ST_ARCH)/arch/arm/boot/$(KERNEL_IMG) $(KERNEL_OUT_DIR_ABS)/kernel
+	cp -pv $(LINUX_OUT_1ST_ARCH)/arch/arm/boot/dts/$(DTB_BINARY) $(KERNEL_OUT_DIR_ABS)/bcm.dtb
 	@echo "'$@' completed"
 
 build_kernel_2nd_arch:
@@ -184,6 +191,7 @@ build_kernel:
 	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm64/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment;
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment;
 	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) dtbs
 	-@if [ -f $(AUTOCONF_1ST_ARCH)_refsw ]; then \
 		if [ `diff -q $(AUTOCONF_1ST_ARCH)_refsw $(AUTOCONF_1ST_ARCH) | wc -l` -eq 0 ]; then \
 			echo "'generated/autoconf.h' is unchanged"; \
@@ -192,6 +200,7 @@ build_kernel:
 		rm -f $(AUTOCONF_1ST_ARCH)_refsw; \
 	fi
 	cp -pv $(LINUX_OUT_1ST_ARCH)/arch/arm64/boot/$(KERNEL_IMG) $(KERNEL_OUT_DIR_ABS)/kernel
+	cp -pv $(LINUX_OUT_1ST_ARCH)/arch/arm64/boot/dts/broadcom/$(DTB_BINARY) $(KERNEL_OUT_DIR_ABS)/bcm.dtb
 	@echo "'$@' completed"
 
 build_kernel_2nd_arch:
@@ -237,6 +246,7 @@ build_kernel:
 	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH ARCH=$(P_REFSW_DRV_ARCH) scripts/kconfig/merge_config.sh -O $(LINUX_OUT_1ST_ARCH) arch/arm/configs/brcmstb_defconfig $(LINUX_OUT_1ST_ARCH)/config_fragment
 	rm -f $(LINUX_OUT_1ST_ARCH)/config_fragment
 	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) $(KERNEL_IMG)
+	cd $(LINUX) && PATH=${B_KNB_TOOLCHAIN}:$$PATH KBUILD_OUTPUT=$(LINUX_OUT_1ST_ARCH) ARCH=$(P_REFSW_DRV_ARCH) $(MAKE) dtbs
 	-@if [ -f $(AUTOCONF_1ST_ARCH)_refsw ]; then \
 		if [ `diff -q $(AUTOCONF_1ST_ARCH)_refsw $(AUTOCONF_1ST_ARCH) | wc -l` -eq 0 ]; then \
 			echo "'generated/autoconf.h' is unchanged"; \
@@ -245,6 +255,7 @@ build_kernel:
 		rm -f $(AUTOCONF_1ST_ARCH)_refsw; \
 	fi
 	cp -pv $(LINUX_OUT_1ST_ARCH)/arch/arm/boot/$(KERNEL_IMG) $(KERNEL_OUT_DIR_ABS)/kernel
+	cp -pv $(LINUX_OUT_1ST_ARCH)/arch/arm/boot/dts/$(DTB_BINARY) $(KERNEL_OUT_DIR_ABS)/bcm.dtb
 	@echo "'$@' completed"
 
 build_kernel_2nd_arch:
@@ -253,6 +264,9 @@ build_kernel_2nd_arch:
 endif
 
 $(KERNEL_OUT_DIR)/kernel: build_kernel
+	@echo "'build_kernel' target: $@"
+
+$(KERNEL_OUT_DIR)/bcm.dtb: build_kernel
 	@echo "'build_kernel' target: $@"
 
 .PHONY: clean_drivers

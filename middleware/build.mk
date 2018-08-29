@@ -179,7 +179,7 @@ bindist_build: bindist_core_build
 	@echo "'$@' completed"
 
 .PHONY: bindist_core_build
-bindist_core_build: build_kernel $(NEXUS_DEPS)
+bindist_core_build: build_kernel build_dtboimg $(NEXUS_DEPS)
 	@echo "'$@' started"
 	$(call setup_nexus_toolchains,1st_arch)
 	@if [ ! -d "${NEXUS_BIN_DIR_1ST_ARCH}" ]; then \
@@ -500,6 +500,15 @@ nexus_ndk_2nd_arch:
 	@echo "'$@' completed"
 else
 nexus_ndk_2nd_arch:
+	@echo "'$@' no-op"
+endif
+
+.PHONY: build_dtboimg
+ifeq ($(LOCAL_DTBO_SUPPORT),y)
+build_dtboimg: mkdtimg $(PRODUCT_OUT)/bcm.dtb
+	out/host/$(HOST_OS)-$(HOST_PREBUILT_ARCH)/bin/mkdtimg create $(PRODUCT_OUT)/dtbo.img $(PRODUCT_OUT)/bcm.dtb;
+else
+build_dtboimg:
 	@echo "'$@' no-op"
 endif
 
