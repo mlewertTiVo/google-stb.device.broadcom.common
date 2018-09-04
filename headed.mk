@@ -97,8 +97,6 @@ PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.vulkan.l
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.vulkan.version-1_0_3.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_0_3.xml
 endif
 PRODUCT_COPY_FILES       += device/broadcom/common/permissions/atv-bcm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/atv-bcm.xml
-PRODUCT_COPY_FILES       += device/broadcom/common/permissions/nrdp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/nrdp.xml
-PRODUCT_COPY_FILES       += device/broadcom/common/sysconfig/netflix.xml:system/etc/sysconfig/netflix.xml
 PRODUCT_COPY_FILES       += device/broadcom/common/jwl:$(TARGET_COPY_OUT_VENDOR)/usr/jwl
 ifneq ($(HW_THERMAL_CONFIG_SUPPORT),n)
 PRODUCT_COPY_FILES       += device/broadcom/common/thermal/thermal.default.cfg:$(TARGET_COPY_OUT_VENDOR)/usr/thermal/default.cfg
@@ -561,6 +559,16 @@ ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
 PRODUCT_PACKAGES += libhost_bp3 bp3
 export BP3_PROVISIONING := y
 endif
+endif
+
+# Netflix support
+ifneq (${LOCAL_DEVICE_NRDP_MODEL_GROUP},)
+LOCAL_DEVICE_NRDP_VALIDATION ?= ninja_6
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.vendor.nrdp.modelgroup=${LOCAL_DEVICE_NRDP_MODEL_GROUP} \
+   ro.vendor.nrdp.validation=${LOCAL_DEVICE_NRDP_VALIDATION}
+PRODUCT_COPY_FILES += device/broadcom/common/permissions/nrdp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/nrdp.xml
+PRODUCT_COPY_FILES += device/broadcom/common/sysconfig/netflix.xml:system/etc/sysconfig/netflix.xml
 endif
 
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
