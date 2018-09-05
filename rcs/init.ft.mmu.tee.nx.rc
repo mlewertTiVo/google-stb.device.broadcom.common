@@ -1,7 +1,7 @@
 on post-fs
    # install middleware drivers in order of dependencies
    #
-   #     droid_pm.ko -> nexus.ko -> nx_ashmem.ko
+   #     tee.ko -> droid_pm.ko -> nexus.ko -> nx_ashmem.ko
    #
    # optional additional module parameters can be passed to nexus.ko
    # insmod'ing command line.
@@ -21,7 +21,11 @@ on post-fs
    # in doubt, or if unsure, you may specify the same value for 1 and 2.
    #
 
-   # 
+   #
+   # tee driver.
+   #
+   insmod /vendor/lib/modules/tee.ko
+   #
    # droid_pm: gpl compliant power management bits used by nexus+android.
    #
    insmod /vendor/lib/modules/droid_pm.ko devname="mali0"
@@ -38,7 +42,7 @@ on post-fs
    start nxserver
    start nxssd
    #
-   # nx_ashmem: memory management, requires nexus. 
+   # nx_ashmem: memory management, requires nexus.
    #
    # *** warning: an explicit wait for property is placed here to avoid race
    #              between this action and the enabling of the property trigger
@@ -46,4 +50,4 @@ on post-fs
    #              core middleware as soon as possible.
    #
    wait_for_prop dyn.nx.state memcfg
-   insmod /vendor/lib/modules/nx_ashmem.ko devname="nxmem" heap_grow="8m"
+   insmod /vendor/lib/modules/nx_ashmem.ko devname="nxmem" heap_grow="2m"

@@ -156,3 +156,13 @@ define(`nexus_idc', `
 allow $1 nexus_idc_file:file { open read getattr };
 allow $1 nexus_idc_file:dir { search };
 ')
+
+define(`nexus_tee', `
+allow $1 nexus_tee_file:file { open read getattr };
+allow $1 nexus_tee_file:dir { search };
+')
+
+define(`nexus_kl', `
+allow $1 nexus_kl_file:file { open read getattr };
+allow $1 nexus_kl_file:dir { search };
+')

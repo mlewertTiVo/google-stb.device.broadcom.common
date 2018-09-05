@@ -72,7 +72,13 @@ PRODUCT_AAPT_PREF_CONFIG ?= xhdpi
 TARGET_CPU_SMP           := true
 
 PRODUCT_COPY_FILES       += device/broadcom/common/bootanimation.zip:system/media/bootanimation.zip
-PRODUCT_COPY_FILES       += device/broadcom/common/keylayout/nexus_silver_remote.kl:system/usr/keylayout/NexusIrHandler.kl
+PRODUCT_COPY_FILES       += device/broadcom/common/keylayout/nexus_silver_remote.kl:vendor/usr/keylayout/NexusIrHandler.kl
+PRODUCT_COPY_FILES       += device/broadcom/common/keylayout/Smart_Remote_S.kl:vendor/usr/keylayout/Smart_Remote_S.kl
+ifeq ($(LOCAL_DOLBY_SUPPORT),y)
+PRODUCT_COPY_FILES       += device/broadcom/common/media/media_codecs_frag_dolby.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby.xml
+else
+PRODUCT_COPY_FILES       += device/broadcom/common/media/media_codecs_frag_empty.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby.xml
+endif
 PRODUCT_COPY_FILES       += device/broadcom/common/media/media_codecs_google_audio_no_aac.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml
 PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
 PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_tv.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_tv.xml
@@ -90,7 +96,9 @@ PRODUCT_COPY_FILES       += device/broadcom/common/permissions/atv-bcm.xml:$(TAR
 PRODUCT_COPY_FILES       += device/broadcom/common/permissions/nrdp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/nrdp.xml
 PRODUCT_COPY_FILES       += device/broadcom/common/sysconfig/netflix.xml:system/etc/sysconfig/netflix.xml
 PRODUCT_COPY_FILES       += device/broadcom/common/jwl:$(TARGET_COPY_OUT_VENDOR)/usr/jwl
+ifneq ($(HW_THERMAL_CONFIG_SUPPORT),n)
 PRODUCT_COPY_FILES       += device/broadcom/common/thermal/thermal.default.cfg:$(TARGET_COPY_OUT_VENDOR)/usr/thermal/default.cfg
+endif
 PRODUCT_COPY_FILES       += device/broadcom/common/idc/Smart_Remote_S.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Smart_Remote_S.idc
 PRODUCT_COPY_FILES       += device/broadcom/common/idc/virtual-remote.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/virtual-remote.idc
 PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_black.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/broadcom_black.ikm
@@ -156,6 +164,10 @@ PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nexus.ko:$(TARGET_COPY_OUT
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/droid_pm.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/droid_pm.ko
 ifeq ($(LOCAL_GATOR_SUPPORT), y)
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/gator.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/gator.ko
+endif
+ifeq ($(LOCAL_ARM_TRUSTZONE_USE), y)
+PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/bcm_astra.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/tee.ko
+PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/swxpt.elf:$(TARGET_COPY_OUT_VENDOR)/usr/tee/swxpt.elf
 endif
 else
 PRODUCT_COPY_FILES       += ${BCM_BINDIST_KNL_ROOT}/nx_ashmem.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nx_ashmem.ko
@@ -345,7 +357,8 @@ PRODUCT_PACKAGES += \
     gptbin \
     makehwcfg \
     nxdispfmt \
-    nxserver
+    nxserver \
+    teebin
 
 ifeq ($(LOCAL_GATOR_SUPPORT), y)
 PRODUCT_PACKAGES += \
@@ -401,7 +414,6 @@ PRODUCT_PACKAGES += \
    android.hardware.thermal@1.0-service \
    android.hardware.tv.input@1.0-impl \
    android.hardware.tv.cec@1.0-impl \
-   android.hardware.usb@1.0-service \
    android.hardware.wifi@1.0-bcm
 
 ifneq ($(HW_AB_UPDATE_SUPPORT),n)

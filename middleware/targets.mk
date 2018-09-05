@@ -24,6 +24,10 @@ REFSW_TARGET_LIST := \
 	/${NEXUS_NXC_BIN_DIR_1ST_ARCH}/libnxclient_static.a \
 	/${NEXUS_BIN_DIR_1ST_ARCH}/libnxserver.a \
 	/${NEXUS_BIN_DIR_1ST_ARCH}/libnxserver_vendor.a
+ifeq ($(LOCAL_ARM_TRUSTZONE_USE), y)
+REFSW_TARGET_LIST += \
+	/${NEXUS_BIN_DIR_1ST_ARCH}/swxpt.elf
+endif
 endif
 
 ifeq ($(BCM_DIST_KNLIMG_BINS), y)
@@ -41,6 +45,11 @@ REFSW_TARGET_LIST += \
 ifeq ($(LOCAL_GATOR_SUPPORT), y)
 REFSW_TARGET_LIST += \
 	${NEXUS_BIN_DIR_1ST_ARCH}/gator.ko
+endif
+ifeq ($(LOCAL_ARM_TRUSTZONE_USE), y)
+REFSW_TARGET_LIST += \
+	${NEXUS_BIN_DIR_1ST_ARCH}/bcm_astra.ko \
+	${ASTRA_BIN_DIR}/astra64.bin
 endif
 endif
 

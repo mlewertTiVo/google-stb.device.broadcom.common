@@ -37,6 +37,8 @@
 /(vendor|system/vendor)/usr/thermal(/.*)? u:object_r:nexus_thermal_file:s0
 /(vendor|system/vendor)/usr/sopass u:object_r:nexus_sopass_file:s0
 /(vendor|system/vendor)/usr/idc(/.*)? u:object_r:nexus_idc_file:s0
+/(vendor|system/vendor)/usr/tee(/.*)? u:object_r:nexus_tee_file:s0
+/(vendor|system/vendor)/usr/keylayout(/.*)? u:object_r:nexus_kl_file:s0
 
 /eio(/.*)?                u:object_r:system_file:s0
 /dev/hwcfg(/.*)?          u:object_r:system_file:s0

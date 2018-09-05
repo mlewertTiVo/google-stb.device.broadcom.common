@@ -150,7 +150,11 @@ else
 BOARD_SEPOLICY_M4DEFS += target_nxsysprop=true
 endif
 
+ifeq ($(LOCAL_DEVICE_LOWRAM),y)
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 2
+else
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+endif
 
 TARGET_BOARD_KERNEL_HEADERS := device/broadcom/common/kernel-headers
 
