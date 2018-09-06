@@ -30,7 +30,7 @@ on post-fs
    #
    # nexus: middleware core, requires droid_pm.
    #
-   setprop ro.nx.msg_modules ""
+   #setprop ro.nx.msg_modules ""
    insmod /vendor/lib/modules/nexus.ko devname="mali" config="auto_subindex=true"
    #
    # start up nxserver and nxssd services.
