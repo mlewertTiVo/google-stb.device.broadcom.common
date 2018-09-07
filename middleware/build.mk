@@ -509,7 +509,7 @@ endif
 .PHONY: build_dtboimg
 ifeq ($(LOCAL_DTBO_SUPPORT),y)
 build_dtboimg: mkdtimg $(PRODUCT_OUT)/bcm.dtb
-	out/host/$(HOST_OS)-$(HOST_PREBUILT_ARCH)/bin/mkdtimg create $(PRODUCT_OUT)/dtbo.img $(PRODUCT_OUT)/bcm.dtb;
+	$(ANDROID_OUT_DIR)/host/$(HOST_OS)-$(HOST_PREBUILT_ARCH)/bin/mkdtimg create $(PRODUCT_OUT)/dtbo.img $(PRODUCT_OUT)/bcm.dtb;
 else
 build_dtboimg:
 	@echo "'$@' no-op"
