@@ -478,7 +478,7 @@ clean_bl31:
 endif
 
 .PHONY: nexus_ndk
-nexus_ndk:
+nexus_ndk: bindist_core_build
 	$(call setup_nexus_toolchains,1st_arch)
 	@echo "'$@' started"
 	@if [ ! -d "${NEXUS_BIN_DIR_1ST_ARCH}" ]; then \
