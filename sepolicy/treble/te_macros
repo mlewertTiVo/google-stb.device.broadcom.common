@@ -61,17 +61,22 @@ allow $1 nexus_ssd_file:file { open create read write setattr getattr unlink };
 allow $1 nexus_ssd_file:dir { search setattr write add_name remove_name };
 ')
 
-define(`not_bp3', ifelse(target_bp3, `false', $1, ))
-define(`bp3', ifelse(target_bp3, `true', $1, ))
+define(`hwcfg_vfat', ifelse(target_hwcfg_type, `vfat', $1, ))
+define(`hwcfg_cramfs', ifelse(target_hwcfg_type, `cramfs', $1, ))
+define(`hwcfg_ext4', ifelse(target_hwcfg_type, `ext4', $1, ))
 
 define(`nexus_hwcfg', `
-bp3(`
+hwcfg_vfat(`
 allow $1 vfat:file rw_file_perms;
 allow $1 vfat:dir { r_dir_perms search };
 ')
-not_bp3(`
+hwcfg_cramfs(`
 allow $1 readonlyfs:file r_file_perms;
 allow $1 readonlyfs:dir { r_dir_perms search };
+')
+hwcfg_ext4(`
+allow $1 unlabeled:file r_file_perms;
+allow $1 unlabeled:dir { r_dir_perms search };
 ')
 ')
 
