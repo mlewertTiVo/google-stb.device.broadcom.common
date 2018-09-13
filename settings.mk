@@ -149,6 +149,8 @@ export LOCAL_DEVICE_USE_AVB                  ?= n
 export LOCAL_DEVICE_PROPERTIES_LEGACY        ?= y
 export LOCAL_DEVICE_LOWRAM                   ?= n
 export LOCAL_DEVICE_MEDIA_NO_HW_AUDIO        ?= n
+export LOCAL_DEVICE_KMCERT_DEFAULT_DEV       ?= device/broadcom/common/kmgk/km.zd.bcm.generic.bin
+export LOCAL_DEVICE_KMCERT_DEFAULT_PROD      ?= device/broadcom/common/kmgk/km.zb.cus.generic.bin
 
 export HW_ENCODER_SUPPORT                    ?= y
 export HW_WIFI_NIC_SUPPORT                   ?= n
