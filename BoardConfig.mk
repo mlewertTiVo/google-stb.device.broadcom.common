@@ -68,7 +68,12 @@ BOARD_VENDORIMAGE_PARTITION_SIZE   := $(LOCAL_DEVICE_VENDOR_LEGACY)
 endif
 endif
 else
+ifeq ($(LOCAL_DTBO_SUPPORT),y)
+BOARD_CACHEIMAGE_PARTITION_SIZE    := 6291456    # 6M
+BOARD_DTBOIMG_PARTITION_SIZE       := 2097152    # 2M
+else
 BOARD_CACHEIMAGE_PARTITION_SIZE    := 10485760   # 10M
+endif
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE  := ext4
 BOARD_SYSTEMIMAGE_PARTITION_SIZE   := $(LOCAL_DEVICE_SYSTEM_AB)
 ifneq ($(LOCAL_NVI_LAYOUT),y)
@@ -100,10 +105,12 @@ BOARD_ROOT_EXTRA_SYMLINKS :=
 
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)
 AB_OTA_UPDATER    := true
-ifneq ($(LOCAL_NVI_LAYOUT),y)
-AB_OTA_PARTITIONS := boot system vendor
-else
 AB_OTA_PARTITIONS := boot system
+ifneq ($(LOCAL_NVI_LAYOUT),y)
+AB_OTA_PARTITIONS += vendor
+endif
+ifeq ($(LOCAL_DTBO_SUPPORT),y)
+AB_OTA_PARTITIONS += dtbo
 endif
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 BOARD_USES_RECOVERY_AS_BOOT   := true
@@ -116,6 +123,9 @@ $(error please define a valid kernel boot configuration)
 endif
 BOARD_KERNEL_CMDLINE := $(LOCAL_DEVICE_KERNEL_CMDLINE)
 BOARD_KERNEL_CMDLINE += cgroup.memory=nokmem
+ifeq ($(LOCAL_DTBO_SUPPORT),y)
+BOARD_KERNEL_CMDLINE += androidboot.dtbo_idx=0
+endif
 BOARD_MKBOOTIMG_ARGS := $(LOCAL_DEVICE_MKBOOTIMG_ARGS)
 
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)
@@ -173,6 +183,12 @@ endif
 
 include device/broadcom/common/middleware/build.mk
 
+ifeq ($(LOCAL_DTBO_SUPPORT),y)
+BOARD_PREBUILT_DTBOIMAGE := $(ANDROID_OUT_DIR)/target/product/$(LOCAL_DEVICE_DTBO_IMAGE)
+BOARD_PACK_RADIOIMAGES   += $(ANDROID_OUT_DIR)/target/product/$(LOCAL_DEVICE_DTBO_IMAGE)
+BOARD_INCLUDE_RECOVERY_DTBO := true
+endif
+
 MALLOC_SVELTE := true
 
 ifeq ($(LOCAL_DEVICE_USE_AVB),y)
@@ -191,8 +207,6 @@ else
 DONT_DEXPREOPT_PREBUILTS       := true
 DONT_UNCOMPRESS_PRIV_APPS_DEXS := true
 endif
-
-BOARD_HAL_STATIC_LIBRARIES := libhealthd.bcmstb
 
 WIFI_HIDL_FEATURE_DISABLE_AP := true
 
@@ -222,3 +236,6 @@ endif
 else
 DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/legacy.xml
 endif
+# health2 support.
+#
+DEVICE_FRAMEWORK_MANIFEST_FILE += system/libhidl/vintfdata/manifest_healthd_exclude.xml

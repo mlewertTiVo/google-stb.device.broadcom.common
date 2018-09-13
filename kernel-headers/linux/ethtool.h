@@ -683,6 +683,7 @@ enum ethtool_link_mode_bit_indices {
 #define RXH_L4_B_2_3 (1 << 7)
 #define RXH_DISCARD (1 << 31)
 #define RX_CLS_FLOW_DISC 0xffffffffffffffffULL
+#define RX_CLS_FLOW_WAKE 0xfffffffffffffffeULL
 #define RX_CLS_LOC_SPECIAL 0x80000000
 #define RX_CLS_LOC_ANY 0xffffffff
 #define RX_CLS_LOC_FIRST 0xfffffffe

@@ -148,6 +148,7 @@ export LOCAL_DEVICE_MKBOOTIMG_ARGS           ?= --ramdisk_offset 0x02200000
 export LOCAL_DEVICE_USE_AVB                  ?= n
 export LOCAL_DEVICE_PROPERTIES_LEGACY        ?= y
 export LOCAL_DEVICE_LOWRAM                   ?= n
+export LOCAL_DEVICE_MEDIA_NO_HW_AUDIO        ?= n
 
 export HW_ENCODER_SUPPORT                    ?= y
 export HW_WIFI_NIC_SUPPORT                   ?= n
@@ -169,6 +170,9 @@ export LOCAL_DEVICE_MSD_SUPPORT              ?= n
 export LOCAL_DEVICE_PAK_BINARY               ?=
 export LOCAL_DEVICE_PAK_BINARY_ALT           ?=
 export HW_THERMAL_CONFIG_SUPPORT             ?= y
+export LOCAL_DTBO_SUPPORT                    ?= n
+export LOCAL_DEVICE_DTBO_IMAGE               ?=
+export HW_CAMERA_SUPPORT                     ?= y
 
 export BCM_GPT_CONFIG_FILE                   := $(LOCAL_DEVICE_GPT)
 export ANDROID_BUILD                         := y

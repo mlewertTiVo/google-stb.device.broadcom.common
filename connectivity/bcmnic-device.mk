@@ -1,9 +1,9 @@
 # This makefile copies the prebuilt wifi driver moduel and corresponding firmware and configuration files
 BRCM_NIC_DRIVER_TARGETS := \
-	${B_NIC_OBJ_ROOT}/nvram.txt
+	${B_NIC_OBJ_ROOT_REL}/nvram.txt
 
 PRODUCT_COPY_FILES += \
-   ${B_NIC_OBJ_ROOT}/nvram.txt:$(TARGET_COPY_OUT_VENDOR)/broadcom/nvrams/nvram.txt
+   ${B_NIC_OBJ_ROOT_REL}/nvram.txt:$(TARGET_COPY_OUT_VENDOR)/broadcom/nvrams/nvram.txt
 
 COPY_2_VENDOR  ?= y
 ifneq ($(HW_AB_UPDATE_SUPPORT),y)
@@ -21,8 +21,8 @@ endif
 
 ifneq ($(BCM_DIST_KNLIMG_BINS),y)
 PRODUCT_COPY_FILES += \
-   ${B_NIC_OBJ_ROOT}/driver/wl.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/wl.ko \
-   ${B_NIC_OBJ_ROOT}/driver/wlplat.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/wlplat.ko
+   ${B_NIC_OBJ_ROOT_REL}/driver/wl.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/wl.ko \
+   ${B_NIC_OBJ_ROOT_REL}/driver/wlplat.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/wlplat.ko
 else
 PRODUCT_COPY_FILES += \
    ${BCM_BINDIST_KNL_ROOT}/wl.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/wl.ko \

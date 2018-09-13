@@ -1,11 +1,11 @@
 # This makefile copies the prebuilt wifi driver moduel and corresponding firmware and configuration files
 BRCM_DHD_DRIVER_TARGETS := \
-	${B_DHD_OBJ_ROOT}/fw.bin.trx \
-	${B_DHD_OBJ_ROOT}/nvm.txt
+	${B_DHD_OBJ_ROOT_REL}/fw.bin.trx \
+	${B_DHD_OBJ_ROOT_REL}/nvm.txt
 
 PRODUCT_COPY_FILES += \
-   ${B_DHD_OBJ_ROOT}/fw.bin.trx:$(TARGET_COPY_OUT_VENDOR)/firmware/broadcom/dhd/firmware/fw.bin.trx \
-   ${B_DHD_OBJ_ROOT}/nvm.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/broadcom/dhd/nvrams/nvm.txt
+   ${B_DHD_OBJ_ROOT_REL}/fw.bin.trx:$(TARGET_COPY_OUT_VENDOR)/firmware/broadcom/dhd/firmware/fw.bin.trx \
+   ${B_DHD_OBJ_ROOT_REL}/nvm.txt:$(TARGET_COPY_OUT_VENDOR)/firmware/broadcom/dhd/nvrams/nvm.txt
 
 COPY_2_VENDOR  ?= y
 ifneq ($(HW_AB_UPDATE_SUPPORT),y)
@@ -23,7 +23,7 @@ endif
 
 ifneq ($(BCM_DIST_KNLIMG_BINS),y)
 PRODUCT_COPY_FILES += \
-   ${B_DHD_OBJ_ROOT}/driver/bcmdhd.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/bcmdhd.ko
+   ${B_DHD_OBJ_ROOT_REL}/driver/bcmdhd.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/bcmdhd.ko
 else
 PRODUCT_COPY_FILES += \
    ${BCM_BINDIST_KNL_ROOT}/bcmdhd.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/bcmdhd.ko

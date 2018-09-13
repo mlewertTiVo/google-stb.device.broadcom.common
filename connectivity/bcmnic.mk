@@ -14,18 +14,15 @@ BRCM_NIC_NVRAM_NAME ?= bcm97271sv.txt
 BRCM_NIC_TARGET_NAME ?= apdef-stadef-extnvm-p2p-mchan-tdls-mfp-wowl-cfg80211-android-slvradar-stbsoc
 
 BRCM_NIC_SPLIT_DRIVERS := \
-	${B_NIC_OBJ_ROOT}/driver/wl.ko \
-	${B_NIC_OBJ_ROOT}/driver/wlplat.ko
-
-${B_NIC_OBJ_ROOT}:
-	mkdir -p ${B_NIC_OBJ_ROOT}
+	${B_NIC_OBJ_ROOT_REL}/driver/wl.ko \
+	${B_NIC_OBJ_ROOT_REL}/driver/wlplat.ko
 
 ifneq ($(BCM_DIST_KNLIMG_BINS),y)
-$(BRCM_NIC_SPLIT_DRIVERS) : bindist_build ${B_NIC_OBJ_ROOT}
+$(BRCM_NIC_SPLIT_DRIVERS) : bindist_build
 	@echo "wl-nic.ko build done..."
 endif
 
-${B_NIC_OBJ_ROOT}/nvram.txt: ${BRCM_NIC_NVRAM_DIR}/${BRCM_NIC_NVRAM_NAME} ${B_NIC_OBJ_ROOT}
+${B_NIC_OBJ_ROOT_REL}/nvram.txt: ${BRCM_NIC_NVRAM_DIR}/${BRCM_NIC_NVRAM_NAME}
 	cp -p $< $@
 
 .PHONY: brcm_nic_driver
@@ -34,7 +31,7 @@ brcm_nic_driver: ${BRCM_NIC_DRIVER_TARGETS}
 
 .PHONY: clean_brcm_nic_driver
 clean_brcm_nic_driver:
-	@if [ -d "${B_NIC_OBJ_ROOT}" ]; then \
-		rm -rf ${B_NIC_OBJ_ROOT}; \
+	@if [ -d "${B_NIC_OBJ_ROOT_REL}" ]; then \
+		rm -rf ${B_NIC_OBJ_ROOT_REL}; \
 	fi
 

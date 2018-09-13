@@ -104,6 +104,14 @@ on property:dev.bootcomplete=1
 on property:sys.boot_completed=1
    setprop ro.nx.boot_completed 1
 
+# track screen off state on shutdown
+on property:persist.vendor.nx.keep.screen.state=1 && property:sys.shutdown.requested=0userrequested
+   setprop persist.nx.screen.on 0
+
+# track screen on state for wake from shutdown
+on property:persist.vendor.nx.keep.screen.state=1 && property:ro.boot.bootreason=s3_wakeup
+   setprop persist.nx.screen.on 1
+
 on property:sys.shutdown.requested=*
    write /sys/devices/platform/droid_pm/notify ${sys.shutdown.requested}
 

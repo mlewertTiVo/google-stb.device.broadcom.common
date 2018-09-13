@@ -79,7 +79,11 @@ PRODUCT_COPY_FILES       += device/broadcom/common/media/media_codecs_frag_dolby
 else
 PRODUCT_COPY_FILES       += device/broadcom/common/media/media_codecs_frag_empty.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby.xml
 endif
+ifeq ($(LOCAL_DEVICE_MEDIA_NO_HW_AUDIO),y)
+PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml
+else
 PRODUCT_COPY_FILES       += device/broadcom/common/media/media_codecs_google_audio_no_aac.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml
+endif
 PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
 PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_tv.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_tv.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.ethernet.xml
@@ -92,9 +96,11 @@ ifeq ($(HW_GPU_VULKAN_SUPPORT),y)
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.vulkan.level-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-0.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.vulkan.version-1_0_3.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_0_3.xml
 endif
+ifeq ($(HW_CAMERA_SUPPORT),y)
+PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.camera.external.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.external.xml
+PRODUCT_COPY_FILES       += device/broadcom/common/media/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
+endif
 PRODUCT_COPY_FILES       += device/broadcom/common/permissions/atv-bcm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/atv-bcm.xml
-PRODUCT_COPY_FILES       += device/broadcom/common/permissions/nrdp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/nrdp.xml
-PRODUCT_COPY_FILES       += device/broadcom/common/sysconfig/netflix.xml:system/etc/sysconfig/netflix.xml
 PRODUCT_COPY_FILES       += device/broadcom/common/jwl:$(TARGET_COPY_OUT_VENDOR)/usr/jwl
 ifneq ($(HW_THERMAL_CONFIG_SUPPORT),n)
 PRODUCT_COPY_FILES       += device/broadcom/common/thermal/thermal.default.cfg:$(TARGET_COPY_OUT_VENDOR)/usr/thermal/default.cfg
@@ -108,6 +114,7 @@ PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/r_submix_a
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/default_volume_tables.xml:$(TARGET_COPY_OUT_VENDOR)/etc/default_volume_tables.xml
+PRODUCT_COPY_FILES       += frameworks/av/media/libeffects/data/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml
 ifneq ($(filter usb uart,$(ANDROID_ENABLE_BT)),)
 PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy_btusb.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy.conf
 ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
@@ -330,7 +337,6 @@ ifeq ($(wildcard ${GMS_PACKAGE_ROOT}/google/Android.mk),)
 PRODUCT_PACKAGES += \
    Browser \
    Calculator \
-   Camera2 \
    Contacts \
    Clock \
    DeskClock \
@@ -469,15 +475,8 @@ PRODUCT_PACKAGES += \
    android.hardware.audio@4.0-service-msd
 endif
 endif
-ifeq ($(LOCAL_DEVICE_HEALTH_2),y)
 PRODUCT_PACKAGES += \
-   android.hardware.health@2.0-impl \
-   android.hardware.health@2.0-service
-else
-PRODUCT_PACKAGES += \
-   android.hardware.health@1.0-impl \
-   android.hardware.health@1.0-service
-endif
+   android.hardware.health@2.0-service.bcm
 
 PRODUCT_PACKAGES += \
     audio.usb.default \
@@ -496,6 +495,13 @@ PRODUCT_PACKAGES += \
     send_cec \
     topv3d \
     TvProvider
+
+ifeq ($(HW_CAMERA_SUPPORT),y)
+PRODUCT_PACKAGES += \
+   Camera2 \
+   android.hardware.camera.provider@2.4-impl \
+   android.hardware.camera.provider@2.4-external-service
+endif
 
 ifeq ($(HW_GPU_VULKAN_SUPPORT),y)
 PRODUCT_PACKAGES += \
@@ -563,6 +569,16 @@ ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
 PRODUCT_PACKAGES += libhost_bp3 bp3
 export BP3_PROVISIONING := y
 endif
+endif
+
+# Netflix support
+ifneq (${LOCAL_DEVICE_NRDP_MODEL_GROUP},)
+LOCAL_DEVICE_NRDP_VALIDATION ?= ninja_6
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.vendor.nrdp.modelgroup=${LOCAL_DEVICE_NRDP_MODEL_GROUP} \
+   ro.vendor.nrdp.validation=${LOCAL_DEVICE_NRDP_VALIDATION}
+PRODUCT_COPY_FILES += device/broadcom/common/permissions/nrdp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/nrdp.xml
+PRODUCT_COPY_FILES += device/broadcom/common/sysconfig/netflix.xml:system/etc/sysconfig/netflix.xml
 endif
 
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)

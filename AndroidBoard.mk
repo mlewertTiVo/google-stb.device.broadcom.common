@@ -6,6 +6,6 @@ include $(LOCAL_PATH)/AndroidPhony.mk
 include $(CLEAR_VARS)
 include $(BUILD_KEY_CHAR_MAP)
 
-$(call add-radio-file, bootloader.img)
-$(call add-radio-file, gpt.bin)
+INSTALLED_RADIOIMAGE_TARGET += $(PRODUCT_OUT)/bootloader.img
+INSTALLED_RADIOIMAGE_TARGET += $(PRODUCT_OUT)/gpt.bin
 

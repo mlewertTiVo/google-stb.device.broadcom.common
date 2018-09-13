@@ -128,27 +128,16 @@ endif
 endif
 endif
 
-define copy-recovery-extra-files
-   @mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/oem/bin
-   @mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/oem/lib
-   @mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/sbin
-   @cp -f $(NXMINI) $(TARGET_RECOVERY_ROOT_OUT)/sbin/
-   @cp -f $(EXTRA_SYSTEM_LIB_FILES) $(TARGET_RECOVERY_ROOT_OUT)/oem/lib/
-   @if [ "$(EXTRA_SYSTEM_BIN_FILES)" != "" ]; then \
-      cp -f $(EXTRA_SYSTEM_BIN_FILES) $(TARGET_RECOVERY_ROOT_OUT)/oem/bin/; \
-   fi
-endef
-
-.PHONY: recovery_extra
-recovery_extra: $(NXMINI) \
-		$(EXTRA_SYSTEM_LIB_FILES) \
-		$(EXTRA_SYSTEM_BIN_FILES)
-	$(hide) $(call copy-recovery-extra-files)
+recovery_extra := $(call copy-many-files, \
+  $(NXMINI):$(TARGET_RECOVERY_ROOT_OUT)/sbin/$(notdir $(NXMINI)) \
+  $(foreach f,$(EXTRA_SYSTEM_LIB_FILES),$(f):$(TARGET_RECOVERY_ROOT_OUT)/oem/lib/$(notdir $(f))) \
+  $(foreach f,$(EXTRA_SYSTEM_BIN_FILES),$(f):$(TARGET_RECOVERY_ROOT_OUT)/oem/bin/$(notdir $(f))) \
+)
 
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)
-out/target/product/$(TARGET_DEVICE)/boot.img : recovery_extra
+$(PRODUCT_OUT)/boot.img : $(recovery_extra)
 else
-out/target/product/$(TARGET_DEVICE)/recovery.img : recovery_extra
+$(PRODUCT_OUT)/recovery.img : $(recovery_extra)
 endif
 
 endif

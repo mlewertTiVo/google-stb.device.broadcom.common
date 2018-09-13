@@ -8,3 +8,6 @@ ifneq ($(BCM_DIST_BLIMG_BINS),y)
 gpt.bin: makegpt
 endif
 
+.PHONY: dtbo.img
+dtbo.img: dtboimg
+

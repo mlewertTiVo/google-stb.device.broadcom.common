@@ -179,7 +179,7 @@ bindist_build: bindist_core_build
 	@echo "'$@' completed"
 
 .PHONY: bindist_core_build
-bindist_core_build: build_kernel $(NEXUS_DEPS)
+bindist_core_build: build_kernel build_dtboimg $(NEXUS_DEPS)
 	@echo "'$@' started"
 	$(call setup_nexus_toolchains,1st_arch)
 	@if [ ! -d "${NEXUS_BIN_DIR_1ST_ARCH}" ]; then \
@@ -408,21 +408,24 @@ else
 clean_bootloaderimg:
 	@echo "'$@' no-op using bins"
 
+.PHONY: build_bootloaderimg
 build_bootloaderimg:
-	@echo "'$@' started"
-	@if [ "${LOCAL_DEVICE_SAGE_DEV_N_PROD}" == "y" ]; then \
-		if [ -e "${BCM_BINDIST_BL_ROOT}/bootloader.dev.img" ]; then \
-			cp ${BCM_BINDIST_BL_ROOT}/bootloader.dev.img $(PRODUCT_OUT_FROM_TOP); \
-		fi; \
-		if [ -e "${BCM_BINDIST_BL_ROOT}/bootloader.prod.img" ]; then \
-			cp ${BCM_BINDIST_BL_ROOT}/bootloader.prod.img $(PRODUCT_OUT_FROM_TOP); \
-		fi; \
-	else \
-		if [ -e "${BCM_BINDIST_BL_ROOT}/bootloader.img" ]; then \
-			cp ${BCM_BINDIST_BL_ROOT}/bootloader.img $(PRODUCT_OUT_FROM_TOP); \
-		fi; \
-	fi
-	@echo "'$@' completed"
+
+# This would be much simpler with copy-many-files, but this file is loaded too early for some reason.
+define copy-bootloader
+ifneq ($(wildcard $(BCM_BINDIST_BL_ROOT)/$(1)),)
+build_bootloaderimg: $(PRODUCT_OUT)/$(1)
+$(PRODUCT_OUT)/$(1): $(BCM_BINDIST_BL_ROOT)/$(1)
+	cp $$< $$@
+endif
+endef
+
+ifeq ($(LOCAL_DEVICE_SAGE_DEV_N_PROD),y)
+$(eval $(call copy-bootloader,bootloader.dev.img))
+$(eval $(call copy-bootloader,bootloader.prod.img))
+else
+$(eval $(call copy-bootloader,bootloader.img))
+endif
 endif
 
 .PHONY: build_lk
@@ -475,7 +478,7 @@ clean_bl31:
 endif
 
 .PHONY: nexus_ndk
-nexus_ndk:
+nexus_ndk: bindist_core_build
 	$(call setup_nexus_toolchains,1st_arch)
 	@echo "'$@' started"
 	@if [ ! -d "${NEXUS_BIN_DIR_1ST_ARCH}" ]; then \
@@ -503,6 +506,15 @@ nexus_ndk_2nd_arch:
 	@echo "'$@' no-op"
 endif
 
+.PHONY: build_dtboimg
+ifeq ($(LOCAL_DTBO_SUPPORT),y)
+build_dtboimg: mkdtimg $(PRODUCT_OUT)/bcm.dtb
+	$(ANDROID_OUT_DIR)/host/$(HOST_OS)-$(HOST_PREBUILT_ARCH)/bin/mkdtimg create $(PRODUCT_OUT)/dtbo.img $(PRODUCT_OUT)/bcm.dtb;
+else
+build_dtboimg:
+	@echo "'$@' no-op"
+endif
+
 # standalone rules to clean/build the security libs from source, this assumes you have
 # an environment allowing you to do that, otherwise do not bother.
 #
@@ -512,6 +524,7 @@ endif
 # note: the order of the build components is important.
 #
 
+.PHONY: clean_recovery_ramdisk
 clean_recovery_ramdisk :
 	@echo "'$@' started"
 	rm -rf ${BRCMSTB_ANDROID_OUT_PATH}/target/product/${LOCAL_PRODUCT_OUT}/root/system/*
@@ -527,12 +540,14 @@ export _NTROOT=${PLAYREADY_ROOT}
 export PRDY_TOP := $(REFSW_BASE_DIR)/prsrcs
 export PLAYREADY_HOST_BUILD := y
 
+.PHONY: clean_security_user
 clean_security_user :
 	$(MAKE) -C $(REFSW_BASE_DIR)/prsrcs/2.5/source clean
 	$(MAKE) -C $(REFSW_BASE_DIR)/prsrcs/3.0/source clean
 
 # build all the needed libs, then check them into the source tree as 'prebuilts'.
 #
+.PHONY: security_user
 security_user:
 	$(call setup_nexus_toolchains,1st_arch)
 	@echo "'$@' started"
@@ -542,6 +557,7 @@ security_user:
 	$(MAKE) $(NEXUS_ARCH_ENV) -C $(REFSW_BASE_DIR)/prsrcs/3.0/source/linux/libraries all
 	@echo "'$@' completed"
 
+.PHONY: security_user_2nd_arch
 ifeq ($(TARGET_2ND_ARCH),arm)
 security_user_2nd_arch:
 	$(call setup_nexus_toolchains,2nd_arch)

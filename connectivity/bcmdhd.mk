@@ -40,19 +40,16 @@ BRCM_DHD_FW_NAME    ?= ag-p2p-apsta-idsup-af-idauth.bin.trx
 BRCM_DHD_NVRAM_NAME ?= fake43236usb_p532.nvm
 endif
 
-${B_DHD_OBJ_ROOT}:
-	mkdir -p ${B_DHD_OBJ_ROOT}
-
 ifneq ($(BCM_DIST_KNLIMG_BINS),y)
-${B_DHD_OBJ_ROOT}/driver/bcmdhd.ko: bindist_build ${B_DHD_OBJ_ROOT}
+${B_DHD_OBJ_ROOT_REL}/driver/bcmdhd.ko: bindist_build
 	@echo "bcmdhd.ko build done..."
 
 endif
 
-${B_DHD_OBJ_ROOT}/fw.bin.trx: ${BROADCOM_DHD_SOURCE_PATH}/firmware/${BROADCOM_WIFI_CHIPSET}-roml/${BRCM_DHD_FW_NAME} ${B_DHD_OBJ_ROOT}
+${B_DHD_OBJ_ROOT_REL}/fw.bin.trx: ${BROADCOM_DHD_SOURCE_PATH}/firmware/${BROADCOM_WIFI_CHIPSET}-roml/${BRCM_DHD_FW_NAME}
 	cp -p $< $@
 
-${B_DHD_OBJ_ROOT}/nvm.txt: ${BRCM_DHD_NVRAM_DIR}/${BRCM_DHD_NVRAM_NAME} ${B_DHD_OBJ_ROOT}
+${B_DHD_OBJ_ROOT_REL}/nvm.txt: ${BRCM_DHD_NVRAM_DIR}/${BRCM_DHD_NVRAM_NAME}
 	cp -p $< $@
 
 .PHONY: brcm_dhd_driver
@@ -61,7 +58,7 @@ brcm_dhd_driver: ${BRCM_DHD_DRIVER_TARGETS}
 
 .PHONY: clean_brcm_dhd_driver
 clean_brcm_dhd_driver:
-	@if [ -d "${B_DHD_OBJ_ROOT}" ]; then \
-		rm -rf ${B_DHD_OBJ_ROOT}; \
+	@if [ -d "${B_DHD_OBJ_ROOT_REL}" ]; then \
+		rm -rf ${B_DHD_OBJ_ROOT_REL}; \
 	fi
 
