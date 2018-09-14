@@ -50,7 +50,7 @@
             </devicePorts>
             <routes>
                 <route type="mix" sink="Speaker"
-                       sources="primary output,tunnel"/>
+                       sources="primary output"/>
                 <route type="mix" sink="Out Aux Digital"
                        sources="primary output,direct,tunnel"/>
                 <route type="mix" sink="tv-remote input"

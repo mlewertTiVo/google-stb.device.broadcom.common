@@ -184,8 +184,8 @@ endif
 
 ifeq ($(SAGE_SUPPORT),y)
 ifeq ($(ANDROID_SUPPORTS_KEYMASTER),y)
-PRODUCT_COPY_FILES   += device/broadcom/common/kmgk/km.zd.bcm.generic.bin:$(TARGET_COPY_OUT_VENDOR)/usr/kmgk/km.zd.bin
-PRODUCT_COPY_FILES   += device/broadcom/common/kmgk/km.zb.cus.generic.bin:$(TARGET_COPY_OUT_VENDOR)/usr/kmgk/km.zb.bin
+PRODUCT_COPY_FILES   += $(LOCAL_DEVICE_KMCERT_DEFAULT_DEV):$(TARGET_COPY_OUT_VENDOR)/usr/kmgk/km.zd.bin
+PRODUCT_COPY_FILES   += $(LOCAL_DEVICE_KMCERT_DEFAULT_PROD):$(TARGET_COPY_OUT_VENDOR)/usr/kmgk/km.zb.bin
 endif
 ifeq ($(SAGE_VERSION),2x)
 SAGE_BINARY_EXT      ?= _dev

@@ -184,8 +184,13 @@ endif
 include device/broadcom/common/middleware/build.mk
 
 ifeq ($(LOCAL_DTBO_SUPPORT),y)
+ifeq ($(BCM_DIST_KNLIMG_BINS),y)
+BOARD_PREBUILT_DTBOIMAGE := device/broadcom/$(LOCAL_DEVICE_DTBO_IMAGE)
+BOARD_PACK_RADIOIMAGES   += dtbo.img
+else
 BOARD_PREBUILT_DTBOIMAGE := $(ANDROID_OUT_DIR)/target/product/$(LOCAL_DEVICE_DTBO_IMAGE)
 BOARD_PACK_RADIOIMAGES   += $(ANDROID_OUT_DIR)/target/product/$(LOCAL_DEVICE_DTBO_IMAGE)
+endif
 BOARD_INCLUDE_RECOVERY_DTBO := true
 endif
 
