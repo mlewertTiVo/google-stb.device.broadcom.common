@@ -140,16 +140,26 @@ endif
 TARGET_RECOVERY_UI_LIB         := librecovery_ui_ext
 TARGET_RECOVERY_PIXEL_FORMAT   := "RGBX_8888"
 
+ifeq ($(ANDROID_DEVICE_SUPPORTS_BP3),y)
+ifeq ($(LOCAL_DEVICE_HWCFG_TYPE),cramfs)
+# automatically switch to vfat if bp3 and no override.
+LOCAL_DEVICE_HWCFG_TYPE := vfat
+endif
+endif
 ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 BOARD_SEPOLICY_DIRS += device/broadcom/common/sepolicy/treble
 else
 BOARD_SEPOLICY_DIRS += device/broadcom/common/sepolicy/legacy
 endif
 BOARD_SEPOLICY_DIRS += $(LOCAL_DEVICE_SEPOLICY_BLOCK)
-ifeq ($(ANDROID_DEVICE_SUPPORTS_BP3),y)
-BOARD_SEPOLICY_M4DEFS += target_bp3=true
-else
-BOARD_SEPOLICY_M4DEFS += target_bp3=false
+ifeq ($(LOCAL_DEVICE_HWCFG_TYPE),vfat)
+BOARD_SEPOLICY_M4DEFS += target_hwcfg_type=vfat
+endif
+ifeq ($(LOCAL_DEVICE_HWCFG_TYPE),cramfs)
+BOARD_SEPOLICY_M4DEFS += target_hwcfg_type=cramfs
+endif
+ifeq ($(LOCAL_DEVICE_HWCFG_TYPE),ext4)
+BOARD_SEPOLICY_M4DEFS += target_hwcfg_type=ext4
 endif
 ifdef PRODUCT_SHIPPING_API_LEVEL
 ifeq ($(call math_lt,27,$(PRODUCT_SHIPPING_API_LEVEL)),)

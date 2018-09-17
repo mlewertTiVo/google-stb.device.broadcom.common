@@ -26,7 +26,7 @@ allow init rootfs:system module_load;
 allow init debugfs_dri:{ dir file lnk_file } relabelto;
 
 nexus_hwcfg(init);
-bp3(`
+hwcfg_vfat(`
 allow init vfat:dir mounton;
 ')
 
