@@ -35,6 +35,7 @@ on post-fs
    #
    # start up nxserver and nxssd services.
    #
+   load_persist_props
    start nxserver
    start nxssd
    #

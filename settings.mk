@@ -20,7 +20,7 @@ export TARGET_BOARD_PLATFORM                 := ${LOCAL_PRODUCT_OUT}
 #
 export BCM_RBOARDS                           := avko% banff% cypress% dawson% elfin% fundy% grouse% hudson%
 export BCM_DBOARDS                           := b4% b5% b6% b7%
-export BCM_CBOARDS                           ?= fbx% c71kw%
+export BCM_CBOARDS                           ?= fbx% c71kw% sapphire% pearl%
 
 export BCM_VENDOR_STB_ROOT                   := vendor/broadcom
 
