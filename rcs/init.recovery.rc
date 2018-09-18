@@ -4,9 +4,9 @@ import /init.recovery.usb.rc
 on early-init
    export LD_LIBRARY_PATH /oem/lib
    export SAGEBIN_PATH /oem/bin
-   export NEXUS_DEVICE_NODE /dev/mali
+   export NEXUS_DEVICE_NODE /dev/nxmw
    setprop sys.recov.nx.state none
-   insmod /oem/lib/nexus.ko devname="mali" config="auto_subindex=true"
+   insmod /oem/lib/nexus.ko devname="nxmw" config="auto_subindex=true"
 
 on init
    start nxmini

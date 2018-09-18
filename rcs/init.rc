@@ -17,8 +17,8 @@ on init
    symlink /sdcard /mnt/sdcard
    symlink /sdcard /storage/sdcard0
 
-   export NEXUS_DEVICE_NODE /dev/mali
-   export NEXUS_WAKE_DEVICE_NODE /dev/mali0
+   export NEXUS_DEVICE_NODE /dev/nxmw
+   export NEXUS_WAKE_DEVICE_NODE /dev/nxwk
 
    export NXCLIENT_PASSWORD /data/vendor/misc/nexus/nx_key:/data/misc/nexus/nx_key
 
