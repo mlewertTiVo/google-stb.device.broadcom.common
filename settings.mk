@@ -108,6 +108,7 @@ export BROADCOM_WIFI_CHIPSET                 ?= 43570a2
 export LOCAL_NVI_LAYOUT                      ?= n
 export LOCAL_DEVICE_GPT_O_LAYOUT             ?= n
 export LOCAL_ARM_TRUSTZONE_USE               ?= n
+export LOCAL_DEVICE_USERDATA                 ?= 4441767936  # 4GB+140MB.
 export LOCAL_DEVICE_BOOT                     ?= 33554432    # 32M
 export LOCAL_DEVICE_RECOVERY_LEGACY          ?= 33554432    # 32M
 ifneq ($(LOCAL_NVI_LAYOUT),y)
@@ -115,23 +116,23 @@ export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1602224128  # 1528M
 export LOCAL_DEVICE_VENDOR_LEGACY            ?= 234881024   # 224M
 ifeq ($(LOCAL_DEVICE_GPT_O_LAYOUT),y)
 ifeq ($(LOCAL_ARM_TRUSTZONE_USE),y)
-export LOCAL_DEVICE_SYSTEM_AB                ?= 1468006400  # 1400M
+export LOCAL_DEVICE_SYSTEM_AB                ?= 1394606080  # 1330M
 else
-export LOCAL_DEVICE_SYSTEM_AB                ?= 1486880768  # 1418M
+ifeq ($(LOCAL_DTBO_SUPPORT),y)
+export LOCAL_DEVICE_SYSTEM_AB                ?= 1434451968  # 1368M
+else
+export LOCAL_DEVICE_SYSTEM_AB                ?= 1436549120  # 1370M
+endif
 endif
 export LOCAL_DEVICE_SYSTEM_XL                := y
 else
 export LOCAL_DEVICE_SYSTEM_AB                ?= 950009856   # 906M
 endif
-ifeq ($(LOCAL_ARM_TRUSTZONE_USE),y)
-export LOCAL_DEVICE_VENDOR_AB                ?= 89128960    # 85M
-else
-export LOCAL_DEVICE_VENDOR_AB                ?= 104857600   # 100M
-endif
+export LOCAL_DEVICE_VENDOR_AB                ?= 83886080    # 80M
 else
 export LOCAL_DEVICE_SYSTEM_LEGACY            ?= 1283457024  # 1224M
 ifeq ($(LOCAL_DEVICE_GPT_O_LAYOUT),y)
-export LOCAL_DEVICE_SYSTEM_AB                ?= 1486880768  # 1418M
+export LOCAL_DEVICE_SYSTEM_AB                ?= 1436549120  # 1370M
 export LOCAL_DEVICE_SYSTEM_XL                := y
 else
 export LOCAL_DEVICE_SYSTEM_AB                ?= 1054867456  # 1006M
