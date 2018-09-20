@@ -520,11 +520,6 @@ PRODUCT_PACKAGES += \
     libbcmtuner \
     libbcmsideband \
     libbcmsidebandviewer_jni
-endif
-
-PRODUCT_PACKAGES += \
-    BcmCustomizer \
-    BcmPlayAutoInstallConfig
 
 ifeq ($(SAGE_SUPPORT),y)
 ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
@@ -532,6 +527,11 @@ PRODUCT_PACKAGES += \
     BcmBP3Config
 endif
 endif
+endif
+
+PRODUCT_PACKAGES += \
+    BcmCustomizer \
+    BcmPlayAutoInstallConfig
 
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY),y),)
 PRODUCT_PROPERTY_OVERRIDES  += drm.service.enabled=true
