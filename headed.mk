@@ -579,7 +579,7 @@ endif
 
 # Netflix support
 ifneq (${LOCAL_DEVICE_NRDP_MODEL_GROUP},)
-LOCAL_DEVICE_NRDP_VALIDATION ?= ninja_6
+LOCAL_DEVICE_NRDP_VALIDATION ?= ninja_5.1
 PRODUCT_PROPERTY_OVERRIDES += \
    ro.vendor.nrdp.modelgroup=${LOCAL_DEVICE_NRDP_MODEL_GROUP} \
    ro.vendor.nrdp.validation=${LOCAL_DEVICE_NRDP_VALIDATION}
