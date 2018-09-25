@@ -25,8 +25,10 @@ BOARD_USES_GENERIC_AUDIO     := false
 USE_LEGACY_AUDIO_POLICY      := 0
 USE_CUSTOM_AUDIO_POLICY      := 0
 USE_XML_AUDIO_POLICY_CONF    := 1
+ifneq ($(LOCAL_NVI_LAYOUT),y)
 ifneq ($(LOCAL_ANDROID_64BIT_ONLY),y)
 BOARD_VNDK_VERSION           := current
+endif
 endif
 
 # Wifi related defines

@@ -1,4 +1,5 @@
 ifneq ($(filter $(BCM_RBOARDS) $(BCM_DBOARDS) $(BCM_CBOARDS),$(TARGET_DEVICE)),)
+ifneq ($(LOCAL_NVI_LAYOUT),y)
 
 ifndef BOARD_VNDK_VERSION
 ifneq ($(LOCAL_ANDROID_64BIT_ONLY),y)
@@ -126,3 +127,5 @@ LOCAL_REQUIRED_MODULES := \
 include $(BUILD_PHONY_PACKAGE)
 
 endif
+endif
+
