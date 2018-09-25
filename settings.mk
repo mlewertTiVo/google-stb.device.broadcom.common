@@ -198,6 +198,7 @@ export NEXUS_LOGGER_LOCATION                 := ${ANDROID}/${BCM_VENDOR_STB_ROOT
 export NEXUS_PLATFORM_7241_WIFI              := n
 export NEXUS_REPLACE_BOILERPLATE             := y
 export NEXUS_SHARED_LIB                      := y
+export NEXUS_PICTURE_DECODER_SUPPORT         := n
 export PVR_SUPPORT                           := y
 export SHAREABLE                             := y
 export SHELL
