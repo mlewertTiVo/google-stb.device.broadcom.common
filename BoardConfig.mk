@@ -191,6 +191,9 @@ ifneq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 SF_START_GRAPHICS_ALLOCATOR_SERVICE := true
 endif
 
+ifeq ($(LOCAL_DEVICE_LOWRAM),y)
+include device/broadcom/common/middleware/afw_mini.mk
+endif
 include device/broadcom/common/middleware/build.mk
 
 ifeq ($(LOCAL_DTBO_SUPPORT),y)
