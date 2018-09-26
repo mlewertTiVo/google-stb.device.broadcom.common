@@ -1,5 +1,0 @@
-nexus_verified_client_ignored(bluetooth);
-set_prop(bluetooth, nexus_prop);
-
-allow bluetooth nxserver:binder call;
-allow bluetooth nexus_service:service_manager find;

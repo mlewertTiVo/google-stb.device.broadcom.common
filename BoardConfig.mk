@@ -146,11 +146,7 @@ ifeq ($(LOCAL_DEVICE_HWCFG_TYPE),cramfs)
 LOCAL_DEVICE_HWCFG_TYPE := vfat
 endif
 endif
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 BOARD_SEPOLICY_DIRS += device/broadcom/common/sepolicy/treble
-else
-BOARD_SEPOLICY_DIRS += device/broadcom/common/sepolicy/legacy
-endif
 BOARD_SEPOLICY_DIRS += $(LOCAL_DEVICE_SEPOLICY_BLOCK)
 ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
 BOARD_SEPOLICY_DIRS += vendor/dolby/device/common/sepolicy
@@ -186,13 +182,8 @@ ifneq ($(LOCAL_NVI_LAYOUT),y)
 TARGET_COPY_OUT_VENDOR := vendor
 endif
 
-ifeq ($(HAL_HWC_VERSION),v-2.0)
 TARGET_USES_HWC2         := true
-endif
-
-ifneq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 SF_START_GRAPHICS_ALLOCATOR_SERVICE := true
-endif
 
 ifeq ($(LOCAL_DEVICE_LOWRAM),y)
 include device/broadcom/common/middleware/afw_mini.mk
@@ -234,7 +225,6 @@ WIFI_HIDL_FEATURE_DISABLE_AP := true
 # hardware interface hal manifest.
 #
 MANIFEST_FILE_SET ?= n
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
 DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/treble.msd.xml
 else
@@ -254,9 +244,7 @@ DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/treble.l3.xml
 endif
 endif
 endif
-else
-DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/legacy.xml
-endif
+
 # health2 support.
 #
 DEVICE_FRAMEWORK_MANIFEST_FILE += system/libhidl/vintfdata/manifest_healthd_exclude.xml

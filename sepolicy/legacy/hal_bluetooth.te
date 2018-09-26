@@ -1,3 +1,0 @@
-allow hal_bluetooth proc_bluetooth_writable:dir search;
-allow hal_bluetooth sysfs:file write;
-allow hal_bluetooth bluetooth_control:chr_file { rw_file_perms };

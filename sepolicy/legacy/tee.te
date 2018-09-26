@@ -1,8 +1,0 @@
-nexus_verified_client(tee);
-set_prop(tee, nexus_prop);
-allow tee gpu_device:chr_file rw_file_perms;
-allow tee block_device:dir search;
-nexus_ssd(tee);
-allow tee rpmb_block_device:blk_file rw_file_perms;
-allow tee self:capability sys_rawio;
-allow tee gpu_device:chr_file rw_file_perms;

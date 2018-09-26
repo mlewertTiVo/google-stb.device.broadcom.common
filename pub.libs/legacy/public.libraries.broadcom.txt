@@ -1,6 +1,0 @@
-libnexus.so
-libnxclient.so
-libnxwrap.so
-libnxevtsrc.so
-libnxbinder.so
-

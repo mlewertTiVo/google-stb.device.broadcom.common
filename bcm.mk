@@ -129,13 +129,10 @@ PRODUCT_PACKAGES += \
    $(LOCAL_PRODUCT_OUT)-vndk \
    vndk_package
 
-# full treble support.
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 ifeq ($(LOCAL_ANDROID_64BIT_ONLY),y)
 PRODUCT_FULL_TREBLE_OVERRIDE := false
 else
 PRODUCT_FULL_TREBLE_OVERRIDE := true
-endif
 endif
 
 ifneq ($(wildcard vendor/google/certs),)

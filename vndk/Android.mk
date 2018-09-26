@@ -4,7 +4,6 @@ ifneq ($(LOCAL_NVI_LAYOUT),y)
 ifndef BOARD_VNDK_VERSION
 ifneq ($(LOCAL_ANDROID_64BIT_ONLY),y)
 
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 VNDK_SP_LIBRARIES := \
     android.hardware.graphics.allocator@2.0 \
     android.hardware.graphics.mapper@2.0 \
@@ -37,22 +36,6 @@ VNDK_SP_LIBRARIES += \
     libRSCpuRef \
     libRSDriver \
     libRS_internal
-endif
-else
-VNDK_SP_LIBRARIES := \
-    android.hardware.graphics.common@1.0 \
-    android.hardware.graphics.mapper@2.0 \
-    libbacktrace \
-    libbase \
-    libc++ \
-    libcutils \
-    libhardware \
-    libhidlbase \
-    libhidltransport \
-    libhwbinder \
-    liblzma \
-    libunwind \
-    libutils
 endif
 
 VNDK_SP_EXT_LIBRARIES := \
