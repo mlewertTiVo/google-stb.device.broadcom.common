@@ -478,7 +478,8 @@ endif
 endif
 ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
 PRODUCT_PACKAGES += \
-   android.hardware.audio@4.0-service-msd
+   android.hardware.audio@4.0-service-msd \
+   dolby.audio.ms12@1.0.so
 endif
 endif
 PRODUCT_PACKAGES += \
@@ -592,6 +593,7 @@ PRODUCT_COPY_FILES += device/broadcom/common/pub.libs/treble/public.libraries.br
 ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
 PRODUCT_COPY_FILES += vendor/dolby/msd/android.hardware.audio@4.0-service-msd.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.audio@4.0-service-msd.rc
 PRODUCT_COPY_FILES += vendor/dolby/msdPrebuilt/android.hardware.audio@4.0-service-msd:$(TARGET_COPY_OUT_VENDOR)/bin/hw/android.hardware.audio@4.0-service-msd
+PRODUCT_COPY_FILES += vendor/dolby/msdPrebuilt/dolby.audio.ms12@1.0.so:$(TARGET_COPY_OUT_VENDOR)/lib/dolby.audio.ms12@1.0.so
 endif
 else
 PRODUCT_COPY_FILES += device/broadcom/common/pub.libs/legacy/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
