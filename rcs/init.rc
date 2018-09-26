@@ -17,8 +17,8 @@ on init
    symlink /sdcard /mnt/sdcard
    symlink /sdcard /storage/sdcard0
 
-   export NEXUS_DEVICE_NODE /dev/mali
-   export NEXUS_WAKE_DEVICE_NODE /dev/mali0
+   export NEXUS_DEVICE_NODE /dev/nxmw
+   export NEXUS_WAKE_DEVICE_NODE /dev/nxwk
 
    export NXCLIENT_PASSWORD /data/vendor/misc/nexus/nx_key:/data/misc/nexus/nx_key
 
@@ -93,6 +93,9 @@ on post-fs-data
 
    setprop vold.post_fs_data_done 1
    class_start pre_core
+
+wait_for_prop property:dyn.nx.state=loaded && property:ro.nx.ldvbon_enabled=1
+   insmod /vendor/lib/modules/ldvbon.ko
 
 on property:sys.gator=1
    insmod /vendor/lib/modules/gator.ko

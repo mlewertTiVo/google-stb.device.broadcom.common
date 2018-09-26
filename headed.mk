@@ -169,6 +169,9 @@ ifneq ($(BCM_DIST_KNLIMG_BINS), y)
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nx_ashmem.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nx_ashmem.ko
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/nexus.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nexus.ko
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/droid_pm.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/droid_pm.ko
+ifeq ($(HW_DVB_SUPPORT),y)
+PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/ldvbon.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/ldvbon.ko
+endif
 ifeq ($(LOCAL_GATOR_SUPPORT), y)
 PRODUCT_COPY_FILES       += ${NEXUS_BIN_DIR_1ST_ARCH}/gator.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/gator.ko
 endif
@@ -180,6 +183,9 @@ else
 PRODUCT_COPY_FILES       += ${BCM_BINDIST_KNL_ROOT}/nx_ashmem.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nx_ashmem.ko
 PRODUCT_COPY_FILES       += ${BCM_BINDIST_KNL_ROOT}/nexus.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/nexus.ko
 PRODUCT_COPY_FILES       += ${BCM_BINDIST_KNL_ROOT}/droid_pm.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/droid_pm.ko
+ifeq ($(HW_DVB_SUPPORT),y)
+PRODUCT_COPY_FILES       += ${BCM_BINDIST_KNL_ROOT}/ldvbon.ko:$(TARGET_COPY_OUT_VENDOR)/lib/modules/ldvbon.ko
+endif
 endif
 
 ifeq ($(SAGE_SUPPORT),y)
@@ -518,11 +524,6 @@ PRODUCT_PACKAGES += \
     libbcmtuner \
     libbcmsideband \
     libbcmsidebandviewer_jni
-endif
-
-PRODUCT_PACKAGES += \
-    BcmCustomizer \
-    BcmPlayAutoInstallConfig
 
 ifeq ($(SAGE_SUPPORT),y)
 ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
@@ -530,6 +531,11 @@ PRODUCT_PACKAGES += \
     BcmBP3Config
 endif
 endif
+endif
+
+PRODUCT_PACKAGES += \
+    BcmCustomizer \
+    BcmPlayAutoInstallConfig
 
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY),y),)
 PRODUCT_PROPERTY_OVERRIDES  += drm.service.enabled=true
@@ -573,7 +579,7 @@ endif
 
 # Netflix support
 ifneq (${LOCAL_DEVICE_NRDP_MODEL_GROUP},)
-LOCAL_DEVICE_NRDP_VALIDATION ?= ninja_6
+LOCAL_DEVICE_NRDP_VALIDATION ?= ninja_5.1
 PRODUCT_PROPERTY_OVERRIDES += \
    ro.vendor.nrdp.modelgroup=${LOCAL_DEVICE_NRDP_MODEL_GROUP} \
    ro.vendor.nrdp.validation=${LOCAL_DEVICE_NRDP_VALIDATION}

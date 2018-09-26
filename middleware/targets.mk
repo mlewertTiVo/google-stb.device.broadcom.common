@@ -36,12 +36,20 @@ REFSW_TARGET_LIST += \
 	${BCM_BINDIST_KNL_ROOT}/bcmnexusfb.ko \
 	${BCM_BINDIST_KNL_ROOT}/nx_ashmem.ko \
 	${BCM_BINDIST_KNL_ROOT}/droid_pm.ko
+ifeq ($(HW_DVB_SUPPORT), y)
+REFSW_TARGET_LIST += \
+	${BCM_BINDIST_KNL_ROOT}/ldvbon.ko
+endif
 else
 REFSW_TARGET_LIST += \
 	${NEXUS_BIN_DIR_1ST_ARCH}/nexus.ko \
 	${NEXUS_BIN_DIR_1ST_ARCH}/bcmnexusfb.ko \
 	${NEXUS_BIN_DIR_1ST_ARCH}/nx_ashmem.ko \
 	${NEXUS_BIN_DIR_1ST_ARCH}/droid_pm.ko
+ifeq ($(HW_DVB_SUPPORT), y)
+REFSW_TARGET_LIST += \
+	${NEXUS_BIN_DIR_1ST_ARCH}/ldvbon.ko
+endif
 ifeq ($(LOCAL_GATOR_SUPPORT), y)
 REFSW_TARGET_LIST += \
 	${NEXUS_BIN_DIR_1ST_ARCH}/gator.ko
