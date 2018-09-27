@@ -131,9 +131,6 @@ else
 PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
 endif
 endif
-ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
-PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/msd_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/msd_audio_policy_configuration.xml
-endif
 PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf
 # all those are defined per device, in the device configuration.
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RCS}
@@ -599,3 +596,14 @@ else
 PRODUCT_COPY_FILES += device/broadcom/common/pub.libs/legacy/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
 endif
 $(call inherit-product-if-exists, ${BCM_VENDOR_STB_ROOT}/bcm_platform/device-vendor.mk)
+
+ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
+DOLBY_ENABLE          := true
+DOLBY_MS12_VERSION    := 2.3.0
+DOLBY_AUDIO_DUMP      := true
+ARM_PREBUILTS_VARIANT := float
+PRODUCT_COPY_FILES  += vendor/dolby/device/common/msd_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/msd_audio_policy_configuration.xml:dolby
+PRODUCT_COPY_FILES  += vendor/dolby/device/common/com.dolby.android.audio.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/com.dolby.android.audio.xml:dolby
+$(call inherit-product-if-exists, vendor/dolby/audio/dolby-product.mk)
+include vendor/dolby/audio/dolby-buildspec.mk
+endif

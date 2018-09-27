@@ -291,4 +291,13 @@
             <instance>default</instance>
         </interface>
     </hal>
+    <hal format="hidl">
+        <name>dolby.audio.ms12</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IMS12</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
 </manifest>
