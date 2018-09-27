@@ -79,7 +79,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.zygote.disable_gl_preload=true \
    ro.bq.gpu_to_cpu_unsupported=1 \
    \
-   sys.display-size=1920x1080
+   vendor.display-size=1920x1080
 endif
 
 # pull in specific target based settings.
