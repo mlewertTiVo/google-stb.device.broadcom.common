@@ -162,7 +162,7 @@ export HW_WIFI_NIC_DUAL_SUPPORT              ?= n
 export HAL_HWC_VERSION                       ?= v-2.0
 export HW_GPU_MMU_SUPPORT                    ?= n
 export HW_DTU_SUPPORT                        ?= n
-export BCM_APP_CUSTOM                        ?= y
+export BCM_APP_CUSTOM                        ?= n
 export HW_HVD_REVISION                       ?= R
 export HW_HVD_REDUX                          ?= n
 export HAL_GR_VERSION                        ?= v-0.x
@@ -198,6 +198,7 @@ export NEXUS_LOGGER_LOCATION                 := ${ANDROID}/${BCM_VENDOR_STB_ROOT
 export NEXUS_PLATFORM_7241_WIFI              := n
 export NEXUS_REPLACE_BOILERPLATE             := y
 export NEXUS_SHARED_LIB                      := y
+export NEXUS_PICTURE_DECODER_SUPPORT         := n
 export PVR_SUPPORT                           := y
 export SHAREABLE                             := y
 export SHELL
