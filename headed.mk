@@ -527,6 +527,11 @@ PRODUCT_PACKAGES += \
     BcmBP3Config
 endif
 endif
+
+ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
+PRODUCT_PACKAGES += \
+   DolbyAudioTests
+endif
 endif
 
 PRODUCT_PACKAGES += \
