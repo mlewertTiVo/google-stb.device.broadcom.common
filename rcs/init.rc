@@ -72,6 +72,7 @@ on post-fs-data
    mkdir /data/vendor/nexus/ssd 0777 system system
    mkdir /data/vendor/nexus/sdbhak 0777 system system
    mkdir /data/vendor/nexus/kmgk 0777 system system
+   mkdir /data/vendor/nxmedia 0771 root root
 
    mkdir /data/vendor/mediadrm/playready/ 0770 mediadrm mediadrm
    mkdir /data/vendor/mediacas 0770 media media
