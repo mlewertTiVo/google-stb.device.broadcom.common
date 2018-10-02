@@ -79,7 +79,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.zygote.disable_gl_preload=true \
    ro.bq.gpu_to_cpu_unsupported=1 \
    \
-   sys.display-size=1920x1080
+   vendor.display-size=1920x1080
 endif
 
 # pull in specific target based settings.
@@ -129,13 +129,10 @@ PRODUCT_PACKAGES += \
    $(LOCAL_PRODUCT_OUT)-vndk \
    vndk_package
 
-# full treble support.
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 ifeq ($(LOCAL_ANDROID_64BIT_ONLY),y)
 PRODUCT_FULL_TREBLE_OVERRIDE := false
 else
 PRODUCT_FULL_TREBLE_OVERRIDE := true
-endif
 endif
 
 ifneq ($(wildcard vendor/google/certs),)

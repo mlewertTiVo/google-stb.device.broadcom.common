@@ -1,3 +1,0 @@
-set_prop(zygote, nexus_prop);
-
-allow zygote nxmem_device:chr_file r_file_perms;

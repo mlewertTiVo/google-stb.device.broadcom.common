@@ -1,9 +1,0 @@
-type togplm, domain, mlstrustedsubject;
-type togplm_exec, exec_type, file_type, vendor_file_type;
-
-# started by init
-init_daemon_domain(togplm)
-
-allow togplm shell_exec:file execute;
-
-set_prop(togplm, nexus_prop);

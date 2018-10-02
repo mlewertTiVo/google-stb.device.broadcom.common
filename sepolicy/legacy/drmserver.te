@@ -1,9 +1,0 @@
-nexus_verified_client(drmserver);
-nexus_debugable(drmserver);
-nexus_hwcfg(drmserver);
-
-allow drmserver nxserver:binder call;
-allow drmserver gpu_device:chr_file rw_file_perms;
-allow drmserver self:netlink_kobject_uevent_socket { create bind read };
-allow drmserver nexus_service:service_manager find;
-

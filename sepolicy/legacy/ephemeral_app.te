@@ -1,7 +1,0 @@
-nexus_verified_client_ignored(ephemeral_app);
-get_prop(ephemeral_app, nexus_prop);
-
-allow ephemeral_app nxserver:binder call;
-allow ephemeral_app proc_sysrq:file getattr;
-allow ephemeral_app hwcbinder:binder { transfer call };
-allow ephemeral_app nexus_service:service_manager find;

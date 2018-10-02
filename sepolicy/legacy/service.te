@@ -1,3 +1,0 @@
-type nexus_service,    service_manager_type;
-type hwcbinder_service,    service_manager_type;
-type bcmstb_app_service,    service_manager_type;

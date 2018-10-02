@@ -1,4 +1,0 @@
-allow shell nxserver:binder call;
-
-get_prop(shell, nexus_prop);
-allow shell nxmem_device:chr_file rw_file_perms;

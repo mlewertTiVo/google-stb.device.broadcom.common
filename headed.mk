@@ -131,9 +131,6 @@ else
 PRODUCT_COPY_FILES       += device/broadcom/common/media/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
 endif
 endif
-ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
-PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/msd_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/msd_audio_policy_configuration.xml
-endif
 PRODUCT_COPY_FILES       += device/broadcom/common/rcs/gps.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gps.conf
 # all those are defined per device, in the device configuration.
 PRODUCT_COPY_FILES       += ${LOCAL_DEVICE_RCS}
@@ -440,7 +437,6 @@ PRODUCT_PACKAGES += \
    android.hardware.wifi.supplicant@1.0
 endif
 
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 PRODUCT_PACKAGES += \
    android.hardware.audio@2.0-service \
    android.hardware.drm@1.0-service \
@@ -480,7 +476,6 @@ ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
 PRODUCT_PACKAGES += \
    android.hardware.audio@4.0-service-msd \
    dolby.audio.ms12@1.0.so
-endif
 endif
 PRODUCT_PACKAGES += \
    android.hardware.health@2.0-service.bcm
@@ -536,7 +531,8 @@ endif
 
 PRODUCT_PACKAGES += \
     BcmCustomizer \
-    BcmPlayAutoInstallConfig
+    BcmPlayAutoInstallConfig \
+    BcmFwksRro
 
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY),y),)
 PRODUCT_PROPERTY_OVERRIDES  += drm.service.enabled=true
@@ -588,14 +584,17 @@ PRODUCT_COPY_FILES += device/broadcom/common/permissions/nrdp.xml:$(TARGET_COPY_
 PRODUCT_COPY_FILES += device/broadcom/common/sysconfig/netflix.xml:system/etc/sysconfig/netflix.xml
 endif
 
-ifeq ($(LOCAL_DEVICE_FULL_TREBLE),y)
 PRODUCT_COPY_FILES += device/broadcom/common/pub.libs/treble/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
-ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
-PRODUCT_COPY_FILES += vendor/dolby/msd/android.hardware.audio@4.0-service-msd.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.audio@4.0-service-msd.rc
-PRODUCT_COPY_FILES += vendor/dolby/msdPrebuilt/android.hardware.audio@4.0-service-msd:$(TARGET_COPY_OUT_VENDOR)/bin/hw/android.hardware.audio@4.0-service-msd
-PRODUCT_COPY_FILES += vendor/dolby/msdPrebuilt/dolby.audio.ms12@1.0.so:$(TARGET_COPY_OUT_VENDOR)/lib/dolby.audio.ms12@1.0.so
-endif
-else
-PRODUCT_COPY_FILES += device/broadcom/common/pub.libs/legacy/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
-endif
+
 $(call inherit-product-if-exists, ${BCM_VENDOR_STB_ROOT}/bcm_platform/device-vendor.mk)
+
+ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
+DOLBY_ENABLE          := true
+DOLBY_MS12_VERSION    := 2.3.0
+DOLBY_AUDIO_DUMP      := true
+ARM_PREBUILTS_VARIANT := float
+PRODUCT_COPY_FILES  += vendor/dolby/device/common/msd_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/msd_audio_policy_configuration.xml:dolby
+PRODUCT_COPY_FILES  += vendor/dolby/device/common/com.dolby.android.audio.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/com.dolby.android.audio.xml:dolby
+$(call inherit-product-if-exists, vendor/dolby/audio/dolby-product.mk)
+include vendor/dolby/audio/dolby-buildspec.mk
+endif

@@ -1,2 +1,0 @@
-allow { appdomain -isolated_app } nxmem_device:chr_file rw_file_perms;
-allow { appdomain userdebug_or_eng(`-su') } nxmem_device:chr_file { write append };
