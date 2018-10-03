@@ -27,6 +27,7 @@ nexus_thermal_cfg(nxserver);
 nexus_thermal(nxserver);
 nexus_sopass(nxserver);
 nexus_tee(nxserver);
+set_prop(nxserver, vendor_default_prop);
 
 allow nxserver system_server:binder call;
 allow nxserver surfaceflinger:binder call;
