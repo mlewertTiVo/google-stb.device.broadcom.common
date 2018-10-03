@@ -593,8 +593,8 @@ DOLBY_ENABLE          := true
 DOLBY_MS12_VERSION    := 2.3.0
 DOLBY_AUDIO_DUMP      := true
 ARM_PREBUILTS_VARIANT := float
-PRODUCT_COPY_FILES  += vendor/dolby/device/common/msd_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/msd_audio_policy_configuration.xml:dolby
-PRODUCT_COPY_FILES  += vendor/dolby/device/common/com.dolby.android.audio.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/com.dolby.android.audio.xml:dolby
-$(call inherit-product-if-exists, vendor/dolby/audio/dolby-product.mk)
-include vendor/dolby/audio/dolby-buildspec.mk
+PRODUCT_COPY_FILES  += vendor/dolby/msd/device/common/msd_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/msd_audio_policy_configuration.xml:dolby
+PRODUCT_COPY_FILES  += vendor/dolby/msd/device/common/com.dolby.android.audio.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/com.dolby.android.audio.xml:dolby
+$(call inherit-product-if-exists, vendor/dolby/msd/audio/dolby-product.mk)
+include vendor/dolby/msd/audio/dolby-buildspec.mk
 endif

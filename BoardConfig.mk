@@ -149,7 +149,7 @@ endif
 BOARD_SEPOLICY_DIRS += device/broadcom/common/sepolicy/treble
 BOARD_SEPOLICY_DIRS += $(LOCAL_DEVICE_SEPOLICY_BLOCK)
 ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
-BOARD_SEPOLICY_DIRS += vendor/dolby/device/common/sepolicy
+BOARD_SEPOLICY_DIRS += vendor/dolby/msd/device/common/sepolicy
 endif
 ifeq ($(LOCAL_DEVICE_HWCFG_TYPE),vfat)
 BOARD_SEPOLICY_M4DEFS += target_hwcfg_type=vfat
