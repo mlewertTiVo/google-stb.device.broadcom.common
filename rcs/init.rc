@@ -74,6 +74,10 @@ on post-fs-data
    mkdir /data/vendor/nexus/kmgk 0777 system system
    mkdir /data/vendor/nxmedia 0771 root root
 
+   mkdir /data/vendor/fkbat 0771 root system
+   write /data/vendor/fkbat/status Charging
+   chmod 644 /data/vendor/fkbat/status
+
    mkdir /data/vendor/mediadrm/playready/ 0770 mediadrm mediadrm
    mkdir /data/vendor/mediacas 0770 media media
 

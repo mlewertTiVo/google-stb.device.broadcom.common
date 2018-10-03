@@ -22,6 +22,7 @@
 /data/vendor/misc/nexus(/.*)?    u:object_r:nexus_vendor_data_file:s0
 /data/nxmedia(/.*)?       u:object_r:nexus_debug_file:s0
 /data/vendor/nxmedia(/.*)?       u:object_r:nexus_vendor_debug_file:s0
+/data/vendor/fkbat(/.*)?         u:object_r:nexus_vendor_fkbat_file:s0
 
 /data/vendor/mediacas(/.*)?      u:object_r:nexus_vendor_mediacas_file:s0
 /data/vendor/misc/nxfw(/.*)?     u:object_r:nexus_fw_file:s0

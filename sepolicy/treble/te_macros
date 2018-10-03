@@ -171,3 +171,8 @@ define(`nexus_kl', `
 allow $1 nexus_kl_file:file { open read getattr };
 allow $1 nexus_kl_file:dir { search };
 ')
+
+define(`nexus_fkbat', `
+allow $1 nexus_vendor_fkbat_file:file { open read getattr };
+allow $1 nexus_vendor_fkbat_file:dir { search };
+')
