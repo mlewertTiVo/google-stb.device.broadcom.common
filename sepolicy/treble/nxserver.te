@@ -27,7 +27,6 @@ nexus_thermal_cfg(nxserver);
 nexus_thermal(nxserver);
 nexus_sopass(nxserver);
 nexus_tee(nxserver);
-set_prop(nxserver, vendor_default_prop);
 
 allow nxserver system_server:binder call;
 allow nxserver surfaceflinger:binder call;
@@ -88,3 +87,4 @@ allow nxserver self:global_capability2_class_set wake_alarm;
 get_prop(nxserver, system_boot_reason_prop);
 
 nexus_sys_prop_forced(nxserver);
+nexus_vdr_prop_forced(nxserver);

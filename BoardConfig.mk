@@ -163,10 +163,12 @@ endif
 ifdef PRODUCT_SHIPPING_API_LEVEL
 ifeq ($(call math_lt,27,$(PRODUCT_SHIPPING_API_LEVEL)),)
 BOARD_SEPOLICY_M4DEFS += target_nxsysprop=true
+BOARD_SEPOLICY_M4DEFS += target_nxvdrprop=true
 endif
 else
 # warning: assume legacy configuration.
 BOARD_SEPOLICY_M4DEFS += target_nxsysprop=true
+BOARD_SEPOLICY_M4DEFS += target_nxvdrprop=true
 endif
 
 ifeq ($(LOCAL_DEVICE_LOWRAM),y)

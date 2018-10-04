@@ -176,3 +176,11 @@ define(`nexus_fkbat', `
 allow $1 nexus_vendor_fkbat_file:file { open read getattr };
 allow $1 nexus_vendor_fkbat_file:dir { search };
 ')
+
+define(`nexus_vdr_prop_allowed', ifelse(target_nxvdrprop, `true', $1, ))
+
+define(`nexus_vdr_prop_forced', `
+nexus_vdr_prop_allowed(`
+allow $1 vendor_default_prop:property_service set;
+')
+')
