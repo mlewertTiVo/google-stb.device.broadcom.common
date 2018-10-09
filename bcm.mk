@@ -132,10 +132,15 @@ PRODUCT_PACKAGES += \
 ifeq ($(LOCAL_ANDROID_64BIT_ONLY),y)
 PRODUCT_FULL_TREBLE_OVERRIDE := false
 else
+ifeq ($(LOCAL_FULL_TREBLE_NOT_COMPATIBLE),y)
+PRODUCT_FULL_TREBLE_OVERRIDE := false
+else
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 endif
-
+endif
+ifneq ($(LOCAL_NVI_LAYOUT),y)
 PRODUCT_SEPOLICY_SPLIT := true
+endif
 
 ifneq ($(wildcard vendor/google/certs),)
 PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/google/certs/devkeys/devkey

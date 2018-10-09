@@ -22,12 +22,9 @@ on init
    export NEXUS_DEVICE_NODE /dev/nxmw
    export NEXUS_WAKE_DEVICE_NODE /dev/nxwk
 
-on boot
-   # Subsytem Ramdump collection
-   mkdir /data/tombstones 0777 system system
-   mkdir /data/tombstones/ramdump 0777 system system
-   restorecon_recursive /data/tombstones
+   export NXCLIENT_PASSWORD /data/vendor/misc/nexus/nx_key:/data/misc/nexus/nx_key
 
+on boot
    # LED permissions
    chown system system /sys/class/leds/power/brightness
    chown system system /sys/class/leds/wifi-red/brightness
@@ -44,7 +41,7 @@ on post-fs
    export PAKBIN_PATH /vendor/usr/pak
    export DRMBIN_PATH /dev/hwcfg 
    export NEXUS_LOGGER /vendor/bin/nxlogger
-   export NEXUS_LOGGER_FILE /data/nexus/nexus.log
+   export NEXUS_LOGGER_FILE /data/vendor/nexus/nexus.log
 
    setprop ro.nx.v3d.no_map_lock 0
    setprop dyn.nx.state none
@@ -52,21 +49,38 @@ on post-fs
    setprop ro.nx.nxserver.hdcp2x_keys /dev/hwcfg/drm.bin
    setprop ro.nx.nxserver.thermal /vendor/usr/thermal/default.cfg
 
+   # properties translations to allow use beyond vendor_init.
+   setprop ro.nx.sf.lcd_density ${ro.sf.lcd_density}
+   setprop ro.nx.hdmi.device_type ${ro.hdmi.device_type}
+   setprop ro.nx.hdmi.wake_on_hotplug ${ro.hdmi.wake_on_hotplug}
+
    # Allow Launcher wallpaper picker to use landscape mode
    setprop log.tag.launcher_force_rotate VERBOSE
 
    mount tracefs tracefs /sys/kernel/debug/tracing remount mode=755
 
+   chown root system /proc/irq
+   chmod 0775 /proc/irq
+
 on post-fs-data
-   mkdir /data/media 0770 media_rw media_rw
-   mkdir /data/nxmedia 0777 media media
-   mkdir /data/nexus 0775 root system
    mkdir /data/misc/nexus 0755 root system
-   mkdir /data/misc/nxfw 0777 root root
+
+   mkdir /data/vendor/misc 0771 root root
+   mkdir /data/vendor/misc/nexus 0755 root system
+   mkdir /data/vendor/misc/nxfw 0777 root root
+   mkdir /data/vendor/nexus 0775 root system
+   mkdir /data/vendor/nexus/secdma 0777 system system
+   mkdir /data/vendor/nexus/ssd 0777 system system
+   mkdir /data/vendor/nexus/sdbhak 0777 system system
+   mkdir /data/vendor/nexus/kmgk 0777 system system
+   mkdir /data/vendor/nxmedia 0771 root root
+
+   mkdir /data/vendor/fkbat 0771 root system
+   write /data/vendor/fkbat/status Charging
+   chmod 644 /data/vendor/fkbat/status
 
    mkdir /data/vendor/mediadrm/playready/ 0770 mediadrm mediadrm
-
-   mkdir /data/nexus/secdma 0777 system system
+   mkdir /data/vendor/mediacas 0770 media media
 
    # *** sample only.
    #
@@ -76,17 +90,38 @@ on post-fs-data
    #
    write /data/misc/nexus/nx_key trusted:test-passwd
    chmod 0644 /data/misc/nexus/nx_key
-   export NXCLIENT_PASSWORD /data/misc/nexus/nx_key
+   write /data/vendor/misc/nexus/nx_key trusted:test-passwd
+   chmod 0644 /data/vendor/misc/nexus/nx_key
 
    setprop vold.post_fs_data_done 1
    class_start pre_core
 
 on property:sys.gator=1
-   insmod /vendor/lib/modules/gator.ko
+   insmod /system/vendor/lib/modules/gator.ko
    start gatord
 
 on property:dev.bootcomplete=1
    setprop sys.init_log_level 4
 
+on property:sys.boot_completed=1
+   setprop ro.nx.boot_completed 1
+
+# track screen off state on shutdown
+on property:persist.vendor.nx.keep.screen.state=1 && property:sys.shutdown.requested=0userrequested
+   setprop persist.nx.screen.on 0
+
+# track screen on state for wake from shutdown
+on property:persist.vendor.nx.keep.screen.state=1 && property:ro.boot.bootreason=s3_wakeup
+   setprop persist.nx.screen.on 1
+
 on property:sys.shutdown.requested=*
    write /sys/devices/platform/droid_pm/notify ${sys.shutdown.requested}
+
+# bugreport is triggered by holding down volume down, volume up and power
+service bugreport /system/bin/dumpstate -d -p -B -z \
+   -o /data/user_de/0/com.android.shell/files/bugreports/bugreport
+   class main
+   disabled
+   oneshot
+   keycodes 114 115 116
+
