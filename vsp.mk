@@ -1,4 +1,4 @@
 # currently enforced security path level for /vendor, includes
 # kernel patch level and all vendor only components (wifi, bt, etc)
 
-VENDOR_SECURITY_PATCH := 2018-09-05
+VENDOR_SECURITY_PATCH := 2018-11-05

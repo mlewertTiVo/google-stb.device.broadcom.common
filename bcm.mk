@@ -14,7 +14,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.logger_size=4096 \
    ro.v3d.fence.expose=true \
    \
-   ro.nx.colordepth10b.force=1
+   ro.nx.colordepth10b.force=1 \
+   \
+   ro.nx.media.vdec_outportbuf=32
 #
 # ro.nx.pr.version defaults to 2.5
 #

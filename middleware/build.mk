@@ -512,8 +512,11 @@ endif
 
 .PHONY: build_dtboimg
 ifeq ($(LOCAL_DTBO_SUPPORT),y)
+ifneq ($(BCM_DIST_KNLIMG_BINS),y)
+$(ANDROID_OUT_DIR)/target/product/$(LOCAL_DEVICE_DTBO_IMAGE).bcm: build_dtboimg
+endif
 build_dtboimg: mkdtimg $(PRODUCT_OUT)/bcm.dtb
-	$(ANDROID_OUT_DIR)/host/$(HOST_OS)-$(HOST_PREBUILT_ARCH)/bin/mkdtimg create $(PRODUCT_OUT)/dtbo.img $(PRODUCT_OUT)/bcm.dtb;
+	$(ANDROID_OUT_DIR)/host/$(HOST_OS)-$(HOST_PREBUILT_ARCH)/bin/mkdtimg create $(PRODUCT_OUT)/dtbo.img.bcm $(PRODUCT_OUT)/bcm.dtb;
 else
 build_dtboimg:
 	@echo "'$@' no-op"

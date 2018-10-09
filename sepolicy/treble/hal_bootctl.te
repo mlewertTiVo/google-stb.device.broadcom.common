@@ -1,9 +1,0 @@
-nexus_vendor_verified_client(hal_bootctl);
-nexus_hwservice(hal_bootctl);
-allow hal_bootctl eio_block_device:blk_file rw_file_perms;
-allow hal_bootctl eio_block_device:blk_file getattr;
-allow hal_bootctl rootfs:file { open read getattr };
-allow hal_bootctl rootfs:dir  { open read search };
-allow hal_bootctl block_device:dir search;
-get_prop(hal_bootctl, nexus_prop);
-allow hal_bootctl gpu_device:chr_file rw_file_perms;

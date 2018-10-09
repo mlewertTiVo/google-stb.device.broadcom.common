@@ -24,3 +24,4 @@ type nexus_sopass_file, file_type, vendor_file_type;
 type nexus_idc_file, file_type, vendor_file_type;
 type nexus_tee_file, file_type, vendor_file_type;
 type nexus_kl_file, file_type, vendor_file_type;
+type nexus_vendor_fkbat_file, file_type, data_file_type;

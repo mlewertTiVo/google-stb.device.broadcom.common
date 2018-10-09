@@ -163,10 +163,12 @@ endif
 ifdef PRODUCT_SHIPPING_API_LEVEL
 ifeq ($(call math_lt,27,$(PRODUCT_SHIPPING_API_LEVEL)),)
 BOARD_SEPOLICY_M4DEFS += target_nxsysprop=true
+BOARD_SEPOLICY_M4DEFS += target_nxvdrprop=true
 endif
 else
 # warning: assume legacy configuration.
 BOARD_SEPOLICY_M4DEFS += target_nxsysprop=true
+BOARD_SEPOLICY_M4DEFS += target_nxvdrprop=true
 endif
 
 ifeq ($(LOCAL_DEVICE_LOWRAM),y)
@@ -195,7 +197,7 @@ ifeq ($(BCM_DIST_KNLIMG_BINS),y)
 BOARD_PREBUILT_DTBOIMAGE := device/broadcom/$(LOCAL_DEVICE_DTBO_IMAGE)
 BOARD_PACK_RADIOIMAGES   += dtbo.img
 else
-BOARD_PREBUILT_DTBOIMAGE := $(ANDROID_OUT_DIR)/target/product/$(LOCAL_DEVICE_DTBO_IMAGE)
+BOARD_PREBUILT_DTBOIMAGE := $(ANDROID_OUT_DIR)/target/product/$(LOCAL_DEVICE_DTBO_IMAGE).bcm
 BOARD_PACK_RADIOIMAGES   += $(ANDROID_OUT_DIR)/target/product/$(LOCAL_DEVICE_DTBO_IMAGE)
 endif
 BOARD_INCLUDE_RECOVERY_DTBO := true

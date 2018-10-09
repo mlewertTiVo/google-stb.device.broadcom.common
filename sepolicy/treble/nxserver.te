@@ -87,3 +87,4 @@ allow nxserver self:global_capability2_class_set wake_alarm;
 get_prop(nxserver, system_boot_reason_prop);
 
 nexus_sys_prop_forced(nxserver);
+nexus_vdr_prop_forced(nxserver);

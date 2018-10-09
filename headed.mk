@@ -74,6 +74,7 @@ TARGET_CPU_SMP           := true
 PRODUCT_COPY_FILES       += device/broadcom/common/bootanimation.zip:system/media/bootanimation.zip
 PRODUCT_COPY_FILES       += device/broadcom/common/keylayout/nexus_silver_remote.kl:vendor/usr/keylayout/NexusIrHandler.kl
 PRODUCT_COPY_FILES       += device/broadcom/common/keylayout/Smart_Remote_S.kl:vendor/usr/keylayout/Smart_Remote_S.kl
+PRODUCT_COPY_FILES       += device/broadcom/common/keylayout/ARRIS_RCU.kl:vendor/usr/keylayout/ARRIS_RCU.kl
 ifeq ($(LOCAL_DOLBY_SUPPORT),y)
 PRODUCT_COPY_FILES       += device/broadcom/common/media/media_codecs_frag_dolby.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby.xml
 else
@@ -106,6 +107,7 @@ ifneq ($(HW_THERMAL_CONFIG_SUPPORT),n)
 PRODUCT_COPY_FILES       += device/broadcom/common/thermal/thermal.default.cfg:$(TARGET_COPY_OUT_VENDOR)/usr/thermal/default.cfg
 endif
 PRODUCT_COPY_FILES       += device/broadcom/common/idc/Smart_Remote_S.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Smart_Remote_S.idc
+PRODUCT_COPY_FILES       += device/broadcom/common/idc/ARRIS_RCU.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/ARRIS_RCU.idc
 PRODUCT_COPY_FILES       += device/broadcom/common/idc/virtual-remote.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/virtual-remote.idc
 PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_black.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/broadcom_black.ikm
 PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_silver.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/broadcom_silver.ikm
@@ -526,6 +528,11 @@ ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
 PRODUCT_PACKAGES += \
     BcmBP3Config
 endif
+endif
+
+ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
+PRODUCT_PACKAGES += \
+   DolbyAudioTests
 endif
 endif
 
