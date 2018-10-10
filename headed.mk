@@ -539,8 +539,7 @@ endif
 PRODUCT_PACKAGES += \
     BcmCustomizer \
     BcmPlayAutoInstallConfig \
-    BcmFwksRro \
-    BcmFwksDevRro
+    BcmFwksRro
 
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY),y),)
 PRODUCT_PROPERTY_OVERRIDES  += drm.service.enabled=true
