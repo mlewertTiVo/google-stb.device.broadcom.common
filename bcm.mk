@@ -137,6 +137,8 @@ else
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 endif
 
+PRODUCT_SEPOLICY_SPLIT := true
+
 ifneq ($(wildcard vendor/google/certs),)
 PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/google/certs/devkeys/devkey
 else
