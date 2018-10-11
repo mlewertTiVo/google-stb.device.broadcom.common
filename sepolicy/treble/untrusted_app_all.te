@@ -3,3 +3,7 @@ nexus_hwservice(untrusted_app_all);
 get_prop(untrusted_app_all, nexus_prop);
 
 allow untrusted_app_all proc_sysrq:file getattr;
+
+# for netflix application.
+get_prop(untrusted_app_all, vendor_display_size_prop);
+

@@ -1,2 +1,2 @@
 type nexus_prop, property_type;
-
+type vendor_display_size_prop, property_type;
