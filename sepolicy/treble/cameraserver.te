@@ -1,0 +1,6 @@
+nexus_verified_client(cameraserver);
+nexus_hwservice(cameraserver);
+get_prop(cameraserver, nexus_prop);
+
+allow cameraserver gpu_device:chr_file rw_file_perms;
+allow cameraserver nxmem_device:chr_file rw_file_perms;
