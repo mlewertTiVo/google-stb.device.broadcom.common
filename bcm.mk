@@ -46,9 +46,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
    \
    media.stagefright.cache-params=32768/65536/25 \
    \
-   ro.gfx.driver.0=gfxdriver-bcmstb \
-   \
-   ro.lmk.use_minfree_levels=true
+   ro.gfx.driver.0=gfxdriver-bcmstb
 
 ifeq ($(LOCAL_DEVICE_LOWRAM),y)
 PRODUCT_PROPERTY_OVERRIDES += \
