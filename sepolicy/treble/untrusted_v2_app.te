@@ -1,5 +1,3 @@
 nexus_verified_client_ignored(untrusted_v2_app);
-nexus_hwservice(untrusted_v2_app);
-get_prop(untrusted_v2_app, nexus_prop);
 
 allow untrusted_v2_app proc_sysrq:file getattr;
