@@ -51,6 +51,7 @@
 /(vendor|system/vendor)/lib/libnexusir\.so                      u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib/egl/libGLES_nexus\.so               u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib/libaudiopolicymanager\.so           u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib/libsrai\.so                         u:object_r:same_process_hal_file:s0
 
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.1-service\.widevine u:object_r:hal_drm_widevine_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.1-service\.clearkey u:object_r:hal_drm_clearkey_exec:s0
