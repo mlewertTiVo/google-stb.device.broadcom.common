@@ -588,7 +588,7 @@ LOCAL_DEVICE_NRDP_VALIDATION ?= ninja_5.1
 PRODUCT_PROPERTY_OVERRIDES += \
    ro.vendor.nrdp.modelgroup=${LOCAL_DEVICE_NRDP_MODEL_GROUP} \
    ro.vendor.nrdp.validation=${LOCAL_DEVICE_NRDP_VALIDATION}
-PRODUCT_COPY_FILES += device/broadcom/common/permissions/nrdp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/nrdp.xml
+PRODUCT_COPY_FILES += device/broadcom/common/permissions/nrdp.xml:system/etc/permissions/nrdp.xml
 PRODUCT_COPY_FILES += device/broadcom/common/sysconfig/netflix.xml:system/etc/sysconfig/netflix.xml
 endif
 
