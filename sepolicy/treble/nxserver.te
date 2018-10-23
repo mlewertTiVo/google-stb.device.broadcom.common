@@ -71,3 +71,6 @@ allow nxserver sysfs_devices_system_cpu:file { open read write getattr };
 
 allow nxserver self:capability kill;
 allow nxserver domain:process { sigkill signal };
+
+allow nxserver debugfs_dri:dir { r_dir_perms search };
+allow nxserver debugfs_dri:file r_file_perms;
