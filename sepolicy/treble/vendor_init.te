@@ -1,18 +1,8 @@
-typeattribute vendor_init data_between_core_and_vendor_violators;
-
 nexus_hwcfg(vendor_init);
 set_prop(vendor_init, nexus_prop);
 
 allow vendor_init {
-   media_rw_data_file
-   system_data_file
-   media_data_file
-   nexus_data_file
-   nexus_debug_file
-}:dir { create search getattr open read setattr ioctl write add_name remove_name rmdir relabelfrom };
-
-allow vendor_init {
-   nexus_data_file
+   nexus_vendor_data_file
 }:file { create getattr open read write setattr relabelfrom unlink };
 
 allow vendor_init self:capability sys_module;
