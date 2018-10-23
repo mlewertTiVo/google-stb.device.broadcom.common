@@ -29,6 +29,12 @@ BOLT_DIR_VB        := ${BRCMSTB_ANDROID_VENDOR_PATH}/bolt-vb
 ANDROID_BSU_DIR    := ${BOLT_DIR}/android
 ANDROID_BSU_DIR_VB := ${BOLT_DIR_VB}/android
 
+ifneq ($(LOCAL_DEVICE_SIGNING_PKG),)
+SIGNING_PKG_VB := ${LOCAL_DEVICE_SIGNING_PKG}
+else
+SIGNING_PKG_VB := ${BCHP_CHIP}
+endif
+
 ifeq ($(BCHP_VER_LOWER),)
 BCHP_VER_LOWER := $(shell echo ${BCHP_VER} | tr [:upper:] [:lower:])
 endif
@@ -368,10 +374,10 @@ endif
 .PHONY: build_bootloaderimg_vb
 build_bootloaderimg_vb: build_android_bsu_vb
 	@echo "'$@' started"
-	@if [[ -e "${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool" && -e "${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(BCHP_CHIP)" ]]; then \
+	@if [[ -e "${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool" && -e "${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(SIGNING_PKG_VB)" ]]; then \
 		if [ "${LOCAL_DEVICE_SAGE_DEV_N_PROD}" == "y" ]; then \
-			LD_LIBRARY_PATH=${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool/imagetool -L bolt -P Generic -O ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(BCHP_CHIP)/bolt.dev.cfg; \
-			LD_LIBRARY_PATH=${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool/imagetool -L kernel -P Generic -O ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(BCHP_CHIP)/bsu.dev.cfg; \
+			LD_LIBRARY_PATH=${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool/imagetool -L bolt -P Generic -O ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(SIGNING_PKG_VB)/bolt.dev.cfg; \
+			LD_LIBRARY_PATH=${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool/imagetool -L kernel -P Generic -O ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(SIGNING_PKG_VB)/bsu.dev.cfg; \
 			$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/bolt-vb.dev.signed.bin $(PRODUCT_OUT_FROM_TOP)/android_bsu-vb.dev.signed.elf $(PRODUCT_OUT_FROM_TOP)/bootloader.vb.signed.dev.img; \
 			cp $(PRODUCT_OUT_FROM_TOP)/$(BOLT_IMG_TO_USE_OVERRIDE).vb $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE).vb; \
 			if [ -e "${BOLT_IMG_SWAP_BBL}" ]; then \
@@ -386,17 +392,17 @@ build_bootloaderimg_vb: build_android_bsu_vb
 				$(PRODUCT_OUT_FROM_TOP)/obj/FAKE/bolt/scripts/patcher.pl -p ${BOLT_IMG_SWAP_RD} -i $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE).vb -o $(PRODUCT_OUT_FROM_TOP)/swap.rd.$(BOLT_IMG_TO_USE_OVERRIDE).vb -z $(BOLT_ZEUS_VER) -t reserveddata; \
 				cp $(PRODUCT_OUT_FROM_TOP)/swap.rd.$(BOLT_IMG_TO_USE_OVERRIDE).vb $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE).vb; \
 			fi; \
-			LD_LIBRARY_PATH=${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool/imagetool -L bolt -P Generic -O ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(BCHP_CHIP)/bolt.prod.cfg; \
-			LD_LIBRARY_PATH=${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool/imagetool -L kernel -P Generic -O ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(BCHP_CHIP)/bsu.prod.cfg; \
+			LD_LIBRARY_PATH=${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool/imagetool -L bolt -P Generic -O ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(SIGNING_PKG_VB)/bolt.prod.cfg; \
+			LD_LIBRARY_PATH=${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool/imagetool -L kernel -P Generic -O ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(SIGNING_PKG_VB)/bsu.prod.cfg; \
 			$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/bolt-vb.prod.signed.bin $(PRODUCT_OUT_FROM_TOP)/android_bsu-vb.prod.signed.elf $(PRODUCT_OUT_FROM_TOP)/bootloader.vb.signed.prod.img; \
 			rm $(PRODUCT_OUT_FROM_TOP)/alt.$(BOLT_IMG_TO_USE_OVERRIDE).vb; \
 		else \
-			LD_LIBRARY_PATH=${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool/imagetool -L bolt -P Generic -O ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(BCHP_CHIP)/bolt.cfg; \
-			LD_LIBRARY_PATH=${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool/imagetool -L kernel -P Generic -O ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(BCHP_CHIP)/bsu.cfg; \
+			LD_LIBRARY_PATH=${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool/imagetool -L bolt -P Generic -O ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(SIGNING_PKG_VB)/bolt.cfg; \
+			LD_LIBRARY_PATH=${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool/imagetool -L kernel -P Generic -O ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(SIGNING_PKG_VB)/bsu.cfg; \
 			$(ANDROID_BSU_DIR)/scripts/bootloaderimg.py $(PRODUCT_OUT_FROM_TOP)/bolt-vb.signed.bin $(PRODUCT_OUT_FROM_TOP)/android_bsu-vb.signed.elf $(PRODUCT_OUT_FROM_TOP)/bootloader.vb.signed.img; \
 		fi; \
 	else \
-		echo "Missing signing tool: ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool; or signing package for device: ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(BCHP_CHIP)"; \
+		echo "Missing signing tool: ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/tool; or signing package for device: ${BRCMSTB_ANDROID_VENDOR_PATH}/bcm_platform/signing/bimg/$(SIGNING_PKG_VB)"; \
 	fi
 	@echo "'$@' completed"
 
