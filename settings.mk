@@ -14,6 +14,7 @@ ifeq (${LOCAL_PRODUCT_OUT},)
 $(error please define LOCAL_PRODUCT_OUT)
 endif
 export TARGET_BOARD_PLATFORM                 := ${LOCAL_PRODUCT_OUT}
+export TARGET_SAGE_PLATFORM                  ?= ${LOCAL_PRODUCT_OUT}
 
 # filter rules for build inclusions based on boards supported.  when adding a new
 # board to the system, you may want to add it here too.
