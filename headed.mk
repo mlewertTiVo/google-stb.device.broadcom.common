@@ -602,6 +602,9 @@ DOLBY_AUDIO_DUMP      := true
 ARM_PREBUILTS_VARIANT := float
 PRODUCT_COPY_FILES  += vendor/dolby/msd/device/common/msd_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/msd_audio_policy_configuration.xml:dolby
 PRODUCT_COPY_FILES  += vendor/dolby/msd/device/common/com.dolby.android.audio.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/com.dolby.android.audio.xml:dolby
+PRODUCT_COPY_FILES  += vendor/dolby/msd/android.hardware.audio@4.0-service-msd.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.audio@4.0-service-msd.rc:dolby
+PRODUCT_COPY_FILES  += vendor/dolby/msdPrebuilt/android.hardware.audio@4.0-service-msd:$(TARGET_COPY_OUT_VENDOR)/bin/hw/android.hardware.audio@4.0-service-msd:dolby
+PRODUCT_COPY_FILES  += vendor/dolby/msdPrebuilt/dolby.audio.ms12@1.0.so:$(TARGET_COPY_OUT_VENDOR)/lib/dolby.audio.ms12@1.0.so:dolby
 $(call inherit-product-if-exists, vendor/dolby/msd/audio/dolby-product.mk)
 include vendor/dolby/msd/audio/dolby-buildspec.mk
 endif
