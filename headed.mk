@@ -590,6 +590,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.vendor.nrdp.validation=${LOCAL_DEVICE_NRDP_VALIDATION}
 PRODUCT_COPY_FILES += device/broadcom/common/permissions/nrdp.xml:system/etc/permissions/nrdp.xml
 PRODUCT_COPY_FILES += device/broadcom/common/sysconfig/netflix.xml:system/etc/sysconfig/netflix.xml
+PRODUCT_PACKAGES += \
+    BcmNrdpHelper
 endif
 
 PRODUCT_COPY_FILES += device/broadcom/common/pub.libs/treble/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
