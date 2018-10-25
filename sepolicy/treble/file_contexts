@@ -68,6 +68,7 @@
 /sys/class/net(/.*)?          u:object_r:sysfs_net:s0
 /sys/class/thermal(/.*)?      u:object_r:sysfs_thermal:s0
 
+/(vendor|system/vendor)/bin/hw/bcm\.hardware\.casproxy@1\.0-service        u:object_r:hal_casproxy_exec:s0
 /(vendor|system/vendor)/bin/hw/bcm\.hardware\.dspsvcext@1\.0-service       u:object_r:hal_dspsvcext_exec:s0
 /(vendor|system/vendor)/bin/hw/bcm\.hardware\.sdbhak@1\.0-service          u:object_r:hal_sdbhak_exec:s0
 /(vendor|system/vendor)/bin/hw/bcm\.hardware\.tvisvcext@1\.0-service       u:object_r:hal_tvisvcext_exec:s0

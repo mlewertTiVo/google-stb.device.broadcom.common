@@ -1,4 +1,5 @@
 dontaudit netd self:capability sys_module;
 
+allow netd hal_casproxy:fd use;
+allow netd hal_casproxy:tcp_socket { getopt read write setopt };
 allow netd kernel:system module_request;
-

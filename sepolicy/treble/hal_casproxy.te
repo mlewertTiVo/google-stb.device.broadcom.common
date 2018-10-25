@@ -1,0 +1,67 @@
+#
+# Remove attribute "socket_between_core_and_vendor_violators" when
+# CAS vendor(s) move their networking code to an Android application.
+#
+cas_proxy_violator(`
+type hal_casproxy, domain, socket_between_core_and_vendor_violators;
+');
+cas_proxy_certifiable(`
+type hal_casproxy, domain;
+');
+
+type hal_casproxy_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(hal_casproxy);
+add_hwservice(hal_casproxy, vnd_casproxy_hwservice);
+
+nexus_vendor_verified_client(hal_casproxy);
+nexus_vendor_mediacas(hal_casproxy);
+
+# Allow CasProxy to binder communicate with CAS plugins
+binder_call(hal_casproxy, hal_cas_default);
+hwbinder_use(hal_casproxy);
+
+# Allow CasProxy to binder communicate with SfHak service (temporary fix)
+binder_call(hal_casproxy hal_sfhak);
+sfhak_hwservice(hal_casproxy);
+
+# Allow HIDL memory
+allow hal_casproxy hidl_memory_hwservice:hwservice_manager find;
+
+allow hal_casproxy system_file:dir r_dir_perms;
+
+# Read access to pseudo filesystems
+r_dir_file(hal_casproxy, cgroup)
+allow hal_cas cgroup:dir { search write };
+allow hal_cas cgroup:file w_file_perms;
+
+# Allow GPU access
+allow hal_casproxy gpu_device:chr_file rw_file_perms;
+
+# allow networking
+allow hal_casproxy property_socket:sock_file write;
+allow hal_casproxy self:capability { net_raw net_admin };
+allow hal_casproxy self:tcp_socket create_socket_perms;
+allow hal_casproxy port:tcp_socket name_connect;
+allow hal_casproxy self:udp_socket create_socket_perms;
+allow hal_casproxy node:udp_socket node_bind;
+allow hal_casproxy port:udp_socket name_bind;
+allowxperm hal_casproxy self:udp_socket ioctl unpriv_sock_ioctls;
+allowxperm hal_casproxy self:udp_socket ioctl priv_sock_ioctls;
+allow hal_casproxy sysfs_net:dir r_dir_perms;
+allow hal_casproxy dnsproxyd_socket:sock_file write;
+allow hal_casproxy fwmarkd_socket:sock_file write;
+cas_proxy_violator(`
+allow hal_casproxy netd:unix_stream_socket connectto;
+');
+
+# allow limited procfs access
+allow hal_casproxy proc_interrupts:file r_file_perms;
+allow hal_casproxy proc_irq:dir r_dir_perms;
+allow hal_casproxy proc_irq:file rw_file_perms;
+allow hal_casproxy proc_version:file { getattr open read };
+
+get_prop(hal_casproxy, hwservicemanager_prop);
+
+### Don't audit section follows ###
+dontaudit hal_casproxy self:capability sys_ptrace;
