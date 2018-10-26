@@ -75,7 +75,7 @@ on post-fs-data
    mkdir /data/vendor/nexus/ssd 0777 system system
    mkdir /data/vendor/nexus/sdbhak 0777 system system
    mkdir /data/vendor/nexus/kmgk 0777 system system
-   mkdir /data/vendor/nxmedia 0771 root root
+   mkdir /data/vendor/nxmedia 0777 root root
 
    mkdir /data/vendor/fkbat 0771 root system
    write /data/vendor/fkbat/status Charging
