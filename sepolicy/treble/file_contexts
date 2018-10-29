@@ -2,6 +2,7 @@
 /dev/nxwk                 u:object_r:gpu_device:s0
 /dev/btusb0               u:object_r:bluetooth_control:s0
 /dev/ttyS1                u:object_r:bluetooth_control:s0
+/dev/ttyS2                u:object_r:bluetooth_control:s0
 /dev/sw_sync              u:object_r:sw_sync_device:s0
 /dev/hdmi_hpd             u:object_r:hdmi_hpd_device:s0
 /dev/dri/card0            u:object_r:gpu_device:s0
