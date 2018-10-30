@@ -16,6 +16,14 @@ export VENDOR_VMX_PRODUCT_ROOT ?= ${VENDOR_VMX_INSTALL_ROOT}/${LOCAL_PRODUCT_OUT
 # Enable WIFI SECDMA
 export ANDROID_ENABLE_DHD_SECDMA := y
 
+# SAGE production binaries only
+export LOCAL_DEVICE_SAGE_DEV_N_PROD := n
+export SAGE_BINARY_EXT :=
+
+# Default security/CA variant for VMX to UP
+export LOCAL_DEVICE_SECURITY_VARIANT_DEV ?= up
+export LOCAL_DEVICE_SECURITY_VARIANT_PROD ?= up
+
 # Binary distribution of bolt, BSU, bootloader and boot images
 export BCM_BINDIST_BL_ROOT  := vendor/broadcom/bindist/blimg/vmx/${LOCAL_PRODUCT_OUT}
 
