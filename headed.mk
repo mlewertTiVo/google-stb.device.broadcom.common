@@ -539,6 +539,7 @@ endif
 PRODUCT_PACKAGES += \
     BcmCustomizer \
     BcmPlayAutoInstallConfig \
+    BcmPlayAutoInstallConfig-test \
     BcmFwksRro
 
 ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY),y),)
