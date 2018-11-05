@@ -1,5 +1,4 @@
 nexus_verified_client_ignored(ephemeral_app);
-nexus_hwservice(ephemeral_app);
-get_prop(ephemeral_app, nexus_prop);
+dontaudit ephemeral_app vnd_nexus_hwservice:hwservice_manager { find };
 
 allow ephemeral_app proc_sysrq:file getattr;

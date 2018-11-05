@@ -6,7 +6,6 @@
         <interface>
             <name>IDevicesFactory</name>
             <instance>default</instance>
-            <instance>msd</instance>
         </interface>
     </hal>
     <hal format="hidl">
@@ -281,6 +280,15 @@
         <version>1.0</version>
         <interface>
             <name>ISdbHak</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>bcm.hardware.sfhak</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ISfHak</name>
             <instance>default</instance>
         </interface>
     </hal>

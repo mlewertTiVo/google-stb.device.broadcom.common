@@ -1,7 +1,5 @@
 nexus_verified_client_ignored(untrusted_app_all);
-nexus_hwservice(untrusted_app_all);
-get_prop(untrusted_app_all, nexus_prop);
-
+dontaudit untrusted_app_all vnd_nexus_hwservice:hwservice_manager { find };
 allow untrusted_app_all proc_sysrq:file getattr;
 
 # for netflix application.

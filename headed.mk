@@ -189,8 +189,8 @@ endif
 
 ifeq ($(SAGE_SUPPORT),y)
 ifeq ($(ANDROID_SUPPORTS_KEYMASTER),y)
-PRODUCT_COPY_FILES   += $(LOCAL_DEVICE_KMCERT_DEFAULT_DEV):$(TARGET_COPY_OUT_VENDOR)/usr/kmgk/km.zd.bin
-PRODUCT_COPY_FILES   += $(LOCAL_DEVICE_KMCERT_DEFAULT_PROD):$(TARGET_COPY_OUT_VENDOR)/usr/kmgk/km.zb.bin
+PRODUCT_COPY_FILES   += $(LOCAL_DEVICE_KMCERT_DEFAULT):$(TARGET_COPY_OUT_VENDOR)/usr/kmgk/km.zx.bin
+PRODUCT_COPY_FILES   += $(LOCAL_DEVICE_KMCERT_CUSTOM):$(TARGET_COPY_OUT_VENDOR)/usr/kmgk/km.xx.cus.bin
 endif
 ifeq ($(SAGE_VERSION),2x)
 SAGE_BINARY_EXT      ?= _dev
@@ -201,7 +201,7 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_os_app${SAGE_BINARY_EXT}.bi
 else
 ifeq ($(LOCAL_DEVICE_SAGE_DEV_N_PROD),y)
 SAGE_BINARY_EXT      ?= _dev
-SAGE_BL_BINARY_PATH  ?= ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/$(BCHP_CHIP)$(BCHP_VER)/dev
+SAGE_BL_BINARY_PATH  ?= ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/${TARGET_SAGE_PLATFORM}/zd
 PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_bl${SAGE_BINARY_EXT}.bin
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_framework${SAGE_BINARY_EXT}.bin
@@ -228,7 +228,7 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINAR
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
 endif
 SAGE_BINARY_EXT2      ?=
-SAGE_BL_BINARY_PATH2  ?= ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/$(BCHP_CHIP)$(BCHP_VER)
+SAGE_BL_BINARY_PATH2  ?= ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/${TARGET_SAGE_PLATFORM}/zb
 PRODUCT_COPY_FILES    += ${SAGE_BL_BINARY_PATH2}/sage_bl${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_bl${SAGE_BINARY_EXT2}.bin
 SAGE_APP_BINARY_PATH2 ?= $(SAGE_BL_BINARY_PATH2)
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_framework${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_framework${SAGE_BINARY_EXT2}.bin
@@ -256,7 +256,7 @@ PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_playready_30${SAGE_BIN
 endif
 else
 SAGE_BINARY_EXT      ?= _dev
-SAGE_BL_BINARY_PATH  ?= ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/$(BCHP_CHIP)$(BCHP_VER)/dev
+SAGE_BL_BINARY_PATH  ?= ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/${TARGET_SAGE_PLATFORM}/zd
 PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_bl${SAGE_BINARY_EXT}.bin
 SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_framework${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_framework${SAGE_BINARY_EXT}.bin
@@ -454,11 +454,8 @@ PRODUCT_PACKAGES += \
    bcm.hardware.dspsvcext-V1.0-java \
    bcm.hardware.sdbhak@1.0-service \
    bcm.hardware.tvisvcext@1.0-service \
-   bcm.hardware.dpthak@1.0-service
-ifeq ($(ANDROID_SUPPORTS_MEDIACAS),y)
-PRODUCT_PACKAGES += \
+   bcm.hardware.dpthak@1.0-service \
    bcm.hardware.sfhak@1.0-service
-endif
 ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
 PRODUCT_PACKAGES += \
    android.hardware.drm@1.1-service.widevine
@@ -587,8 +584,12 @@ LOCAL_DEVICE_NRDP_VALIDATION ?= ninja_5.1
 PRODUCT_PROPERTY_OVERRIDES += \
    ro.vendor.nrdp.modelgroup=${LOCAL_DEVICE_NRDP_MODEL_GROUP} \
    ro.vendor.nrdp.validation=${LOCAL_DEVICE_NRDP_VALIDATION}
-PRODUCT_COPY_FILES += device/broadcom/common/permissions/nrdp.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/nrdp.xml
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.vendor.nrdp.audio.mixer.buffersize=2048
+PRODUCT_COPY_FILES += device/broadcom/common/permissions/nrdp.xml:system/etc/permissions/nrdp.xml
 PRODUCT_COPY_FILES += device/broadcom/common/sysconfig/netflix.xml:system/etc/sysconfig/netflix.xml
+PRODUCT_PACKAGES += \
+    BcmNrdpHelper
 endif
 
 PRODUCT_COPY_FILES += device/broadcom/common/pub.libs/treble/public.libraries.broadcom.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
