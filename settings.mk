@@ -14,6 +14,7 @@ ifeq (${LOCAL_PRODUCT_OUT},)
 $(error please define LOCAL_PRODUCT_OUT)
 endif
 export TARGET_BOARD_PLATFORM                 := ${LOCAL_PRODUCT_OUT}
+export TARGET_SAGE_PLATFORM                  ?= ${LOCAL_PRODUCT_OUT}
 
 # filter rules for build inclusions based on boards supported.  when adding a new
 # board to the system, you may want to add it here too.
@@ -150,8 +151,8 @@ export LOCAL_DEVICE_USE_AVB                  ?= n
 export LOCAL_DEVICE_PROPERTIES_LEGACY        ?= y
 export LOCAL_DEVICE_LOWRAM                   ?= n
 export LOCAL_DEVICE_MEDIA_NO_HW_AUDIO        ?= n
-export LOCAL_DEVICE_KMCERT_DEFAULT_DEV       ?= device/broadcom/common/kmgk/km.zd.bcm.generic.bin
-export LOCAL_DEVICE_KMCERT_DEFAULT_PROD      ?= device/broadcom/common/kmgk/km.zb.cus.generic.bin
+export LOCAL_DEVICE_KMCERT_DEFAULT           ?= device/broadcom/common/kmgk/km.zx.bcm.generic.bin
+export LOCAL_DEVICE_KMCERT_CUSTOM            ?= device/broadcom/common/kmgk/km.zx.bcm.generic.bin
 export LOCAL_DEVICE_HWCFG_TYPE               ?= cramfs
 
 export HW_ENCODER_SUPPORT                    ?= y
@@ -177,13 +178,14 @@ export LOCAL_DTBO_SUPPORT                    ?= n
 export LOCAL_DEVICE_DTBO_IMAGE               ?=
 export HW_CAMERA_SUPPORT                     ?= y
 export HW_DVB_SUPPORT                        ?= y
+export HW_MP3_DECODER_SUPPORT                ?= y
 
 export BCM_GPT_CONFIG_FILE                   := $(LOCAL_DEVICE_GPT)
 export ANDROID_BUILD                         := y
 export ANDROID_SUPPORTS_DTVKIT               := n
 export BROADCOM_DHD_SOURCE_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmdhd
 export BROADCOM_NIC_SCRIPT_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmnic
-export BROADCOM_NIC_SOURCE_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/refsw/BSEAV/connectivity/wlan/core
+export BROADCOM_NIC_SOURCE_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/refsw/BSEAV/connectivity/wlan/7271
 export BROADCOM_NIC_DUAL_SOURCE_PATH         := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmnic_dual
 export HLS_PROTOCOL_SUPPORT                  := y
 

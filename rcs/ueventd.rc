@@ -3,6 +3,7 @@
 
 # BT UART device nodes
 /dev/ttyS1                0660   bluetooth  bluetooth
+/dev/ttyS2                0660   bluetooth  bluetooth
 
 /dev/sw_sync              0660   system     system
 

@@ -31,7 +31,7 @@ allow $1 nexus_vendor_debug_file:file { open create read write setattr getattr }
 
 define(`nexus_vendor_mediacas', `
 allow $1 nexus_vendor_mediacas_file:dir { search read write add_name remove_name };
-allow $1 nexus_vendor_mediacas_file:file { open create read write setattr getattr };
+allow $1 nexus_vendor_mediacas_file:file { open create read write setattr getattr unlink };
 ')
 
 define(`nexus_firmware', `
