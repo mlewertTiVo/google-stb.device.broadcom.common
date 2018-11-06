@@ -200,6 +200,3 @@ allow $1 nexus_vendor_ssl_file:dir rw_dir_perms;
 allow $1 nexus_vendor_ssl_file:file rw_file_perms;
 allow $1 nexus_vendor_ssl_file:file create_file_perms;
 ')
-
-define(`cas_proxy_violator', ifelse(target_cas_proxy_socket_violator, `true', $1, ))
-define(`cas_proxy_certifiable', ifelse(target_cas_proxy_socket_violator, `false', $1, ))

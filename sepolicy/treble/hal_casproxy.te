@@ -1,15 +1,8 @@
-#
-# Remove attribute "socket_between_core_and_vendor_violators" when
-# CAS vendor(s) move their networking code to an Android application.
-#
-cas_proxy_violator(`
-type hal_casproxy, domain, socket_between_core_and_vendor_violators;
-');
-cas_proxy_certifiable(`
 type hal_casproxy, domain;
-');
-
 type hal_casproxy_exec, exec_type, vendor_file_type, file_type;
+
+# Network access permitted (e.g. netd)
+net_domain(hal_casproxy);
 
 init_daemon_domain(hal_casproxy);
 add_hwservice(hal_casproxy, vnd_casproxy_hwservice);
@@ -38,22 +31,9 @@ allow hal_cas cgroup:file w_file_perms;
 # Allow GPU access
 allow hal_casproxy gpu_device:chr_file rw_file_perms;
 
-# allow networking
-allow hal_casproxy property_socket:sock_file write;
-allow hal_casproxy self:capability { net_raw net_admin };
-allow hal_casproxy self:tcp_socket create_socket_perms;
-allow hal_casproxy port:tcp_socket name_connect;
-allow hal_casproxy self:udp_socket create_socket_perms;
-allow hal_casproxy node:udp_socket node_bind;
-allow hal_casproxy port:udp_socket name_bind;
+# allow UDP socket networking
 allowxperm hal_casproxy self:udp_socket ioctl unpriv_sock_ioctls;
 allowxperm hal_casproxy self:udp_socket ioctl priv_sock_ioctls;
-allow hal_casproxy sysfs_net:dir r_dir_perms;
-allow hal_casproxy dnsproxyd_socket:sock_file write;
-allow hal_casproxy fwmarkd_socket:sock_file write;
-cas_proxy_violator(`
-allow hal_casproxy netd:unix_stream_socket connectto;
-');
 
 # allow limited procfs access
 allow hal_casproxy proc_interrupts:file r_file_perms;

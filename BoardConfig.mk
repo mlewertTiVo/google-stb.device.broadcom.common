@@ -170,12 +170,6 @@ else
 BOARD_SEPOLICY_M4DEFS += target_nxsysprop=true
 BOARD_SEPOLICY_M4DEFS += target_nxvdrprop=true
 endif
-ifeq ($(ANDROID_SUPPORTS_MEDIACAS),y)
-$(warning "Forcing non-certifiable sepolicy for cas-proxy: fixme!!")
-BOARD_SEPOLICY_M4DEFS += target_cas_proxy_socket_violator=true
-else
-BOARD_SEPOLICY_M4DEFS += target_cas_proxy_socket_violator=false
-endif
 
 ifeq ($(LOCAL_DEVICE_LOWRAM),y)
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 2
