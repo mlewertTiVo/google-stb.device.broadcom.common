@@ -247,6 +247,5 @@ endif
 endif
 endif
 
-# health2 support.
-#
 DEVICE_FRAMEWORK_MANIFEST_FILE += system/libhidl/vintfdata/manifest_healthd_exclude.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE += device/broadcom/common/manifest/manifest_vr_composer_exclude.xml
