@@ -159,7 +159,6 @@ export HW_ENCODER_SUPPORT                    ?= y
 export HW_WIFI_NIC_SUPPORT                   ?= n
 export HW_TZ_SUPPORT                         ?= n
 export HW_AB_UPDATE_SUPPORT                  ?= n
-export HW_WIFI_NIC_DUAL_SUPPORT              ?= n
 export HW_GPU_MMU_SUPPORT                    ?= n
 export HW_DTU_SUPPORT                        ?= n
 export BCM_APP_CUSTOM                        ?= n
@@ -186,7 +185,6 @@ export ANDROID_SUPPORTS_DTVKIT               := n
 export BROADCOM_DHD_SOURCE_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmdhd
 export BROADCOM_NIC_SCRIPT_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmnic
 export BROADCOM_NIC_SOURCE_PATH              := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/refsw/BSEAV/connectivity/wlan/7271
-export BROADCOM_NIC_DUAL_SOURCE_PATH         := ${ANDROID}/${BCM_VENDOR_STB_ROOT}/drivers/bcmnic_dual
 export HLS_PROTOCOL_SUPPORT                  := y
 
 export NEXUS_POWER_MANAGEMENT                ?= y
