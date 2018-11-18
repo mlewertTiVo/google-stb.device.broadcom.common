@@ -1,0 +1,14 @@
+type hal_prdysc, domain;
+type hal_prdysc_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_prdysc);
+add_hwservice(hal_prdysc, vnd_prdysc_hwservice);
+vndbinder_use(hal_prdysc);
+get_prop(hal_prdysc, hwservicemanager_prop);
+hwbinder_use(hal_prdysc);
+nexus_vendor_verified_client(hal_prdysc);
+nexus_hwservice(hal_prdysc);
+net_domain(hal_prdysc);
+hal_client_domain(hal_prdysc, hal_allocator);
+allow hal_prdysc self:capability { net_raw net_admin };
+binder_call(hal_prdysc, hal_drm_playready);
+allow hal_prdysc gpu_device:chr_file rw_file_perms;

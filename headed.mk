@@ -450,7 +450,8 @@ PRODUCT_PACKAGES += \
 endif
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
 PRODUCT_PACKAGES += \
-   android.hardware.drm@1.1-service.playready
+   android.hardware.drm@1.1-service.playready \
+   bcm.hardware.prdysc@1.0-service
 endif
 ifeq ($(SAGE_SUPPORT),y)
 ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)

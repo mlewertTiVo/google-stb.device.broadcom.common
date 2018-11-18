@@ -184,3 +184,8 @@ nexus_vdr_prop_allowed(`
 allow $1 vendor_default_prop:property_service set;
 ')
 ')
+
+define(`prdysc_hwservice', `
+hwbinder_use($1);
+allow $1 vnd_prdysc_hwservice:hwservice_manager find;
+')

@@ -6,3 +6,4 @@ type vnd_tvisvcext_hwservice, hwservice_manager_type;
 type vnd_bp3_hwservice, hwservice_manager_type;
 type vnd_dpthak_hwservice, hwservice_manager_type;
 type vnd_sfhak_hwservice, hwservice_manager_type;
+type vnd_prdysc_hwservice, hwservice_manager_type;

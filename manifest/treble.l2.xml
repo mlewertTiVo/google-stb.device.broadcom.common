@@ -275,6 +275,15 @@
         </interface>
     </hal>
     <hal format="hidl">
+        <name>bcm.hardware.prdysc</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>Iprdysc</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
         <name>bcm.hardware.sdbhak</name>
         <transport>hwbinder</transport>
         <version>1.0</version>

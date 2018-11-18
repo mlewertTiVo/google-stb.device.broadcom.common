@@ -72,3 +72,4 @@
 /(vendor|system/vendor)/bin/hw/bcm\.hardware\.bp3@1\.0-service             u:object_r:hal_bp3_exec:s0
 /(vendor|system/vendor)/bin/hw/bcm\.hardware\.dpthak@1\.0-service          u:object_r:hal_dpthak_exec:s0
 /(vendor|system/vendor)/bin/hw/bcm\.hardware\.sfhak@1\.0-service           u:object_r:hal_sfhak_exec:s0
+/(vendor|system/vendor)/bin/hw/bcm\.hardware\.prdysc@1\.0-service          u:object_r:hal_prdysc_exec:s0
