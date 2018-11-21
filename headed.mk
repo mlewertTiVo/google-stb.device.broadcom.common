@@ -298,11 +298,7 @@ ifneq ($(HW_WIFI_SUPPORT),n)
 ifeq ($(HW_WIFI_NIC_SUPPORT),y)
 $(call inherit-product-if-exists, device/broadcom/common/connectivity/bcmnic-device.mk)
 else
-ifeq ($(HW_WIFI_NIC_DUAL_SUPPORT),y)
-$(call inherit-product-if-exists, device/broadcom/common/connectivity/bcmnic-dual-device.mk)
-else
 $(call inherit-product-if-exists, device/broadcom/common/connectivity/bcmdhd-device.mk)
-endif
 endif
 endif
 ifneq ($(filter usb uart,$(ANDROID_ENABLE_BT)),)

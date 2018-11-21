@@ -194,7 +194,8 @@ include device/broadcom/common/middleware/build.mk
 
 ifeq ($(LOCAL_DTBO_SUPPORT),y)
 ifeq ($(BCM_DIST_KNLIMG_BINS),y)
-BOARD_PREBUILT_DTBOIMAGE := device/broadcom/$(LOCAL_DEVICE_DTBO_IMAGE)
+LOCAL_DEVICE_DTBO_IMAGE_PREFIX ?= device/broadcom
+BOARD_PREBUILT_DTBOIMAGE := $(LOCAL_DEVICE_DTBO_IMAGE_PREFIX)/$(LOCAL_DEVICE_DTBO_IMAGE)
 BOARD_PACK_RADIOIMAGES   += dtbo.img
 else
 BOARD_PREBUILT_DTBOIMAGE := $(ANDROID_OUT_DIR)/target/product/$(LOCAL_DEVICE_DTBO_IMAGE).bcm
@@ -247,6 +248,5 @@ endif
 endif
 endif
 
-# health2 support.
-#
 DEVICE_FRAMEWORK_MANIFEST_FILE += system/libhidl/vintfdata/manifest_healthd_exclude.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE += device/broadcom/common/manifest/manifest_vr_composer_exclude.xml

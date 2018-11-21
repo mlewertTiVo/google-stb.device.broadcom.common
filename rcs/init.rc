@@ -102,7 +102,7 @@ on post-fs-data
    setprop vold.post_fs_data_done 1
    class_start pre_core
 
-   wait_for_prop property:dyn.nx.state=loaded
+   wait_for_prop dyn.nx.state loaded
    insmod /vendor/lib/modules/ldvbon.ko
 
 on property:sys.gator=1

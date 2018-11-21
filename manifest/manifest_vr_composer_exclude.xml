@@ -1,0 +1,9 @@
+<!-- ATV device do not include the virtual reality composer.
+     so remove it from the framework manifest by default.
+-->
+<manifest version="1.0" type="framework">
+    <hal format="hidl" override="true">
+        <name>android.hardware.graphics.composer</name>
+        <transport>hwbinder</transport>
+    </hal>
+</manifest>

@@ -1,15 +1,15 @@
 import /init.recovery.block.rc
 import /init.recovery.usb.rc
 
-on early-init
+on post-fs
    export LD_LIBRARY_PATH /oem/lib
    export SAGEBIN_PATH /oem/bin
    export NEXUS_DEVICE_NODE /dev/nxmw
    setprop sys.recov.nx.state none
    insmod /oem/lib/nexus.ko devname="nxmw" config="auto_subindex=true"
+   start nxmini
 
 on init
-   start nxmini
    mkdir /config
    mount configfs none /config
    mkdir /config/usb_gadget/g1 0770 shell shell
@@ -22,7 +22,6 @@ on init
    mkdir /config/usb_gadget/g1/functions/ffs.adb
 
 service nxmini /sbin/nxmini
-   oneshot
    seclabel u:r:nxmini:s0
    user root
    group system

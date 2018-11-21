@@ -82,11 +82,7 @@ ifneq ($(HW_WIFI_SUPPORT),n)
 ifeq ($(HW_WIFI_NIC_SUPPORT),y)
 include device/broadcom/common/connectivity/bcmnic.mk
 else
-ifeq ($(HW_WIFI_NIC_DUAL_SUPPORT),y)
-include device/broadcom/common/connectivity/bcmnic-dual.mk
-else
 include device/broadcom/common/connectivity/bcmdhd.mk
-endif
 endif
 endif
 
@@ -163,14 +159,7 @@ bindist_build: bindist_core_build
 				cd ${B_NIC_OBJ_ROOT} && source ./setenv-android-stb7271.sh && PATH=${B_KNB_TOOLCHAIN}:$$PATH SHORTER_PATH=1 ./build-drv-nic.sh ${BRCM_NIC_TARGET_NAME}; \
 			fi; \
 		fi; \
-		if [ "${HW_WIFI_NIC_DUAL_SUPPORT}" == "y" ]; then \
-			if [ ! -d "${B_NIC_DUAL_OBJ_ROOT}" ]; then \
-				mkdir -p ${B_NIC_DUAL_OBJ_ROOT}; \
-			fi; \
-			cp -faR ${BROADCOM_NIC_DUAL_SOURCE_PATH}/* ${B_NIC_DUAL_OBJ_ROOT}  && cp ${BROADCOM_NIC_DUAL_SOURCE_PATH}/*.sh ${B_NIC_DUAL_OBJ_ROOT}; \
-			cd ${B_NIC_DUAL_OBJ_ROOT} && source ./setenv-android-stb7445.sh ${BRCM_NIC_DUAL_CHIPVER} && PATH=${B_KNB_TOOLCHAIN}:$$PATH LINUX_OUT=${LINUX_OUT_1ST_ARCH} ./build-drv.sh ${BRCM_NIC_DUAL_TARGET}; \
-		fi; \
-		if [[ "${HW_WIFI_NIC_SUPPORT}" != "y" && "${HW_WIFI_NIC_DUAL_SUPPORT}" != "y" ]]; then \
+		if [[ "${HW_WIFI_NIC_SUPPORT}" != "y" ]]; then \
 			if [ ! -d "${B_DHD_OBJ_ROOT}" ]; then \
 				mkdir -p ${B_DHD_OBJ_ROOT}; \
 			fi; \
