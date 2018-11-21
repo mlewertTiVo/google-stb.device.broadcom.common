@@ -164,6 +164,7 @@ export HW_DTU_SUPPORT                        ?= n
 export BCM_APP_CUSTOM                        ?= n
 export HW_HVD_REVISION                       ?= R
 export HW_HVD_REDUX                          ?= n
+export HW_RAAGA_ALIGNMENT                    ?= 32
 export HAL_GR_VERSION                        ?= v-0.x
 export DTCP_IP_SAGE_SUPPORT                  ?= n
 export HW_GPU_VULKAN_SUPPORT                 ?= n
