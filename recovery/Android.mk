@@ -48,14 +48,6 @@ EXTRA_SYSTEM_LIB_FILES := \
 endif
 
 ifeq ($(SAGE_SUPPORT),y)
-ifeq ($(SAGE_VERSION),2x)
-SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/2x/$(BCHP_CHIP)$(BCHP_VER)
-SAGE_BINARY_EXT ?= _dev
-SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)/securemode$(SAGE_SECURE_MODE)
-EXTRA_SYSTEM_BIN_FILES := \
-   ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin \
-   ${SAGE_APP_BINARY_PATH}/sage_os_app${SAGE_BINARY_EXT}.bin
-else
 ifeq ($(LOCAL_DEVICE_SAGE_DEV_N_PROD),y)
 SAGE_BL_BINARY_PATH ?= ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/${TARGET_SAGE_PLATFORM}/zd
 SAGE_BINARY_EXT ?= _dev
@@ -123,7 +115,6 @@ ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
 EXTRA_SYSTEM_BIN_FILES += \
    ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin \
    ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
-endif
 endif
 endif
 endif

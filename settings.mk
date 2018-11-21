@@ -250,9 +250,6 @@ ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY) $(AND
         export MSDRM_PRDY_SUPPORT     := y
         export MSDRM_PRDY_SDK_VERSION := 2.5
     endif
-    ifeq ($(SAGE_VERSION),2x)
-        export SAGE_SECURE_MODE ?= 5
-    endif
 endif
 
 ifeq ($(HW_TZ_SUPPORT),y)
