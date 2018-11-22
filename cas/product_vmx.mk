@@ -40,5 +40,5 @@ PRODUCT_PACKAGES += \
     bcm.hardware.casproxy@1.0-service
 
 PRODUCT_PROPERTY_OVERRIDES += \
-   ro.nx.heap.export=1m
+   ro.nx.heap.export=2m
 
