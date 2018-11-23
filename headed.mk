@@ -438,6 +438,7 @@ PRODUCT_PACKAGES += \
    android.hardware.tv.cec@1.0-service \
    android.hardware.tv.input@1.0-service \
    bcm.hardware.nexus@1.0-impl \
+   bcm.hardware.nexus@1.1-impl \
    bcm.hardware.dspsvcext@1.0-service \
    bcm.hardware.dspsvcext-V1.0-java \
    bcm.hardware.sdbhak@1.0-service \
