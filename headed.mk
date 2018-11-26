@@ -111,6 +111,7 @@ PRODUCT_COPY_FILES       += device/broadcom/common/idc/ARRIS_RCU.idc:$(TARGET_CO
 PRODUCT_COPY_FILES       += device/broadcom/common/idc/virtual-remote.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/virtual-remote.idc
 PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_black.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/broadcom_black.ikm
 PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_silver.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/broadcom_silver.ikm
+PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/arris_sd.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/arris_sd.ikm
 PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/hals/power/sopass.key:$(TARGET_COPY_OUT_VENDOR)/usr/sopass
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml

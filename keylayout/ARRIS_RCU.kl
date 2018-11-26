@@ -33,4 +33,4 @@ key usage 0x0c0085 BUTTON_16
 # key 114   VOLUME_DOWN
 # key 115   VOLUME_UP
 # No equivalent Android key
-# vod - > key 393 "KEY_VIDEO"
+# vod - > key 627 "KEY_VOD"
