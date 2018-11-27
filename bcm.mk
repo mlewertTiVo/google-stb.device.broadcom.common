@@ -14,8 +14,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.logger_size=4096 \
    ro.v3d.fence.expose=true \
    \
-   ro.nx.colordepth10b.force=1 \
-   \
    ro.nx.media.vdec_outportbuf=32 \
    \
    ro.nx.media.vdec_hfrvideo_tunnel=1
