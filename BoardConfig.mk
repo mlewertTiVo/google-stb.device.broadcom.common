@@ -125,6 +125,7 @@ BOARD_KERNEL_CMDLINE += cgroup.memory=nokmem
 ifeq ($(LOCAL_DTBO_SUPPORT),y)
 BOARD_KERNEL_CMDLINE += androidboot.dtbo_idx=0
 endif
+BOARD_KERNEL_CMDLINE += loop.max_part=2
 BOARD_MKBOOTIMG_ARGS := $(LOCAL_DEVICE_MKBOOTIMG_ARGS)
 
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)
