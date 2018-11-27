@@ -24,7 +24,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.hdmi.wake_on_hotplug=false \
    ro.zygote.disable_gl_preload=true \
    sys.display-size=1920x1080 \
-   ro.nx.colordepth10b.force=1 \
    \
    ro.gfx.driver.0=gfxdriver-bcmstb \
    ro.sf.disable_triple_buffer=0 \
