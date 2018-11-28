@@ -37,6 +37,7 @@ $(call inherit-product, device/google/atv/products/atv_base.mk)
 include device/broadcom/common/settings.mk
 $(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
 include device/broadcom/common/middleware/definitions.mk
+-include device/broadcom/$(LOCAL_PRODUCT_OUT)-kernel/overlay.mk
 
 ifneq ($(BCM_DIST_KNLIMG_BINS),y)
 export B_REFSW_DEBUG       ?= y
