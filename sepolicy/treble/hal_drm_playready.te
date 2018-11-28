@@ -13,3 +13,6 @@ nexus_hwcfg(hal_drm_playready);
 allow hal_drm_playready vendor_data_file:dir create_dir_perms;
 allow hal_drm_playready vendor_data_file:file create_file_perms;
 allow hal_drm_playready hal_allocator:fd use;
+prdysc_hwservice(hal_drm_playready);
+hal_client_domain(hal_drm_playready, hal_allocator);
+binder_call(hal_drm_playready, hal_prdysc);

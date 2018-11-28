@@ -192,13 +192,6 @@ ifeq ($(ANDROID_SUPPORTS_KEYMASTER),y)
 PRODUCT_COPY_FILES   += $(LOCAL_DEVICE_KMCERT_DEFAULT):$(TARGET_COPY_OUT_VENDOR)/usr/kmgk/km.zx.bin
 PRODUCT_COPY_FILES   += $(LOCAL_DEVICE_KMCERT_CUSTOM):$(TARGET_COPY_OUT_VENDOR)/usr/kmgk/km.xx.cus.bin
 endif
-ifeq ($(SAGE_VERSION),2x)
-SAGE_BINARY_EXT      ?= _dev
-SAGE_BL_BINARY_PATH  ?= $(BSEAV_TOP)/lib/security/sage/bin/2x/$(BCHP_CHIP)$(BCHP_VER)
-PRODUCT_COPY_FILES   += ${SAGE_BL_BINARY_PATH}/sage_bl${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_bl${SAGE_BINARY_EXT}.bin
-SAGE_APP_BINARY_PATH ?= $(SAGE_BL_BINARY_PATH)/securemode$(SAGE_SECURE_MODE)
-PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_os_app${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_os_app${SAGE_BINARY_EXT}.bin
-else
 ifeq ($(LOCAL_DEVICE_SAGE_DEV_N_PROD),y)
 SAGE_BINARY_EXT      ?= _dev
 SAGE_BL_BINARY_PATH  ?= ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/${TARGET_SAGE_PLATFORM}/zd
@@ -281,7 +274,6 @@ PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_manufacturing${SAGE_BINA
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_25${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
-endif
 endif
 endif
 ifeq ($(DTCP_IP_SAGE_SUPPORT),y)
@@ -458,7 +450,8 @@ PRODUCT_PACKAGES += \
 endif
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
 PRODUCT_PACKAGES += \
-   android.hardware.drm@1.1-service.playready
+   android.hardware.drm@1.1-service.playready \
+   bcm.hardware.prdysc@1.0-service
 endif
 ifeq ($(SAGE_SUPPORT),y)
 ifneq ($(filter $(ANDROID_DEVICE_SUPPORTS_BP3),y),)
@@ -542,9 +535,7 @@ PRODUCT_PACKAGES            += liboemcrypto libwvdrmengine
 endif
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
 PRODUCT_PACKAGES            += libcmndrmprdy libplayreadydrmplugin_2_5 libplayreadypk_host libprhidl_2_5
-ifneq ($(SAGE_VERSION),2x)
 PRODUCT_PACKAGES            += libplayreadydrmplugin_3_0 libplayready30pk libprhidl_3_0
-endif
 endif
 endif
 
@@ -576,7 +567,7 @@ endif
 
 # Netflix support
 ifneq (${LOCAL_DEVICE_NRDP_MODEL_GROUP},)
-LOCAL_DEVICE_NRDP_VALIDATION ?= ninja_5.1
+LOCAL_DEVICE_NRDP_VALIDATION ?= ninja_6
 PRODUCT_PROPERTY_OVERRIDES += \
    ro.vendor.nrdp.modelgroup=${LOCAL_DEVICE_NRDP_MODEL_GROUP} \
    ro.vendor.nrdp.validation=${LOCAL_DEVICE_NRDP_VALIDATION}

@@ -6,3 +6,4 @@ bcm.hardware.bp3::Ibp3                  u:object_r:vnd_bp3_hwservice:s0
 bcm.hardware.dpthak::IDptHak            u:object_r:vnd_dpthak_hwservice:s0
 bcm.hardware.sfhak::ISfHak              u:object_r:vnd_sfhak_hwservice:s0
 dolby.audio.ms12::IMS12                 u:object_r:hal_audio_hwservice:s0
+bcm.hardware.prdysc::Iprdysc            u:object_r:vnd_prdysc_hwservice:s0
