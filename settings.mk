@@ -151,6 +151,7 @@ export LOCAL_DEVICE_USE_AVB                  ?= n
 export LOCAL_DEVICE_PROPERTIES_LEGACY        ?= y
 export LOCAL_DEVICE_LOWRAM                   ?= n
 export LOCAL_DEVICE_MEDIA_NO_HW_AUDIO        ?= n
+export LOCAL_DEVICE_MEDIA_SW_AVC_1080P       ?= n
 export LOCAL_DEVICE_KMCERT_DEFAULT           ?= device/broadcom/common/kmgk/km.zx.bcm.generic.bin
 export LOCAL_DEVICE_KMCERT_CUSTOM            ?= device/broadcom/common/kmgk/km.zx.bcm.generic.bin
 export LOCAL_DEVICE_HWCFG_TYPE               ?= cramfs

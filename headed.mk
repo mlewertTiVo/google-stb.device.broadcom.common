@@ -86,7 +86,11 @@ PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs
 else
 PRODUCT_COPY_FILES       += device/broadcom/common/media/media_codecs_google_audio_no_aac.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml
 endif
+ifeq ($(LOCAL_DEVICE_MEDIA_SW_AVC_1080P),y)
+PRODUCT_COPY_FILES       += device/broadcom/common/media/media_codecs_google_video_le_1080p_avc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
+else
 PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
+endif
 PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_tv.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_tv.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.ethernet.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.hdmi.cec.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.hdmi.cec.xml
