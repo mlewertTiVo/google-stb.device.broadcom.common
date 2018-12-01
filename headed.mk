@@ -529,6 +529,15 @@ PRODUCT_PACKAGES += \
 endif
 endif
 
+BINDER_BENCHMARKS := y
+ifeq ($(BINDER_BENCHMARKS),y)
+PRODUCT_PACKAGES += \
+   android.hardware.tests.libhwbinder@1.0-impl \
+   libhwbinder_benchmark \
+   libhwbinder_latency \
+   hwbinderThroughputTest
+endif
+
 PRODUCT_PACKAGES += \
     BcmCustomizer \
     BcmPlayAutoInstallConfig \
