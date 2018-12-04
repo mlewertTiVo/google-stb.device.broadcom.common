@@ -90,3 +90,4 @@ nexus_sys_prop_forced(nxserver);
 nexus_vdr_prop_forced(nxserver);
 set_prop(nxserver, vendor_display_size_prop);
 set_prop(nxserver, vendor_nexus_trigger_wifi_prop);
+set_prop(nxserver, vendor_nexus_trigger_ldvbon_prop);
