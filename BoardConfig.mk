@@ -25,10 +25,9 @@ BOARD_USES_GENERIC_AUDIO     := false
 USE_LEGACY_AUDIO_POLICY      := 0
 USE_CUSTOM_AUDIO_POLICY      := 0
 USE_XML_AUDIO_POLICY_CONF    := 1
-ifneq ($(LOCAL_NVI_LAYOUT),y)
-ifneq ($(LOCAL_ANDROID_64BIT_ONLY),y)
 BOARD_VNDK_VERSION           := current
-endif
+ifeq ($(LOCAL_NVI_LAYOUT),y)
+BOARD_VNDK_RUNTIME_DISABLE   := true
 endif
 
 # Wifi related defines
@@ -126,6 +125,7 @@ BOARD_KERNEL_CMDLINE += cgroup.memory=nokmem
 ifeq ($(LOCAL_DTBO_SUPPORT),y)
 BOARD_KERNEL_CMDLINE += androidboot.dtbo_idx=0
 endif
+BOARD_KERNEL_CMDLINE += loop.max_part=2
 BOARD_MKBOOTIMG_ARGS := $(LOCAL_DEVICE_MKBOOTIMG_ARGS)
 
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)

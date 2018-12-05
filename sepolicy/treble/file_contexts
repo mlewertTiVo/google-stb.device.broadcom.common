@@ -46,6 +46,7 @@
 /dev/hwcfg(/.*)?          u:object_r:system_file:s0
 
 /(vendor|system/vendor)/lib/bcm\.hardware\.nexus@1\.0\.so       u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib/bcm\.hardware\.nexus@1\.1\.so       u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib/libnexus\.so                        u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib/libnxclient\.so                     u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib/libnxwrap\.so                       u:object_r:same_process_hal_file:s0

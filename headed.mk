@@ -37,6 +37,7 @@ $(call inherit-product, device/google/atv/products/atv_base.mk)
 include device/broadcom/common/settings.mk
 $(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
 include device/broadcom/common/middleware/definitions.mk
+-include device/broadcom/$(LOCAL_PRODUCT_OUT)-kernel/overlay.mk
 
 ifneq ($(BCM_DIST_KNLIMG_BINS),y)
 export B_REFSW_DEBUG       ?= y
@@ -85,7 +86,11 @@ PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs
 else
 PRODUCT_COPY_FILES       += device/broadcom/common/media/media_codecs_google_audio_no_aac.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml
 endif
+ifeq ($(LOCAL_DEVICE_MEDIA_SW_AVC_1080P),y)
+PRODUCT_COPY_FILES       += device/broadcom/common/media/media_codecs_google_video_le_1080p_avc.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
+else
 PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
+endif
 PRODUCT_COPY_FILES       += frameworks/av/media/libstagefright/data/media_codecs_google_tv.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_tv.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.ethernet.xml
 PRODUCT_COPY_FILES       += frameworks/native/data/etc/android.hardware.hdmi.cec.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.hdmi.cec.xml
@@ -111,6 +116,7 @@ PRODUCT_COPY_FILES       += device/broadcom/common/idc/ARRIS_RCU.idc:$(TARGET_CO
 PRODUCT_COPY_FILES       += device/broadcom/common/idc/virtual-remote.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/virtual-remote.idc
 PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_black.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/broadcom_black.ikm
 PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/broadcom_silver.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/broadcom_silver.ikm
+PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/nxif/libnexusir/irkeymap/arris_sd.ikm:$(TARGET_COPY_OUT_VENDOR)/usr/irkeymap/arris_sd.ikm
 PRODUCT_COPY_FILES       += ${BCM_VENDOR_STB_ROOT}/bcm_platform/hals/power/sopass.key:$(TARGET_COPY_OUT_VENDOR)/usr/sopass
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml
 PRODUCT_COPY_FILES       += frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
@@ -438,6 +444,7 @@ PRODUCT_PACKAGES += \
    android.hardware.tv.cec@1.0-service \
    android.hardware.tv.input@1.0-service \
    bcm.hardware.nexus@1.0-impl \
+   bcm.hardware.nexus@1.1-impl \
    bcm.hardware.dspsvcext@1.0-service \
    bcm.hardware.dspsvcext-V1.0-java \
    bcm.hardware.sdbhak@1.0-service \
@@ -531,7 +538,7 @@ ifneq ($(filter $(ANDROID_SUPPORTS_WIDEVINE) $(ANDROID_SUPPORTS_PLAYREADY),y),)
 PRODUCT_PROPERTY_OVERRIDES  += drm.service.enabled=true
 PRODUCT_PACKAGES            += libbcrypt libdrmrootfs libcmndrm libcmndrm_tl libsrai
 ifeq ($(ANDROID_SUPPORTS_WIDEVINE),y)
-PRODUCT_PACKAGES            += liboemcrypto libwvdrmengine
+PRODUCT_PACKAGES            += liboemcrypto libwvdrmengine libcasoemcrypto libwvmediacas
 endif
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
 PRODUCT_PACKAGES            += libcmndrmprdy libplayreadydrmplugin_2_5 libplayreadypk_host libprhidl_2_5

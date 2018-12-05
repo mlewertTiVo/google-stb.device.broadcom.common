@@ -248,6 +248,15 @@
         </interface>
     </hal>
     <hal format="hidl">
+        <name>bcm.hardware.casproxy</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IMediaCasProxyService</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
         <name>bcm.hardware.dpthak</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -268,7 +277,7 @@
     <hal format="hidl">
         <name>bcm.hardware.nexus</name>
         <transport>hwbinder</transport>
-        <version>1.0</version>
+        <version>1.1</version>
         <interface>
             <name>INexus</name>
             <instance>default</instance>

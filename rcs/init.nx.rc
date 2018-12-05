@@ -1,4 +1,4 @@
-on boot
+on post-fs
    # install middleware drivers in order of dependencies
    #
    #     droid_pm.ko -> nexus.ko -> nx_ashmem.ko
@@ -24,14 +24,19 @@ on boot
    # 
    # droid_pm: gpl compliant power management bits used by nexus+android.
    #
-   insmod /vendor/lib/modules/droid_pm.ko devname="nxwk"
+   insmod /system/vendor/lib/modules/droid_pm.ko devname="nxwk"
    chown system system /sys/devices/platform/droid_pm/full_wol_wakeup
    chown system system /sys/devices/platform/droid_pm/sw_lid
    #
    # nexus: middleware core, requires droid_pm.
    #
    #setprop ro.nx.msg_modules ""
-   insmod /vendor/lib/modules/nexus.ko devname="nxmw" config="auto_subindex=true"
+   insmod /system/vendor/lib/modules/nexus.ko devname="nxmw" config="auto_subindex=true"
+   #
+   # start up nxserver service.
+   #
+   load_persist_props
+   start nxserver
    #
    # nx_ashmem: memory management, requires nexus. 
    #
@@ -41,4 +46,4 @@ on boot
    #              core middleware as soon as possible.
    #
    wait_for_prop dyn.nx.state memcfg
-   insmod /vendor/lib/modules/nx_ashmem.ko devname="nxmem" heap_grow="8m"
+   insmod /system/vendor/lib/modules/nx_ashmem.ko devname="nxmem" heap_grow="8m"
