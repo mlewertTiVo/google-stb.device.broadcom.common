@@ -9,6 +9,7 @@ add_hwservice(hal_casproxy, vnd_casproxy_hwservice);
 
 nexus_vendor_verified_client(hal_casproxy);
 nexus_vendor_mediacas(hal_casproxy);
+nexus_hwservice(hal_casproxy);
 
 # Allow CasProxy to binder communicate with CAS plugins
 binder_call(hal_casproxy, hal_cas_default);
