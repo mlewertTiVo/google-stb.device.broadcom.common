@@ -226,6 +226,9 @@ ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_25${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
 endif
+ifeq ($(SAGE_SECURE_LOG_SUPPORT),y)
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_log${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_secure_log${SAGE_BINARY_EXT}.bin
+endif
 SAGE_BINARY_EXT2      ?=
 SAGE_BL_BINARY_PATH2  ?= ${BCM_VENDOR_STB_ROOT}/prebuilts/sage/${TARGET_SAGE_PLATFORM}/zb
 PRODUCT_COPY_FILES    += ${SAGE_BL_BINARY_PATH2}/sage_bl${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_bl${SAGE_BINARY_EXT2}.bin
@@ -252,6 +255,9 @@ PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_manufacturing${SAGE_BI
 ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_playready_25${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_25${SAGE_BINARY_EXT2}.bin
 PRODUCT_COPY_FILES    += ${SAGE_APP_BINARY_PATH2}/sage_ta_playready_30${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_30${SAGE_BINARY_EXT2}.bin
+endif
+ifeq ($(SAGE_SECURE_LOG_SUPPORT),y)
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH2}/sage_ta_secure_log${SAGE_BINARY_EXT2}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_secure_log${SAGE_BINARY_EXT2}.bin
 endif
 else
 SAGE_BINARY_EXT      ?= _dev
@@ -281,14 +287,16 @@ ifeq ($(ANDROID_SUPPORTS_PLAYREADY),y)
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_25${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_25${SAGE_BINARY_EXT}.bin
 PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_playready_30${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_playready_30${SAGE_BINARY_EXT}.bin
 endif
+ifeq ($(SAGE_SECURE_LOG_SUPPORT),y)
+PRODUCT_COPY_FILES   += ${SAGE_APP_BINARY_PATH}/sage_ta_secure_log${SAGE_BINARY_EXT}.bin:$(TARGET_COPY_OUT_VENDOR)/bin/sage_ta_secure_log${SAGE_BINARY_EXT}.bin
+endif
 endif
 ifeq ($(DTCP_IP_SAGE_SUPPORT),y)
 PRODUCT_PACKAGES += libb_dtcp_ip
 endif
 ifeq ($(SAGE_SECURE_LOG_SUPPORT),y)
 PRODUCT_PACKAGES += \
-   libsageseclog \
-   sageseclog
+   otpgetchipid
 endif
 endif
 
@@ -527,6 +535,15 @@ ifeq ($(LOCAL_DEVICE_MSD_SUPPORT),y)
 PRODUCT_PACKAGES += \
    DolbyAudioTests
 endif
+endif
+
+BINDER_BENCHMARKS := y
+ifeq ($(BINDER_BENCHMARKS),y)
+PRODUCT_PACKAGES += \
+   android.hardware.tests.libhwbinder@1.0-impl \
+   libhwbinder_benchmark \
+   libhwbinder_latency \
+   hwbinderThroughputTest
 endif
 
 PRODUCT_PACKAGES += \

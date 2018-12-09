@@ -189,3 +189,9 @@ define(`prdysc_hwservice', `
 hwbinder_use($1);
 allow $1 vnd_prdysc_hwservice:hwservice_manager find;
 ')
+
+define(`nexus_vendor_ssl', `
+allow $1 nexus_vendor_ssl_file:dir rw_dir_perms;
+allow $1 nexus_vendor_ssl_file:file rw_file_perms;
+allow $1 nexus_vendor_ssl_file:file create_file_perms;
+')

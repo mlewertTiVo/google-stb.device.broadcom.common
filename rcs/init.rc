@@ -39,11 +39,13 @@ on boot
 
 on post-fs
    export SAGEBIN_PATH /vendor/bin
+   export SAGECERT_PATH /dev/hwcfg
    export PAKBIN_PATH /vendor/usr/pak
    export SWXPTBIN_PATH /vendor/usr/tee
    export DRMBIN_PATH /dev/hwcfg
    export NEXUS_LOGGER /vendor/bin/nxlogger
    export NEXUS_LOGGER_FILE /data/vendor/nexus/nexus.log
+   export sage_log_file_path /data/vendor/misc/ssl
 
    setprop ro.nx.v3d.no_map_lock 0
    setprop dyn.nx.state none
@@ -70,6 +72,7 @@ on post-fs-data
    mkdir /data/vendor/misc 0771 root root
    mkdir /data/vendor/misc/nexus 0755 root system
    mkdir /data/vendor/misc/nxfw 0777 root root
+   mkdir /data/vendor/misc/ssl 0777 root root
    mkdir /data/vendor/nexus 0775 root system
    mkdir /data/vendor/nexus/secdma 0777 system system
    mkdir /data/vendor/nexus/ssd 0777 system system
@@ -102,7 +105,7 @@ on post-fs-data
    setprop vold.post_fs_data_done 1
    class_start pre_core
 
-   wait_for_prop dyn.nx.state loaded
+on property:vendor.nx.ldvbon.trigger=init
    insmod /vendor/lib/modules/ldvbon.ko
 
 on property:sys.gator=1
