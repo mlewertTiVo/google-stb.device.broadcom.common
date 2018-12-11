@@ -157,6 +157,7 @@ export LOCAL_DEVICE_SECURITY_VARIANT_PROD    ?= zb
 export LOCAL_DEVICE_KMCERT_DEFAULT           ?= device/broadcom/common/kmgk/km.zx.bcm.generic.bin
 export LOCAL_DEVICE_KMCERT_CUSTOM            ?= device/broadcom/common/kmgk/km.zx.bcm.generic.bin
 export LOCAL_DEVICE_HWCFG_TYPE               ?= cramfs
+export LOCAL_DEVICE_MANIFEST_FILES           ?=
 
 export HW_ENCODER_SUPPORT                    ?= y
 export HW_WIFI_NIC_SUPPORT                   ?= n

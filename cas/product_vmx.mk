@@ -27,6 +27,9 @@ export SAGE_BINARY_EXT :=
 export LOCAL_DEVICE_SECURITY_VARIANT_DEV ?= up
 export LOCAL_DEVICE_SECURITY_VARIANT_PROD ?= up
 
+# manifest fragment for cas-proxy service.
+export LOCAL_DEVICE_MANIFEST_FILES := device/broadcom/common/manifest/manifest_cas_proxy_frag.xml
+
 # Copy over the VMX SAGE TA
 PRODUCT_COPY_FILES += \
     ${VENDOR_VMX_PRODUCT_ROOT}/TA/SDL_TA_verimatrix_ultra.bin:$(TARGET_COPY_OUT_VENDOR)/bin/SDL_TA_verimatrix_ultra.bin
