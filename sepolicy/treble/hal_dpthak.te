@@ -1,4 +1,4 @@
-type hal_dpthak, domain;
+type hal_dpthak, domain, mlstrustedsubject;
 type hal_dpthak_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_dpthak);
 add_hwservice(hal_dpthak, vnd_dpthak_hwservice);
@@ -30,6 +30,13 @@ allow hal_dpthak audioserver:process { getsched setsched };
 allow hal_dpthak untrusted_app_all:process { getsched setsched };
 r_dir_file(hal_dpthak, domain)
 r_dir_file(hal_dpthak, appdomain)
-dontaudit hal_dpthak platform_app:dir search;
-dontaudit hal_dpthak untrusted_app_all:dir search;
+allow hal_dpthak priv_app:process { getsched setsched };
+allow hal_dpthak priv_app:dir { search };
+allow hal_dpthak priv_app:file { read };
+allow hal_dpthak platform_app:process { getsched setsched };
+allow hal_dpthak platform_app:dir { search };
+allow hal_dpthak platform_app:file { read };
+allow hal_dpthak untrusted_app:process { getsched setsched };
+allow hal_dpthak untrusted_app:dir { search };
+allow hal_dpthak untrusted_app:file { read };
 dontaudit hal_dpthak self:capability sys_ptrace;
