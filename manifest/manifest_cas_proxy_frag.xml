@@ -1,6 +1,6 @@
 <!-- cap proxy service.
 -->
-<manifest version="1.0" type="framework">
+<manifest version="1.0" type="device">
     <hal format="hidl">
         <name>bcm.hardware.casproxy</name>
         <transport>hwbinder</transport>
