@@ -239,15 +239,6 @@
         </interface>
     </hal>
     <hal format="hidl">
-        <name>bcm.hardware.bp3</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>Ibp3</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
         <name>bcm.hardware.dpthak</name>
         <transport>hwbinder</transport>
         <version>1.0</version>

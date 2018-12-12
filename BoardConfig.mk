@@ -247,6 +247,9 @@ DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/treble.l3.xml
 endif
 endif
 endif
+ifeq ($(ANDROID_DEVICE_SUPPORTS_BP3),y)
+DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/manifest_bp3_frag.xml
+endif
 
 DEVICE_FRAMEWORK_MANIFEST_FILE += system/libhidl/vintfdata/manifest_healthd_exclude.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE += device/broadcom/common/manifest/manifest_vr_composer_exclude.xml
