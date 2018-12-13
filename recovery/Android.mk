@@ -144,9 +144,9 @@ recovery_extra: $(NXMINI) \
 	$(hide) $(call copy-recovery-extra-files)
 
 ifeq ($(HW_AB_UPDATE_SUPPORT),y)
-out/target/product/$(TARGET_DEVICE)/boot.img : recovery_extra
+$(PRODUCT_OUT)/boot.img : recovery_extra
 else
-out/target/product/$(TARGET_DEVICE)/recovery.img : recovery_extra
+$(PRODUCT_OUT)/recovery.img : recovery_extra
 endif
 
 endif
