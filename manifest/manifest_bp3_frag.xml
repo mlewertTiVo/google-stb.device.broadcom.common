@@ -1,0 +1,13 @@
+<!-- bp3 service.
+-->
+<manifest version="1.0" type="device">
+    <hal format="hidl">
+        <name>bcm.hardware.bp3</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>Ibp3</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+</manifest>
