@@ -5,7 +5,10 @@
 # Set top of VMX root dir
 export VENDOR_VMX_ROOT ?= vendor/verimatrix
 
--include ${VENDOR_VMX_ROOT}/priv/common/product.mk
+# Set top of VMX private/internal root dir
+export VENDOR_VMX_PRIV_ROOT ?= ${VENDOR_VMX_ROOT}/priv
+
+-include ${VENDOR_VMX_PRIV_ROOT}/${LOCAL_PRODUCT_OUT}/${LOCAL_PRODUCT_OUT}.mk
 
 # Set top of VMX install root dir
 export VENDOR_VMX_INSTALL_ROOT ?= ${VENDOR_VMX_ROOT}/install
