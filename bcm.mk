@@ -21,6 +21,17 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.media.vdec_hfrvideo_tunnel=1
 
 #
+# if you really want interleave video in best
+# effort integration mode (ie. tunneling playback
+# only at bomx level), set the below export in your
+# device profile.
+#
+ifneq ($(HW_IVIDEO_MODE_BEST_EFFORT),y)
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.media.vdec.fsm1080p=1 \
+   ro.nx.media.vdec.progoverride=2
+endif
+#
 # ro.nx.pr.version defaults to 2.5
 #
 ifneq ($(ANDROID_PLAYREADY_VERSION),3.0)
