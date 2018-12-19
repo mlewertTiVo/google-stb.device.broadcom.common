@@ -14,12 +14,21 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.nx.logger_size=4096 \
    ro.v3d.fence.expose=true \
    \
-   ro.nx.colordepth10b.force=1 \
-   \
    ro.nx.media.vdec_outportbuf=32 \
    \
    ro.nx.media.vdec_hfrvideo_tunnel=1
 
+#
+# if you really want interleave video in best
+# effort integration mode (ie. tunneling playback
+# only at bomx level), set the below export in your
+# device profile.
+#
+ifneq ($(HW_IVIDEO_MODE_BEST_EFFORT),y)
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.nx.media.vdec.fsm1080p=1 \
+   ro.nx.media.vdec.progoverride=2
+endif
 #
 # ro.nx.pr.version defaults to 2.5
 #
