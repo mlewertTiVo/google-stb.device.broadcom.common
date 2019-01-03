@@ -250,6 +250,9 @@ endif
 ifeq ($(ANDROID_DEVICE_SUPPORTS_BP3),y)
 DEVICE_MANIFEST_FILE += device/broadcom/common/manifest/manifest_bp3_frag.xml
 endif
+ifneq ($(LOCAL_DEVICE_MANIFEST_FILES),)
+DEVICE_MANIFEST_FILE += $(LOCAL_DEVICE_MANIFEST_FILES)
+endif
 
 DEVICE_FRAMEWORK_MANIFEST_FILE += system/libhidl/vintfdata/manifest_healthd_exclude.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE += device/broadcom/common/manifest/manifest_vr_composer_exclude.xml
