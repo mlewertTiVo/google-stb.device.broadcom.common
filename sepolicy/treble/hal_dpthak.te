@@ -40,3 +40,6 @@ allow hal_dpthak untrusted_app:process { getsched setsched };
 allow hal_dpthak untrusted_app:dir { search };
 allow hal_dpthak untrusted_app:file { read };
 dontaudit hal_dpthak self:capability sys_ptrace;
+allow hal_dpthak tee:process { getsched setsched };
+allow hal_dpthak tee:dir { search };
+allow hal_dpthak tee:file { read };
