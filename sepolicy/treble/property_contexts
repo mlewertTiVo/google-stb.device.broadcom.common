@@ -8,4 +8,13 @@ vendor.nx.wifi.trigger              u:object_r:vendor_nexus_trigger_wifi_prop:s0
 vendor.nx.ldvbon.trigger            u:object_r:vendor_nexus_trigger_ldvbon_prop:s0
 
 # used by netflix (in particular).
-vendor.display-size                 u:object_r:vendor_display_size_prop:s0
+vendor.display-size                   u:object_r:vendor_display_size_prop:s0
+
+ro.vendor.nrdp.modelgroup             u:object_r:vendor_nrdp_prop:s0
+ro.vendor.nrdp.validation             u:object_r:vendor_nrdp_prop:s0
+ro.vendor.nrdp.audio.mixer.buffersize u:object_r:vendor_nrdp_prop:s0
+ro.vendor.nrdp.oemmodel               u:object_r:vendor_nrdp_prop:s0
+ro.vendor.nrdp.snd.auth.partnerkey    u:object_r:vendor_nrdp_prop:s0
+ro.vendor.nrdp.video.resize           u:object_r:vendor_nrdp_prop:s0
+ro.vendor.nrdp.audio.otfs             u:object_r:vendor_nrdp_prop:s0
+

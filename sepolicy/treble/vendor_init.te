@@ -1,5 +1,6 @@
 nexus_hwcfg(vendor_init);
 set_prop(vendor_init, nexus_prop);
+set_prop(vendor_init, vendor_nrdp_prop);
 
 allow vendor_init {
    nexus_vendor_data_file
