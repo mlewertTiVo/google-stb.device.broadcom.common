@@ -88,16 +88,19 @@ Only the three quirks included above are recognized at this point:
                 <Feature name="adaptive-playback" />
                 <Limit name="size" min="128x64" max="3840x2160" />
                 <Limit name="concurrent-instances" max="1" />
+                <Limit name="bitrate" range="1-35000000" />
             </Type>
             <Type name="video/mpeg2" >
                 <Feature name="adaptive-playback" />
                 <Limit name="size" min="128x64" max="1920x1088" />
                 <Limit name="concurrent-instances" max="1" />
+                <Limit name="bitrate" range="1-35000000" />
             </Type>
             <Type name="video/hevc" >
                 <Feature name="adaptive-playback" />
                 <Limit name="concurrent-instances" max="1" />
                 <Limit name="size" min="128x64" max="3840x2160" />
+                <Limit name="bitrate" range="1-35000000" />
             </Type>
             <Quirk name="requires-allocate-on-input-ports" />
         </MediaCodec>
@@ -108,18 +111,21 @@ Only the three quirks included above are recognized at this point:
                 <Feature name="tunneled-playback" required="true" />
                 <Limit name="size" min="128x64" max="3840x2160" />
                 <Limit name="concurrent-instances" max="1" />
+                <Limit name="bitrate" range="1-35000000" />
             </Type>
             <Type name="video/mpeg2" >
                 <Feature name="adaptive-playback" />
                 <Feature name="tunneled-playback" required="true" />
                 <Limit name="size" min="128x64" max="1920x1088" />
                 <Limit name="concurrent-instances" max="1" />
+                <Limit name="bitrate" range="1-35000000" />
             </Type>
             <Type name="video/hevc" >
                 <Feature name="adaptive-playback" />
                 <Feature name="tunneled-playback" required="true" />
                 <Limit name="size" min="128x64" max="3840x2160" />
                 <Limit name="concurrent-instances" max="1" />
+                <Limit name="bitrate" range="1-35000000" />
             </Type>
             <Quirk name="requires-allocate-on-input-ports" />
         </MediaCodec>
@@ -130,6 +136,7 @@ Only the three quirks included above are recognized at this point:
                 <Feature name="adaptive-playback" />
                 <Limit name="concurrent-instances" max="1" />
                 <Limit name="size" min="128x64" max="3840x2160" />
+                <Limit name="bitrate" range="1-35000000" />
             </Type>
             <Quirk name="requires-allocate-on-input-ports" />
         </MediaCodec>
@@ -140,6 +147,7 @@ Only the three quirks included above are recognized at this point:
                 <Feature name="tunneled-playback" required="true" />
                 <Limit name="concurrent-instances" max="1" />
                 <Limit name="size" min="128x64" max="3840x2160" />
+                <Limit name="bitrate" range="1-35000000" />
             </Type>
             <Quirk name="requires-allocate-on-input-ports" />
         </MediaCodec>
@@ -151,18 +159,21 @@ Only the three quirks included above are recognized at this point:
                 <Feature name="secure-playback" required="true" />
                 <Limit name="size" min="128x64" max="3840x2160" />
                 <Limit name="concurrent-instances" max="1" />
+                <Limit name="bitrate" range="1-35000000" />
             </Type>
             <Type name="video/mpeg2" >
                 <Feature name="adaptive-playback" />
                 <Feature name="secure-playback" required="true" />
                 <Limit name="size" min="128x64" max="1920x1088" />
                 <Limit name="concurrent-instances" max="1" />
+                <Limit name="bitrate" range="1-35000000" />
             </Type>
             <Type name="video/hevc" >
                 <Feature name="adaptive-playback" />
                 <Feature name="secure-playback" required="true" />
                 <Limit name="size" min="128x64" max="3840x2160" />
                 <Limit name="concurrent-instances" max="1" />
+                <Limit name="bitrate" range="1-35000000" />
             </Type>
             <Quirk name="requires-allocate-on-input-ports" />
         </MediaCodec>
@@ -173,6 +184,7 @@ Only the three quirks included above are recognized at this point:
                 <Feature name="secure-playback" required="true" />
                 <Limit name="concurrent-instances" max="1" />
                 <Limit name="size" min="128x64" max="3840x2160" />
+                <Limit name="bitrate" range="1-35000000" />
             </Type>
             <Quirk name="requires-allocate-on-input-ports" />
         </MediaCodec>
@@ -185,6 +197,7 @@ Only the three quirks included above are recognized at this point:
                 <Feature name="tunneled-playback" required="true" />
                 <Limit name="size" min="128x64" max="3840x2160" />
                 <Limit name="concurrent-instances" max="1" />
+                <Limit name="bitrate" range="1-35000000" />
             </Type>
             <Type name="video/mpeg2" >
                 <Feature name="adaptive-playback" />
@@ -192,6 +205,7 @@ Only the three quirks included above are recognized at this point:
                 <Feature name="tunneled-playback" required="true" />
                 <Limit name="size" min="128x64" max="1920x1088" />
                 <Limit name="concurrent-instances" max="1" />
+                <Limit name="bitrate" range="1-35000000" />
             </Type>
             <Type name="video/hevc" >
                 <Feature name="adaptive-playback" />
@@ -199,6 +213,7 @@ Only the three quirks included above are recognized at this point:
                 <Feature name="tunneled-playback" required="true" />
                 <Limit name="size" min="128x64" max="3840x2160" />
                 <Limit name="concurrent-instances" max="1" />
+                <Limit name="bitrate" range="1-35000000" />
             </Type>
             <Quirk name="requires-allocate-on-input-ports" />
         </MediaCodec>
@@ -210,6 +225,7 @@ Only the three quirks included above are recognized at this point:
                 <Feature name="tunneled-playback" required="true" />
                 <Limit name="concurrent-instances" max="1" />
                 <Limit name="size" min="128x64" max="3840x2160" />
+                <Limit name="bitrate" range="1-35000000" />
             </Type>
             <Quirk name="requires-allocate-on-input-ports" />
         </MediaCodec>
