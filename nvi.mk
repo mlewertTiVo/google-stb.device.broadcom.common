@@ -8,7 +8,8 @@ PRODUCT_PACKAGES += sepolicy \
                     libpuresoftkeymasterdevice \
                     android.hardware.wifi@1.1 \
                     android.hardware.wifi@1.2 \
-                    android.hardware.soundtrigger@2.0-core
+                    android.hardware.soundtrigger@2.0-core \
+                    android.hardware.wifi.supplicant@1.1
 
 endif
 
