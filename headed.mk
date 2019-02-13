@@ -18,14 +18,15 @@ endif
 #
 PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.usb.configfs.bcm.rc:root/init.usb.configfs.rc
 
-# To prevent from including GMS twice in Google's internal source.
-ifeq ($(wildcard vendor/unbundled_google),)
-PRODUCT_USE_PREBUILT_GMS := yes
-endif
-
 # Only include google_aware.xml if building on Google internal structure.
 ifneq ($(wildcard $(TOPDIR)vendor/google/products/gms.mk),)
 PRODUCT_COPY_FILES += $(TOPDIR)device/broadcom/common/rcs/google_aware.xml:system/etc/permissions/google_aware.xml
+endif
+
+# google internal engineer build are using gtvs from sources based on this
+# repo  existence.
+ifeq ($(wildcard vendor/unbundled_google),)
+PRODUCT_USE_PREBUILT_GTVS := yes
 endif
 
 # prior to android-p
@@ -35,7 +36,10 @@ $(call inherit-product-if-exists, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 $(call inherit-product, device/google/atv/products/atv_base.mk)
 include device/broadcom/common/settings.mk
-$(call inherit-product-if-exists, ${GMS_PACKAGE_ROOT}/google/products/gms.mk)
+ifeq ($(PRODUCT_USE_PREBUILT_GTVS),yes)
+# gtvs from "vendor/google_gtvs" repo.
+$(call inherit-product, device/broadcom/common/gtvs.mk)
+endif
 include device/broadcom/common/middleware/definitions.mk
 -include device/broadcom/$(LOCAL_PRODUCT_OUT)-kernel/overlay.mk
 
@@ -340,7 +344,7 @@ PRODUCT_PACKAGES += \
     dhcpcd.conf \
     wificond
 
-ifeq ($(wildcard ${GMS_PACKAGE_ROOT}/google/Android.mk),)
+ifeq ($(wildcard vendor/google_gtvs/Android.mk),)
 PRODUCT_PACKAGES += \
    Browser \
    Calculator \
