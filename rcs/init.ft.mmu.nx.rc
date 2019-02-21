@@ -1,4 +1,4 @@
-on early-boot
+on post-fs
    # install middleware drivers in order of dependencies
    #
    #     droid_pm.ko -> nexus.ko -> nx_ashmem.ko
@@ -35,6 +35,7 @@ on early-boot
    #
    # start up nxserver service.
    #
+   load_persist_props
    start nxserver
    #
    # nx_ashmem: memory management, requires nexus. 
