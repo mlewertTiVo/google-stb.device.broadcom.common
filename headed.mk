@@ -36,10 +36,7 @@ $(call inherit-product-if-exists, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 $(call inherit-product, device/google/atv/products/atv_base.mk)
 include device/broadcom/common/settings.mk
-ifeq ($(PRODUCT_USE_PREBUILT_GTVS),yes)
-# gtvs from "vendor/google_gtvs" repo.
 $(call inherit-product, device/broadcom/common/gtvs.mk)
-endif
 include device/broadcom/common/middleware/definitions.mk
 -include device/broadcom/$(LOCAL_PRODUCT_OUT)-kernel/overlay.mk
 
