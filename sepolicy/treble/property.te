@@ -2,3 +2,4 @@ type nexus_prop, property_type;
 type vendor_display_size_prop, property_type;
 type vendor_nexus_trigger_wifi_prop, property_type;
 type vendor_nexus_trigger_ldvbon_prop, property_type;
+type vendor_nrdp_prop, property_type;

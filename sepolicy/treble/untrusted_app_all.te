@@ -5,4 +5,4 @@ get_prop(untrusted_app_all, nexus_prop);
 
 # for netflix application.
 get_prop(untrusted_app_all, vendor_display_size_prop);
-
+get_prop(untrusted_app_all, vendor_nrdp_prop);
