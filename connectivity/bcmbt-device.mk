@@ -33,7 +33,7 @@ endif
 ifeq ($(BROADCOM_WIFI_CHIPSET),43570a0)
 PRODUCT_COPY_FILES += ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btuart/firmware/BCM43569A2_001.003.004.0154.0000_Generic_UART_40MHz_fcbga_BU.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/BCM43569.hcd
 else
-PRODUCT_COPY_FILES += ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btuart/firmware/CYW20704A1_001.001.005.0399.0799.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/BCM20703.hcd
+PRODUCT_COPY_FILES += ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btuart/firmware/CYW20703A1_001.001.005.0401.0805.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/BCM20703.hcd
 endif
 
 endif # $(ANDROID_ENABLE_BT)
