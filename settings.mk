@@ -139,6 +139,9 @@ else
 export LOCAL_DEVICE_SYSTEM_AB                ?= 1054867456  # 1006M
 endif
 endif
+export LOCAL_DEVICE_SYSTEM_NAB               ?= 1486880768  # 1418M
+export LOCAL_DEVICE_VENDOR_NAB               ?= 104857600   # 100M
+
 export LOCAL_DEVICE_USERDATA_FS              ?= ext4
 export LOCAL_DEVICE_SYSTEM_VERITY_PARTITION  ?= /dev/block/by-name/system
 export LOCAL_DEVICE_VENDOR_VERITY_PARTITION  ?= /dev/block/by-name/vendor
