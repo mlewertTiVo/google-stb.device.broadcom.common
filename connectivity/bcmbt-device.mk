@@ -22,7 +22,6 @@ PRODUCT_COPY_FILES += device/broadcom/common/rcs/init.bcm.bt.rc:root/init.brcm_b
 endif
 ifeq ($(BROADCOM_WIFI_CHIPSET),43570a2)
 PRODUCT_COPY_FILES += ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btuart/firmware/BCM43569A2_001.003.004.0169.0000_Generic_UART_40MHz_fcbga_BU.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/BCM43569.hcd
-else
 PRODUCT_COPY_FILES += ${BCM_VENDOR_STB_ROOT}/bcm_platform/conx/btuart/firmware/CYW20703A1_001.001.005.0401.0805.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/BCM20703.hcd
 endif
 
